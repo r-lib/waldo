@@ -17,6 +17,7 @@ RoxygenNote: 7.1.0
 Imports: 
     rlang,
     glue,
-    diffobj
+    diffobj,
+    cli
 Suggests: 
     testthat

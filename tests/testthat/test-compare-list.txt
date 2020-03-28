@@ -3,7 +3,7 @@
 * `x[[3]]` should be a character vector, not absent
 
 > compare(list(a = "a", b = "b"), list(a = "a", b = "b", c = "c"))
-* `names(x)`: a b +c+
+* `names(x)`: 'a' 'b' +c+
 * `x$c` should be a character vector, not absent
 
 > # extra x
@@ -11,12 +11,12 @@
 * `x[[3]]` should be absent, not a character vector
 
 > compare(list(a = "a", b = "b", c = "c"), list(a = "a", b = "b"))
-* `names(x)`: a b -c-
+* `names(x)`: 'a' 'b' -c-
 * `x$c` should be absent, not a character vector
 
 > # different order
 > compare(list(a = "a", b = "b"), list(b = "b", a = "a"))
-* `names(x)`: -a- b +a+
+* `names(x)`: -a- 'b' +a+
 
 > # invalid names uses position
 > compare(list(a = "a", "b"), list(a = "a", "c"))

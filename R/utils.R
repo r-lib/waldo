@@ -51,3 +51,7 @@ attr_path <- function(path, attr) {
   funs <- c("comment", "class", "dim", "dimnames", "levels", "names", "tsp")
   ifelse(attr %in% funs, glue("{attr}({path})"), glue("attr({path}, '{attr}')"))
 }
+
+map_chr <- function(.x, .f, ...) {
+  vapply(.x, .f, ..., FUN.VALUE = character(1), USE.NAMES = FALSE)
+}

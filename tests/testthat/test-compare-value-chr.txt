@@ -4,18 +4,18 @@ character(0)
 
 > # single change
 > compare_value(c("a", "b", "c"), c("a", "b"))
-[1] "`x`: a b -c-"
+[1] "`x`: 'a' 'b' -c-"
 
 > compare_value(c("a", "b"), c("a", "b", "c"))
-[1] "`x`: a b +c+"
+[1] "`x`: 'a' 'b' +c+"
 
 > compare_value(c("a", "B", "c"), c("a", "b", "c"))
-[1] "`x`: a /B/b/ c"
+[1] "`x`: 'a' /B/b/ 'c'"
 
 > # truncation
 > compare_value(c("X", letters), letters)
-[1] "`x`: -X- a b c  ..."
+[1] "`x[1:4]`: -X- 'a' 'b' 'c' ..."
 
 > compare_value(c(letters, "X"), letters)
-[1] "`x`: ...[24]  x y z -X-"
+[1] "`x[24:27]`: ... 'x' 'y' 'z' -X-"
 
