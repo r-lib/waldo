@@ -18,3 +18,5 @@ Imports:
     rlang,
     glue,
     diffobj
+Suggests: 
+    testthat
