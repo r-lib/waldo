@@ -25,7 +25,7 @@ compare_value <- function(x, y, path = "x") {
 
       yi <- row$y1 + (xi - row$x1)
       out[[i]] <- switch(row$t,
-        a = change_add(y[[yi]]),
+        a = paste0(x[[xi]], " ", change_add(y[[yi]])),
         c = change_modify(x[[xi]], y[[yi]]),
         d = change_delete(x[[xi]])
       )
