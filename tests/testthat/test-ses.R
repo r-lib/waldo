@@ -16,3 +16,8 @@ test_that("can parse multi-element changes", {
   add <- ses(c("a", "b"), c("a", "b", "c", "d"))
   expect_equal(add, ses_df(2, 2, "a", 3, 4))
 })
+
+test_that("can parse large numbers", {
+  del <- ses(c(letters,"x"), letters)
+  expect_equal(del, ses_df(27, 27, "d", 26, 26))
+})
