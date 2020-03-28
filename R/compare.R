@@ -61,13 +61,3 @@ compare_rec <- function(x, y, path = "x") {
   out
 }
 
-compare_value <- function(x, y, path) {
-  attributes(x) <- NULL
-  attributes(y) <- NULL
-
-  diff <- diffobj::ses(x, y)
-  if (length(diff) > 0) {
-    diff <- paste0("`", path, "`: ", paste0(diff, collapse = " "))
-  }
-  diff
-}

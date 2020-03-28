@@ -1,4 +1,4 @@
-#' https://www.gnu.org/software/diffutils/manual/diffutils.html#Detailed-Normal
+#' <https://www.gnu.org/software/diffutils/manual/diffutils.html#Detailed-Normal>
 #'
 #' * `lar`: Add the lines in range `r` of the second file
 #'   after line `l` of the first file.
