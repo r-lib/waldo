@@ -1,5 +1,38 @@
-compare <- function(x, y, path = "x") {
-  new_compare(compare_structure(x, y, path = path))
+#' Compare two objects
+#'
+#' @description
+#' This function is an alternative to [all.equal()] that attempts to provide
+#' a description of the differences that is more immediately understandable
+#'
+#' Main features:
+#' * atomic vectors are diffed using diffobj package
+#' * lists and attributes are compared by name where possible
+#' * locations of differences are described using executable R code
+#'
+#' @param x,y Objects to compare. `y` is treated as the reference object
+#'   so messages describe how `x` is different to `y`
+#' @param x_arg Name of `x` argument, used when generated paths to internal
+#'   components
+#' @export
+#' @examples
+#' # Thanks to diffobj package comparison of atomic vectors shows differences
+#' # with a little context
+#' compare(letters, c("z", letters[-26]))
+#'
+#' # More complex objects are traversed, stopping only when the types are
+#' # different
+#' compare(
+#'   list(x = list(y = list(structure(1, z = 2)))),
+#'   list(x = list(y = list(structure(1, z = "a"))))
+#' )
+#'
+#' # Where possible, recursive structures are compared by name
+#' compare(list(x = "x", y = "y"), list(y = "y", x = "x"))
+#' # Otherwise they're compared by position
+#' compare(list("x", "y"), list("x", "z"))
+#' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
+compare <- function(x, y, x_arg = "x") {
+  new_compare(compare_structure(x, y, path = x_arg))
 }
 
 new_compare <- function(x) {
@@ -90,7 +123,6 @@ compare_structure <- function(x, y, path = "x") {
 
   out
 }
-
 
 short_val <- function(x) {
   if (!is_atomic(x)) {
