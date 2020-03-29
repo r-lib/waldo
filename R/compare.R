@@ -9,11 +9,16 @@ new_compare <- function(x) {
 
 #' @export
 print.waldo_compare <- function(x, ...) {
-  if (length(x) > 10) {
-    x <- c(x[1:10], "...")
+  if (length(x) == 0) {
+    cli::cat_bullet("No differences", bullet = "tick", bullet_col = "green")
+  } else {
+    if (length(x) > 10) {
+      x <- c(x[1:10], "...")
+    }
+
+    cli::cat_bullet(x, bullet = "cross", bullet_col = "red")
   }
 
-  cli::cat_bullet(x, bullet = "cross", bullet_col = "red")
   invisible(x)
 }
 
@@ -38,7 +43,7 @@ compare_rec <- function(x, y, path = "x") {
     out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names)))
   }
 
-  if (is_list(x)) {
+  if (is_list(x) || is_pairlist(x)) {
     if (is_dictionaryish(x) && is_dictionaryish(y)) {
       idx <- union(names(x), names(y))
       path <- glue("{path}${idx}")
@@ -49,7 +54,7 @@ compare_rec <- function(x, y, path = "x") {
     out <- c(out, compare_list(x, y, idx, path))
   } else if (is_environment(x)) {
     out <- c(out,
-      glue("`{path}` should be <environment:{env_label(y)}>, not <environment:{env_label(x)}`")
+      glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
     )
   } else if (is_closure(x)) {
     out <- c(
@@ -63,9 +68,12 @@ compare_rec <- function(x, y, path = "x") {
   } else if (is_symbol(x)) {
     out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
   } else if (is_call(x)) {
-    if (!identical(x, y)) {
-      # compare deparse
-      # if that's equal :shrug:
+    if (!isTRUE(all.equal(x, y))) {
+      diff <- compare_value(deparse(x), deparse(y), path)
+      if (length(diff) == 0) {
+        diff <- glue("`deparse({path})` equal, but AST non-identical")
+      }
+      out <- c(out, diff)
     }
   } else if (is_atomic(x)) {
     out <- c(out, compare_value(x, y, path))

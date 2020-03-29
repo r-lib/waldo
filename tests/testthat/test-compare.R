@@ -28,3 +28,20 @@ test_that("lists compare by name, where possible", {
   })
 })
 
+test_that("comparing functions gives useful diffs", {
+  verify_output(test_path("test-compare-fun.txt"), {
+    "equal"
+    f1 <- function(x = 1, y = 2) {}
+    f2 <- function(x = 1, y = 2) {}
+    compare(f1, f2)
+
+    "diff formals + body"
+    f3 <- function(x = 1, y = 1, z = 1) x + y
+    compare(f1, f3)
+
+    "diff environment"
+    environment(f1) <- base_env()
+    environment(f2) <- global_env()
+    compare(f1, f2)
+  })
+})

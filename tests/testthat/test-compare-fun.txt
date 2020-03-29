@@ -1,0 +1,20 @@
+> # equal
+> f1 <- (function(x = 1, y = 2) { })
+> f2 <- (function(x = 1, y = 2) { })
+> compare(f1, f2)
+v No differences
+
+> # diff formals + body
+> f3 <- (function(x = 1, y = 1, z = 1) x + y)
+> compare(f1, f3)
+x `body(x)`: '{' +    x + y+ '}'
+x `names(formals(x))`: 'x' 'y' +z+
+x `formals(x)$y`: /2/1/
+x `formals(x)$z` should be a double vector (1), not absent
+
+> # diff environment
+> environment(f1) <- base_env()
+> environment(f2) <- global_env()
+> compare(f1, f2)
+x `environment(x)` should be <env:global>, not <env:package:base>`
+
