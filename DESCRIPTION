@@ -18,6 +18,8 @@ Imports:
     rlang,
     glue,
     diffobj,
-    cli
+    cli,
+    rematch2,
+    tibble
 Suggests: 
     testthat

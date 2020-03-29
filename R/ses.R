@@ -1,12 +1,11 @@
-#' <https://www.gnu.org/software/diffutils/manual/diffutils.html#Detailed-Normal>
-#'
-#' * `lar`: Add the lines in range `r` of the second file
-#'   after line `l` of the first file.
-#' * `fct`: Replace the lines in range `f` of the first file
-#'   with lines in range `t` of the second file.
-#' * `rdl`: Delete the lines in range `r` from the first file; line `l` is
-#'  where they would have appeared in the second file had they not been deleted.
-
+# <https://www.gnu.org/software/diffutils/manual/diffutils.html#Detailed-Normal>
+#
+# * `lar`: Add the lines in range `r` of the second file
+#   after line `l` of the first file.
+# * `fct`: Replace the lines in range `f` of the first file
+#   with lines in range `t` of the second file.
+# * `rdl`: Delete the lines in range `r` from the first file; line `l` is
+#  where they would have appeared in the second file had they not been deleted.
 ses <- function(x, y) {
   out <- diffobj::ses(x, y, max.diffs = 100)
   out <- rematch2::re_match(out, paste0(
