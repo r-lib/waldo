@@ -15,6 +15,17 @@ test_that("can optionally ignore attributes", {
   expect_equal(compare_structure(x, y, ignore_attr = TRUE), character())
 })
 
+test_that("can optionally compare encoding", {
+  x <- c("fa\xE7ile", "fa\ue7ile")
+  Encoding(x) <- c("latin1", "UTF-8")
+  y <- rev(x)
+
+  verify_output(test_path("test-compare-chr.txt"), {
+    compare(x, y)
+    compare(x, y, ignore_encoding = FALSE)
+  })
+})
+
 test_that("lists compare by name, where possible", {
   verify_output(test_path("test-compare-list.txt"), {
     "extra y"

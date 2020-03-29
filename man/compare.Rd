@@ -4,7 +4,14 @@
 \alias{compare}
 \title{Compare two objects}
 \usage{
-compare(x, y, x_arg = "x", ignore_srcref = TRUE, ignore_attr = FALSE)
+compare(
+  x,
+  y,
+  x_arg = "x",
+  ignore_srcref = TRUE,
+  ignore_attr = FALSE,
+  ignore_encoding = TRUE
+)
 }
 \arguments{
 \item{x, y}{Objects to compare. \code{y} is treated as the reference object
@@ -21,6 +28,10 @@ only its printed representation.}
 for backward compatibility with \code{all.equal()}. Using \code{TRUE} is not
 generally recommended because it will ignore many important functional
 differences.}
+
+\item{ignore_encoding}{Ignore string encoding? \code{TRUE} by default, because
+this is R's default behaviour. Use \code{FALSE} when specifically concerned
+with the encoding, not just the value of the string.}
 }
 \description{
 This function is an alternative to \code{\link[=all.equal]{all.equal()}} that attempts to provide

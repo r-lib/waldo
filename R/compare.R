@@ -20,6 +20,9 @@
 #'   for backward compatibility with `all.equal()`. Using `TRUE` is not
 #'   generally recommended because it will ignore many important functional
 #'   differences.
+#' @param ignore_encoding Ignore string encoding? `TRUE` by default, because
+#'   this is R's default behaviour. Use `FALSE` when specifically concerned
+#'   with the encoding, not just the value of the string.
 #' @export
 #' @examples
 #' # Thanks to diffobj package comparison of atomic vectors shows differences
@@ -41,11 +44,13 @@
 compare <- function(x, y,
                     x_arg = "x",
                     ignore_srcref = TRUE,
-                    ignore_attr = FALSE) {
+                    ignore_attr = FALSE,
+                    ignore_encoding = TRUE) {
   out <- compare_structure(x, y,
     path = x_arg,
     ignore_srcref = ignore_srcref,
-    ignore_attr = ignore_attr
+    ignore_attr = ignore_attr,
+    ignore_encoding = ignore_encoding
   )
   new_compare(out)
 }
@@ -73,7 +78,8 @@ print.waldo_compare <- function(x, ...) {
 compare_structure <- function(x, y,
                               path = "x",
                               ignore_srcref = TRUE,
-                              ignore_attr = FALSE) {
+                              ignore_attr = FALSE,
+                              ignore_encoding = TRUE) {
 
   if (is_reference(x, y)) {
     return(character())
@@ -102,7 +108,7 @@ compare_structure <- function(x, y,
       idx <- seq_len(max(length(x), length(y)))
       paths <- glue("{path}[[{idx}]]")
     }
-    out <- c(out, compare_list(x, y, idx, paths, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr))
+    out <- c(out, compare_list(x, y, idx, paths, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
   } else if (is_environment(x)) {
     out <- c(out,
       glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
@@ -120,7 +126,7 @@ compare_structure <- function(x, y,
       glue("formals({path})"),
       glue("environment({path})")
     )
-    out <- c(out, compare_list(x, y, 1:3, paths, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr))
+    out <- c(out, compare_list(x, y, 1:3, paths, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
   } else if (is_primitive(x)) {
     out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
   } else if (is_symbol(x)) {
@@ -134,6 +140,10 @@ compare_structure <- function(x, y,
       out <- c(out, diff)
     }
   } else if (is_atomic(x)) {
+    if (is_character(x) && !ignore_encoding) {
+      out <- c(out, compare_value(Encoding(x), Encoding(y), glue("Encoding({path})")))
+    }
+
     out <- c(out, compare_value(x, y, path))
   }
 
@@ -142,7 +152,7 @@ compare_structure <- function(x, y,
     y_attr <- attrs(y)
     if (!is.null(x_attr) || !is.null(y_attr)) {
       names <- union(names(x_attr), names(y_attr))
-      out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names), ignore_srcref = ignore_srcref, ignore_attr = ignore_attr))
+      out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names), ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
     }
   }
 

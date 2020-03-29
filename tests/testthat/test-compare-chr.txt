@@ -1,0 +1,6 @@
+> compare(x, y)
+v No differences
+
+> compare(x, y, ignore_encoding = FALSE)
+x `Encoding(x)`: -latin1- 'UTF-8' +latin1+
+
