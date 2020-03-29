@@ -26,3 +26,5 @@ Imports:
     tibble
 Suggests: 
     testthat
+URL: https://github.com/r-lib/waldo
+BugReports: https://github.com/r-lib/waldo/issues
