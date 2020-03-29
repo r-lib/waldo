@@ -25,7 +25,6 @@ compare_rec <- function(x, y, path = "x") {
 
   # exceptions:
   # * integer & double & !is.null(tolerance)
-  # * atomic & absent | absent & atomic
   if (type_of(x) != type_of(y)) {
     return(glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}"))
   }
