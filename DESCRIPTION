@@ -1,5 +1,5 @@
 Package: waldo
-Title: What the Package Does (One Line, Title Case)
+Title: Find Differences Between R Objects
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Hadley",
@@ -8,7 +8,10 @@ Authors@R:
              email = "hadley@rstudio.com"),
       person(given = "RStudio",
              role = "cph"))
-Description: What the package does (one paragraph).
+Description: Compare complex R objects and reveal the key differences. 
+    Designed particularly for use in testing packages where being able to
+    quickly isolate key differences makes understanding test failures much
+    easier.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
