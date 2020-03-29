@@ -1,6 +1,20 @@
 compare <- function(x, y, path = "x") {
-  out <- compare_rec(x, y, path = path)
-  glue("* {out}")
+  new_compare(compare_rec(x, y, path = path))
+}
+
+new_compare <- function(x) {
+  stopifnot(is.character(x))
+  structure(x, class = "waldo_compare")
+}
+
+#' @export
+print.waldo_compare <- function(x, ...) {
+  if (length(x) > 10) {
+    x <- c(x[1:10], "...")
+  }
+
+  cli::cat_bullet(x, bullet = "cross", bullet_col = "red")
+  invisible(x)
 }
 
 compare_rec <- function(x, y, path = "x") {
