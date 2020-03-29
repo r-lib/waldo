@@ -35,6 +35,10 @@ test_that("comparing functions gives useful diffs", {
     f2 <- function(x = 1, y = 2) {}
     compare(f1, f2)
 
+    "pritimives"
+    compare(`[`, sum)
+    compare(sum, prod)
+
     "diff formals + body"
     f3 <- function(x = 1, y = 1, z = 1) x + y
     compare(f1, f3)

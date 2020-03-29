@@ -4,6 +4,13 @@
 > compare(f1, f2)
 v No differences
 
+> # pritimives
+> compare(`[`, sum)
+x `x` should be `.Primitive("sum")`, not `.Primitive("[")`
+
+> compare(sum, prod)
+x `x` should be `.Primitive("prod")`, not `.Primitive("sum")`
+
 > # diff formals + body
 > f3 <- (function(x = 1, y = 1, z = 1) x + y)
 > compare(f1, f3)

@@ -30,9 +30,15 @@ compare_structure <- function(x, y, path = "x") {
 
   # exceptions:
   # * integer & double & !is.null(tolerance)
-  # * builtin and special
+
   if (type_of(x) != type_of(y)) {
-    return(glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}"))
+    # don't care about difference between builtin and special
+    if (is_primitive(x) && is_primitive(y)) {
+      out <- glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`")
+    } else {
+      out <- glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}")
+    }
+    return(out)
   }
 
   out <- character()
