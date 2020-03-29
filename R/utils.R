@@ -16,9 +16,6 @@ friendly_type_of <- function(x) {
 
 attrs <- function(x) {
   out <- attributes(x)
-  out[["srcref"]] <- NULL
-  out[["srcfile"]] <- NULL
-  out[["wholeSrcref"]] <- NULL
   if (is.data.frame(x)) {
     out$row.names <- .row_names_info(x, 0L)
   }

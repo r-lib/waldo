@@ -3,16 +3,16 @@
 x `x[[3]]` should be a character vector ('c'), not absent
 
 > compare(list(a = "a", b = "b"), list(a = "a", b = "b", c = "c"))
-x `names(x)`: 'a' 'b' +c+
 x `x$c` should be a character vector ('c'), not absent
+x `names(x)`: 'a' 'b' +c+
 
 > # extra x
 > compare(list("a", "b", "c"), list("a", "b"))
 x `x[[3]]` should be absent, not a character vector ('c')
 
 > compare(list(a = "a", b = "b", c = "c"), list(a = "a", b = "b"))
-x `names(x)`: 'a' 'b' -c-
 x `x$c` should be absent, not a character vector ('c')
+x `names(x)`: 'a' 'b' -c-
 
 > # different order
 > compare(list(a = "a", b = "b"), list(b = "b", a = "a"))

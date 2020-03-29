@@ -30,33 +30,29 @@ compare_rec <- function(x, y, path = "x") {
 
   # exceptions:
   # * integer & double & !is.null(tolerance)
+  # * builtin and special
   if (type_of(x) != type_of(y)) {
     return(glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}"))
   }
 
   out <- character()
 
-  x_attr <- attrs(x)
-  y_attr <- attrs(y)
-  if (!is.null(x_attr) || !is.null(y_attr)) {
-    names <- union(names(x_attr), names(y_attr))
-    out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names)))
-  }
-
   if (is_list(x) || is_pairlist(x)) {
     if (is_dictionaryish(x) && is_dictionaryish(y)) {
       idx <- union(names(x), names(y))
-      path <- glue("{path}${idx}")
+      paths <- glue("{path}${idx}")
     } else {
       idx <- seq_len(max(length(x), length(y)))
-      path <- glue("{path}[[{idx}]]")
+      paths <- glue("{path}[[{idx}]]")
     }
-    out <- c(out, compare_list(x, y, idx, path))
+    out <- c(out, compare_list(x, y, idx, paths))
   } else if (is_environment(x)) {
     out <- c(out,
       glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
     )
   } else if (is_closure(x)) {
+    x <- removeSource(x)
+    y <- removeSource(y)
     out <- c(
       out,
       compare_rec(fn_body(x), fn_body(y), glue("body({path})")),
@@ -68,7 +64,7 @@ compare_rec <- function(x, y, path = "x") {
   } else if (is_symbol(x)) {
     out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
   } else if (is_call(x)) {
-    if (!isTRUE(all.equal(x, y))) {
+    if (!identical(x, y)) {
       diff <- compare_value(deparse(x), deparse(y), path)
       if (length(diff) == 0) {
         diff <- glue("`deparse({path})` equal, but AST non-identical")
@@ -77,6 +73,13 @@ compare_rec <- function(x, y, path = "x") {
     }
   } else if (is_atomic(x)) {
     out <- c(out, compare_value(x, y, path))
+  }
+
+  x_attr <- attrs(x)
+  y_attr <- attrs(y)
+  if (!is.null(x_attr) || !is.null(y_attr)) {
+    names <- union(names(x_attr), names(y_attr))
+    out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names)))
   }
 
   out

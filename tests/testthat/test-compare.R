@@ -45,3 +45,15 @@ test_that("comparing functions gives useful diffs", {
     compare(f1, f2)
   })
 })
+
+
+test_that("comparing language objects gives useful diffs", {
+  verify_output(test_path("test-compare-lang.txt"), {
+    compare(quote(a), quote(b))
+    compare(quote(a + b), quote(b + c))
+
+    x <- y <- quote(foo(1:3))
+    y[[2]] <- 1:3
+    compare(x, y)
+  })
+})
