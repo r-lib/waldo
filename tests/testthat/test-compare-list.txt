@@ -1,18 +1,18 @@
 > # extra y
 > compare(list("a", "b"), list("a", "b", "c"))
-* `x[[3]]` should be a character vector, not absent
+* `x[[3]]` should be a character vector ('c'), not absent
 
 > compare(list(a = "a", b = "b"), list(a = "a", b = "b", c = "c"))
 * `names(x)`: 'a' 'b' +c+
-* `x$c` should be a character vector, not absent
+* `x$c` should be a character vector ('c'), not absent
 
 > # extra x
 > compare(list("a", "b", "c"), list("a", "b"))
-* `x[[3]]` should be absent, not a character vector
+* `x[[3]]` should be absent, not a character vector ('c')
 
 > compare(list(a = "a", b = "b", c = "c"), list(a = "a", b = "b"))
 * `names(x)`: 'a' 'b' -c-
-* `x$c` should be absent, not a character vector
+* `x$c` should be absent, not a character vector ('c')
 
 > # different order
 > compare(list(a = "a", b = "b"), list(b = "b", a = "a"))

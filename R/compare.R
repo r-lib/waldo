@@ -13,7 +13,7 @@ compare_rec <- function(x, y, path = "x") {
   # * integer & double & !is.null(tolerance)
   # * atomic & absent | absent & atomic
   if (type_of(x) != type_of(y)) {
-    return(glue("`{path}` should be {friendly_type_of(y)}, not {friendly_type_of(x)}"))
+    return(glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}"))
   }
 
   out <- character()
@@ -61,3 +61,19 @@ compare_rec <- function(x, y, path = "x") {
   out
 }
 
+
+short_val <- function(x) {
+  if (!is_atomic(x)) {
+    return("")
+  }
+
+  if (is.character(x)) {
+    x <- encodeString(x, quote = "'")
+  }
+
+  if (length(x) > 5) {
+    x <- c(x[1:5], "...")
+  }
+
+  paste0(" (", paste0(x, collapse = ", "), ")")
+}
