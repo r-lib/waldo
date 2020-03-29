@@ -9,6 +9,12 @@ test_that("attributes compare by name", {
   expect_equal(compare_structure(x, y), character())
 })
 
+test_that("can optionally ignore attributes", {
+  x <- structure(list(), a = "a")
+  y <- structure(list(), a = "b")
+  expect_equal(compare_structure(x, y, ignore_attr = TRUE), character())
+})
+
 test_that("lists compare by name, where possible", {
   verify_output(test_path("test-compare-list.txt"), {
     "extra y"

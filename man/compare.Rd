@@ -4,7 +4,7 @@
 \alias{compare}
 \title{Compare two objects}
 \usage{
-compare(x, y, x_arg = "x", ignore_srcref = TRUE)
+compare(x, y, x_arg = "x", ignore_srcref = TRUE, ignore_attr = FALSE)
 }
 \arguments{
 \item{x, y}{Objects to compare. \code{y} is treated as the reference object
@@ -16,6 +16,11 @@ components}
 \item{ignore_srcref}{Ignore differences in function \code{srcref}s? \code{TRUE} by
 default since the \code{srcref} does not change the behaviour of a function,
 only its printed representation.}
+
+\item{ignore_attr}{Ignore all differences in attributes? Only provided
+for backward compatibility with \code{all.equal()}. Using \code{TRUE} is not
+generally recommended because it will ignore many important functional
+differences.}
 }
 \description{
 This function is an alternative to \code{\link[=all.equal]{all.equal()}} that attempts to provide
