@@ -1,5 +1,5 @@
 compare <- function(x, y, path = "x") {
-  new_compare(compare_rec(x, y, path = path))
+  new_compare(compare_structure(x, y, path = path))
 }
 
 new_compare <- function(x) {
@@ -22,7 +22,7 @@ print.waldo_compare <- function(x, ...) {
   invisible(x)
 }
 
-compare_rec <- function(x, y, path = "x") {
+compare_structure <- function(x, y, path = "x") {
 
   if (is_reference(x, y)) {
     return(character())
@@ -55,9 +55,9 @@ compare_rec <- function(x, y, path = "x") {
     y <- removeSource(y)
     out <- c(
       out,
-      compare_rec(fn_body(x), fn_body(y), glue("body({path})")),
-      compare_rec(fn_fmls(x), fn_fmls(y), glue("formals({path})")),
-      compare_rec(fn_env(x), fn_env(y), glue("environment({path})"))
+      compare_structure(fn_body(x), fn_body(y), glue("body({path})")),
+      compare_structure(fn_fmls(x), fn_fmls(y), glue("formals({path})")),
+      compare_structure(fn_env(x), fn_env(y), glue("environment({path})"))
     )
   } else if (is_primitive(x)) {
     out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))

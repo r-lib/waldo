@@ -1,12 +1,12 @@
 test_that("same object has no differences", {
   x <- 1:10
-  expect_equal(compare_rec(x, x), character())
+  expect_equal(compare_structure(x, x), character())
 })
 
 test_that("attributes compare by name", {
   x <- structure(list(), a = "a", b = "b")
   y <- structure(list(), b = "b", a = "a")
-  expect_equal(compare_rec(x, y), character())
+  expect_equal(compare_structure(x, y), character())
 })
 
 test_that("lists compare by name, where possible", {

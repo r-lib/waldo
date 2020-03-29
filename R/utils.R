@@ -24,7 +24,7 @@ attrs <- function(x) {
 
 compare_list <- function(x, y, idx, path) {
   out <- lapply(seq_along(idx), function(i) {
-    compare_rec(list_extract(x, idx[[i]]), list_extract(y, idx[[i]]), path[[i]])
+    compare_structure(list_extract(x, idx[[i]]), list_extract(y, idx[[i]]), path[[i]])
   })
   unlist(out, recursive = FALSE)
 }
