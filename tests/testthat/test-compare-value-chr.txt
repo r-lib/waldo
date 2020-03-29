@@ -12,6 +12,13 @@ character(0)
 > compare_value(c("a", "B", "c"), c("a", "b", "c"))
 [1] "`x`: 'a' /B/b/ 'c'"
 
+> # multiple contexts
+> compare_value(c("a", "b", letters, "a", "b", "c", letters, "X"), c("a", "b",
++   "c", letters, "a", "b", letters, "Y"))
+[1] "`x[1:5]`: 'a' 'b' +c+ 'a' 'b' 'c' ..."          
+[2] "`x[28:34]`: ... 'z' 'a' 'b' -c- 'a' 'b' 'c' ..."
+[3] "`x[55:58]`: ... 'x' 'y' 'z' /X/Y/"              
+
 > # truncation
 > compare_value(c("X", letters), letters)
 [1] "`x[1:4]`: -X- 'a' 'b' 'c' ..."
