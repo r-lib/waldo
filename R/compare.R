@@ -13,6 +13,9 @@
 #'   so messages describe how `x` is different to `y`
 #' @param x_arg Name of `x` argument, used when generated paths to internal
 #'   components
+#' @param ignore_srcref Ignore differences in function `srcref`s? `TRUE` by
+#'   default since the `srcref` does not change the behaviour of a function,
+#'   only its printed representation.
 #' @export
 #' @examples
 #' # Thanks to diffobj package comparison of atomic vectors shows differences
@@ -31,8 +34,14 @@
 #' # Otherwise they're compared by position
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
-compare <- function(x, y, x_arg = "x") {
-  new_compare(compare_structure(x, y, path = x_arg))
+compare <- function(x, y,
+                    x_arg = "x",
+                    ignore_srcref = TRUE) {
+  out <- compare_structure(x, y,
+    path = x_arg,
+    ignore_srcref = ignore_srcref
+  )
+  new_compare(out)
 }
 
 new_compare <- function(x) {
@@ -55,7 +64,9 @@ print.waldo_compare <- function(x, ...) {
   invisible(x)
 }
 
-compare_structure <- function(x, y, path = "x") {
+compare_structure <- function(x, y,
+                              path = "x",
+                              ignore_srcref = TRUE) {
 
   if (is_reference(x, y)) {
     return(character())
@@ -84,20 +95,25 @@ compare_structure <- function(x, y, path = "x") {
       idx <- seq_len(max(length(x), length(y)))
       paths <- glue("{path}[[{idx}]]")
     }
-    out <- c(out, compare_list(x, y, idx, paths))
+    out <- c(out, compare_list(x, y, idx, paths, ignore_srcref = ignore_srcref))
   } else if (is_environment(x)) {
     out <- c(out,
       glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
     )
   } else if (is_closure(x)) {
-    x <- utils::removeSource(x)
-    y <- utils::removeSource(y)
-    out <- c(
-      out,
-      compare_structure(fn_body(x), fn_body(y), glue("body({path})")),
-      compare_structure(fn_fmls(x), fn_fmls(y), glue("formals({path})")),
-      compare_structure(fn_env(x), fn_env(y), glue("environment({path})"))
+    if (ignore_srcref) {
+      x <- utils::removeSource(x)
+      y <- utils::removeSource(y)
+    }
+
+    x <- list(fn_body(x), fn_fmls(x), fn_env(x))
+    y <- list(fn_body(y), fn_fmls(y), fn_env(y))
+    paths <- c(
+      glue("body({path})"),
+      glue("formals({path})"),
+      glue("environment({path})")
     )
+    out <- c(out, compare_list(x, y, 1:3, paths, ignore_srcref = ignore_srcref))
   } else if (is_primitive(x)) {
     out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
   } else if (is_symbol(x)) {
@@ -118,7 +134,7 @@ compare_structure <- function(x, y, path = "x") {
   y_attr <- attrs(y)
   if (!is.null(x_attr) || !is.null(y_attr)) {
     names <- union(names(x_attr), names(y_attr))
-    out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names)))
+    out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names), ignore_srcref = ignore_srcref))
   }
 
   out
@@ -139,3 +155,11 @@ short_val <- function(x) {
 
   paste0(" (", paste0(x, collapse = ", "), ")")
 }
+
+compare_list <- function(x, y, idx, path, ...) {
+  out <- lapply(seq_along(idx), function(i) {
+    compare_structure(list_extract(x, idx[[i]]), list_extract(y, idx[[i]]), path[[i]], ...)
+  })
+  unlist(out, recursive = FALSE)
+}
+

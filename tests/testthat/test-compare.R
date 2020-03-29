@@ -39,9 +39,14 @@ test_that("comparing functions gives useful diffs", {
     compare(`[`, sum)
     compare(sum, prod)
 
-    "diff formals + body"
-    f3 <- function(x = 1, y = 1, z = 1) x + y
+    "diff formals"
+    f3 <- function(x = 1, y = 1, z = 1) {}
     compare(f1, f3)
+
+    "diff body"
+    f4 <- function(x = 1, y = 2) { x + y }
+    compare(f1, f4)
+    compare(f1, f4, ignore_srcref = FALSE)
 
     "diff environment"
     environment(f1) <- base_env()

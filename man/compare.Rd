@@ -4,7 +4,7 @@
 \alias{compare}
 \title{Compare two objects}
 \usage{
-compare(x, y, x_arg = "x")
+compare(x, y, x_arg = "x", ignore_srcref = TRUE)
 }
 \arguments{
 \item{x, y}{Objects to compare. \code{y} is treated as the reference object
@@ -12,6 +12,10 @@ so messages describe how \code{x} is different to \code{y}}
 
 \item{x_arg}{Name of \code{x} argument, used when generated paths to internal
 components}
+
+\item{ignore_srcref}{Ignore differences in function \code{srcref}s? \code{TRUE} by
+default since the \code{srcref} does not change the behaviour of a function,
+only its printed representation.}
 }
 \description{
 This function is an alternative to \code{\link[=all.equal]{all.equal()}} that attempts to provide
