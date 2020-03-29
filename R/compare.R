@@ -90,8 +90,8 @@ compare_structure <- function(x, y, path = "x") {
       glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
     )
   } else if (is_closure(x)) {
-    x <- removeSource(x)
-    y <- removeSource(y)
+    x <- utils::removeSource(x)
+    y <- utils::removeSource(y)
     out <- c(
       out,
       compare_structure(fn_body(x), fn_body(y), glue("body({path})")),
