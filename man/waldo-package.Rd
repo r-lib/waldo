@@ -4,9 +4,20 @@
 \name{waldo-package}
 \alias{waldo}
 \alias{waldo-package}
-\title{waldo: What the Package Does (One Line, Title Case)}
+\title{waldo: Find Differences Between R Objects}
 \description{
-What the package does (one paragraph).
+Compare complex R objects and reveal the key
+    differences.  Designed particularly for use in testing packages where
+    being able to quickly isolate key differences makes understanding test
+    failures much easier.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/r-lib/waldo}
+  \item Report bugs at \url{https://github.com/r-lib/waldo/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
