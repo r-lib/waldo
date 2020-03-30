@@ -3,7 +3,7 @@ compare_value <- function(x, y, path = "x", tolerance = .Machine$double.eps^0.5)
   attributes(y) <- NULL
 
   if (is.numeric(x)) {
-    if (vector_equal_tol(x, y, tolerance)) {
+    if (num_equal(x, y, tolerance)) {
       return(new_compare())
     }
 
@@ -94,16 +94,3 @@ change_delete <- function(x) {
   cli::col_yellow("-", x)
 }
 
-vector_equal_tol <- function(x, y, tolerance = .Machine$double.eps ^ 0.5) {
-  if (is.null(tolerance)) {
-    identical(x, y)
-  } else {
-    if (length(x) != length(y)) {
-      FALSE
-    } else {
-      missing <- is.na(x) & is.na(y)
-      close <- abs(x - y) < tolerance
-      all(missing | close)
-    }
-  }
-}

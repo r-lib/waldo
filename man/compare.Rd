@@ -21,10 +21,17 @@ so messages describe how \code{x} is different to \code{y}}
 \item{x_arg}{Name of \code{x} argument, used when generated paths to internal
 components}
 
-\item{tolerance}{If \code{NULL}, used as an absolute threshold for differences
-between numeric vectors. Setting to any non-\code{NULL} value will cause
-integer and double vectors to be compared based on their values, rather
-than their types.}
+\item{tolerance}{If non-\code{NULL}, used as threshold for ignoring small
+floating point difference when comparing numeric vectors. Setting to
+any non-\code{NULL} value will cause integer and double vectors to be compared
+based on their values, rather than their types.
+
+It uses the same algorithm as \code{\link[=all.equal]{all.equal()}}, i.e., first we generate
+\code{x_diff} and \code{y_diff} by subsetting \code{x} and \code{y} to look only locations
+with differences. Then we check that
+\code{mean(abs(x_diff - y_diff)) / mean(y_diff)} (or just
+\code{mean(abs(x_diff - y_diff))} if \code{y_diff} is small) is less than
+\code{tolerance}.}
 
 \item{ignore_srcref}{Ignore differences in function \code{srcref}s? \code{TRUE} by
 default since the \code{srcref} does not change the behaviour of a function,

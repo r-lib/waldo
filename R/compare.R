@@ -13,10 +13,17 @@
 #'   so messages describe how `x` is different to `y`
 #' @param x_arg Name of `x` argument, used when generated paths to internal
 #'   components
-#' @param tolerance If `NULL`, used as an absolute threshold for differences
-#'   between numeric vectors. Setting to any non-`NULL` value will cause
-#'   integer and double vectors to be compared based on their values, rather
-#'   than their types.
+#' @param tolerance If non-`NULL`, used as threshold for ignoring small
+#'   floating point difference when comparing numeric vectors. Setting to
+#'   any non-`NULL` value will cause integer and double vectors to be compared
+#'   based on their values, rather than their types.
+#'
+#'   It uses the same algorithm as [all.equal()], i.e., first we generate
+#'   `x_diff` and `y_diff` by subsetting `x` and `y` to look only locations
+#'   with differences. Then we check that
+#'   `mean(abs(x_diff - y_diff)) / mean(y_diff)` (or just
+#'   `mean(abs(x_diff - y_diff))` if `y_diff` is small) is less than
+#'   `tolerance`.
 #' @param ignore_srcref Ignore differences in function `srcref`s? `TRUE` by
 #'   default since the `srcref` does not change the behaviour of a function,
 #'   only its printed representation.
