@@ -44,18 +44,18 @@ differences, along with a little context
 ``` r
 # change
 compare(c("a", "b", "c"), c("a", "B", "c"))
-#> x `x`: 'a' /b/B/ 'c'
+#> x `x`: 'a' 'b'/'B' 'c'
 # addition
 compare(c("a", "b"), c("a", "b", "c"))
-#> x `x`: 'a' 'b' +c+
+#> x `x`: 'a' 'b' +'c'
 # deletion
 compare(c("a", "b", "c"), c("a", "b"))
-#> x `x`: 'a' 'b' -c-
+#> x `x`: 'a' 'b' -'c'
 
 # long vector with small differences displays local context
 compare(c("X", letters), c(letters, "X"))
-#> x `x[1:4]`: -X- 'a' 'b' 'c' ...
-#> x `x[24:27]`: ... 'w' 'x' 'y' 'z' +X+
+#> x `x[1:4]`: -'X' 'a' 'b' 'c' ...
+#> x `x[24:27]`: ... 'w' 'x' 'y' 'z' +'X'
 ```
 
 (When run in the console, not in `.Rmd`, colour is used to make the
@@ -72,8 +72,8 @@ compare(factor("x"), 1L)
 df1 <- data.frame(x = 1:3, y = 3:1)
 df2 <- tibble::tibble(y = 3:1, x = 1:3)
 compare(df1, df2)
-#> x `names(x)`: -x- 'y' +x+
-#> x `class(x)`: +tbl_df+ +tbl+ 'data.frame'
+#> x `names(x)`: -'x' 'y' +'x'
+#> x `class(x)`: +'tbl_df' +'tbl' 'data.frame'
 
 x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
 y <- list(a = list(b = list(c = list(structure(1, e = "a")))))

@@ -4,30 +4,30 @@ v No differences
 
 > # simple change
 > compare_value(c(1, 2, 3), c(1, 2))
-x `x`: 1 2 -3-
+x `x`: 1 2 -3
 
 > compare_value(c(1, 2), c(1, 2, 3))
-x `x`: 1 2 +3+
+x `x`: 1 2 +3
 
 > compare_value(c(1, 10, 3), c(1, 2, 3))
-x `x`: 1 /10/2/ 3
+x `x`: 1 10/2 3
 
 > # FP differences
 > x <- c(1, 2, 3)
 > compare_value(x, x + c(-1, 0, 1) * 0.001)
-x `x`: /1/0.999/ 2 /3/3.001/
+x `x`: 1/0.999 2 3/3.001
 
 > compare_value(x, x + c(-1, 0, 1) * 1e-04)
-x `x`: /1/0.9999/ 2 /3/3.0001/
+x `x`: 1/0.9999 2 3/3.0001
 
 > compare_value(x, x + c(-1, 0, 1) * 1e-05)
-x `x`: /1/0.99999/ 2 /3/3.00001/
+x `x`: 1/0.99999 2 3/3.00001
 
 > compare_value(x, x + c(-1, 0, 1) * 1e-06)
-x `x`: /1/0.999999/ 2 /3/3.000001/
+x `x`: 1/0.999999 2 3/3.000001
 
 > compare_value(x, x + c(-1, 0, 1) * 1e-07)
-x `Δx`: /-1e-07/0/ 2 /1e-07/0/
+x `Δx`: -1e-07/0 0e+00 1e-07/0
 
 > compare_value(x, x + c(-1, 0, 1) * 1e-08)
 v No differences
