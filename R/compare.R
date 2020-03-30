@@ -173,7 +173,7 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
       out <- c(out, compare_value(Encoding(x), Encoding(y), glue("Encoding({path})")))
     }
 
-    out <- c(out, compare_value(x, y, path))
+    out <- c(out, compare_value(x, y, path, tolerance = opts$tolerance))
   }
 
   if (opts$ignore_attr) {
