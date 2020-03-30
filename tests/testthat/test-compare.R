@@ -15,6 +15,12 @@ test_that("can optionally ignore attributes", {
   expect_equal(compare_structure(x, y, ignore_attr = TRUE), character())
 })
 
+test_that("can ignore minor numeric differences", {
+  x <- 1:3
+  expect_equal(compare_structure(x, as.numeric(x), tolerance = 0), character())
+  expect_equal(compare_structure(x, x + 1e-9, tolerance = 1e-6), character())
+})
+
 test_that("can optionally compare encoding", {
   x <- c("fa\xE7ile", "fa\ue7ile")
   Encoding(x) <- c("latin1", "UTF-8")

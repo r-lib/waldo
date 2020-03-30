@@ -13,6 +13,10 @@
 #'   so messages describe how `x` is different to `y`
 #' @param x_arg Name of `x` argument, used when generated paths to internal
 #'   components
+#' @param tolerance If `NULL`, used as an absolute threshold for differences
+#'   between numeric vectors. Setting to any non-`NULL` value will cause
+#'   integer and double vectors to be compared based on their values, rather
+#'   than their types.
 #' @param ignore_srcref Ignore differences in function `srcref`s? `TRUE` by
 #'   default since the `srcref` does not change the behaviour of a function,
 #'   only its printed representation.
@@ -43,11 +47,13 @@
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
 compare <- function(x, y,
                     x_arg = "x",
+                    tolerance = NULL,
                     ignore_srcref = TRUE,
                     ignore_attr = FALSE,
                     ignore_encoding = TRUE) {
   out <- compare_structure(x, y,
     path = x_arg,
+    tolerance = tolerance,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding
@@ -77,6 +83,7 @@ print.waldo_compare <- function(x, ...) {
 
 compare_structure <- function(x, y,
                               path = "x",
+                              tolerance = NULL,
                               ignore_srcref = TRUE,
                               ignore_attr = FALSE,
                               ignore_encoding = TRUE) {
@@ -85,17 +92,9 @@ compare_structure <- function(x, y,
     return(character())
   }
 
-  # exceptions:
-  # * integer & double & !is.null(tolerance)
-
-  if (type_of(x) != type_of(y)) {
-    # don't care about difference between builtin and special
-    if (is_primitive(x) && is_primitive(y)) {
-      out <- glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`")
-    } else {
-      out <- glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}")
-    }
-    return(out)
+  term <- compare_terminate(x, y, path = path, tolerance = tolerance)
+  if (length(term) > 0) {
+    return(term)
   }
 
   out <- character()
@@ -108,7 +107,7 @@ compare_structure <- function(x, y,
       idx <- seq_len(max(length(x), length(y)))
       paths <- glue("{path}[[{idx}]]")
     }
-    out <- c(out, compare_list(x, y, idx, paths, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
+    out <- c(out, compare_list(x, y, idx, paths, tolerance = tolerance, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
   } else if (is_environment(x)) {
     out <- c(out,
       glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
@@ -126,7 +125,7 @@ compare_structure <- function(x, y,
       glue("formals({path})"),
       glue("environment({path})")
     )
-    out <- c(out, compare_list(x, y, 1:3, paths, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
+    out <- c(out, compare_list(x, y, 1:3, paths, tolerance = tolerance, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
   } else if (is_primitive(x)) {
     out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
   } else if (is_symbol(x)) {
@@ -152,11 +151,28 @@ compare_structure <- function(x, y,
     y_attr <- attrs(y)
     if (!is.null(x_attr) || !is.null(y_attr)) {
       names <- union(names(x_attr), names(y_attr))
-      out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names), ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
+      out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names), tolerance = tolerance, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
     }
   }
 
   out
+}
+
+compare_terminate <- function(x, y, path, tolerance = NULL) {
+  if (type_of(x) == type_of(y)) {
+    return(character())
+  }
+
+  if (!is.null(tolerance) && is.numeric(x) && is.numeric(y)) {
+    return(character())
+  }
+
+  # don't care about difference between builtin and special
+  if (is_primitive(x) && is_primitive(y)) {
+    return(glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
+  }
+
+  glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}")
 }
 
 short_val <- function(x) {

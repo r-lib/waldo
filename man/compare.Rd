@@ -8,6 +8,7 @@ compare(
   x,
   y,
   x_arg = "x",
+  tolerance = NULL,
   ignore_srcref = TRUE,
   ignore_attr = FALSE,
   ignore_encoding = TRUE
@@ -19,6 +20,11 @@ so messages describe how \code{x} is different to \code{y}}
 
 \item{x_arg}{Name of \code{x} argument, used when generated paths to internal
 components}
+
+\item{tolerance}{If \code{NULL}, used as an absolute threshold for differences
+between numeric vectors. Setting to any non-\code{NULL} value will cause
+integer and double vectors to be compared based on their values, rather
+than their types.}
 
 \item{ignore_srcref}{Ignore differences in function \code{srcref}s? \code{TRUE} by
 default since the \code{srcref} does not change the behaviour of a function,
