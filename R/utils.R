@@ -2,6 +2,8 @@
 type_of <- function(x) {
   if (is_missing(x)) {
     "MISSING"
+  } else if (inherits(x, "R6")) {
+    "R6"
   } else {
     typeof(x)
   }
@@ -9,6 +11,8 @@ type_of <- function(x) {
 friendly_type_of <- function(x) {
   if (is_missing(x)) {
     "absent"
+  } else if (inherits(x, "R6")) {
+    paste0("an R6 object with class '", class(x)[[1]], "'")
   } else {
     friendly_type(typeof(x))
   }

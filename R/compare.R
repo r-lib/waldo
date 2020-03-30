@@ -92,12 +92,15 @@ print.waldo_compare <- function(x, ...) {
 compare_opts <- function(tolerance = NULL,
                          ignore_srcref = TRUE,
                          ignore_attr = FALSE,
-                         ignore_encoding = TRUE) {
+                         ignore_encoding = TRUE,
+                         ignore_function_env = FALSE
+                         ) {
   list(
     tolerance = tolerance,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
-    ignore_encoding = ignore_encoding
+    ignore_encoding = ignore_encoding,
+    ignore_function_env = ignore_function_env
   )
 }
 
@@ -123,12 +126,26 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
     }
     out <- c(out, compare_list(x, y, idx, paths, opts = opts))
   } else if (is_environment(x)) {
-    out <- c(out, should_be("<env:{env_label(y)}>", "<env:{env_label(x)}>`")
-    )
+    if (inherits(x, "R6")) {
+      # enclosing env of methods is object env
+      opts$ignore_function_env <- TRUE
+      x_fields <- as.list(x, sort = TRUE)
+      y_fields <- as.list(y, sort = TRUE)
+      x_fields$.__enclos_env__ <- NULL
+      y_fields$.__enclos_env__ <- NULL
+
+      out <- c(out, compare_structure(x_fields, y_fields, path = path, opts = opts))
+    } else {
+      out <- c(out, should_be("<env:{env_label(y)}>", "<env:{env_label(x)}>`"))
+    }
   } else if (is_closure(x)) {
     if (opts$ignore_srcref) {
       x <- utils::removeSource(x)
       y <- utils::removeSource(y)
+    }
+    if (opts$ignore_function_env) {
+      environment(x) <- emptyenv()
+      environment(y) <- emptyenv()
     }
 
     x <- list(fn_body(x), fn_fmls(x), fn_env(x))

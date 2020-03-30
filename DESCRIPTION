@@ -24,7 +24,8 @@ Imports:
     tibble
 Suggests: 
     testthat,
-    covr
+    covr,
+    R6
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

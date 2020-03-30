@@ -78,6 +78,27 @@ test_that("comparing functions gives useful diffs", {
   })
 })
 
+test_that("can compare R6 objects", {
+  verify_output(test_path("test-compare-r6.txt"), {
+    goofy <- R6::R6Class("goofy", public = list(
+      initialize = function(x) self$x <- x,
+      x = 10
+    ))
+
+    froofy <- R6::R6Class("froofy", inherit = goofy, public = list(
+      y = 10
+    ))
+
+    "Non R6"
+    compare(goofy$new(1), 1)
+    compare(goofy$new(1), globalenv())
+
+    "R6"
+    compare(goofy$new(1), goofy$new(1))
+    compare(goofy$new(1), goofy$new("a"))
+    compare(goofy$new(1), froofy$new(1))
+  })
+})
 
 test_that("comparing language objects gives useful diffs", {
   verify_output(test_path("test-compare-lang.txt"), {
