@@ -135,6 +135,7 @@ a description of the differences that is more immediately understandable</p>
   <span class='no'>x</span>,
   <span class='no'>y</span>,
   <span class='kw'>x_arg</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
+  <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>ignore_srcref</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>ignore_attr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>ignore_encoding</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
@@ -152,6 +153,13 @@ so messages describe how <code>x</code> is different to <code>y</code></p></td>
       <th>x_arg</th>
       <td><p>Name of <code>x</code> argument, used when generated paths to internal
 components</p></td>
+    </tr>
+    <tr>
+      <th>tolerance</th>
+      <td><p>If <code>NULL</code>, used as an absolute threshold for differences
+between numeric vectors. Setting to any non-<code>NULL</code> value will cause
+integer and double vectors to be compared based on their values, rather
+than their types.</p></td>
     </tr>
     <tr>
       <th>ignore_srcref</th>
