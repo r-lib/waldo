@@ -156,10 +156,16 @@ components</p></td>
     </tr>
     <tr>
       <th>tolerance</th>
-      <td><p>If <code>NULL</code>, used as an absolute threshold for differences
-between numeric vectors. Setting to any non-<code>NULL</code> value will cause
-integer and double vectors to be compared based on their values, rather
-than their types.</p></td>
+      <td><p>If non-<code>NULL</code>, used as threshold for ignoring small
+floating point difference when comparing numeric vectors. Setting to
+any non-<code>NULL</code> value will cause integer and double vectors to be compared
+based on their values, rather than their types.</p>
+<p>It uses the same algorithm as <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code>, i.e., first we generate
+<code>x_diff</code> and <code>y_diff</code> by subsetting <code>x</code> and <code>y</code> to look only locations
+with differences. Then we check that
+<code>mean(abs(x_diff - y_diff)) / mean(y_diff)</code> (or just
+<code><a href='https://rdrr.io/r/base/mean.html'>mean(abs(x_diff - y_diff))</a></code> if <code>y_diff</code> is small) is less than
+<code>tolerance</code>.</p></td>
     </tr>
     <tr>
       <th>ignore_srcref</th>
@@ -186,8 +192,8 @@ with the encoding, not just the value of the string.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Thanks to diffobj package comparison of atomic vectors shows differences</span>
 <span class='co'># with a little context</span>
-<span class='fu'>compare</span>(<span class='no'>letters</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z"</span>, <span class='no'>letters</span>[-<span class='fl'>26</span>]))</div><div class='output co'>#&gt; <span style='color: #BB0000;'>✖</span><span> `x[1:3]`: </span><span style='color: #0000BB;'>+z+</span><span> 'a' 'b' 'c' ...
-#&gt; </span><span style='color: #BB0000;'>✖</span><span> `x[23:26]`: ... 'w' 'x' 'y' </span><span style='color: #BBBB00;'>-z-</span><span></div><div class='input'>
+<span class='fu'>compare</span>(<span class='no'>letters</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z"</span>, <span class='no'>letters</span>[-<span class='fl'>26</span>]))</div><div class='output co'>#&gt; <span style='color: #BB0000;'>✖</span><span> `x[1:3]`: </span><span style='color: #0000BB;'>+'z'</span><span> 'a' 'b' 'c' ...
+#&gt; </span><span style='color: #BB0000;'>✖</span><span> `x[23:26]`: ... 'w' 'x' 'y' </span><span style='color: #BBBB00;'>-'z'</span><span></div><div class='input'>
 <span class='co'># More complex objects are traversed, stopping only when the types are</span>
 <span class='co'># different</span>
 <span class='fu'>compare</span>(
@@ -195,9 +201,9 @@ with the encoding, not just the value of the string.</p></td>
   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>(<span class='fl'>1</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='st'>"a"</span>))))
 )</div><div class='output co'>#&gt; </span><span style='color: #BB0000;'>✖</span><span> `attr(x$x$y[[1]], 'z')` should be a character vector ('a'), not a double vector (2)</div><div class='input'>
 <span class='co'># Where possible, recursive structures are compared by name</span>
-<span class='fu'>compare</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"y"</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"y"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>))</div><div class='output co'>#&gt; </span><span style='color: #BB0000;'>✖</span><span> `names(x)`: </span><span style='color: #BBBB00;'>-x-</span><span> 'y' </span><span style='color: #0000BB;'>+x+</span><span></div><div class='input'><span class='co'># Otherwise they're compared by position</span>
-<span class='fu'>compare</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"x"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; </span><span style='color: #BB0000;'>✖</span><span> `x[[2]]`: </span><span style='color: #BBBB00;'>/y</span><span style='color: #00BB00;'>/</span><span style='color: #0000BB;'>z/</span><span></div><div class='input'><span class='fu'>compare</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"y"</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"z"</span>))</div><div class='output co'>#&gt; </span><span style='color: #BB0000;'>✖</span><span> `x[[2]]`: </span><span style='color: #BBBB00;'>/y</span><span style='color: #00BB00;'>/</span><span style='color: #0000BB;'>z/</span><span>
-#&gt; </span><span style='color: #BB0000;'>✖</span><span> `names(x)`: 'x' </span><span style='color: #BBBB00;'>/x</span><span style='color: #00BB00;'>/</span><span style='color: #0000BB;'>y/</span><span></div></span></pre>
+<span class='fu'>compare</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"y"</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"y"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>))</div><div class='output co'>#&gt; </span><span style='color: #BB0000;'>✖</span><span> `names(x)`: </span><span style='color: #BBBB00;'>-'x'</span><span> 'y' </span><span style='color: #0000BB;'>+'x'</span><span></div><div class='input'><span class='co'># Otherwise they're compared by position</span>
+<span class='fu'>compare</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"x"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; </span><span style='color: #BB0000;'>✖</span><span> `x[[2]]`: </span><span style='color: #BBBB00;'>'y'</span><span>/</span><span style='color: #0000BB;'>'z'</span><span></div><div class='input'><span class='fu'>compare</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"y"</span>), <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"z"</span>))</div><div class='output co'>#&gt; </span><span style='color: #BB0000;'>✖</span><span> `x[[2]]`: </span><span style='color: #BBBB00;'>'y'</span><span>/</span><span style='color: #0000BB;'>'z'</span><span>
+#&gt; </span><span style='color: #BB0000;'>✖</span><span> `names(x)`: 'x' </span><span style='color: #BBBB00;'>'x'</span><span>/</span><span style='color: #0000BB;'>'y'</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
