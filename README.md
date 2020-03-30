@@ -17,7 +17,8 @@ particularly as needed for unit tests. `waldo::compare()` is inspired by
 by:
 
   - Displaying in-line diffs of atomic vectors.
-  - Using R expressions to show where differences arise.
+  - Using R code (not a text description) to show where differences
+    arise.
   - Comparing using names, rather than positions, where it makes sense.
 
 <!--
