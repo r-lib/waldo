@@ -47,3 +47,7 @@ attr_path <- function(path, attr) {
 map_chr <- function(.x, .f, ...) {
   vapply(.x, .f, ..., FUN.VALUE = character(1), USE.NAMES = FALSE)
 }
+
+num_format <- function(x) {
+  format(x, trim = TRUE, digits = 6, scientific = 3, drop0trailing = TRUE)
+}

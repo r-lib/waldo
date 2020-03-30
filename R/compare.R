@@ -55,7 +55,7 @@ compare <- function(x, y,
   new_compare(out)
 }
 
-new_compare <- function(x) {
+new_compare <- function(x = character()) {
   stopifnot(is.character(x))
   structure(x, class = "waldo_compare")
 }

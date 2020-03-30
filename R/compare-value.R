@@ -1,6 +1,18 @@
-compare_value <- function(x, y, path = "x") {
+compare_value <- function(x, y, path = "x", tolerance = .Machine$double.eps^0.5) {
   attributes(x) <- NULL
   attributes(y) <- NULL
+
+  if (is.numeric(x)) {
+    if (vector_equal_tol(x, y, tolerance)) {
+      return(new_compare())
+    }
+
+    x_cmp <- num_format(x)
+    y_cmp <- num_format(y)
+  } else {
+    x_cmp <- x
+    y_cmp <- y
+  }
 
   if (is.character(x)) {
     x_out <- encodeString(x, quote = "'")
@@ -8,9 +20,17 @@ compare_value <- function(x, y, path = "x") {
     x_out <- x
   }
 
-  diff <- ses(x, y)
+  diff <- ses(x_cmp, y_cmp)
   if (nrow(diff) == 0) {
-    return(character())
+    if (is.numeric(x)) {
+      xi <- seq_along(x)
+      diff <- ses_df(xi, xi, "c", xi, xi)[x != y, , drop = FALSE]
+      x <- num_format(y - x)
+      y <- rep(0, length(x))
+      path <- glue("\u0394{path}")
+    } else {
+      return(new_compare())
+    }
   }
 
   diff$start <- pmax(diff$x1 - 3, 1)
@@ -20,7 +40,7 @@ compare_value <- function(x, y, path = "x") {
   group_id <- cumsum(new_group)
   lines <- split(diff, group_id)
 
-  map_chr(lines, continguous_diff, x = x, x_out, y = y, path = path)
+  new_compare(map_chr(lines, continguous_diff, x = x, x_out, y = y, path = path))
 }
 
 continguous_diff <- function(diff, x, x_out, y, path) {
@@ -75,4 +95,18 @@ change_modify <- function(x, y) {
 
 change_delete <- function(x) {
   cli::col_yellow("-", x, "-")
+}
+
+vector_equal_tol <- function(x, y, tolerance = .Machine$double.eps ^ 0.5) {
+  if (is.null(tolerance)) {
+    identical(x, y)
+  } else {
+    if (length(x) != length(y)) {
+      FALSE
+    } else {
+      missing <- (is.na(x) & is.na(y))
+      close <- abs(x - y) < tolerance
+      all(missing | close)
+    }
+  }
 }
