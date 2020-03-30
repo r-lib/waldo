@@ -12,13 +12,13 @@ test_that("attributes compare by name", {
 test_that("can optionally ignore attributes", {
   x <- structure(list(), a = "a")
   y <- structure(list(), a = "b")
-  expect_equal(compare_structure(x, y, ignore_attr = TRUE), character())
+  expect_equal(compare_structure(x, y, opts = compare_opts(ignore_attr = TRUE)), character())
 })
 
 test_that("can ignore minor numeric differences", {
   x <- 1:3
-  expect_equal(compare_structure(x, as.numeric(x), tolerance = 0), character())
-  expect_equal(compare_structure(x, x + 1e-9, tolerance = 1e-6), character())
+  expect_equal(compare_structure(x, as.numeric(x), opts = compare_opts(tolerance = 0)), character())
+  expect_equal(compare_structure(x, x + 1e-9, opts = compare_opts(tolerance = 1e-6)), character())
 })
 
 test_that("can optionally compare encoding", {

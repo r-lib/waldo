@@ -58,13 +58,14 @@ compare <- function(x, y,
                     ignore_srcref = TRUE,
                     ignore_attr = FALSE,
                     ignore_encoding = TRUE) {
-  out <- compare_structure(x, y,
-    path = x_arg,
+
+  opts <- compare_opts(
     tolerance = tolerance,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding
   )
+  out <- compare_structure(x, y, path = x_arg, opts = opts)
   new_compare(out)
 }
 
@@ -88,18 +89,24 @@ print.waldo_compare <- function(x, ...) {
   invisible(x)
 }
 
-compare_structure <- function(x, y,
-                              path = "x",
-                              tolerance = NULL,
-                              ignore_srcref = TRUE,
-                              ignore_attr = FALSE,
-                              ignore_encoding = TRUE) {
+compare_opts <- function(tolerance = NULL,
+                         ignore_srcref = TRUE,
+                         ignore_attr = FALSE,
+                         ignore_encoding = TRUE) {
+  list(
+    tolerance = tolerance,
+    ignore_srcref = ignore_srcref,
+    ignore_attr = ignore_attr,
+    ignore_encoding = ignore_encoding
+  )
+}
 
+compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
   if (is_reference(x, y)) {
     return(character())
   }
 
-  term <- compare_terminate(x, y, path = path, tolerance = tolerance)
+  term <- compare_terminate(x, y, path = path, tolerance = opts$tolerance)
   if (length(term) > 0) {
     return(term)
   }
@@ -114,13 +121,13 @@ compare_structure <- function(x, y,
       idx <- seq_len(max(length(x), length(y)))
       paths <- glue("{path}[[{idx}]]")
     }
-    out <- c(out, compare_list(x, y, idx, paths, tolerance = tolerance, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
+    out <- c(out, compare_list(x, y, idx, paths, opts = opts))
   } else if (is_environment(x)) {
     out <- c(out,
       glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
     )
   } else if (is_closure(x)) {
-    if (ignore_srcref) {
+    if (opts$ignore_srcref) {
       x <- utils::removeSource(x)
       y <- utils::removeSource(y)
     }
@@ -132,7 +139,7 @@ compare_structure <- function(x, y,
       glue("formals({path})"),
       glue("environment({path})")
     )
-    out <- c(out, compare_list(x, y, 1:3, paths, tolerance = tolerance, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
+    out <- c(out, compare_list(x, y, 1:3, paths, opts = opts))
   } else if (is_primitive(x)) {
     out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
   } else if (is_symbol(x)) {
@@ -146,22 +153,24 @@ compare_structure <- function(x, y,
       out <- c(out, diff)
     }
   } else if (is_atomic(x)) {
-    if (is_character(x) && !ignore_encoding) {
+    if (is_character(x) && !opts$ignore_encoding) {
       out <- c(out, compare_value(Encoding(x), Encoding(y), glue("Encoding({path})")))
     }
 
     out <- c(out, compare_value(x, y, path))
   }
 
-  if (!ignore_attr) {
-    x_attr <- attrs(x)
-    y_attr <- attrs(y)
-    if (!is.null(x_attr) || !is.null(y_attr)) {
-      names <- union(names(x_attr), names(y_attr))
-      out <- c(out, compare_list(x_attr, y_attr, names, attr_path(path, names), tolerance = tolerance, ignore_srcref = ignore_srcref, ignore_attr = ignore_attr, ignore_encoding = ignore_encoding))
-    }
+  if (opts$ignore_attr) {
+    return(out)
   }
 
+  x_attr <- attrs(x)
+  y_attr <- attrs(y)
+  if (!is.null(x_attr) || !is.null(y_attr)) {
+    names <- union(names(x_attr), names(y_attr))
+    paths <- attr_path(path, names)
+    out <- c(out, compare_list(x_attr, y_attr, names, paths, opts = opts))
+  }
   out
 }
 
