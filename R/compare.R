@@ -123,8 +123,7 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
     }
     out <- c(out, compare_list(x, y, idx, paths, opts = opts))
   } else if (is_environment(x)) {
-    out <- c(out,
-      glue("`{path}` should be <env:{env_label(y)}>, not <env:{env_label(x)}>`")
+    out <- c(out, should_be("<env:{env_label(y)}>", "<env:{env_label(x)}>`")
     )
   } else if (is_closure(x)) {
     if (opts$ignore_srcref) {
@@ -141,9 +140,9 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
     )
     out <- c(out, compare_list(x, y, 1:3, paths, opts = opts))
   } else if (is_primitive(x)) {
-    out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
+    out <- c(out, should_be("`{deparse(y)}`", "`{deparse(x)}`"))
   } else if (is_symbol(x)) {
-    out <- c(out, glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
+    out <- c(out, should_be("`{deparse(y)}`", "`{deparse(x)}`"))
   } else if (is_call(x)) {
     if (!identical(x, y)) {
       diff <- compare_value(deparse(x), deparse(y), path)
@@ -185,10 +184,10 @@ compare_terminate <- function(x, y, path, tolerance = NULL) {
 
   # don't care about difference between builtin and special
   if (is_primitive(x) && is_primitive(y)) {
-    return(glue("`{path}` should be `{deparse(y)}`, not `{deparse(x)}`"))
+    return(should_be("`{deparse(y)}`", "`{deparse(x)}`"))
   }
 
-  glue("`{path}` should be {friendly_type_of(y)}{short_val(y)}, not {friendly_type_of(x)}{short_val(x)}")
+  should_be("{friendly_type_of(y)}{short_val(y)}", "{friendly_type_of(x)}{short_val(x)}")
 }
 
 short_val <- function(x) {
@@ -214,3 +213,7 @@ compare_list <- function(x, y, idx, path, ...) {
   unlist(out, recursive = FALSE)
 }
 
+should_be <- function(this, that) {
+  string <- paste0("`{path}` should be ", this, ", not ", that)
+  glue(string, .envir = caller_env())
+}
