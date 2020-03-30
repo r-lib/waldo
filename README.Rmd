@@ -24,7 +24,7 @@ The goal of waldo is to find the differences between complex R objects, particul
 `all.equal()`, but takes additional care to generate actionable insights by:
 
 * Displaying in-line diffs of atomic vectors.
-* Using executable code paths to show where differences arise.
+* Using R expressions to show where differences arise.
 * Comparing using names, rather than positions, where it makes sense.
 
 <!--
@@ -68,8 +68,8 @@ df1 <- data.frame(x = 1:3, y = 3:1)
 df2 <- tibble::tibble(y = 3:1, x = 1:3)
 compare(df1, df2)
 
-x <- list(a = list(b = list(c = list(d = structure(1, e = 1)))))
-y <- list(a = list(b = list(c = list(d = structure(1, e = "a")))))
+x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
+y <- list(a = list(b = list(c = list(structure(1, e = "a")))))
 compare(x, y)
 ```
 

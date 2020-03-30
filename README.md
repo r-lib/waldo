@@ -17,7 +17,7 @@ particularly as needed for unit tests. `waldo::compare()` is inspired by
 by:
 
   - Displaying in-line diffs of atomic vectors.
-  - Using executable code paths to show where differences arise.
+  - Using R expressions to show where differences arise.
   - Comparing using names, rather than positions, where it makes sense.
 
 <!--
@@ -74,8 +74,8 @@ compare(df1, df2)
 #> x `names(x)`: -x- 'y' +x+
 #> x `class(x)`: +tbl_df+ +tbl+ 'data.frame'
 
-x <- list(a = list(b = list(c = list(d = structure(1, e = 1)))))
-y <- list(a = list(b = list(c = list(d = structure(1, e = "a")))))
+x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
+y <- list(a = list(b = list(c = list(structure(1, e = "a")))))
 compare(x, y)
-#> x `attr(x$a$b$c$d, 'e')` should be a character vector ('a'), not a double vector (1)
+#> x `attr(x$a$b$c[[1]], 'e')` should be a character vector ('a'), not a double vector (1)
 ```
