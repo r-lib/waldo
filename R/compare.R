@@ -123,7 +123,7 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
       out <- c(out, compare_by_pos(x, y, path, opts))
     }
   } else if (is_environment(x)) {
-    if (inherits(x, "R6")) {
+    if (env_has(x, ".__enclos_env__")) {
       # enclosing env of methods is object env
       opts$ignore_function_env <- TRUE
       x_fields <- as.list(x, sort = TRUE)
