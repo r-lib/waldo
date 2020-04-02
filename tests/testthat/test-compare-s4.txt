@@ -1,9 +1,9 @@
 > # Non S4
 > compare(new("A", x = "1"), 1)
-x `x` should be a double vector (1), not an S4 object with class 'A'
+x `x` should be a double vector (1), not an S4 object of class <A>
 
 > compare(new("A", x = "1"), globalenv())
-x `x` should be an environment, not an S4 object with class 'A'
+x `x` should be an environment, not an S4 object of class <A>
 
 > # S4
 > compare(new("A", x = "1"), new("A", x = "1"))

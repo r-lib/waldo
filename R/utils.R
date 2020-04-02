@@ -12,11 +12,11 @@ type_of <- function(x) {
 }
 friendly_type_of <- function(x) {
   if (isS4(x)) {
-    paste0("an S4 object with class '", class(x)[[1]], "'")
+    paste0("an S4 object of class <", class(x)[[1]], ">")
   } else if (is_missing(x)) {
     "absent"
   } else if (inherits(x, "R6")) {
-    paste0("an R6 object with class '", class(x)[[1]], "'")
+    paste0("an R6 object of class <", class(x)[[1]], ">")
   } else {
     friendly_type(typeof(x))
   }

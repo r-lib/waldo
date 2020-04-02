@@ -3,10 +3,10 @@
 > froofy <- R6::R6Class("froofy", inherit = goofy, public = list(y = 10))
 > # Non R6
 > compare(goofy$new(1), 1)
-x `x` should be a double vector (1), not an R6 object with class 'goofy'
+x `x` should be a double vector (1), not an R6 object of class <goofy>
 
 > compare(goofy$new(1), globalenv())
-x `x` should be an environment, not an R6 object with class 'goofy'
+x `x` should be an environment, not an R6 object of class <goofy>
 
 > # R6
 > compare(goofy$new(1), goofy$new(1))
