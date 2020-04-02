@@ -78,6 +78,22 @@ test_that("comparing functions gives useful diffs", {
   })
 })
 
+test_that("can compare S4 objects", {
+  setClass("A", slots = c(x = "character"))
+  setClass("B", contains = "A")
+
+  verify_output(test_path("test-compare-s4.txt"), {
+    "Non S4"
+    compare(new("A", x = "1"), 1)
+    compare(new("A", x = "1"), globalenv())
+
+    "S4"
+    compare(new("A", x = "1"), new("A", x = "1"))
+    compare(new("A", x = "1"), new("A", x = "2"))
+    compare(new("A", x = "1"), new("B", x = "1"))
+  })
+})
+
 test_that("can compare R6 objects", {
   verify_output(test_path("test-compare-r6.txt"), {
     goofy <- R6::R6Class("goofy", public = list(
@@ -99,6 +115,7 @@ test_that("can compare R6 objects", {
     compare(goofy$new(1), froofy$new(1))
   })
 })
+
 
 test_that("comparing language objects gives useful diffs", {
   verify_output(test_path("test-compare-lang.txt"), {

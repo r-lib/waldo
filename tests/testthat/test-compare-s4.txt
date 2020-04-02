@@ -1,0 +1,17 @@
+> # Non S4
+> compare(new("A", x = "1"), 1)
+x `x` should be a double vector (1), not an S4 object with class 'A'
+
+> compare(new("A", x = "1"), globalenv())
+x `x` should be an environment, not an S4 object with class 'A'
+
+> # S4
+> compare(new("A", x = "1"), new("A", x = "1"))
+v No differences
+
+> compare(new("A", x = "1"), new("A", x = "2"))
+x `x@x`: '1'/'2'
+
+> compare(new("A", x = "1"), new("B", x = "1"))
+x `is(x)`: +'B' 'A'
+

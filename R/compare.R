@@ -166,7 +166,10 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
     out <- c(out, compare_value(x, y, path, tolerance = opts$tolerance))
   }
 
-  if (!opts$ignore_attr) {
+  if (isS4(x)) {
+    out <- c(out, compare_value(is(x), is(y), glue("is({path})")))
+    out <- c(out, compare_by_slot(x, y, path, opts))
+  } else if (!opts$ignore_attr) {
     out <- c(out, compare_by_attr(attrs(x), attrs(y), path, opts))
   }
 
@@ -211,7 +214,6 @@ should_be <- function(this, that) {
   glue(string, .envir = caller_env())
 }
 
-
 # compare_each ------------------------------------------------------------
 
 compare_by <- function(index_fun, extract_fun, path_fun) {
@@ -253,6 +255,11 @@ path_attr <- function(path, i) {
   ifelse(i %in% funs, glue("{i}({path})"), glue("attr({path}, '{i}')"))
 }
 compare_by_attr <- compare_by(index_name, extract_name, path_attr)
+
+index_slot <- function(x, y) union(slotNames(x), slotNames(y))
+extract_slot <- function(x, i) if (.hasSlot(x, i)) slot(x, i) else missing_arg()
+path_slot <- function(path, i) glue("{path}@{i}")
+compare_by_slot <- compare_by(index_slot, extract_slot, path_slot)
 
 index_fun <- function(x, y) 1:3
 extract_fun <- function(x, i) switch(i, fn_body(x), fn_fmls(x), fn_env(x))

@@ -19,6 +19,7 @@ Imports:
     cli,
     diffobj,
     glue,
+    methods,
     rematch2,
     rlang,
     tibble
