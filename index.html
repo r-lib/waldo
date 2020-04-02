@@ -92,37 +92,41 @@ install.packages("waldo")
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">waldo</span>)</pre></div>
-<p>When comparing atomic vectors, <code><a href="reference/compare.html">compare()</a></code> produces inline diffs (thanks to <a href="https://github.com/brodieG/diffobj">diffobj</a>) that show the key differences, along with a little context</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># change</span>
-<span class="fu"><a href="reference/compare.html">compare</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"B"</span>, <span class="st">"c"</span>))
-<span class="co">#&gt; x `x`: 'a' 'b'/'B' 'c'</span>
-<span class="co"># addition</span>
-<span class="fu"><a href="reference/compare.html">compare</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))
-<span class="co">#&gt; x `x`: 'a' 'b' +'c'</span>
-<span class="co"># deletion</span>
-<span class="fu"><a href="reference/compare.html">compare</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>))
-<span class="co">#&gt; x `x`: 'a' 'b' -'c'</span>
-
-<span class="co"># long vector with small differences displays local context</span>
-<span class="fu"><a href="reference/compare.html">compare</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"X"</span>, <span class="no">letters</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">letters</span>, <span class="st">"X"</span>))
-<span class="co">#&gt; x `x[1:4]`: -'X' 'a' 'b' 'c' ...</span>
-<span class="co">#&gt; x `x[24:27]`: ... 'w' 'x' 'y' 'z' +'X'</span></pre></div>
+<p>When comparing atomic vectors, <code><a href="reference/compare.html">compare()</a></code> produces inline diffs (thanks to <a href="https://github.com/brodieG/diffobj">diffobj</a>) that show the key differences, along with a little context:</p>
+<ul>
+<li>
+<p>Change</p>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "B", "c"))</a></code></pre>
+<p><img src="reference/figures/README/unnamed-chunk-2.svg" width="100%"></p>
+</li>
+<li>
+<p>Addition</p>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b"), c("a", "b", "c"))</a></code></pre>
+<p><img src="reference/figures/README/unnamed-chunk-3.svg" width="100%"></p>
+</li>
+<li>
+<p>Deletion</p>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "b"))</a></code></pre>
+<p><img src="reference/figures/README/unnamed-chunk-4.svg" width="100%"></p>
+</li>
+<li>
+<p>Long vectors with small differences only show local context around changes, not everything thatâs the same.</p>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(c("X", letters), c(letters, "X"))</a></code></pre>
+<p><img src="reference/figures/README/unnamed-chunk-5.svg" width="100%"></p>
+</li>
+</ul>
 <p>(When run in the console, not in <code>.Rmd</code>, colour is used to make the diffs easier to read)</p>
 <p>When comparing more complex objects, <code><a href="reference/compare.html">compare()</a></code> creates an executable code path telling you where the differences lie:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/compare.html">compare</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="st">"x"</span>), <span class="fl">1L</span>)
-<span class="co">#&gt; x `levels(x)` should be absent, not a character vector ('x')</span>
-<span class="co">#&gt; x `class(x)` should be absent, not a character vector ('factor')</span>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(factor("x"), 1L)
 
-<span class="no">df1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">3</span>:<span class="fl">1</span>)
-<span class="no">df2</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">y</span> <span class="kw">=</span> <span class="fl">3</span>:<span class="fl">1</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>)
-<span class="fu"><a href="reference/compare.html">compare</a></span>(<span class="no">df1</span>, <span class="no">df2</span>)
-<span class="co">#&gt; x `names(x)`: -'x' 'y' +'x'</span>
-<span class="co">#&gt; x `class(x)`: +'tbl_df' +'tbl' 'data.frame'</span>
-
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">a</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">b</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">c</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span>(<span class="fl">1</span>, <span class="kw">e</span> <span class="kw">=</span> <span class="fl">1</span>)))))
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">a</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">b</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">c</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span>(<span class="fl">1</span>, <span class="kw">e</span> <span class="kw">=</span> <span class="st">"a"</span>)))))
-<span class="fu"><a href="reference/compare.html">compare</a></span>(<span class="no">x</span>, <span class="no">y</span>)
-<span class="co">#&gt; x `attr(x$a$b$c[[1]], 'e')` should be a character vector ('a'), not a double vector (1)</span></pre></div>
+df1 &lt;- data.frame(x = 1:3, y = 3:1)
+df2 &lt;- tibble::tibble(y = 3:1, x = 1:3)
+compare(df1, df2)</a></code></pre>
+<p><img src="reference/figures/README/unnamed-chunk-6.svg" width="100%"></p>
+<pre class="asciicast"><code>x &lt;- list(a = list(b = list(c = list(structure(1, e = 1)))))
+y &lt;- list(a = list(b = list(c = list(structure(1, e = "a")))))
+compare(x, y)</code></pre>
+<p><img src="reference/figures/README/unnamed-chunk-7.svg" width="100%"></p>
 </div>
 </div>
   </div>
