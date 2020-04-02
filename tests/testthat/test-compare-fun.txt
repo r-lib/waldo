@@ -27,9 +27,9 @@ x `body(x)`: '{' +'    x + y' '}'
 
 > compare(f1, f4, ignore_srcref = FALSE)
 x `body(x)`: '{' +'    x + y' '}'
-x `attr(body(x), 'srcref')[[1]]`: 2/12 31 2/12 31 31 31 2/12 2/12
 x `attr(body(x), 'srcref')[[2]]` should be an integer vector (13, 3, 13, 7, 3, ...), not absent
 x `attr(body(x), 'wholeSrcref')`: 1 0 2/14 33/1 0 -33 1 2/1 2/14
+x `attr(x, 'srcref')`: 2/12 8 2/14 33/1 8 33/1 2/12 2/14
 
 > # diff environment
 > environment(f1) <- base_env()

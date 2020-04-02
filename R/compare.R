@@ -118,13 +118,10 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
 
   if (is_list(x) || is_pairlist(x)) {
     if (is_dictionaryish(x) && is_dictionaryish(y)) {
-      idx <- union(names(x), names(y))
-      paths <- glue("{path}${idx}")
+      out <- c(out, compare_by_name(x, y, path, opts))
     } else {
-      idx <- seq_len(max(length(x), length(y)))
-      paths <- glue("{path}[[{idx}]]")
+      out <- c(out, compare_by_pos(x, y, path, opts))
     }
-    out <- c(out, compare_list(x, y, idx, paths, opts = opts))
   } else if (is_environment(x)) {
     if (inherits(x, "R6")) {
       # enclosing env of methods is object env
@@ -148,14 +145,7 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
       environment(y) <- emptyenv()
     }
 
-    x <- list(fn_body(x), fn_fmls(x), fn_env(x))
-    y <- list(fn_body(y), fn_fmls(y), fn_env(y))
-    paths <- c(
-      glue("body({path})"),
-      glue("formals({path})"),
-      glue("environment({path})")
-    )
-    out <- c(out, compare_list(x, y, 1:3, paths, opts = opts))
+    out <- c(out, compare_by_fun(x, y, path, opts))
   } else if (is_primitive(x)) {
     out <- c(out, should_be("`{deparse(y)}`", "`{deparse(x)}`"))
   } else if (is_symbol(x)) {
@@ -176,17 +166,10 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
     out <- c(out, compare_value(x, y, path, tolerance = opts$tolerance))
   }
 
-  if (opts$ignore_attr) {
-    return(out)
+  if (!opts$ignore_attr) {
+    out <- c(out, compare_by_attr(attrs(x), attrs(y), path, opts))
   }
 
-  x_attr <- attrs(x)
-  y_attr <- attrs(y)
-  if (!is.null(x_attr) || !is.null(y_attr)) {
-    names <- union(names(x_attr), names(y_attr))
-    paths <- attr_path(path, names)
-    out <- c(out, compare_list(x_attr, y_attr, names, paths, opts = opts))
-  }
   out
 }
 
@@ -223,14 +206,57 @@ short_val <- function(x) {
   paste0(" (", paste0(x, collapse = ", "), ")")
 }
 
-compare_list <- function(x, y, idx, path, ...) {
-  out <- lapply(seq_along(idx), function(i) {
-    compare_structure(list_extract(x, idx[[i]]), list_extract(y, idx[[i]]), path[[i]], ...)
-  })
-  unlist(out, recursive = FALSE)
-}
-
 should_be <- function(this, that) {
   string <- paste0("`{path}` should be ", this, ", not ", that)
   glue(string, .envir = caller_env())
+}
+
+
+# compare_each ------------------------------------------------------------
+
+compare_by <- function(index_fun, extract_fun, path_fun) {
+  function(x, y, path, opts) {
+    idx <- index_fun(x, y)
+    if (length(idx) == 0)
+      return(character())
+
+    paths <- path_fun(path, idx)
+
+    out <- character()
+    for (i in seq_along(idx)) {
+      out <- c(out, compare_structure(
+        x = extract_fun(x, idx[[i]]),
+        y = extract_fun(y, idx[[i]]),
+        path = paths[[i]],
+        opts = opts)
+      )
+    }
+
+    out
+  }
+}
+compare_by_fun <- compare_by(function(x, y) 1:3, extract_fun, path_fun)
+
+index_name <- function(x, y) union(names(x), names(y))
+extract_name <- function(x, i) if (has_name(x, i)) x[[i]] else missing_arg()
+path_name <- function(path, i) glue("{path}${i}")
+compare_by_name <- compare_by(index_name, extract_name, path_name)
+
+index_pos <- function(x, y) max(length(x), length(y))
+extract_pos <- function(x, i) if (i <= length(x)) x[[i]] else missing_arg()
+path_pos <- function(path, i) glue("{path}[[{i}]]")
+compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)
+
+path_attr <- function(path, i) {
+  # from ?attributes, excluding row.names() because it's not a simple accessor
+  funs <- c("comment", "class", "dim", "dimnames", "levels", "names", "tsp")
+  ifelse(i %in% funs, glue("{i}({path})"), glue("attr({path}, '{i}')"))
+}
+compare_by_attr <- compare_by(index_name, extract_name, path_attr)
+
+index_fun <- function(x, y) 1:3
+extract_fun <- function(x, i) switch(i, fn_body(x), fn_fmls(x), fn_env(x))
+path_fun <- function(path, i) {
+  fun <- unname(c("body", "formals", "environment")[i])
+  glue("{fun}({path})")
 }
