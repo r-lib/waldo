@@ -39,24 +39,40 @@ library(waldo)
 
 When comparing atomic vectors, `compare()` produces inline diffs (thanks
 to [diffobj](https://github.com/brodieG/diffobj)) that show the key
-differences, along with a little context
+differences, along with a little context:
 
-``` r
-# change
-compare(c("a", "b", "c"), c("a", "B", "c"))
-#> x `x`: 'a' 'b'/'B' 'c'
-# addition
-compare(c("a", "b"), c("a", "b", "c"))
-#> x `x`: 'a' 'b' +'c'
-# deletion
-compare(c("a", "b", "c"), c("a", "b"))
-#> x `x`: 'a' 'b' -'c'
+  - Change
+    
+    ``` asciicast
+    compare(c("a", "b", "c"), c("a", "B", "c"))
+    ```
+    
+    <img src="man/figures/README/unnamed-chunk-2.svg" width="100%" />
 
-# long vector with small differences displays local context
-compare(c("X", letters), c(letters, "X"))
-#> x `x[1:4]`: -'X' 'a' 'b' 'c' ...
-#> x `x[24:27]`: ... 'w' 'x' 'y' 'z' +'X'
-```
+  - Addition
+    
+    ``` asciicast
+    compare(c("a", "b"), c("a", "b", "c"))
+    ```
+    
+    <img src="man/figures/README/unnamed-chunk-3.svg" width="100%" />
+
+  - Deletion
+    
+    ``` asciicast
+    compare(c("a", "b", "c"), c("a", "b"))
+    ```
+    
+    <img src="man/figures/README/unnamed-chunk-4.svg" width="100%" />
+
+  - Long vectors with small differences only show local context around
+    changes, not everything that’s the same.
+    
+    ``` asciicast
+    compare(c("X", letters), c(letters, "X"))
+    ```
+    
+    <img src="man/figures/README/unnamed-chunk-5.svg" width="100%" />
 
 (When run in the console, not in `.Rmd`, colour is used to make the
 diffs easier to read)
@@ -64,19 +80,20 @@ diffs easier to read)
 When comparing more complex objects, `compare()` creates an executable
 code path telling you where the differences lie:
 
-``` r
+``` asciicast
 compare(factor("x"), 1L)
-#> x `levels(x)` should be absent, not a character vector ('x')
-#> x `class(x)` should be absent, not a character vector ('factor')
 
 df1 <- data.frame(x = 1:3, y = 3:1)
 df2 <- tibble::tibble(y = 3:1, x = 1:3)
 compare(df1, df2)
-#> x `names(x)`: -'x' 'y' +'x'
-#> x `class(x)`: +'tbl_df' +'tbl' 'data.frame'
+```
 
+<img src="man/figures/README/unnamed-chunk-6.svg" width="100%" />
+
+``` asciicast
 x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
 y <- list(a = list(b = list(c = list(structure(1, e = "a")))))
 compare(x, y)
-#> x `attr(x$a$b$c[[1]], 'e')` should be a character vector ('a'), not a double vector (1)
 ```
+
+<img src="man/figures/README/unnamed-chunk-7.svg" width="100%" />
