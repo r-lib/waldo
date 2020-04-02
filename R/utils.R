@@ -37,3 +37,20 @@ map_chr <- function(.x, .f, ...) {
 num_format <- function(x) {
   format(x, trim = TRUE, digits = 6, scientific = 3, drop0trailing = TRUE)
 }
+
+
+remove_source <- function(x) {
+  if (is_closure(x)) {
+    body(x) <- remove_source(body(x))
+    x
+  } else if (is_call(x)) {
+    attr(x, "srcref") <- NULL
+    attr(x, "wholeSrcref") <- NULL
+    attr(x, "srcfile") <- NULL
+
+    x[] <- lapply(x, remove_source)
+    x
+  } else {
+    x
+  }
+}

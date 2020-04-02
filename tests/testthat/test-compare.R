@@ -58,6 +58,9 @@ test_that("comparing functions gives useful diffs", {
     f2 <- function(x = 1, y = 2) {}
     compare(f1, f2)
 
+    f2 <- source(test_path("f2.R"), local = TRUE, keep.source = TRUE)$value
+    compare(f1, f2)
+
     "pritimives"
     compare(`[`, sum)
     compare(sum, prod)

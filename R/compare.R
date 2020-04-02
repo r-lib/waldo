@@ -137,8 +137,8 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
     }
   } else if (is_closure(x)) {
     if (opts$ignore_srcref) {
-      x <- utils::removeSource(x)
-      y <- utils::removeSource(y)
+      x <- remove_source(x)
+      y <- remove_source(y)
     }
     if (opts$ignore_function_env) {
       environment(x) <- emptyenv()
@@ -256,6 +256,7 @@ path_attr <- function(path, i) {
 }
 compare_by_attr <- compare_by(index_name, extract_name, path_attr)
 
+#' @importFrom methods slotNames .hasSlot slot is
 index_slot <- function(x, y) union(slotNames(x), slotNames(y))
 extract_slot <- function(x, i) if (.hasSlot(x, i)) slot(x, i) else missing_arg()
 path_slot <- function(path, i) glue("{path}@{i}")

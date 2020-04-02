@@ -4,6 +4,10 @@
 > compare(f1, f2)
 v No differences
 
+> f2 <- source(test_path("f2.R"), local = TRUE, keep.source = TRUE)$value
+> compare(f1, f2)
+v No differences
+
 > # pritimives
 > compare(`[`, sum)
 x `x` should be `.Primitive("sum")`, not `.Primitive("[")`
@@ -27,9 +31,9 @@ x `body(x)`: '{' +'    x + y' '}'
 
 > compare(f1, f4, ignore_srcref = FALSE)
 x `body(x)`: '{' +'    x + y' '}'
-x `attr(body(x), 'srcref')[[2]]` should be an integer vector (13, 3, 13, 7, 3, ...), not absent
-x `attr(body(x), 'wholeSrcref')`: 1 0 2/14 33/1 0 -33 1 2/1 2/14
-x `attr(x, 'srcref')`: 2/12 8 2/14 33/1 8 33/1 2/12 2/14
+x `attr(body(x), 'srcref')[[2]]` should be an integer vector (15, 3, 15, 7, 3, ...), not absent
+x `attr(body(x), 'wholeSrcref')`: 1 0 2/16 33/1 0 -33 1 2/1 2/16
+x `attr(x, 'srcref')`: 2/14 8 2/16 33/1 8 33/1 2/14 2/16
 
 > # diff environment
 > environment(f1) <- base_env()
