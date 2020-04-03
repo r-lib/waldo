@@ -29,15 +29,17 @@ compare_value <- function(x, y, path = "x", tolerance = .Machine$double.eps^0.5)
       return(new_compare())
     }
   }
+  diffs <- diff_split(diff, n = length(x))
+  new_compare(map_chr(diffs, continguous_diff, x = x_cmp, y = y_cmp, path = path))
+}
 
+diff_split <- function(diff, n) {
   diff$start <- pmax(diff$x1 - 3, 1)
-  diff$end <- pmin(diff$x2 + 3, length(x))
+  diff$end <- pmin(diff$x2 + 3, n)
 
   new_group <- c(TRUE, diff$start[-1] > diff$end[-nrow(diff)])
   group_id <- cumsum(new_group)
-  lines <- split(diff, group_id)
-
-  new_compare(map_chr(lines, continguous_diff, x = x_cmp, y = y_cmp, path = path))
+  split(diff, group_id)
 }
 
 continguous_diff <- function(diff, x, y, path) {

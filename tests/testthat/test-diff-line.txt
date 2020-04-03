@@ -1,0 +1,38 @@
+> x1 <- c("A\nB\nC\n")
+> y1 <- c("A\nb\nC\n")
+> # Basic operations
+> diff_lines(x1, y1)
+x `.`:
+    A
+  - B
+  + b
+    C
+
+> diff_lines(x1, paste0(x1, "A"))
+x `.`:
+    A
+    B
+    C
+  + A
+
+> diff_lines(paste0(x1, "A"), x1)
+x `.`:
+    A
+    B
+    C
+  - A
+
+> # Context
+> diff_lines(paste0(x1, x1, x1), paste0(x1, y1, x1))
+x `lines(., 2:8)`:
+    ...
+    B
+    C
+    A
+  - B
+  + b
+    C
+    A
+    B
+    ...
+
