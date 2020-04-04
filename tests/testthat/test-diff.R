@@ -10,6 +10,11 @@ test_that("nice line diffs", {
 
     "Context"
     diff_lines(paste0(x1, x1, x1), paste0(x1, y1, x1))
+
+    "Lines with internal differences"
+    diff_lines(c("A\nthe apple is red\nC\n"), c("A\nthe apple was red\nC\n"))
+    diff_lines(c("A\nthe apple is red and green\nC\n"), c("A\nthe apple is red\nC\n"))
+    diff_lines(c("A\nthe apple is red and green\nC\n"), c("A\nI like bananas\nC\n"))
   })
 })
 

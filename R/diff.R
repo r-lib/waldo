@@ -36,7 +36,7 @@ diff_render <- function(diff, x, y, path, diff_a, diff_d, diff_c = NULL, diff_x 
   }
 
   if (idx <= end) {
-    out <- c(out, x[idx:end])
+    out <- c(out, diff_x(x[idx:end]))
   }
 
   if (start != 1 || end != length(x)) {
@@ -67,6 +67,7 @@ diff_lines <- function(x, y, path = ".") {
   out <- map_chr(chunks, diff_render, x = x, y = y, path = path,
     diff_a = function(x) cli::col_blue("  + ", x),
     diff_d = function(x) cli::col_yellow("  - ", x),
+    diff_c = function(x, y) diff_inline(x, y),
     diff_x = function(x) cli::col_grey("    ", x),
     path_context = function(path, start, end) glue("lines({path}, {start}:{end})"),
     combine = function(path, diff) paste0(path, ":\n", paste0(diff, collapse = "\n"))
@@ -76,6 +77,35 @@ diff_lines <- function(x, y, path = ".") {
 
 lines <- function(x) {
   strsplit(x, "\r?\n")[[1]]
+}
+
+diff_inline <- function(x, y, path = ".") {
+  x_cmp <- words(x)
+  y_cmp <- words(y)
+
+  diff <- ses(x_cmp, y_cmp)
+
+
+  if (nrow(diff) == 0 || nrow(diff) / length(x_cmp) > 0.25) {
+    return(c(cli::col_yellow("  - ", x), cli::col_blue("  + ", y)))
+  }
+
+  chunks <- diff_split(diff, length(x_cmp), size = 7)
+
+  left <- map_chr(chunks, diff_render, x = x_cmp, y = y_cmp, path = path,
+    diff_a = function(x) "",
+    diff_d = function(x) cli::col_yellow("[-", paste0(encodeString(x), collapse = ""), "-]"),
+    path_context = function(path, start, end) "",
+    combine = function(path, diff) paste0(diff, collapse = "")
+  )
+  right <- map_chr(chunks, diff_render, x = x_cmp, y = y_cmp, path = path,
+    diff_a = function(x) cli::col_blue("{+", paste0(encodeString(x), collapse = ""), "+}"),
+    diff_d = function(x) "",
+    path_context = function(path, start, end) "",
+    combine = function(path, diff) paste0(diff, collapse = "")
+  )
+
+  c(paste0("  - ", left), paste0("  + ", right))
 }
 
 # words -------------------------------------------------------------------
@@ -102,7 +132,6 @@ diff_words <- function(x, y, path = ".") {
   )
   new_compare(out)
 }
-
 
 words <- function(x) {
   strsplit(x, "(?=\\s+)", perl = TRUE)[[1]]
