@@ -1,6 +1,6 @@
-diff_split <- function(diff, n) {
-  diff$start <- pmax(diff$x1 - 3, 1)
-  diff$end <- pmin(diff$x2 + 3, n)
+diff_split <- function(diff, n, size = 3) {
+  diff$start <- pmax(diff$x1 - size, 1)
+  diff$end <- pmin(diff$x2 + size, n)
 
   new_group <- c(TRUE, diff$start[-1] > diff$end[-nrow(diff)])
   group_id <- cumsum(new_group)
@@ -81,25 +81,29 @@ lines <- function(x) {
 # words -------------------------------------------------------------------
 
 diff_words <- function(x, y, path = ".") {
-  x <- words(x)
-  y <- words(y)
-
-  diff <- ses(x, y)
-  if (nrow(diff) == 0) {
+  if (x == y) {
     return(character())
   }
 
-  chunks <- diff_split(diff, length(x))
-  out <- map_chr(chunks, diff_render, x = x, y = y, path = path,
-    diff_a = function(x) cli::col_blue("{+", x, "+}"),
-    diff_d = function(x) cli::col_yellow("[-", x, "-]"),
+  x_cmp <- words(x)
+  y_cmp <- words(y)
+
+  diff <- ses(x_cmp, y_cmp)
+  if (nrow(diff) == 0) {
+    return(compare_value(x, y, path = path))
+  }
+
+  chunks <- diff_split(diff, length(x_cmp), size = 7)
+  out <- map_chr(chunks, diff_render, x = x_cmp, y = y_cmp, path = path,
+    diff_a = function(x) cli::col_blue("{+", paste0(encodeString(x), collapse = ""), "+}"),
+    diff_d = function(x) cli::col_yellow("[-", paste0(encodeString(x), collapse = ""), "-]"),
     path_context = function(path, start, end) glue("words({path}, {start}:{end})"),
-    combine = function(path, diff) paste0(path, ": ", paste0(diff, collapse = " "))
+    combine = function(path, diff) paste0(path, ": ", paste0(diff, collapse = ""))
   )
   new_compare(out)
 }
 
 
 words <- function(x) {
-  strsplit(x, "\\s+")[[1]]
+  strsplit(x, "(?=\\s+)", perl = TRUE)[[1]]
 }

@@ -23,5 +23,9 @@ test_that("nice word diffs", {
     x <- "This is a long sentence"
     y <- "This is a short sentence"
     diff_words(x, y)
+
+    "whitespace"
+    diff_words("Hello world", "Hello\tworld")
+    diff_words("Hello world", "Hello  world")
   })
 })
