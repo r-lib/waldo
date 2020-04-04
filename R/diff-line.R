@@ -29,7 +29,7 @@ continguous_line_diff <- function(diff, x, y, path) {
 
     out <- c(out, switch(row$t,
       a = c(line_same(x[x_i]), line_add(y[y_i])),
-      c = c(line_delete(x[x_i]), line_add(y[y_i])),
+      c = line_change(x[x_i], y[y_i]),
       d = line_delete(x[x_i])
     ))
     idx <- row$x2 + 1
@@ -60,6 +60,9 @@ line_add <- function(x) {
 }
 line_delete <- function(x) {
   cli::col_yellow("  - ", x)
+}
+line_change <- function(x, y) {
+  c(line_delete(x), line_add(y))
 }
 
 lines <- function(x) {

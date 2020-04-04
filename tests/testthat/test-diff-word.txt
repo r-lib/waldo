@@ -1,0 +1,13 @@
+> x <- "This is a long long sentence"
+> y <- "This is a long sentence"
+> diff_words(x, y)
+x `words(., 2:6)`: ... is a long [-long-] sentence
+
+> diff_words(y, x)
+x `.`: This is a long {+long+} sentence
+
+> x <- "This is a long sentence"
+> y <- "This is a short sentence"
+> diff_words(x, y)
+x `.`: This is a [-long-] {+short+} sentence
+
