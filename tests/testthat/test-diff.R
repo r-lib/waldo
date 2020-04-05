@@ -22,8 +22,8 @@ test_that("nice element diffs", {
 
 test_that("nice line diffs", {
   verify_output(test_path("test-diff-line.txt"), {
-    x1 <- c("A\nB\nC\n")
-    y1 <- c("A\nb\nC\n")
+    x1 <- "A\nB\nC\n"
+    y1 <- "A\nb\nC\n"
 
     "Basic operations"
     diff_lines(x1, y1)
@@ -34,9 +34,9 @@ test_that("nice line diffs", {
     diff_lines(paste0(x1, x1, x1), paste0(x1, y1, x1))
 
     "Lines with internal differences"
-    diff_lines(c("A\nthe apple is red\nC\n"), c("A\nthe apple was red\nC\n"))
-    diff_lines(c("A\nthe apple is red and green\nC\n"), c("A\nthe apple is red\nC\n"))
-    diff_lines(c("A\nthe apple is red and green\nC\n"), c("A\nI like bananas\nC\n"))
+    diff_lines("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
+    diff_lines("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n")
+    diff_lines("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n")
   })
 })
 
