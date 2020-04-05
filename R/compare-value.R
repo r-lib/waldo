@@ -1,33 +1,26 @@
-compare_value <- function(x, y, path = "x", tolerance = .Machine$double.eps^0.5) {
+compare_character <- function(x, y, path = "x") {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
-  if (is.numeric(x)) {
-    if (num_equal(x, y, tolerance)) {
-      return(new_compare())
-    }
+  diff_element(x, y, path = path)
+}
 
-    x_cmp <- num_format(x)
-    y_cmp <- num_format(y)
-  } else if (is.character(x)) {
-    x_cmp <- encodeString(x, quote = "'")
-    y_cmp <- encodeString(y, quote = "'")
-  } else {
-    x_cmp <- x
-    y_cmp <- y
+compare_numeric <- function(x, y, path = "x", tolerance = .Machine$double.eps^0.5) {
+  if (num_equal(x, y, tolerance)) {
+    return(new_compare())
   }
 
+  x_cmp <- num_format(x)
+  y_cmp <- num_format(y)
+
   diff <- ses(x_cmp, y_cmp)
+
   if (nrow(diff) == 0) {
-    if (is.numeric(x)) {
-      xi <- seq_along(x)
-      diff <- ses_df(xi, xi, "c", xi, xi)[x != y, , drop = FALSE]
-      x_cmp <- num_format(y - x)
-      y_cmp <- rep(0, length(x))
-      path <- glue("\u0394{path}")
-    } else {
-      return(new_compare())
-    }
+    xi <- seq_along(x)
+    diff <- ses_df(xi, xi, "c", xi, xi)[x != y, , drop = FALSE]
+    x_cmp <- num_format(y - x)
+    y_cmp <- rep(0, length(x))
+    path <- glue("\u0394{path}")
   }
 
   chunks <- diff_split(diff, length(x))

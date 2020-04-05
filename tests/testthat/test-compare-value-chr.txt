@@ -1,28 +1,28 @@
 > # no difference
-> compare_value(c("a", "b"), c("a", "b"))
+> compare_character(c("a", "b"), c("a", "b"))
 v No differences
 
 > # single change
-> compare_value(c("a", "b", "c"), c("a", "b"))
+> compare_character(c("a", "b", "c"), c("a", "b"))
 x `x`: 'a' 'b' -'c'
 
-> compare_value(c("a", "b"), c("a", "b", "c"))
+> compare_character(c("a", "b"), c("a", "b", "c"))
 x `x`: 'a' 'b' +'c'
 
-> compare_value(c("a", "B", "c"), c("a", "b", "c"))
+> compare_character(c("a", "B", "c"), c("a", "b", "c"))
 x `x`: 'a' 'B'/'b' 'c'
 
 > # multiple contexts
-> compare_value(c("a", "b", letters, "a", "b", "c", letters, "X"), c("a", "b",
+> compare_character(c("a", "b", letters, "a", "b", "c", letters, "X"), c("a", "b",
 +   "c", letters, "a", "b", letters, "Y"))
 x `x[1:5]`: 'a' 'b' +'c' 'a' 'b' 'c' ...
 x `x[28:34]`: ... 'z' 'a' 'b' -'c' 'a' 'b' 'c' ...
 x `x[55:58]`: ... 'x' 'y' 'z' 'X'/'Y'
 
 > # truncation
-> compare_value(c("X", letters), letters)
+> compare_character(c("X", letters), letters)
 x `x[1:4]`: -'X' 'a' 'b' 'c' ...
 
-> compare_value(c(letters, "X"), letters)
+> compare_character(c(letters, "X"), letters)
 x `x[24:27]`: ... 'x' 'y' 'z' -'X'
 

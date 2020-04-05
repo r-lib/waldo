@@ -1,3 +1,25 @@
+test_that("nice element diffs", {
+  verify_output(test_path("test-diff-element.txt"), {
+    "no difference"
+    diff_element(c("a", "b"), c("a", "b"))
+
+    "single change"
+    diff_element(c("a", "b", "c"), c("a", "b"))
+    diff_element(c("a", "b"), c("a", "b", "c"))
+    diff_element(c("a", "B", "c"), c("a", "b", "c"))
+
+    "multiple contexts"
+    diff_element(
+      c("a", "b", letters, "a", "b", "c", letters, "X"),
+      c("a", "b", "c", letters, "a", "b", letters, "Y")
+    )
+
+    "truncation"
+    diff_element(c("X", letters), letters)
+    diff_element(c(letters, "X"), letters)
+  })
+})
+
 test_that("nice line diffs", {
   verify_output(test_path("test-diff-line.txt"), {
     x1 <- c("A\nB\nC\n")

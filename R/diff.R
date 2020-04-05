@@ -52,6 +52,30 @@ diff_render <- function(diff, x, y, path, diff_a, diff_d, diff_c = NULL, diff_x 
   combine(paste0("`", path, "`"), out)
 }
 
+# values ------------------------------------------------------------------
+
+diff_element <- function(x, y, path = ".", escape_string = TRUE) {
+  if (is.character(x)) {
+    x <- encodeString(x, quote = "'")
+    y <- encodeString(y, quote = "'")
+  }
+
+  diff <- ses(x, y)
+  if (nrow(diff) == 0) {
+    return(new_compare())
+  }
+
+  chunks <- diff_split(diff, length(x))
+  out <- map_chr(chunks, diff_render, x = x, y = y, path = path,
+    diff_a = function(x) cli::col_blue("+", x),
+    diff_d = function(x) cli::col_yellow("-", x),
+    diff_c = function(x, y) paste0(cli::col_yellow(x), "/", cli::col_blue(y)),
+    path_context = function(path, start, end) glue("{path}[{start}:{end}]"),
+    combine = function(path, diff) paste0(path, ": ", paste0(diff, collapse = " "))
+  )
+  new_compare(out)
+}
+
 # lines -------------------------------------------------------------------
 
 diff_lines <- function(x, y, path = ".") {
@@ -120,7 +144,7 @@ diff_words <- function(x, y, path = ".") {
 
   diff <- ses(x_cmp, y_cmp)
   if (nrow(diff) == 0) {
-    return(compare_value(x, y, path = path))
+    return(diff_element(x, y, path = path))
   }
 
   chunks <- diff_split(diff, length(x_cmp), size = 7)

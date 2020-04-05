@@ -152,22 +152,30 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
     out <- c(out, should_be("`{deparse(y)}`", "`{deparse(x)}`"))
   } else if (is_call(x)) {
     if (!identical(x, y)) {
-      diff <- compare_value(deparse(x), deparse(y), path)
+      diff <- compare_character(deparse(x), deparse(y), path)
       if (length(diff) == 0) {
         diff <- glue("`deparse({path})` equal, but AST non-identical")
       }
       out <- c(out, diff)
     }
   } else if (is_atomic(x)) {
+
     if (is_character(x) && !opts$ignore_encoding) {
-      out <- c(out, compare_value(Encoding(x), Encoding(y), glue("Encoding({path})")))
+      out <- c(out, compare_character(Encoding(x), Encoding(y), glue("Encoding({path})")))
     }
 
-    out <- c(out, compare_value(x, y, path, tolerance = opts$tolerance))
+    out <- c(out, switch(typeof(x),
+      integer = ,
+      complex = ,
+      double = compare_numeric(x, y, path = path, tolerance = opts$tolerance),
+      logical = ,
+      raw = ,
+      character = compare_character(x, y, path = path)
+    ))
   }
 
   if (isS4(x)) {
-    out <- c(out, compare_value(is(x), is(y), glue("is({path})")))
+    out <- c(out, compare_character(is(x), is(y), glue("is({path})")))
     out <- c(out, compare_by_slot(x, y, path, opts))
   } else if (!opts$ignore_attr) {
     out <- c(out, compare_by_attr(attrs(x), attrs(y), path, opts))
