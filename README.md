@@ -11,15 +11,17 @@ coverage](https://codecov.io/gh/r-lib/waldo/branch/master/graph/badge.svg)](http
 status](https://github.com/r-lib/waldo/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/waldo/actions)
 <!-- badges: end -->
 
-The goal of waldo is to find the differences between complex R objects,
-particularly as needed for unit tests. `waldo::compare()` is inspired by
-`all.equal()`, but takes additional care to generate actionable insights
-by:
+The goal of waldo is to find and concisely describe the difference
+between a pair of R objects. It’s designed specifically to deliver
+actionable insights to figure out what’s gone wrong in your unit tests.
 
-  - Displaying in-line diffs of atomic vectors.
+`waldo::compare()` is inspired by `all.equal()`, but takes additional
+care to generate actionable insights by:
+
+  - Displaying diffs of atomic vectors.
   - Using R code (not a text description) to show where differences
     arise.
-  - Comparing using names, rather than positions, where it makes sense.
+  - Where possible, comparing elements by name, rather than by position.
 
 <!--
 ## Installation
@@ -84,8 +86,10 @@ code path telling you where the differences lie:
 compare(factor("x"), 1L)
 
 df1 <- data.frame(x = 1:3, y = 3:1)
-df2 <- tibble::tibble(y = 3:1, x = 1:3)
+df2 <- tibble::tibble(rev(df1))
 compare(df1, df2)
+
+compare(mtcars, sample(mtcars))
 ```
 
 <img src="man/figures/README/unnamed-chunk-6.svg" width="100%" />

@@ -1,6 +1,8 @@
 ---
 output: github_document
 always_allow_html: yes
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -23,7 +25,7 @@ asciicast::init_knitr_engine(
   echo = TRUE,
   echo_input = FALSE
 )
-
+set.seed(1014)
 ```
 
 # waldo
@@ -33,12 +35,13 @@ asciicast::init_knitr_engine(
 [![R build status](https://github.com/r-lib/waldo/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/waldo/actions)
 <!-- badges: end -->
 
-The goal of waldo is to find the differences between complex R objects, particularly as needed for unit tests. `waldo::compare()` is inspired by 
-`all.equal()`, but takes additional care to generate actionable insights by:
+The goal of waldo is to find and concisely describe the difference between a pair of R objects. It's designed specifically to deliver actionable insights to figure out what's gone wrong in your unit tests. 
 
-* Displaying in-line diffs of atomic vectors.
+`waldo::compare()` is inspired by `all.equal()`, but takes additional care to generate actionable insights by:
+
+* Displaying diffs of atomic vectors.
 * Using R code (not a text description) to show where differences arise.
-* Comparing using names, rather than positions, where it makes sense.
+* Where possible, comparing elements by name, rather than by position.
 
 <!--
 ## Installation
@@ -88,8 +91,10 @@ When comparing more complex objects, `compare()` creates an executable code path
 compare(factor("x"), 1L)
 
 df1 <- data.frame(x = 1:3, y = 3:1)
-df2 <- tibble::tibble(y = 3:1, x = 1:3)
+df2 <- tibble::tibble(rev(df1))
 compare(df1, df2)
+
+compare(mtcars, sample(mtcars))
 ```
 
 ```{asciicast}
@@ -97,4 +102,3 @@ x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
 y <- list(a = list(b = list(c = list(structure(1, e = "a")))))
 compare(x, y)
 ```
-
