@@ -74,11 +74,12 @@
 <a href="#waldo" class="anchor"></a>waldo</h1></div>
 <!-- badges: start -->
 
-<p>The goal of waldo is to find the differences between complex R objects, particularly as needed for unit tests. <code><a href="reference/compare.html">waldo::compare()</a></code> is inspired by <code><a href="https://rdrr.io/r/base/all.equal.html">all.equal()</a></code>, but takes additional care to generate actionable insights by:</p>
+<p>The goal of waldo is to find and concisely describe the difference between a pair of R objects. Itâs designed specifically to deliver actionable insights to figure out whatâs gone wrong in your unit tests.</p>
+<p><code><a href="reference/compare.html">waldo::compare()</a></code> is inspired by <code><a href="https://rdrr.io/r/base/all.equal.html">all.equal()</a></code>, but takes additional care to generate actionable insights by:</p>
 <ul>
-<li>Displaying in-line diffs of atomic vectors.</li>
+<li>Displaying diffs of atomic vectors.</li>
 <li>Using R code (not a text description) to show where differences arise.</li>
-<li>Comparing using names, rather than positions, where it makes sense.</li>
+<li>Where possible, comparing elements by name, rather than by position.</li>
 </ul>
 <!--
 ## Installation
@@ -120,8 +121,10 @@ install.packages("waldo")
 <pre class="asciicast"><code><a href="reference/compare.html">compare(factor("x"), 1L)
 
 df1 &lt;- data.frame(x = 1:3, y = 3:1)
-df2 &lt;- tibble::tibble(y = 3:1, x = 1:3)
-compare(df1, df2)</a></code></pre>
+df2 &lt;- tibble::tibble(rev(df1))
+compare(df1, df2)
+
+compare(mtcars, sample(mtcars))</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-6.svg" width="100%"></p>
 <pre class="asciicast"><code>x &lt;- list(a = list(b = list(c = list(structure(1, e = 1)))))
 y &lt;- list(a = list(b = list(c = list(structure(1, e = "a")))))
