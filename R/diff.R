@@ -129,7 +129,7 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
   mat <- rbind(alignment$x, alignment$y)
   mat[is.na(mat)] <- ""
 
-  n_trunc <- ncol(mat) - 10
+  n_trunc <- if (in_ci()) 0 else ncol(mat) - 10
 
   # Label slices, if needed
   if (!is.null(alignment$slice)) {

@@ -54,3 +54,7 @@ remove_source <- function(x) {
     x
   }
 }
+
+in_ci <- function() {
+  isTRUE(as.logical(Sys.getenv("CI", "FALSE")))
+}
