@@ -15,3 +15,8 @@ test_that("tolerance is absolute for small values", {
   expect_equal(num_equal(0, 0.0009, tolerance = 0.0010), TRUE)
   expect_equal(num_equal(0, 0.0010, tolerance = 0.0010), FALSE)
 })
+
+test_that("tolerance works the same way for negative values", {
+  expect_equal(num_equal(4, 4 + 2 * .Machine$double.eps ^ 0.5), TRUE)
+  expect_equal(num_equal(-4, -4 - 2 * .Machine$double.eps ^ 0.5), TRUE)
+})
