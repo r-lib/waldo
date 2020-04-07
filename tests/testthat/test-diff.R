@@ -26,17 +26,17 @@ test_that("nice line diffs", {
     y1 <- "A\nb\nC\n"
 
     "Basic operations"
-    diff_lines(x1, y1)
-    diff_lines(x1, paste0(x1, "A"))
-    diff_lines(paste0(x1, "A"), x1)
+    cat(diff_lines(x1, y1))
+    cat(diff_lines(x1, paste0(x1, "A")))
+    cat(diff_lines(paste0(x1, "A"), x1))
 
     "Context"
-    diff_lines(paste0(x1, x1, x1), paste0(x1, y1, x1))
+    cat(diff_lines(paste0(x1, x1, x1), paste0(x1, y1, x1)))
 
     "Lines with internal differences"
-    diff_lines("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
-    diff_lines("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n")
-    diff_lines("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n")
+    cat(diff_lines("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n"))
+    cat(diff_lines("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n"))
+    cat(diff_lines("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n"))
   })
 })
 

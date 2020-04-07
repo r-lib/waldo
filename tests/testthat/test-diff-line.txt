@@ -1,30 +1,30 @@
 > x1 <- "A\nB\nC\n"
 > y1 <- "A\nb\nC\n"
 > # Basic operations
-> diff_lines(x1, y1)
-x `.`:
+> cat(diff_lines(x1, y1))
+`.`:
     A
   - B
   + b
     C
 
-> diff_lines(x1, paste0(x1, "A"))
-x `.`:
+> cat(diff_lines(x1, paste0(x1, "A")))
+`.`:
     A
     B
     C
   + A
 
-> diff_lines(paste0(x1, "A"), x1)
-x `.`:
+> cat(diff_lines(paste0(x1, "A"), x1))
+`.`:
     A
     B
     C
   - A
 
 > # Context
-> diff_lines(paste0(x1, x1, x1), paste0(x1, y1, x1))
-x `lines(., 2:8)`:
+> cat(diff_lines(paste0(x1, x1, x1), paste0(x1, y1, x1)))
+`lines(., 2:8)`:
     ...
     B
     C
@@ -37,22 +37,22 @@ x `lines(., 2:8)`:
     ...
 
 > # Lines with internal differences
-> diff_lines("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
-x `.`:
+> cat(diff_lines("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n"))
+`.`:
     A
   - the apple [-is-] red
   + the apple {+was+} red
     C
 
-> diff_lines("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n")
-x `.`:
+> cat(diff_lines("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n"))
+`.`:
     A
   - the apple is red[- and green-]
   + the apple is red
     C
 
-> diff_lines("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n")
-x `.`:
+> cat(diff_lines("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n"))
+`.`:
     A
   - the apple is red and green
   + I like bananas

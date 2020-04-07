@@ -3,20 +3,26 @@
 > froofy <- R6::R6Class("froofy", inherit = goofy, public = list(y = 10))
 > # Non R6
 > compare(goofy$new(1), 1)
-x `x` should be a double vector (1), not an R6 object of class <goofy>
+`x` is a double vector (1)
+`y` is an R6 object of class <goofy>
 
 > compare(goofy$new(1), globalenv())
-x `x` should be an environment, not an R6 object of class <goofy>
+`x` is an environment
+`y` is an R6 object of class <goofy>
 
 > # R6
 > compare(goofy$new(1), goofy$new(1))
 v No differences
 
 > compare(goofy$new(1), goofy$new("a"))
-x `x$x` should be a character vector ('a'), not a double vector (1)
+`x$x` is a character vector ('a')
+`y$x` is a double vector (1)
 
 > compare(goofy$new(1), froofy$new(1))
-x `x$y` should be a double vector (10), not absent
-x `names(x)`: +'y' 'x' 'clone' 'initialize'
-x `class(x)`: +'froofy' 'goofy' 'R6'
+`x$y` is a double vector (10)
+`y$y` is absent
+
+`names(x)`: +'y' 'x' 'clone' 'initialize'
+
+`class(x)`: +'froofy' 'goofy' 'R6'
 

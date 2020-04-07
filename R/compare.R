@@ -11,8 +11,8 @@
 #'
 #' @param x,y Objects to compare. `y` is treated as the reference object
 #'   so messages describe how `x` is different to `y`
-#' @param x_arg Name of `x` argument, used when generated paths to internal
-#'   components
+#' @param x_arg,y_arg Name of `x` and `y` arguments, used when generated paths
+#'   to internal components.
 #' @param tolerance If non-`NULL`, used as threshold for ignoring small
 #'   floating point difference when comparing numeric vectors. Setting to
 #'   any non-`NULL` value will cause integer and double vectors to be compared
@@ -53,7 +53,7 @@
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
 compare <- function(x, y,
-                    x_arg = "x",
+                    x_arg = "x", y_arg = "y",
                     tolerance = NULL,
                     ignore_srcref = TRUE,
                     ignore_attr = FALSE,
@@ -65,7 +65,7 @@ compare <- function(x, y,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding
   )
-  out <- compare_structure(x, y, path = x_arg, opts = opts)
+  out <- compare_structure(x, y, x_path = x_arg, y_path = y_arg, opts = opts)
   new_compare(out)
 }
 
@@ -80,10 +80,10 @@ print.waldo_compare <- function(x, ...) {
     cli::cat_bullet("No differences", bullet = "tick", bullet_col = "green")
   } else {
     if (length(x) > 10) {
-      x <- c(x[1:10], "...")
+      x <- c(x[1:10], glue("And {length(x) - 10} more differences ..."))
     }
 
-    cli::cat_bullet(x, bullet = "cross", bullet_col = "red")
+    cat(paste0(x, collapse = "\n\n"))
   }
 
   invisible(x)
@@ -104,12 +104,12 @@ compare_opts <- function(tolerance = NULL,
   )
 }
 
-compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
+compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_opts()) {
   if (is_reference(x, y)) {
     return(character())
   }
 
-  term <- compare_terminate(x, y, path = path, tolerance = opts$tolerance)
+  term <- compare_terminate(x, y, x_path, y_path, tolerance = opts$tolerance)
   if (length(term) > 0) {
     return(term)
   }
@@ -118,9 +118,9 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
 
   if (is_list(x) || is_pairlist(x)) {
     if (is_dictionaryish(x) && is_dictionaryish(y)) {
-      out <- c(out, compare_by_name(x, y, path, opts))
+      out <- c(out, compare_by_name(x, y, x_path, y_path, opts))
     } else {
-      out <- c(out, compare_by_pos(x, y, path, opts))
+      out <- c(out, compare_by_pos(x, y, x_path, y_path, opts))
     }
   } else if (is_environment(x)) {
     if (env_has(x, ".__enclos_env__")) {
@@ -131,7 +131,7 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
       x_fields$.__enclos_env__ <- NULL
       y_fields$.__enclos_env__ <- NULL
 
-      out <- c(out, compare_structure(x_fields, y_fields, path = path, opts = opts))
+      out <- c(out, compare_structure(x_fields, y_fields, x_path, y_path, opts = opts))
     } else {
       out <- c(out, should_be("<env:{env_label(y)}>", "<env:{env_label(x)}>`"))
     }
@@ -145,46 +145,46 @@ compare_structure <- function(x, y, path = "x", opts = compare_opts()) {
       environment(y) <- emptyenv()
     }
 
-    out <- c(out, compare_by_fun(x, y, path, opts))
+    out <- c(out, compare_by_fun(x, y, x_path, y_path, opts))
   } else if (is_primitive(x)) {
     out <- c(out, should_be("`{deparse(y)}`", "`{deparse(x)}`"))
   } else if (is_symbol(x)) {
     out <- c(out, should_be("`{deparse(y)}`", "`{deparse(x)}`"))
   } else if (is_call(x)) {
     if (!identical(x, y)) {
-      diff <- compare_character(deparse(x), deparse(y), path)
+      diff <- compare_character(deparse(x), deparse(y), x_path)
       if (length(diff) == 0) {
-        diff <- glue("`deparse({path})` equal, but AST non-identical")
+        diff <- glue("`deparse({x_path})` equals `deparse({y_path})`, but AST non-identical")
       }
       out <- c(out, diff)
     }
   } else if (is_atomic(x)) {
 
     if (is_character(x) && !opts$ignore_encoding) {
-      out <- c(out, compare_character(Encoding(x), Encoding(y), glue("Encoding({path})")))
+      out <- c(out, compare_character(Encoding(x), Encoding(y), glue("Encoding({x_path})"), glue("Encoding({y_path})")))
     }
 
     out <- c(out, switch(typeof(x),
       integer = ,
       complex = ,
-      double = compare_numeric(x, y, path = path, tolerance = opts$tolerance),
+      double = compare_numeric(x, y, x_path, y_path, tolerance = opts$tolerance),
       logical = ,
       raw = ,
-      character = compare_character(x, y, path = path)
+      character = compare_character(x, y, x_path, y_path)
     ))
   }
 
   if (isS4(x)) {
-    out <- c(out, compare_character(is(x), is(y), glue("is({path})")))
-    out <- c(out, compare_by_slot(x, y, path, opts))
+    out <- c(out, compare_character(is(x), is(y), glue("is({x_path})"), glue("is({y_path})")))
+    out <- c(out, compare_by_slot(x, y, x_path, y_path, opts))
   } else if (!opts$ignore_attr) {
-    out <- c(out, compare_by_attr(attrs(x), attrs(y), path, opts))
+    out <- c(out, compare_by_attr(attrs(x), attrs(y), x_path, y_path, opts))
   }
 
   out
 }
 
-compare_terminate <- function(x, y, path, tolerance = NULL) {
+compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
   if (type_of(x) == type_of(y)) {
     return(character())
   }
@@ -218,26 +218,31 @@ short_val <- function(x) {
 }
 
 should_be <- function(this, that) {
-  string <- paste0("`{path}` should be ", this, ", not ", that)
-  glue(string, .envir = caller_env())
+  string <- paste0(
+    "`{x_path}` is ", this, "\n",
+    "`{y_path}` is ", that
+  )
+  glue(string, .envir = caller_env(), .trim = FALSE)
 }
 
 # compare_each ------------------------------------------------------------
 
 compare_by <- function(index_fun, extract_fun, path_fun) {
-  function(x, y, path, opts) {
+  function(x, y, x_path, y_path, opts) {
     idx <- index_fun(x, y)
     if (length(idx) == 0)
       return(character())
 
-    paths <- path_fun(path, idx)
+    x_paths <- path_fun(x_path, idx)
+    y_paths <- path_fun(y_path, idx)
 
     out <- character()
     for (i in seq_along(idx)) {
       out <- c(out, compare_structure(
         x = extract_fun(x, idx[[i]]),
         y = extract_fun(y, idx[[i]]),
-        path = paths[[i]],
+        x_path = x_paths[[i]],
+        y_path = y_paths[[i]],
         opts = opts)
       )
     }

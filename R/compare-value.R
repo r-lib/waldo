@@ -1,11 +1,19 @@
-compare_character <- function(x, y, path = "x") {
+compare_character <- function(x, y, x_path = "x", y_path = "y") {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
-  diff_element(x, y, path = path)
+  diff_element(x, y, path = x_path)
 }
 
-compare_numeric <- function(x, y, path = "x", tolerance = .Machine$double.eps^0.5) {
+compare_numeric <- function(x,
+                            y,
+                            x_path = "x",
+                            y_path = "y",
+                            tolerance = .Machine$double.eps^0.5
+                            ) {
+  attributes(x) <- NULL
+  attributes(y) <- NULL
+
   if (num_equal(x, y, tolerance)) {
     return(new_compare())
   }
@@ -24,7 +32,7 @@ compare_numeric <- function(x, y, path = "x", tolerance = .Machine$double.eps^0.
   }
 
   chunks <- diff_split(diff, length(x))
-  out <- map_chr(chunks, diff_render, x = x_cmp, y = y_cmp, path = path,
+  out <- map_chr(chunks, diff_render, x = x_cmp, y = y_cmp, path = x_path,
     diff_a = function(x) cli::col_blue("+", x),
     diff_d = function(x) cli::col_yellow("-", x),
     diff_c = function(x, y) paste0(cli::col_yellow(x), "/", cli::col_blue(y)),

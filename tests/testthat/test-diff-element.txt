@@ -4,25 +4,27 @@ v No differences
 
 > # single change
 > diff_element(c("a", "b", "c"), c("a", "b"))
-x `.`: 'a' 'b' -'c'
+`.`: 'a' 'b' -'c'
 
 > diff_element(c("a", "b"), c("a", "b", "c"))
-x `.`: 'a' 'b' +'c'
+`.`: 'a' 'b' +'c'
 
 > diff_element(c("a", "B", "c"), c("a", "b", "c"))
-x `.`: 'a' 'B'/'b' 'c'
+`.`: 'a' 'B'/'b' 'c'
 
 > # multiple contexts
 > diff_element(c("a", "b", letters, "a", "b", "c", letters, "X"), c("a", "b", "c",
 +   letters, "a", "b", letters, "Y"))
-x `.[1:5]`: 'a' 'b' +'c' 'a' 'b' 'c' ...
-x `.[28:34]`: ... 'z' 'a' 'b' -'c' 'a' 'b' 'c' ...
-x `.[55:58]`: ... 'x' 'y' 'z' 'X'/'Y'
+`.[1:5]`: 'a' 'b' +'c' 'a' 'b' 'c' ...
+
+`.[28:34]`: ... 'z' 'a' 'b' -'c' 'a' 'b' 'c' ...
+
+`.[55:58]`: ... 'x' 'y' 'z' 'X'/'Y'
 
 > # truncation
 > diff_element(c("X", letters), letters)
-x `.[1:4]`: -'X' 'a' 'b' 'c' ...
+`.[1:4]`: -'X' 'a' 'b' 'c' ...
 
 > diff_element(c(letters, "X"), letters)
-x `.[24:27]`: ... 'x' 'y' 'z' -'X'
+`.[24:27]`: ... 'x' 'y' 'z' -'X'
 

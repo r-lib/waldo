@@ -8,6 +8,7 @@ compare(
   x,
   y,
   x_arg = "x",
+  y_arg = "y",
   tolerance = NULL,
   ignore_srcref = TRUE,
   ignore_attr = FALSE,
@@ -18,8 +19,8 @@ compare(
 \item{x, y}{Objects to compare. \code{y} is treated as the reference object
 so messages describe how \code{x} is different to \code{y}}
 
-\item{x_arg}{Name of \code{x} argument, used when generated paths to internal
-components}
+\item{x_arg, y_arg}{Name of \code{x} and \code{y} arguments, used when generated paths
+to internal components.}
 
 \item{tolerance}{If non-\code{NULL}, used as threshold for ignoring small
 floating point difference when comparing numeric vectors. Setting to
