@@ -4,7 +4,7 @@ diff_split <- function(diff, n, size = 3) {
 
   new_group <- c(TRUE, diff$start[-1] > diff$end[-nrow(diff)])
   group_id <- cumsum(new_group)
-  split(diff, group_id)
+  unname(split(diff, group_id))
 }
 
 diff_render <- function(diff, x, y, path, diff_a, diff_d, diff_c = NULL, diff_x = NULL, path_context, combine) {
@@ -52,12 +52,78 @@ diff_render <- function(diff, x, y, path, diff_a, diff_d, diff_c = NULL, diff_x 
   combine(paste0("`", path, "`"), out)
 }
 
+diff_align <- function(diff, x, y) {
+
+  n <- nrow(diff)
+  start <- diff$start[[1]]
+  end <- diff$end[[n]]
+
+  x_out <- character()
+  y_out <- character()
+
+  col_a <- function(x) ifelse(is.na(x), NA, cli::col_blue(x))
+  col_d <- function(x) ifelse(is.na(x), NA, cli::col_yellow(x))
+  col_c <- function(x) ifelse(is.na(x), NA, cli::col_green(x))
+  col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
+
+  idx <- start
+  for (i in seq_len(n)) {
+    row <- diff[i, , drop = FALSE]
+    if (idx < row$x1) {
+      x_out <- c(x_out, col_x(x[idx:(row$x1 - 1)]))
+      y_out <- c(y_out, col_x(x[idx:(row$x1 - 1)]))
+    }
+
+    x_i <- row$x1:row$x2
+    y_i <- row$y1:row$y2
+
+    x_out <- c(x_out, switch(row$t, a = c(col_x(x[x_i]), NA[y_i]), c = col_c(x[x_i]), d = col_d(x[x_i])))
+    y_out <- c(y_out, switch(row$t, a = c(col_x(x[x_i]), col_a(y[y_i])), c = col_c(y[y_i]), d = NA[x_i]))
+
+    idx <- row$x2 + 1
+  }
+
+  if (idx <= end) {
+    x_out <- c(x_out, col_x(x[idx:end]))
+    y_out <- c(y_out, col_x(x[idx:end]))
+  }
+
+  if (start != 1 || end != length(x)) {
+    if (start != 1) {
+      x_out <- c(col_x("..."), x_out)
+      y_out <- c(col_x("..."), y_out)
+    }
+    if (end != length(x)) {
+      x_out <- c(col_x(x_out), "...")
+      y_out <- c(col_x(y_out), "...")
+    }
+    x_slice <- paste0("[", start, ":", end, "]")
+    slice <- c(x_slice, "")
+  } else {
+    slice <- c("", "")
+  }
+
+  list(x = x_out, y = y_out, slice = slice)
+}
+
+pad <- function(x, align = c("left", "right")) {
+  align <- arg_match(align)
+
+  nchar <- fansi::nchar_ctl(x)
+  padding <- strrep(" ", max(nchar) - nchar)
+
+  switch(align,
+    left = paste0(x, padding),
+    right = paste0(padding, x)
+  )
+}
+
 # values ------------------------------------------------------------------
 
-diff_element <- function(x, y, path = ".", escape_string = TRUE) {
+diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE) {
   if (is.character(x)) {
-    x <- encodeString(x, quote = "'")
-    y <- encodeString(y, quote = "'")
+    x <- encodeString(x, quote = "\"")
+    y <- encodeString(y, quote = "\"")
   }
 
   diff <- ses(x, y)
@@ -66,14 +132,21 @@ diff_element <- function(x, y, path = ".", escape_string = TRUE) {
   }
 
   chunks <- diff_split(diff, length(x))
-  out <- map_chr(chunks, diff_render, x = x, y = y, path = path,
-    diff_a = function(x) cli::col_blue("+", x),
-    diff_d = function(x) cli::col_yellow("-", x),
-    diff_c = function(x, y) paste0(cli::col_yellow(x), "/", cli::col_blue(y)),
-    path_context = function(path, start, end) glue("{path}[{start}:{end}]"),
-    combine = function(path, diff) paste0(path, ": ", paste0(diff, collapse = " "))
-  )
-  new_compare(out)
+
+  align <- lapply(chunks, diff_align, x, y)
+  matrix <- lapply(align, function(x) {
+    mat <- rbind(x$x, x$y)
+    mat[is.na(mat)] <- ""
+    cbind(paste0("`", c(x_path, y_path), x$slice, "`:"), mat)
+  })
+
+  format <- map_chr(matrix, function(x) {
+    out <- apply(x, 2, pad, align = "left")
+    rows <- apply(out, 1, paste, collapse = " ")
+    paste0(rows, collapse = "\n")
+  })
+
+  new_compare(format)
 }
 
 # lines -------------------------------------------------------------------

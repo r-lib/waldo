@@ -2,7 +2,7 @@ compare_character <- function(x, y, x_path = "x", y_path = "y") {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
-  diff_element(x, y, path = x_path)
+  diff_element(x, y, x_path = x_path, y_path = y_path)
 }
 
 compare_numeric <- function(x,

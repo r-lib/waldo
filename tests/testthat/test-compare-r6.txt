@@ -22,7 +22,9 @@ v No differences
 `x$y` is a double vector (10)
 `y$y` is absent
 
-`names(x)`: +'y' 'x' 'clone' 'initialize'
+`names(x)`:     "x" "clone" "initialize"
+`names(y)`: "y" "x" "clone" "initialize"
 
-`class(x)`: +'froofy' 'goofy' 'R6'
+`class(x)`:          "goofy" "R6"
+`class(y)`: "froofy" "goofy" "R6"
 

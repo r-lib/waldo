@@ -12,8 +12,10 @@
 v No differences
 
 > compare(new("A", x = "1"), new("A", x = "2"))
-`x@x`: '1'/'2'
+`x@x`: "1"
+`y@x`: "2"
 
 > compare(new("A", x = "1"), new("B", x = "1"))
-`is(x)`: +'B' 'A'
+`is(x)`:     "A"
+`is(y)`: "B" "A"
 

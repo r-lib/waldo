@@ -25,17 +25,20 @@ v No differences
 `formals(x)$z` is a double vector (1)
 `formals(y)$z` is absent
 
-`names(formals(x))`: 'x' 'y' +'z'
+`names(formals(x))`: "x" "y"    
+`names(formals(y))`: "x" "y" "z"
 
 > # diff body
 > f4 <- (function(x = 1, y = 2) {
 +   x + y
 + })
 > compare(f1, f4)
-`body(x)`: '{' +'    x + y' '}'
+`body(x)`: "{"             "}"
+`y`:       "{" "    x + y" "}"
 
 > compare(f1, f4, ignore_srcref = FALSE)
-`body(x)`: '{' +'    x + y' '}'
+`body(x)`: "{"             "}"
+`y`:       "{" "    x + y" "}"
 
 `attr(body(x), 'srcref')[[2]]` is an integer vector (15, 3, 15, 7, 3, ...)
 `attr(body(y), 'srcref')[[2]]` is absent
