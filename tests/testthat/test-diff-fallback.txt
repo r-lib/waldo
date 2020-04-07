@@ -1,0 +1,51 @@
+> diff_element(letters, LETTERS, width = 60)
+`x`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 16 more...
+`y`: "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" ...           
+
+> diff_element(letters, LETTERS, width = 40)
+     x   | y              
+ [1] "a" | "A"            
+ [2] "b" | "B"            
+ [3] "c" | "C"            
+ [4] "d" | "D"            
+ [5] "e" | "E"            
+ [6] "f" | "F"            
+ [7] "g" | "G"            
+ [8] "h" | "H"            
+ [9] "i" | "I"            
+[10] "j" | "J"            
+ ... ...   and 16 more ...
+
+> diff_element(letters, LETTERS, width = 20)
+x[1]: "a"
+y:    "A"
+
+x[2]: "b"
+y:    "B"
+
+x[3]: "c"
+y:    "C"
+
+x[4]: "d"
+y:    "D"
+
+x[5]: "e"
+y:    "E"
+
+x[6]: "f"
+y:    "F"
+
+x[7]: "g"
+y:    "G"
+
+x[8]: "h"
+y:    "H"
+
+x[9]: "i"
+y:    "I"
+
+x[10]: "j"
+y:     "J"
+
+And 16 more differences ...
+

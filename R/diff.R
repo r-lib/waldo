@@ -97,30 +97,17 @@ diff_align <- function(diff, x, y) {
       x_out <- c(col_x(x_out), "...")
       y_out <- c(col_x(y_out), "...")
     }
-    x_slice <- paste0("[", start, ":", end, "]")
-    slice <- c(x_slice, "")
+    slice <- c(start, end)
   } else {
-    slice <- c("", "")
+    slice <- NULL
   }
 
   list(x = x_out, y = y_out, slice = slice)
 }
 
-pad <- function(x, align = c("left", "right")) {
-  align <- arg_match(align)
-
-  nchar <- fansi::nchar_ctl(x)
-  padding <- strrep(" ", max(nchar) - nchar)
-
-  switch(align,
-    left = paste0(x, padding),
-    right = paste0(padding, x)
-  )
-}
-
 # values ------------------------------------------------------------------
 
-diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE) {
+diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE, width = getOption("width")) {
   if (is.character(x)) {
     x <- encodeString(x, quote = "\"")
     y <- encodeString(y, quote = "\"")
@@ -134,19 +121,63 @@ diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE)
   chunks <- diff_split(diff, length(x))
 
   align <- lapply(chunks, diff_align, x, y)
-  matrix <- lapply(align, function(x) {
-    mat <- rbind(x$x, x$y)
-    mat[is.na(mat)] <- ""
-    cbind(paste0("`", c(x_path, y_path), x$slice, "`:"), mat)
-  })
+  format <- lapply(align, format_diff_matrix, x_path = x_path, y_path = y_path, width = width)
+  new_compare(unlist(format, recursive = FALSE))
+}
 
-  format <- map_chr(matrix, function(x) {
-    out <- apply(x, 2, pad, align = "left")
-    rows <- apply(out, 1, paste, collapse = " ")
-    paste0(rows, collapse = "\n")
-  })
+format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("width")) {
+  mat <- rbind(alignment$x, alignment$y)
+  mat[is.na(mat)] <- ""
 
-  new_compare(format)
+  n_trunc <- ncol(mat) - 10
+
+  # Label slices, if needed
+  if (!is.null(alignment$slice)) {
+    slice <- paste0("[", alignment$slice[[1]], ":", alignment$slice[[2]], "]")
+    paths <- c(paste0(x_path, slice), y_path)
+  } else {
+    paths <- c(x_path, y_path)
+  }
+
+  mat_out <- cbind(paste0("`", paths, "`:"), mat)
+  if (n_trunc > 0) {
+    mat_out <- mat_out[, 1:11]
+    mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
+  }
+  out <- apply(mat_out, 2, pad, align = "left")
+  rows <- apply(out, 1, paste, collapse = " ")
+
+  if (fansi::nchar_ctl(rows[[1]]) <= width) {
+    return(paste0(rows, collapse = "\n"))
+  }
+
+  # Too wide for top-and-bottom display, so try side-by-side
+  if (is.null(alignment$slice)) {
+    idx <- seq_len(ncol(mat))
+  } else {
+    idx <- seq(alignment$slice[[1]], alignment$slice[[2]])
+  }
+  idx_out <- paste0("[", idx, "]")
+
+  mat_out <- cbind(c(x_path, "|", y_path), rbind(mat[1, ], "|", mat[2, ]))
+  if (n_trunc > 0) {
+    mat_out <- mat_out[, 1:11]
+    mat_out <- cbind(mat_out, c("...", "", paste0("and ", n_trunc, " more ...")))
+    idx_out <- c(idx_out[1:10], "...")
+  }
+  mat_out <- rbind(format(c("", idx_out), justify = "right"), mat_out)
+
+  out <- apply(mat_out, 1, pad, align = "left")
+  rows <- apply(out, 1, paste, collapse = " ")
+
+  if (fansi::nchar_ctl(rows[[1]]) <= width) {
+    return(paste0(rows, collapse = "\n"))
+  }
+
+  paste0(
+    x_path, "[", idx, "]: ", mat[1, ], "\n",
+    y_path, ": ", strrep(" ", nchar(idx) + 2), mat[2, ]
+  )
 }
 
 # lines -------------------------------------------------------------------

@@ -20,6 +20,14 @@ test_that("nice element diffs", {
   })
 })
 
+test_that("check cascading fallbacks", {
+  verify_output(test_path("test-diff-fallback.txt"), {
+    diff_element(letters, LETTERS, width = 60)
+    diff_element(letters, LETTERS, width = 40)
+    diff_element(letters, LETTERS, width = 20)
+  })
+})
+
 test_that("nice line diffs", {
   verify_output(test_path("test-diff-line.txt"), {
     x1 <- "A\nB\nC\n"
