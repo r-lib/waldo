@@ -21,7 +21,7 @@
 #'   It uses the same algorithm as [all.equal()], i.e., first we generate
 #'   `x_diff` and `y_diff` by subsetting `x` and `y` to look only locations
 #'   with differences. Then we check that
-#'   `mean(abs(x_diff - y_diff)) / mean(y_diff)` (or just
+#'   `mean(abs(x_diff - y_diff)) / mean(abs(y_diff))` (or just
 #'   `mean(abs(x_diff - y_diff))` if `y_diff` is small) is less than
 #'   `tolerance`.
 #' @param ignore_srcref Ignore differences in function `srcref`s? `TRUE` by
