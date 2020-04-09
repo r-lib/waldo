@@ -107,7 +107,12 @@ col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
 
 # values ------------------------------------------------------------------
 
-diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE, width = getOption("width"), ci = in_ci()) {
+diff_element <- function(x, y,
+                         x_path = "x",
+                         y_path = "y",
+                         escape_string = TRUE,
+                         width = getOption("width"),
+                         ci = in_ci()) {
   if (escape_string) {
     x <- encodeString(x, quote = "\"")
     y <- encodeString(y, quote = "\"")
