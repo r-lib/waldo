@@ -189,7 +189,7 @@ compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
     return(character())
   }
 
-  if (!is.null(tolerance) && is.numeric(x) && is.numeric(y)) {
+  if (!is.null(tolerance) && is_numeric(x) && is_numeric(y)) {
     return(character())
   }
 
@@ -201,8 +201,10 @@ compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
   should_be("{friendly_type_of(x)}{short_val(x)}", "{friendly_type_of(y)}{short_val(y)}")
 }
 
+is_numeric <- function(x) is_integer(x) || is_double(x)
+
 short_val <- function(x) {
-  if (!is_atomic(x)) {
+  if (is.object(x) || !is_atomic(x)) {
     return("")
   }
 

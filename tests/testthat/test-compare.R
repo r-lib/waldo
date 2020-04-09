@@ -81,6 +81,15 @@ test_that("comparing functions gives useful diffs", {
   })
 })
 
+
+test_that("can compare S3 objects", {
+  verify_output(test_path("test-compare-s3.txt"), {
+    compare(factor("a"), 1L)
+    compare(factor("a"), globalenv())
+    compare(factor("a"), Sys.Date())
+  })
+})
+
 test_that("can compare S4 objects", {
   setClass("A", slots = c(x = "character"))
   setClass("B", contains = "A")
@@ -89,6 +98,7 @@ test_that("can compare S4 objects", {
     "Non S4"
     compare(new("A", x = "1"), 1)
     compare(new("A", x = "1"), globalenv())
+    compare(new("A", x = "1"), factor("x"))
 
     "S4"
     compare(new("A", x = "1"), new("A", x = "1"))
@@ -111,6 +121,7 @@ test_that("can compare R6 objects", {
     "Non R6"
     compare(goofy$new(1), 1)
     compare(goofy$new(1), globalenv())
+    compare(goofy$new(1), factor("x"))
 
     "R6"
     compare(goofy$new(1), goofy$new(1))
@@ -118,7 +129,6 @@ test_that("can compare R6 objects", {
     compare(goofy$new(1), froofy$new(1))
   })
 })
-
 
 test_that("comparing language objects gives useful diffs", {
   verify_output(test_path("test-compare-lang.txt"), {

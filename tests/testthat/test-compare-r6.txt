@@ -10,6 +10,10 @@
 `x` is an R6 object of class <goofy>
 `y` is an environment
 
+> compare(goofy$new(1), factor("x"))
+`x` is an R6 object of class <goofy>
+`y` is an S3 object of class <factor>
+
 > # R6
 > compare(goofy$new(1), goofy$new(1))
 v No differences

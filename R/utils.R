@@ -1,24 +1,42 @@
 
 type_of <- function(x) {
-  if (isS4(x)) {
-    "S4"
-  } else if (is_missing(x)) {
-    "MISSING"
-  } else if (inherits(x, "R6")) {
-    "R6"
+  if (is_missing(x)) {
+    return("MISSING")
+  }
+
+  if (!is.object(x)) {
+    return(typeof(x))
+  }
+
+  if (!isS4(x)) {
+    if (inherits(x, "R6")) {
+      "R6"
+    } else {
+      "S3"
+    }
   } else {
-    typeof(x)
+    "S4"
   }
 }
+
 friendly_type_of <- function(x) {
-  if (isS4(x)) {
-    paste0("an S4 object of class <", class(x)[[1]], ">")
-  } else if (is_missing(x)) {
-    "absent"
-  } else if (inherits(x, "R6")) {
-    paste0("an R6 object of class <", class(x)[[1]], ">")
+  if (is_missing(x)) {
+    return("absent")
+  }
+
+  if (!is.object(x)) {
+    return(friendly_type(typeof(x)))
+  }
+
+  if (!isS4(x)) {
+    if (inherits(x, "R6")) {
+      klass <- paste(setdiff(class(x), "R6"), collapse = "/")
+      paste0("an R6 object of class <", klass, ">")
+    } else {
+      paste0("an S3 object of class <", paste(class(x), collapse = "/"), ">")
+    }
   } else {
-    friendly_type(typeof(x))
+    paste0("an S4 object of class <", is(x), ">")
   }
 }
 

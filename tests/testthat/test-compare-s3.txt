@@ -1,0 +1,17 @@
+> compare(factor("a"), 1L)
+`x` is an S3 object of class <factor>
+`y` is an integer vector (1)
+
+> compare(factor("a"), globalenv())
+`x` is an S3 object of class <factor>
+`y` is an environment
+
+> compare(factor("a"), Sys.Date())
+`x`: 1/18361
+
+`levels(x)` is a character vector ('a')
+`levels(y)` is absent
+
+`class(x)`: "factor"
+`class(y)`: "Date"  
+

@@ -7,6 +7,10 @@
 `x` is an S4 object of class <A>
 `y` is an environment
 
+> compare(new("A", x = "1"), factor("x"))
+`x` is an S4 object of class <A>
+`y` is an S3 object of class <factor>
+
 > # S4
 > compare(new("A", x = "1"), new("A", x = "1"))
 v No differences
