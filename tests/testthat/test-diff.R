@@ -21,10 +21,14 @@ test_that("nice element diffs", {
 })
 
 test_that("check cascading fallbacks", {
+  old <- Sys.getenv("CI")
+  Sys.setenv(CI = "false")
+  on.exit(Sys.setenv(CI = old))
+
   verify_output(test_path("test-diff-fallback.txt"), {
-    diff_element(letters, LETTERS, width = 60, ci = FALSE)
-    diff_element(letters, LETTERS, width = 40, ci = FALSE)
-    diff_element(letters, LETTERS, width = 20, ci = FALSE)
+    diff_element(letters, LETTERS, width = 60)
+    diff_element(letters, LETTERS, width = 40)
+    diff_element(letters, LETTERS, width = 20)
   })
 })
 
