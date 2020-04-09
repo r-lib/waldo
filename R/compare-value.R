@@ -2,8 +2,17 @@ compare_character <- function(x, y, x_path = "x", y_path = "y") {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
-  diff_element(x, y, x_path = x_path, y_path = y_path)
+  if (multiline(x) || multiline(y)) {
+    x <- strsplit(x, "\n")
+    y <- strsplit(y, "\n")
+
+    new_compare(compare_by_line(x, y, x_path, y_path, compare_opts()))
+  } else {
+    diff_element(x, y, x_path = x_path, y_path = y_path)
+  }
 }
+
+multiline <- function(x) any(grepl("\n", x))
 
 compare_numeric <- function(x,
                             y,

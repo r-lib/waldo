@@ -1,0 +1,14 @@
+> compare_character("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
+`lines(x[[1]])`: "A" "the apple is red"  "C"
+`lines(y[[1]])`: "A" "the apple was red" "C"
+
+> compare_character("A\nthe apple is red and green\nC\n",
++   "A\nthe apple is red\nC\n")
+`lines(x[[1]])`: "A" "the apple is red and green" "C"
+`lines(y[[1]])`: "A" "the apple is red"           "C"
+
+> compare_character("A\nthe apple is red and green\nC\n",
++   "A\nI like bananas\nC\n")
+`lines(x[[1]])`: "A" "the apple is red and green" "C"
+`lines(y[[1]])`: "A" "I like bananas"             "C"
+

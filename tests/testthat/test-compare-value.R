@@ -20,6 +20,14 @@ test_that("character comparison", {
   })
 })
 
+test_that("multiline comparison", {
+  verify_output(test_path("test-compare-value-lines.txt"), {
+    compare_character("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
+    compare_character("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n")
+    compare_character("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n")
+  })
+})
+
 test_that("numeric comparison", {
   verify_output(test_path("test-compare-value-num.txt"), {
     "no difference"

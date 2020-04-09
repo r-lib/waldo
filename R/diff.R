@@ -79,6 +79,7 @@ diff_align <- function(diff, x, y) {
 
   # Ensure both contexts are same length
   if (length(x_out) != length(y_out)) {
+    # TODO: need to figure out when to truncate from left vs right
     len <- min(length(x_out), length(y_out))
     x_out <- x_out[seq(length(x_out) - len + 1, length(x_out))]
     y_out <- y_out[seq(length(y_out) - len + 1, length(y_out))]
@@ -158,19 +159,27 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
 
   # Too wide for top-and-bottom display, so try side-by-side
   if (is.null(alignment$slice)) {
-    idx <- seq_len(ncol(mat))
+    x_idx <- seq_len(ncol(mat))
+    y_idx <- seq_len(ncol(mat))
   } else {
-    idx <- seq(alignment$slice[[1]], alignment$slice[[2]])
+    x_idx <- seq(alignment$x_slice[[1]], alignment$x_slice[[2]])
+    y_idx <- seq(alignment$y_slice[[1]], alignment$y_slice[[2]])
   }
-  idx_out <- paste0("[", idx, "]")
+  x_idx_out <- paste0("[", x_idx, "]")
+  y_idx_out <- paste0("[", x_idx, "]")
 
   mat_out <- cbind(c(x_path, "|", y_path), rbind(mat[1, ], "|", mat[2, ]))
   if (n_trunc > 0) {
     mat_out <- mat_out[, 1:11]
-    mat_out <- cbind(mat_out, c("...", "", paste0("and ", n_trunc, " more ...")))
-    idx_out <- c(idx_out[1:10], "...")
+    mat_out <- cbind(mat_out, c("...", "", "..."))
+    x_idx_out <- c(x_idx_out[1:10], "...")
+    y_idx_out <- c(y_idx_out[1:10], paste0("and ", n_trunc, " more ..."))
   }
-  mat_out <- rbind(format(c("", idx_out), justify = "right"), mat_out)
+  mat_out <- rbind(
+    format(c("", x_idx_out), justify = "right"),
+    mat_out,
+    format(c("", y_idx_out), justify = "left")
+  )
 
   out <- apply(mat_out, 1, pad, align = "left")
   rows <- apply(out, 1, paste, collapse = " ")
@@ -180,8 +189,8 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
   }
 
   paste0(
-    x_path, "[", idx, "]: ", mat[1, ], "\n",
-    y_path, ": ", strrep(" ", nchar(idx) + 2), mat[2, ]
+    x_path, "[[", x_idx, "]]: ", mat[1, ], "\n",
+    y_path, "[[", y_idx, "]]: ", mat[2, ]
   )
 }
 

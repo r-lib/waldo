@@ -264,6 +264,10 @@ extract_pos <- function(x, i) if (i <= length(x)) x[[i]] else missing_arg()
 path_pos <- function(path, i) glue("{path}[[{i}]]")
 compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)
 
+path_line <- function(path, i) glue("lines({path}[[{i}]])")
+compare_by_line <- compare_by(index_pos, extract_pos, path_line)
+
+
 path_attr <- function(path, i) {
   # from ?attributes, excluding row.names() because it's not a simple accessor
   funs <- c("comment", "class", "dim", "dimnames", "levels", "names", "tsp")
