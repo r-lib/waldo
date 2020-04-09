@@ -30,7 +30,7 @@ based on their values, rather than their types.
 It uses the same algorithm as \code{\link[=all.equal]{all.equal()}}, i.e., first we generate
 \code{x_diff} and \code{y_diff} by subsetting \code{x} and \code{y} to look only locations
 with differences. Then we check that
-\code{mean(abs(x_diff - y_diff)) / mean(y_diff)} (or just
+\code{mean(abs(x_diff - y_diff)) / mean(abs(y_diff))} (or just
 \code{mean(abs(x_diff - y_diff))} if \code{y_diff} is small) is less than
 \code{tolerance}.}
 
