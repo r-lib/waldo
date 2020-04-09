@@ -18,21 +18,21 @@ v No differences
 > # multiple contexts
 > diff_element(c("a", "b", letters, "a", "b", "c", letters, "X"), c("a", "b", "c",
 +   letters, "a", "b", letters, "Y"))
-`x[1:5]`: "a" "b"     "a" "b" "c" ...
-`y`:      "a" "b" "c" "a" "b" "c" ...
+`x[1:5]`: "a" "b"     "a" "b" "c"
+`y[1:6]`: "a" "b" "c" "a" "b" "c"
 
-`x[28:34]`: ... "z" "a" "b" "c" "a" "b" "c" ...
-`y`:        ... "z" "a" "b"     "a" "b" "c" ...
+`x[28:34]`: "z" "a" "b" "c" "a" "b" "c"
+`y[28:34]`: "z" "a" "b"     "a" "b" "c"
 
-`x[55:58]`: ... "x" "y" "z" "X"
-`y`:        ... "x" "y" "z" "Y"
+`x[55:58]`: "x" "y" "z" "X"
+`y[55:58]`: "x" "y" "z" "Y"
 
 > # truncation
 > diff_element(c("X", letters), letters)
-`x[1:4]`: "X" "a" "b" "c" ...
-`y`:          "a" "b" "c" ...
+`x[1:4]`: "X" "a" "b" "c"
+`y[0:3]`:     "a" "b" "c"
 
 > diff_element(c(letters, "X"), letters)
-`x[24:27]`: ... "x" "y" "z" "X"
-`y`:        ... "x" "y" "z"    
+`x[24:27]`: "x" "y" "z" "X"
+`y[23:26]`: "x" "y" "z"    
 

@@ -53,57 +53,57 @@ diff_render <- function(diff, x, y, path, diff_a, diff_d, diff_c = NULL, diff_x 
 }
 
 diff_align <- function(diff, x, y) {
-
   n <- nrow(diff)
-  start <- diff$start[[1]]
-  end <- diff$end[[n]]
 
   x_out <- character()
   y_out <- character()
 
-  col_a <- function(x) ifelse(is.na(x), NA, cli::col_blue(x))
-  col_d <- function(x) ifelse(is.na(x), NA, cli::col_yellow(x))
-  col_c <- function(x) ifelse(is.na(x), NA, cli::col_green(x))
-  col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
-
-  idx <- start
   for (i in seq_len(n)) {
     row <- diff[i, , drop = FALSE]
-    if (idx < row$x1) {
-      x_out <- c(x_out, col_x(x[idx:(row$x1 - 1)]))
-      y_out <- c(y_out, col_x(x[idx:(row$x1 - 1)]))
-    }
+    x_i <- seq2(row$x1, row$x2)
+    y_i <- seq2(row$y1, row$y2)
 
-    x_i <- row$x1:row$x2
-    y_i <- row$y1:row$y2
-
-    x_out <- c(x_out, switch(row$t, a = c(col_x(x[x_i]), NA[y_i]), c = col_c(x[x_i]), d = col_d(x[x_i])))
-    y_out <- c(y_out, switch(row$t, a = c(col_x(x[x_i]), col_a(y[y_i])), c = col_c(y[y_i]), d = NA[x_i]))
-
-    idx <- row$x2 + 1
+    x_out <- c(x_out, switch(row$t,
+      a = c(col_x(x[x_i]), NA[y_i]),
+      c = col_c(x[x_i]),
+      d = col_d(x[x_i]),
+      x = col_x(x[x_i])
+    ))
+    y_out <- c(y_out, switch(row$t,
+      a = col_a(y[y_i]),
+      c = col_c(y[y_i]),
+      d = c(col_x(y[y_i]), NA[x_i]),
+      x = col_x(y[y_i]))
+    )
   }
 
-  if (idx <= end) {
-    x_out <- c(x_out, col_x(x[idx:end]))
-    y_out <- c(y_out, col_x(x[idx:end]))
+  # Ensure both contexts are same length
+  if (length(x_out) != length(y_out)) {
+    len <- min(length(x_out), length(y_out))
+    x_out <- x_out[seq(length(x_out) - len + 1, length(x_out))]
+    y_out <- y_out[seq(length(y_out) - len + 1, length(y_out))]
   }
 
-  if (start != 1 || end != length(x)) {
-    if (start != 1) {
-      x_out <- c(col_x("..."), x_out)
-      y_out <- c(col_x("..."), y_out)
-    }
-    if (end != length(x)) {
-      x_out <- c(col_x(x_out), "...")
-      y_out <- c(col_x(y_out), "...")
-    }
-    slice <- c(start, end)
-  } else {
-    slice <- NULL
-  }
+  x_slice <- make_slice(x, diff$x1[[1]], diff$x2[[n]])
+  y_slice <- make_slice(y, diff$y1[[1]], diff$y2[[n]])
 
-  list(x = x_out, y = y_out, slice = slice)
+  list(x = x_out, y = y_out, x_slice = x_slice, y_slice = y_slice)
 }
+
+# Only want to show slice if it's partial
+make_slice <- function(x, first, last) {
+  if (first <= 1 && last >= length(x)) {
+    NULL
+  } else {
+    c(first, last)
+  }
+}
+
+col_a <- function(x) ifelse(is.na(x), NA, cli::col_blue(x))
+col_d <- function(x) ifelse(is.na(x), NA, cli::col_yellow(x))
+col_c <- function(x) ifelse(is.na(x), NA, cli::col_green(x))
+col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
+
 
 # values ------------------------------------------------------------------
 
@@ -113,15 +113,18 @@ diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE,
     y <- encodeString(y, quote = "\"")
   }
 
-  diff <- ses(x, y)
-  if (nrow(diff) == 0) {
+  diff <- ses_context(x, y)
+  if (length(diff) == 0) {
     return(new_compare())
   }
 
-  chunks <- diff_split(diff, length(x))
+  align <- lapply(diff, diff_align, x = x, y = y)
 
-  align <- lapply(chunks, diff_align, x, y)
-  format <- lapply(align, format_diff_matrix, x_path = x_path, y_path = y_path, width = width)
+  format <- lapply(align, format_diff_matrix,
+    x_path = x_path,
+    y_path = y_path,
+    width = width
+  )
   new_compare(unlist(format, recursive = FALSE))
 }
 
@@ -132,14 +135,10 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
   n_trunc <- if (in_ci()) 0 else ncol(mat) - 10
 
   # Label slices, if needed
-  if (!is.null(alignment$slice)) {
-    slice <- paste0("[", alignment$slice[[1]], ":", alignment$slice[[2]], "]")
-    paths <- c(paste0(x_path, slice), y_path)
-  } else {
-    paths <- c(x_path, y_path)
-  }
+  x_path_label <- label_path(x_path, alignment$x_slice)
+  y_path_label <- label_path(y_path, alignment$y_slice)
 
-  mat_out <- cbind(paste0("`", paths, "`:"), mat)
+  mat_out <- cbind(paste0("`", c(x_path_label, y_path_label), "`:"), mat)
   if (n_trunc > 0) {
     mat_out <- mat_out[, 1:11]
     mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
@@ -178,6 +177,14 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
     x_path, "[", idx, "]: ", mat[1, ], "\n",
     y_path, ": ", strrep(" ", nchar(idx) + 2), mat[2, ]
   )
+}
+
+label_path <- function(path, slice) {
+  if (is.null(slice)) {
+    path
+  } else {
+    paste0(path, "[", slice[[1]], ":", slice[[2]], "]")
+  }
 }
 
 # lines -------------------------------------------------------------------
