@@ -4,30 +4,38 @@ v No differences
 
 > # simple change
 > compare_numeric(c(1, 2, 3), c(1, 2))
-`x`: 1 2 -3
+`x`: 1 2 3
+`y`: 1 2  
 
 > compare_numeric(c(1, 2), c(1, 2, 3))
-`x`: 1 2 +3
+`x`: 1 2  
+`y`: 1 2 3
 
 > compare_numeric(c(1, 10, 3), c(1, 2, 3))
-`x`: 1 10/2 3
+`x`: 1 10 3
+`y`: 1 2  3
 
 > # FP differences
 > x <- c(1, 2, 3)
 > compare_numeric(x, x + c(-1, 0, 1) * 0.001)
-`x`: 1/0.999 2 3/3.001
+`x`: 1     2 3    
+`y`: 0.999 2 3.001
 
 > compare_numeric(x, x + c(-1, 0, 1) * 1e-04)
-`x`: 1/0.9999 2 3/3.0001
+`x`: 1      2 3     
+`y`: 0.9999 2 3.0001
 
 > compare_numeric(x, x + c(-1, 0, 1) * 1e-05)
-`x`: 1/0.99999 2 3/3.00001
+`x`: 1       2 3      
+`y`: 0.99999 2 3.00001
 
 > compare_numeric(x, x + c(-1, 0, 1) * 1e-06)
-`x`: 1/0.999999 2 3/3.000001
+`x`: 1        2 3       
+`y`: 0.999999 2 3.000001
 
 > compare_numeric(x, x + c(-1, 0, 1) * 1e-07)
-Error in eval(parse(text = text, keep.source = FALSE), envir): object 'path' not found
+`x-y`: 9.99999999473644e-08 0 -9.99999998363421e-08
+`0`:   0                    0 0                    
 
 > compare_numeric(x, x + c(-1, 0, 1) * 1e-08)
 v No differences

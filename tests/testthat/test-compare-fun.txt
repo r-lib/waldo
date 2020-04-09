@@ -20,7 +20,8 @@ v No differences
 > # diff formals
 > f3 <- (function(x = 1, y = 1, z = 1) { })
 > compare(f1, f3)
-`formals(x)$y`: 2/1
+`formals(x)$y`: 2
+`formals(y)$y`: 1
 
 `formals(x)$z` is absent
 `formals(y)$z` is a double vector (1)
@@ -43,9 +44,11 @@ v No differences
 `attr(body(x), 'srcref')[[2]]` is absent
 `attr(body(y), 'srcref')[[2]]` is an S3 object of class <srcref>
 
-`attr(body(x), 'wholeSrcref')`: 1 0 2/16 33/1 0 -33 1 2/1 2/16
+`attr(body(x), 'wholeSrcref')`: 1 0  2 33 0 33 1 2 
+`attr(body(y), 'wholeSrcref')`: 0 16 1 0    1  1 16
 
-`attr(x, 'srcref')`: 2/14 8 2/16 33/1 8 33/1 2/14 2/16
+`attr(x, 'srcref')`: 2  8 2  33 8 33 2  2 
+`attr(y, 'srcref')`: 14 8 16 1  8 1  14 16
 
 > # diff environment
 > environment(f1) <- base_env()

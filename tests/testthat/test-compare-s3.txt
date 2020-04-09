@@ -7,7 +7,8 @@
 `y` is an environment
 
 > compare(factor("a"), Sys.Date())
-`x`: 1/18361
+`x`: 1    
+`y`: 18361
 
 `levels(x)` is a character vector ('a')
 `levels(y)` is absent
