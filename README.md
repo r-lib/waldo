@@ -83,16 +83,18 @@ When comparing more complex objects, `compare()` creates an executable
 code path telling you where the differences lie:
 
 ``` asciicast
-compare(factor("x"), 1L)
-
-df1 <- data.frame(x = 1:3, y = 3:1)
-df2 <- tibble::tibble(rev(df1))
-compare(df1, df2)
-
-compare(mtcars, sample(mtcars))
+compare(list(a = factor("x")), list(b = 1L))
 ```
 
 <img src="man/figures/README/unnamed-chunk-6.svg" width="100%" />
+
+``` asciicast
+df1 <- data.frame(x = 1:3, y = 3:1)
+df2 <- tibble::tibble(rev(df1))
+compare(df1, df2)
+```
+
+<img src="man/figures/README/unnamed-chunk-7.svg" width="100%" />
 
 ``` asciicast
 x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
@@ -100,4 +102,4 @@ y <- list(a = list(b = list(c = list(structure(1, e = "a")))))
 compare(x, y)
 ```
 
-<img src="man/figures/README/unnamed-chunk-7.svg" width="100%" />
+<img src="man/figures/README/unnamed-chunk-8.svg" width="100%" />

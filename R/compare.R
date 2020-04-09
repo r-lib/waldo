@@ -83,7 +83,7 @@ print.waldo_compare <- function(x, ...) {
       x <- c(x[1:10], glue("And {length(x) - 10} more differences ..."))
     }
 
-    cat(paste0(x, collapse = "\n\n"))
+    cat(paste0(x, collapse = "\n\n"), "\n", sep = "")
   }
 
   invisible(x)
