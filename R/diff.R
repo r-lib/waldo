@@ -107,7 +107,7 @@ col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
 
 # values ------------------------------------------------------------------
 
-diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE, width = getOption("width")) {
+diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE, width = getOption("width"), ci = in_ci()) {
   if (escape_string) {
     x <- encodeString(x, quote = "\"")
     y <- encodeString(y, quote = "\"")
@@ -123,16 +123,17 @@ diff_element <- function(x, y, x_path = "x", y_path = "y", escape_string = TRUE,
   format <- lapply(align, format_diff_matrix,
     x_path = x_path,
     y_path = y_path,
-    width = width
+    width = width,
+    ci = ci
   )
   new_compare(unlist(format, recursive = FALSE))
 }
 
-format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("width")) {
+format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("width"), ci = in_ci()) {
   mat <- rbind(alignment$x, alignment$y)
   mat[is.na(mat)] <- ""
 
-  n_trunc <- if (in_ci()) 0 else ncol(mat) - 10
+  n_trunc <- if (ci) 0 else ncol(mat) - 10
 
   # Label slices, if needed
   x_path_label <- label_path(x_path, alignment$x_slice)

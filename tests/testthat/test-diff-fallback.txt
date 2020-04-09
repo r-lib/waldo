@@ -1,8 +1,8 @@
-> diff_element(letters, LETTERS, width = 60)
+> diff_element(letters, LETTERS, width = 60, ci = FALSE)
 `x`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 16 more...
 `y`: "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" ...           
 
-> diff_element(letters, LETTERS, width = 40)
+> diff_element(letters, LETTERS, width = 40, ci = FALSE)
      x   | y              
  [1] "a" | "A"            
  [2] "b" | "B"            
@@ -16,7 +16,7 @@
 [10] "j" | "J"            
  ... ...   and 16 more ...
 
-> diff_element(letters, LETTERS, width = 20)
+> diff_element(letters, LETTERS, width = 20, ci = FALSE)
 x[1]: "a"
 y:    "A"
 
