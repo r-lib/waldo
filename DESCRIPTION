@@ -18,6 +18,7 @@ BugReports: https://github.com/r-lib/waldo/issues
 Imports: 
     cli,
     diffobj,
+    fansi,
     glue,
     methods,
     rematch2,

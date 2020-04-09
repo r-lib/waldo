@@ -255,7 +255,7 @@ diff_words <- function(x, y, path = ".") {
 
   diff <- ses(x_cmp, y_cmp)
   if (nrow(diff) == 0) {
-    return(diff_element(x, y, path = path))
+    return(diff_element(x, y, path, path))
   }
 
   chunks <- diff_split(diff, length(x_cmp), size = 7)
