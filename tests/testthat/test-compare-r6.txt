@@ -23,12 +23,15 @@ v No differences
 `y$x` is a character vector ('a')
 
 > compare(goofy$new(1), froofy$new(1))
-`x$y` is absent
-`y$y` is a double vector (10)
+`class(x)`:          "goofy" "R6"
+`class(y)`: "froofy" "goofy" "R6"
+
+`x` is length 3
+`y` is length 4
 
 `names(x)`:     "x" "clone" "initialize"
 `names(y)`: "y" "x" "clone" "initialize"
 
-`class(x)`:          "goofy" "R6"
-`class(y)`: "froofy" "goofy" "R6"
+`x$y` is absent
+`y$y` is a double vector (10)
 

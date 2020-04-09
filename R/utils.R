@@ -45,7 +45,9 @@ attrs <- function(x) {
   if (is.data.frame(x)) {
     out$row.names <- .row_names_info(x, 0L)
   }
-  out
+
+  first <- intersect(c("class", "names", "dim"), names(out))
+  out[c(first, setdiff(names(out), first))]
 }
 
 map_chr <- function(.x, .f, ...) {

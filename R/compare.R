@@ -109,6 +109,7 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
     return(character())
   }
 
+  # Compare type
   term <- compare_terminate(x, y, x_path, y_path, tolerance = opts$tolerance)
   if (length(term) > 0) {
     return(term)
@@ -116,6 +117,25 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
 
   out <- character()
 
+  # Then length
+  if ((is_list(x) || is_pairlist(x)) && length(x) != length(y)) {
+    out <- c(out, should_be("length {length(x)}", "length {length(y)}"))
+  }
+
+  # Then attributes/slots
+  if (isS4(x)) {
+    out <- c(out, compare_character(is(x), is(y), glue("is({x_path})"), glue("is({y_path})")))
+    out <- c(out, compare_by_slot(x, y, x_path, y_path, opts))
+  } else if (!opts$ignore_attr) {
+    if (is_closure(x) && opts$ignore_srcref) {
+      x <- remove_source(x)
+      y <- remove_source(y)
+    }
+
+    out <- c(out, compare_by_attr(attrs(x), attrs(y), x_path, y_path, opts))
+  }
+
+  # Then contents
   if (is_list(x) || is_pairlist(x)) {
     if (is_dictionaryish(x) && is_dictionaryish(y)) {
       out <- c(out, compare_by_name(x, y, x_path, y_path, opts))
@@ -136,10 +156,6 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
       out <- c(out, should_be("<env:{env_label(x)}>", "<env:{env_label(y)}>`"))
     }
   } else if (is_closure(x)) {
-    if (opts$ignore_srcref) {
-      x <- remove_source(x)
-      y <- remove_source(y)
-    }
     if (opts$ignore_function_env) {
       environment(x) <- emptyenv()
       environment(y) <- emptyenv()
@@ -174,13 +190,6 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
     ))
   }
 
-  if (isS4(x)) {
-    out <- c(out, compare_character(is(x), is(y), glue("is({x_path})"), glue("is({y_path})")))
-    out <- c(out, compare_by_slot(x, y, x_path, y_path, opts))
-  } else if (!opts$ignore_attr) {
-    out <- c(out, compare_by_attr(attrs(x), attrs(y), x_path, y_path, opts))
-  }
-
   out
 }
 
@@ -198,7 +207,18 @@ compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
     return(should_be("`{deparse(x)}`", "`{deparse(y)}`"))
   }
 
-  should_be("{friendly_type_of(x)}{short_val(x)}", "{friendly_type_of(y)}{short_val(y)}")
+  type_x <- friendly_type_of(x)
+  type_y <- friendly_type_of(y)
+  if (is_missing(x) && !is_missing(y)) {
+    type_y <- col_a(type_y)
+  } else if (!is_missing(x) && is_missing(y)) {
+    type_x <- col_d(type_x)
+  } else {
+    type_x <- col_c(type_x)
+    type_y <- col_c(type_y)
+  }
+
+  should_be("{type_x}{short_val(x)}", "{type_y}{short_val(y)}")
 }
 
 is_numeric <- function(x) is_integer(x) || is_double(x)
