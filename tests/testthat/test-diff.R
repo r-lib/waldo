@@ -26,8 +26,16 @@ test_that("check cascading fallbacks", {
   on.exit(Sys.setenv(CI = old))
 
   verify_output(test_path("test-diff-fallback.txt"), {
+    "large diff"
     diff_element(letters, LETTERS, width = 60)
     diff_element(letters, LETTERS, width = 40)
     diff_element(letters, LETTERS, width = 20)
+
+    "with context"
+    x <- paste0("My favourite letter is ", letters)
+    y <- "This is a sentence"
+    diff_element(x, c(x, y))
+    diff_element(x, c(x[1:10], y, x[11:26]))
+    diff_element(c(x, y), x[-1])
   })
 })

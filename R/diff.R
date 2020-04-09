@@ -1,9 +1,27 @@
+ses_align <- function(x, y) {
+  diff <- ses_context(x, y)
+  if (length(diff) == 0) {
+    return(new_compare())
+  }
+
+  out <- lapply(diff, diff_align, x = x, y = y)
+  lapply(out, function(out) {
+    tibble::tibble(
+      x = structure(out$x, class = "ansi_string"),
+      x_idx = out$x_idx,
+      y = structure(out$y, class = "ansi_string"),
+      y_idx = out$y_idx
+    )
+  })
+}
 
 diff_align <- function(diff, x, y) {
   n <- nrow(diff)
 
   x_out <- character()
   y_out <- character()
+  x_idx <- integer()
+  y_idx <- integer()
 
   for (i in seq_len(n)) {
     row <- diff[i, , drop = FALSE]
@@ -22,6 +40,9 @@ diff_align <- function(diff, x, y) {
       d = c(col_x(y[y_i]), NA[x_i]),
       x = col_x(y[y_i]))
     )
+
+    x_idx <- c(x_idx, x_i[x_i != 0], if (row$t == "a") NA[y_i])
+    y_idx <- c(y_idx, y_i[y_i != 0], if (row$t == "d") NA[x_i])
   }
 
   # Ensure both contexts are same length
@@ -30,20 +51,31 @@ diff_align <- function(diff, x, y) {
     len <- min(length(x_out), length(y_out))
     x_out <- x_out[seq(length(x_out) - len + 1, length(x_out))]
     y_out <- y_out[seq(length(y_out) - len + 1, length(y_out))]
+
+    x_idx <- x_idx[seq(length(x_idx) - len + 1, length(x_idx))]
+    y_idx <- y_idx[seq(length(y_idx) - len + 1, length(y_idx))]
   }
 
-  x_slice <- make_slice(x, diff$x1[[1]], diff$x2[[n]])
-  y_slice <- make_slice(y, diff$y1[[1]], diff$y2[[n]])
+  x_slice <- make_slice(x, x_idx)
+  y_slice <- make_slice(y, y_idx)
 
-  list(x = x_out, y = y_out, x_slice = x_slice, y_slice = y_slice)
+  list(
+    x = x_out,
+    y = y_out,
+    x_slice = x_slice,
+    y_slice = y_slice,
+    x_idx = x_idx,
+    y_idx = y_idx
+  )
 }
 
 # Only want to show slice if it's partial
-make_slice <- function(x, first, last) {
-  if (first <= 1 && last >= length(x)) {
+make_slice <- function(x, idx) {
+  idx <- range(idx, na.rm = TRUE)
+  if (idx[[1]] <= 1 && idx[[2]] >= length(x)) {
     NULL
   } else {
-    c(first, last)
+    idx
   }
 }
 
@@ -105,15 +137,8 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
   }
 
   # Too wide for top-and-bottom display, so try side-by-side
-  if (is.null(alignment$slice)) {
-    x_idx <- seq_len(ncol(mat))
-    y_idx <- seq_len(ncol(mat))
-  } else {
-    x_idx <- seq(alignment$x_slice[[1]], alignment$x_slice[[2]])
-    y_idx <- seq(alignment$y_slice[[1]], alignment$y_slice[[2]])
-  }
-  x_idx_out <- paste0("[", x_idx, "]")
-  y_idx_out <- paste0("[", x_idx, "]")
+  x_idx_out <- label_idx(alignment$x_idx)
+  y_idx_out <- label_idx(alignment$y_idx)
 
   mat_out <- cbind(c(x_path, "|", y_path), rbind(mat[1, ], "|", mat[2, ]))
   if (n_trunc > 0) {
@@ -136,8 +161,8 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
   }
 
   paste0(
-    x_path, "[[", x_idx, "]]: ", mat[1, ], "\n",
-    y_path, "[[", y_idx, "]]: ", mat[2, ]
+    x_path, "[[", alignment$x_idx, "]]: ", mat[1, ], "\n",
+    y_path, "[[", alignment$y_idx, "]]: ", mat[2, ]
   )
 }
 
@@ -147,4 +172,8 @@ label_path <- function(path, slice) {
   } else {
     paste0(path, "[", slice[[1]], ":", slice[[2]], "]")
   }
+}
+
+label_idx <- function(idx) {
+  ifelse(is.na(idx), "", paste0("[", idx, "]"))
 }
