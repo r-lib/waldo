@@ -164,7 +164,7 @@ based on their values, rather than their types.</p>
 <p>It uses the same algorithm as <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code>, i.e., first we generate
 <code>x_diff</code> and <code>y_diff</code> by subsetting <code>x</code> and <code>y</code> to look only locations
 with differences. Then we check that
-<code>mean(abs(x_diff - y_diff)) / mean(y_diff)</code> (or just
+<code>mean(abs(x_diff - y_diff)) / mean(abs(y_diff))</code> (or just
 <code><a href='https://rdrr.io/r/base/mean.html'>mean(abs(x_diff - y_diff))</a></code> if <code>y_diff</code> is small) is less than
 <code>tolerance</code>.</p></td>
     </tr>
