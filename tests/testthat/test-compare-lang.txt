@@ -1,6 +1,6 @@
 > compare(quote(a), quote(b))
-`x` is `b`
-`y` is `a`
+`x` is `a`
+`y` is `b`
 
 > compare(quote(a + b), quote(b + c))
 `x`: "a + b"

@@ -1,23 +1,23 @@
 > # extra y
 > compare(list("a", "b"), list("a", "b", "c"))
-`x[[3]]` is a character vector ('c')
-`y[[3]]` is absent
+`x[[3]]` is absent
+`y[[3]]` is a character vector ('c')
 
 > compare(list(a = "a", b = "b"), list(a = "a", b = "b", c = "c"))
-`x$c` is a character vector ('c')
-`y$c` is absent
+`x$c` is absent
+`y$c` is a character vector ('c')
 
 `names(x)`: "a" "b"    
 `names(y)`: "a" "b" "c"
 
 > # extra x
 > compare(list("a", "b", "c"), list("a", "b"))
-`x[[3]]` is absent
-`y[[3]]` is a character vector ('c')
+`x[[3]]` is a character vector ('c')
+`y[[3]]` is absent
 
 > compare(list(a = "a", b = "b", c = "c"), list(a = "a", b = "b"))
-`x$c` is absent
-`y$c` is a character vector ('c')
+`x$c` is a character vector ('c')
+`y$c` is absent
 
 `names(x)`: "a" "b" "c"
 `names(y)`: "a" "b"    

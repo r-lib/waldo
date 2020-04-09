@@ -1,11 +1,11 @@
 > # Non S4
 > compare(new("A", x = "1"), 1)
-`x` is a double vector (1)
-`y` is an S4 object of class <A>
+`x` is an S4 object of class <A>
+`y` is a double vector (1)
 
 > compare(new("A", x = "1"), globalenv())
-`x` is an environment
-`y` is an S4 object of class <A>
+`x` is an S4 object of class <A>
+`y` is an environment
 
 > # S4
 > compare(new("A", x = "1"), new("A", x = "1"))

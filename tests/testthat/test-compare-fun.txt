@@ -10,20 +10,20 @@ v No differences
 
 > # pritimives
 > compare(`[`, sum)
-`x` is `.Primitive("sum")`
-`y` is `.Primitive("[")`
+`x` is `.Primitive("[")`
+`y` is `.Primitive("sum")`
 
 > compare(sum, prod)
-`x` is `.Primitive("prod")`
-`y` is `.Primitive("sum")`
+`x` is `.Primitive("sum")`
+`y` is `.Primitive("prod")`
 
 > # diff formals
 > f3 <- (function(x = 1, y = 1, z = 1) { })
 > compare(f1, f3)
 `formals(x)$y`: 2/1
 
-`formals(x)$z` is a double vector (1)
-`formals(y)$z` is absent
+`formals(x)$z` is absent
+`formals(y)$z` is a double vector (1)
 
 `names(formals(x))`: "x" "y"    
 `names(formals(y))`: "x" "y" "z"
@@ -40,8 +40,8 @@ v No differences
 `body(x)`: "{"             "}"
 `y`:       "{" "    x + y" "}"
 
-`attr(body(x), 'srcref')[[2]]` is an integer vector (15, 3, 15, 7, 3, ...)
-`attr(body(y), 'srcref')[[2]]` is absent
+`attr(body(x), 'srcref')[[2]]` is absent
+`attr(body(y), 'srcref')[[2]]` is an S3 object of class <srcref> (15, 3, 15, 7, 3, ...)
 
 `attr(body(x), 'wholeSrcref')`: 1 0 2/16 33/1 0 -33 1 2/1 2/16
 
@@ -51,6 +51,6 @@ v No differences
 > environment(f1) <- base_env()
 > environment(f2) <- global_env()
 > compare(f1, f2)
-`environment(x)` is <env:global>
-`environment(y)` is <env:package:base>`
+`environment(x)` is <env:package:base>
+`environment(y)` is <env:global>`
 
