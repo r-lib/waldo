@@ -168,7 +168,7 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
     out <- c(out, should_be("`{deparse(x)}`", "`{deparse(y)}`"))
   } else if (is_call(x)) {
     if (!identical(x, y)) {
-      diff <- compare_character(deparse(x), deparse(y), x_path)
+      diff <- compare_character(deparse(x), deparse(y), x_path, y_path)
       if (length(diff) == 0) {
         diff <- glue("`deparse({x_path})` equals `deparse({y_path})`, but AST non-identical")
       }
