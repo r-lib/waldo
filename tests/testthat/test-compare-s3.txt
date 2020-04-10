@@ -7,9 +7,9 @@
 `y` is an environment
 
 > compare(factor("a"), as.Date("1970-01-02"))
+`names(attributes(x))`: "class" "levels"
+`names(attributes(y))`: "class"         
+
 `class(x)`: "factor"
 `class(y)`: "Date"  
-
-`levels(x)` is a character vector ('a')
-`levels(y)` is absent
 

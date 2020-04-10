@@ -32,6 +32,3 @@ v No differences
 `names(x)`:     "x" "clone" "initialize"
 `names(y)`: "y" "x" "clone" "initialize"
 
-`x$y` is absent
-`y$y` is a double vector (10)
-

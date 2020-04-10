@@ -132,7 +132,11 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
       y <- remove_source(y)
     }
 
-    out <- c(out, compare_by_attr(attrs(x), attrs(y), x_path, y_path, opts))
+    x_attr <- attrs(x)
+    y_attr <- attrs(y)
+
+    out <- c(out, compare_character(names(x_attr), names(y_attr), glue("names(attributes({x_path}))"), glue("names(attributes({y_path}))")))
+    out <- c(out, compare_by_attr(x_attr, y_attr, x_path, y_path, opts))
   }
 
   # Then contents
@@ -274,7 +278,7 @@ compare_by <- function(index_fun, extract_fun, path_fun) {
 }
 compare_by_fun <- compare_by(function(x, y) 1:3, extract_fun, path_fun)
 
-index_name <- function(x, y) union(names(x), names(y))
+index_name <- function(x, y) intersect(names(x), names(y))
 extract_name <- function(x, i) if (has_name(x, i)) x[[i]] else missing_arg()
 path_name <- function(path, i) glue("{path}${i}")
 compare_by_name <- compare_by(index_name, extract_name, path_name)

@@ -29,9 +29,6 @@ v No differences
 `formals(x)$y`: 2
 `formals(y)$y`: 1
 
-`formals(x)$z` is absent
-`formals(y)$z` is a double vector (1)
-
 > # diff body
 > f4 <- (function(x = 1, y = 2) {
 +   x + y
