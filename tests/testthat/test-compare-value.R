@@ -19,7 +19,7 @@ test_that("character comparison", {
     compare_character(c(letters, "X"), letters)
 
     "large diff"
-    compare(letters, c(letters[1:10], "a"))
+    compare(letters, c(letters[1:20], "a"))
   })
 })
 
