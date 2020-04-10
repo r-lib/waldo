@@ -28,6 +28,12 @@ diff_align <- function(diff, x, y) {
     x_i <- seq2(row$x1, row$x2)
     y_i <- seq2(row$y1, row$y2)
 
+    if (row$t == "c" && length(x_i) != length(y_i)) {
+      m <- max(length(x_i), length(y_i))
+      length(x_i) <- m
+      length(y_i) <- m
+    }
+
     x_out <- c(x_out, switch(row$t,
       a = c(col_x(x[x_i]), NA[y_i]),
       c = col_c(x[x_i]),

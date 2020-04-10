@@ -17,6 +17,9 @@ test_that("character comparison", {
     "truncation"
     compare_character(c("X", letters), letters)
     compare_character(c(letters, "X"), letters)
+
+    "large diff"
+    compare(letters, c(letters[1:10], "a"))
   })
 })
 

@@ -36,3 +36,8 @@ v No differences
 `x[24:27]`: "x" "y" "z" "X"
 `y[24:26]`: "x" "y" "z"    
 
+> # large diff
+> compare(letters, c(letters[1:10], "a"))
+`x[8:26]`: "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" and 9 more...
+`y[8:11]`: "h" "i" "j" "a"                         ...          
+

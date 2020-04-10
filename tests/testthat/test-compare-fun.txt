@@ -50,8 +50,8 @@ v No differences
 `attr(body(x), 'srcref')[[2]]` is absent
 `attr(body(y), 'srcref')[[2]]` is an S3 object of class <srcref>
 
-`attr(body(x), 'wholeSrcref')`:      1 0  2 33 0 33 1 2 
-`attr(body(y), 'wholeSrcref')[2:8]`: 0 16 1 0    1  1 16
+`attr(body(x), 'wholeSrcref')`: 1 0 2  33 0 33 1 2   
+`attr(body(y), 'wholeSrcref')`: 1 0 16 1  0    1 1 16
 
 `body(x)`: "{"             "}"
 `body(y)`: "{" "    x + y" "}"
