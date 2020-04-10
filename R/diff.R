@@ -28,6 +28,7 @@ diff_align <- function(diff, x, y) {
     x_i <- seq2(row$x1, row$x2)
     y_i <- seq2(row$y1, row$y2)
 
+    # Sometimes (last row?) a change is really one change + many additions
     if (row$t == "c" && length(x_i) != length(y_i)) {
       m <- max(length(x_i), length(y_i))
       length(x_i) <- m
