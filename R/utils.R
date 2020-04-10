@@ -78,3 +78,13 @@ remove_source <- function(x) {
 in_ci <- function() {
   isTRUE(as.logical(Sys.getenv("CI", "FALSE")))
 }
+
+if (getRversion() < "3.3.0") {
+  strrep <- function(x, times) {
+    map_chr(
+      times,
+      function(n) paste(rep(x, n), collapse = "")
+    )
+  }
+}
+%>%
