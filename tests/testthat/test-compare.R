@@ -86,7 +86,7 @@ test_that("can compare S3 objects", {
   verify_output(test_path("test-compare-s3.txt"), {
     compare(factor("a"), 1L)
     compare(factor("a"), globalenv())
-    compare(factor("a"), Sys.Date())
+    compare(factor("a"), as.Date("1970-01-02"))
   })
 })
 

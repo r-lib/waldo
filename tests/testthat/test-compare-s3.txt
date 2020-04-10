@@ -6,13 +6,10 @@
 `x` is an S3 object of class <factor>
 `y` is an environment
 
-> compare(factor("a"), Sys.Date())
+> compare(factor("a"), as.Date("1970-01-02"))
 `class(x)`: "factor"
 `class(y)`: "Date"  
 
 `levels(x)` is a character vector ('a')
 `levels(y)` is absent
-
-`x`: 1    
-`y`: 18362
 
