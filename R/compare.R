@@ -274,7 +274,6 @@ compare_by <- function(index_fun, extract_fun, path_fun) {
     out
   }
 }
-compare_by_fun <- compare_by(function(x, y) 1:3, extract_fun, path_fun)
 
 index_name <- function(x, y) union(names(x), names(y))
 extract_name <- function(x, i) if (has_name(x, i)) x[[i]] else missing_arg()
@@ -303,9 +302,9 @@ extract_slot <- function(x, i) if (.hasSlot(x, i)) slot(x, i) else missing_arg()
 path_slot <- function(path, i) glue("{path}@{i}")
 compare_by_slot <- compare_by(index_slot, extract_slot, path_slot)
 
-index_fun <- function(x, y) 1:3
 extract_fun <- function(x, i) switch(i, fn_body(x), fn_fmls(x), fn_env(x))
 path_fun <- function(path, i) {
   fun <- unname(c("body", "formals", "environment")[i])
   glue("{fun}({path})")
 }
+compare_by_fun <- compare_by(function(x, y) 1:3, extract_fun, path_fun)

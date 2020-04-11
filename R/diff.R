@@ -1,20 +1,3 @@
-ses_align <- function(x, y) {
-  diff <- ses_context(x, y)
-  if (length(diff) == 0) {
-    return(new_compare())
-  }
-
-  out <- lapply(diff, diff_align, x = x, y = y)
-  lapply(out, function(out) {
-    tibble::tibble(
-      x = structure(out$x, class = "ansi_string"),
-      x_idx = out$x_idx,
-      y = structure(out$y, class = "ansi_string"),
-      y_idx = out$y_idx
-    )
-  })
-}
-
 diff_align <- function(diff, x, y) {
   n <- nrow(diff)
 
