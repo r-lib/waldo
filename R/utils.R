@@ -65,10 +65,6 @@ attrs <- function(x) {
   out[c(first, sort(setdiff(names(out), first)))]
 }
 
-map_chr <- function(.x, .f, ...) {
-  vapply(.x, .f, ..., FUN.VALUE = character(1), USE.NAMES = FALSE)
-}
-
 num_format <- function(x) {
   format(x, trim = TRUE, digits = 6, scientific = 3, drop0trailing = TRUE)
 }
@@ -97,21 +93,21 @@ in_ci <- function() {
 
 if (getRversion() < "3.3.0") {
   strrep <- function(x, times) {
-    map_chr(
+    vapply(
       times,
-      function(n) paste(rep(x, n), collapse = "")
+      function(n) paste(rep(x, n), collapse = ""),
+      FUN.VALUE = character(1)
     )
   }
 }
 
-pad <- function(x, align = c("left", "right")) {
-  align <- arg_match(align)
-
+left_align <- function(x) {
   nchar <- fansi::nchar_ctl(x)
   padding <- strrep(" ", max(nchar) - nchar)
 
-  switch(align,
-    left = paste0(x, padding),
-    right = paste0(padding, x)
-  )
+  paste0(x, padding)
 }
+
+multiline <- function(x) any(grepl("\n", x))
+
+default_tol <- function() .Machine$double.eps^0.5

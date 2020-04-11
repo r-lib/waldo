@@ -116,7 +116,7 @@ format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci 
     mat_out <- mat_out[, 1:11]
     mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
   }
-  out <- apply(mat_out, 2, pad, align = "left")
+  out <- apply(mat_out, 2, left_align)
   rows <- apply(out, 1, paste, collapse = " ")
 
   if (fansi::nchar_ctl(rows[[1]]) <= width) {
@@ -140,7 +140,7 @@ format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci 
     format(c("", y_idx_out), justify = "left")
   )
 
-  out <- apply(mat_out, 1, pad, align = "left")
+  out <- apply(mat_out, 1, left_align)
   rows <- apply(out, 1, paste, collapse = " ")
 
   if (fansi::nchar_ctl(rows[[1]]) <= width) {

@@ -12,10 +12,7 @@ compare_character <- function(x, y, paths = c("x", "y")) {
   }
 }
 
-multiline <- function(x) any(grepl("\n", x))
-
-default_tol <- .Machine$double.eps^0.5
-compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol) {
+compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()) {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
@@ -23,10 +20,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol) 
     return(new_compare())
   }
 
-  x_cmp <- num_format(x)
-  y_cmp <- num_format(y)
-
-  out <- diff_element(x_cmp, y_cmp, paths, escape_string = FALSE)
+  out <- diff_element(num_format(x), num_format(y), paths, escape_string = FALSE)
   if (length(out) > 0) {
     return(out)
   }
