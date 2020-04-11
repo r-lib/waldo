@@ -19,6 +19,7 @@ actionable insights to figure out what’s gone wrong in your unit tests.
 care to generate actionable insights by:
 
   - Displaying diffs of atomic vectors.
+  - Carefully using colour to emphasise changes.
   - Using R code (not a text description) to show where differences
     arise.
   - Where possible, comparing elements by name, rather than by position.
