@@ -40,6 +40,22 @@ friendly_type_of <- function(x) {
   }
 }
 
+short_val <- function(x) {
+  if (is.object(x) || !is_atomic(x)) {
+    return("")
+  }
+
+  if (is.character(x)) {
+    x <- encodeString(x, quote = "'")
+  }
+
+  if (length(x) > 5) {
+    x <- c(x[1:5], "...")
+  }
+
+  paste0(" (", paste0(x, collapse = ", "), ")")
+}
+
 attrs <- function(x) {
   out <- attributes(x)
   if (is.data.frame(x)) {
@@ -86,4 +102,17 @@ if (getRversion() < "3.3.0") {
       function(n) paste(rep(x, n), collapse = "")
     )
   }
+}
+
+
+pad <- function(x, align = c("left", "right")) {
+  align <- arg_match(align)
+
+  nchar <- fansi::nchar_ctl(x)
+  padding <- strrep(" ", max(nchar) - nchar)
+
+  switch(align,
+    left = paste0(x, padding),
+    right = paste0(padding, x)
+  )
 }

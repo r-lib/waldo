@@ -225,22 +225,6 @@ compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
 
 is_numeric <- function(x) is_integer(x) || is_double(x)
 
-short_val <- function(x) {
-  if (is.object(x) || !is_atomic(x)) {
-    return("")
-  }
-
-  if (is.character(x)) {
-    x <- encodeString(x, quote = "'")
-  }
-
-  if (length(x) > 5) {
-    x <- c(x[1:5], "...")
-  }
-
-  paste0(" (", paste0(x, collapse = ", "), ")")
-}
-
 should_be <- function(x, y) {
   string <- paste0(
     "`{x_path}` is ", x, "\n",
