@@ -1,0 +1,33 @@
+> new_compare()
+v No differences
+
+> new_compare(letters[1:3])
+a
+
+b
+
+c
+
+> new_compare(letters[1:11])
+a
+
+b
+
+c
+
+d
+
+e
+
+f
+
+g
+
+h
+
+i
+
+j
+
+And 1 more differences ...
+
