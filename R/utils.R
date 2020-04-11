@@ -63,7 +63,7 @@ attrs <- function(x) {
   }
 
   first <- intersect(c("class", "names", "dim"), names(out))
-  out[c(first, setdiff(names(out), first))]
+  out[c(first, sort(setdiff(names(out), first)))]
 }
 
 map_chr <- function(.x, .f, ...) {
