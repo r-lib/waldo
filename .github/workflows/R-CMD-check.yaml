@@ -66,6 +66,7 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
+          remotes::install_github("r-lib/testthat@1005")
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
