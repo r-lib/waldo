@@ -203,8 +203,6 @@ compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
   should_be("{type_x}{short_val(x)}", "{type_y}{short_val(y)}")
 }
 
-is_numeric <- function(x) is_integer(x) || is_double(x)
-
 should_be <- function(x, y) {
   string <- paste0(
     "`{x_path}` is ", x, "\n",
@@ -251,7 +249,6 @@ compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)
 
 path_line <- function(path, i) glue("lines({path}[[{i}]])")
 compare_by_line <- compare_by(index_pos, extract_pos, path_line)
-
 
 path_attr <- function(path, i) {
   # from ?attributes, excluding row.names() because it's not a simple accessor

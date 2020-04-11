@@ -91,6 +91,8 @@ remove_source <- function(x) {
   }
 }
 
+is_numeric <- function(x) is_integer(x) || is_double(x)
+
 in_ci <- function() {
   isTRUE(as.logical(Sys.getenv("CI", "FALSE")))
 }
