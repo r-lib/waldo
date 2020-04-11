@@ -1,4 +1,3 @@
-
 type_of <- function(x) {
   if (is_missing(x)) {
     return("MISSING")
@@ -74,7 +73,6 @@ num_format <- function(x) {
   format(x, trim = TRUE, digits = 6, scientific = 3, drop0trailing = TRUE)
 }
 
-
 remove_source <- function(x) {
   if (is_closure(x)) {
     body(x) <- remove_source(body(x))
@@ -105,7 +103,6 @@ if (getRversion() < "3.3.0") {
     )
   }
 }
-
 
 pad <- function(x, align = c("left", "right")) {
   align <- arg_match(align)
