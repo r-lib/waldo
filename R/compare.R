@@ -188,6 +188,8 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
       raw = ,
       character = compare_character(x, y, x_path, y_path)
     ))
+  } else if (!isS4(x)) {
+    abort(glue("{x_path}: unsupported type {typeof(x)}"))
   }
 
   out
