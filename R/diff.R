@@ -21,11 +21,11 @@ diff_align <- function(diff, x, y) {
     x_out <- c(x_out, switch(row$t,
       a = c(col_x(x[x_i]), NA[y_i]),
       c = col_c(x[x_i]),
-      d = col_d(x[x_i]),
+      d = col_a(x[x_i]),
       x = col_x(x[x_i])
     ))
     y_out <- c(y_out, switch(row$t,
-      a = col_a(y[y_i]),
+      a = col_d(y[y_i]),
       c = col_c(y[y_i]),
       d = c(col_x(y[y_i]), NA[x_i]),
       x = col_x(y[y_i]))

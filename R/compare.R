@@ -192,9 +192,9 @@ compare_terminate <- function(x, y, paths, tolerance = NULL) {
   type_x <- friendly_type_of(x)
   type_y <- friendly_type_of(y)
   if (is_missing(x) && !is_missing(y)) {
-    type_y <- col_a(type_y)
+    type_y <- col_d(type_y)
   } else if (!is_missing(x) && is_missing(y)) {
-    type_x <- col_d(type_x)
+    type_x <- col_a(type_x)
   } else {
     type_x <- col_c(type_x)
     type_y <- col_c(type_y)
