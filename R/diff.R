@@ -77,9 +77,7 @@ col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
 
 # values ------------------------------------------------------------------
 
-diff_element <- function(x, y,
-                         x_path = "x",
-                         y_path = "y",
+diff_element <- function(x, y, paths = c("x", "y"),
                          escape_string = TRUE,
                          width = getOption("width"),
                          ci = in_ci()) {
@@ -96,23 +94,22 @@ diff_element <- function(x, y,
   align <- lapply(diff, diff_align, x = x, y = y)
 
   format <- lapply(align, format_diff_matrix,
-    x_path = x_path,
-    y_path = y_path,
+    paths = paths,
     width = width,
     ci = ci
   )
   new_compare(unlist(format, recursive = FALSE))
 }
 
-format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("width"), ci = in_ci()) {
+format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci = in_ci()) {
   mat <- rbind(alignment$x, alignment$y)
   mat[is.na(mat)] <- ""
 
   n_trunc <- if (ci) 0 else ncol(mat) - 10
 
   # Label slices, if needed
-  x_path_label <- label_path(x_path, alignment$x_slice)
-  y_path_label <- label_path(y_path, alignment$y_slice)
+  x_path_label <- label_path(paths[[1]], alignment$x_slice)
+  y_path_label <- label_path(paths[[2]], alignment$y_slice)
 
   mat_out <- cbind(paste0("`", c(x_path_label, y_path_label), "`:"), mat)
   if (n_trunc > 0) {
@@ -130,7 +127,7 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
   x_idx_out <- label_idx(alignment$x_idx)
   y_idx_out <- label_idx(alignment$y_idx)
 
-  mat_out <- cbind(c(x_path, "|", y_path), rbind(mat[1, ], "|", mat[2, ]))
+  mat_out <- cbind(c(paths[[1]], "|", paths[[2]]), rbind(mat[1, ], "|", mat[2, ]))
   if (n_trunc > 0) {
     mat_out <- mat_out[, 1:11]
     mat_out <- cbind(mat_out, c("...", "", "..."))
@@ -151,8 +148,8 @@ format_diff_matrix <- function(alignment, x_path, y_path, width = getOption("wid
   }
 
   paste0(
-    x_path, "[[", alignment$x_idx, "]]: ", mat[1, ], "\n",
-    y_path, "[[", alignment$y_idx, "]]: ", mat[2, ]
+    paths[[1]], "[[", alignment$x_idx, "]]: ", mat[1, ], "\n",
+    paths[[2]], "[[", alignment$y_idx, "]]: ", mat[2, ]
   )
 }
 

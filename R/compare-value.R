@@ -1,4 +1,4 @@
-compare_character <- function(x, y, x_path = "x", y_path = "y") {
+compare_character <- function(x, y, paths = c("x", "y")) {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
@@ -6,20 +6,16 @@ compare_character <- function(x, y, x_path = "x", y_path = "y") {
     x <- strsplit(x, "\n")
     y <- strsplit(y, "\n")
 
-    new_compare(compare_by_line(x, y, x_path, y_path, compare_opts()))
+    new_compare(compare_by_line(x, y, paths, compare_opts()))
   } else {
-    diff_element(x, y, x_path = x_path, y_path = y_path)
+    diff_element(x, y, paths)
   }
 }
 
 multiline <- function(x) any(grepl("\n", x))
 
-compare_numeric <- function(x,
-                            y,
-                            x_path = "x",
-                            y_path = "y",
-                            tolerance = .Machine$double.eps^0.5
-                            ) {
+default_tol <- .Machine$double.eps^0.5
+compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol) {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
@@ -30,7 +26,7 @@ compare_numeric <- function(x,
   x_cmp <- num_format(x)
   y_cmp <- num_format(y)
 
-  out <- diff_element(x_cmp, y_cmp, x_path = x_path, y_path = y_path, escape_string = FALSE)
+  out <- diff_element(x_cmp, y_cmp, paths, escape_string = FALSE)
   if (length(out) > 0) {
     return(out)
   }
@@ -39,8 +35,7 @@ compare_numeric <- function(x,
   # either an addition or deletion above
   diff_element(
     x - y, rep(0, length(x)),
-    x_path = glue("{x_path}-{y_path}"),
-    y_path = "0",
+    paths = c(glue("{paths[[1]]}-{paths[[2]]}"), "0"),
     escape_string = FALSE
   )
 }

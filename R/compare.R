@@ -65,7 +65,7 @@ compare <- function(x, y,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding
   )
-  out <- compare_structure(x, y, x_path = x_arg, y_path = y_arg, opts = opts)
+  out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
   new_compare(out)
 }
 
@@ -84,13 +84,13 @@ compare_opts <- function(tolerance = NULL,
   )
 }
 
-compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_opts()) {
+compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (is_reference(x, y)) {
     return(character())
   }
 
   # Compare type
-  term <- compare_terminate(x, y, x_path, y_path, tolerance = opts$tolerance)
+  term <- compare_terminate(x, y, paths, tolerance = opts$tolerance)
   if (length(term) > 0) {
     return(term)
   }
@@ -104,23 +104,23 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
 
   # Then attributes/slots
   if (isS4(x)) {
-    out <- c(out, compare_character(is(x), is(y), glue("is({x_path})"), glue("is({y_path})")))
-    out <- c(out, compare_by_slot(x, y, x_path, y_path, opts))
+    out <- c(out, compare_character(is(x), is(y), glue("is({paths})")))
+    out <- c(out, compare_by_slot(x, y, paths, opts))
   } else if (!opts$ignore_attr) {
     if (is_closure(x) && opts$ignore_srcref) {
       x <- remove_source(x)
       y <- remove_source(y)
     }
 
-    out <- c(out, compare_by_attr(attrs(x), attrs(y), x_path, y_path, opts))
+    out <- c(out, compare_by_attr(attrs(x), attrs(y), paths, opts))
   }
 
   # Then contents
   if (is_list(x) || is_pairlist(x)) {
     if (is_dictionaryish(x) && is_dictionaryish(y)) {
-      out <- c(out, compare_by_name(x, y, x_path, y_path, opts))
+      out <- c(out, compare_by_name(x, y, paths, opts))
     } else {
-      out <- c(out, compare_by_pos(x, y, x_path, y_path, opts))
+      out <- c(out, compare_by_pos(x, y, paths, opts))
     }
   } else if (is_environment(x)) {
     if (env_has(x, ".__enclos_env__")) {
@@ -131,7 +131,7 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
       x_fields$.__enclos_env__ <- NULL
       y_fields$.__enclos_env__ <- NULL
 
-      out <- c(out, compare_structure(x_fields, y_fields, x_path, y_path, opts = opts))
+      out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
     } else {
       out <- c(out, should_be("<env:{env_label(x)}>", "<env:{env_label(y)}>`"))
     }
@@ -141,41 +141,41 @@ compare_structure <- function(x, y, x_path = "x", y_path = "y", opts = compare_o
       environment(y) <- emptyenv()
     }
 
-    out <- c(out, compare_by_fun(x, y, x_path, y_path, opts))
+    out <- c(out, compare_by_fun(x, y, paths, opts))
   } else if (is_primitive(x)) {
     out <- c(out, should_be("`{deparse(x)}`", "`{deparse(y)}`"))
   } else if (is_symbol(x)) {
     out <- c(out, should_be("`{deparse(x)}`", "`{deparse(y)}`"))
   } else if (is_call(x)) {
     if (!identical(x, y)) {
-      diff <- compare_character(deparse(x), deparse(y), x_path, y_path)
+      diff <- compare_character(deparse(x), deparse(y), paths)
       if (length(diff) == 0) {
-        diff <- glue("`deparse({x_path})` equals `deparse({y_path})`, but AST non-identical")
+        diff <- glue("`deparse({paths[[1]]})` equals `deparse({paths[[2]]})`, but AST non-identical")
       }
       out <- c(out, diff)
     }
   } else if (is_atomic(x)) {
 
     if (is_character(x) && !opts$ignore_encoding) {
-      out <- c(out, compare_character(Encoding(x), Encoding(y), glue("Encoding({x_path})"), glue("Encoding({y_path})")))
+      out <- c(out, compare_character(Encoding(x), Encoding(y), glue("Encoding({paths})")))
     }
 
     out <- c(out, switch(typeof(x),
       integer = ,
       complex = ,
-      double = compare_numeric(x, y, x_path, y_path, tolerance = opts$tolerance),
+      double = compare_numeric(x, y, paths, tolerance = opts$tolerance),
       logical = ,
       raw = ,
-      character = compare_character(x, y, x_path, y_path)
+      character = compare_character(x, y, paths)
     ))
   } else if (!isS4(x)) {
-    abort(glue("{x_path}: unsupported type {typeof(x)}"))
+    abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"))
   }
 
   out
 }
 
-compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
+compare_terminate <- function(x, y, paths, tolerance = NULL) {
   if (type_of(x) == type_of(y)) {
     return(character())
   }
@@ -205,8 +205,8 @@ compare_terminate <- function(x, y, x_path, y_path, tolerance = NULL) {
 
 should_be <- function(x, y) {
   string <- paste0(
-    "`{x_path}` is ", x, "\n",
-    "`{y_path}` is ", y
+    "`{paths[[1]]}` is ", x, "\n",
+    "`{paths[[2]]}` is ", y
   )
   glue(string, .envir = caller_env(), .trim = FALSE)
 }
@@ -214,21 +214,20 @@ should_be <- function(x, y) {
 # compare_each ------------------------------------------------------------
 
 compare_by <- function(index_fun, extract_fun, path_fun) {
-  function(x, y, x_path, y_path, opts) {
+  function(x, y, paths, opts) {
     idx <- index_fun(x, y)
     if (length(idx) == 0)
       return(character())
 
-    x_paths <- path_fun(x_path, idx)
-    y_paths <- path_fun(y_path, idx)
+    x_paths <- path_fun(paths[[1]], idx)
+    y_paths <- path_fun(paths[[2]], idx)
 
     out <- character()
     for (i in seq_along(idx)) {
       out <- c(out, compare_structure(
         x = extract_fun(x, idx[[i]]),
         y = extract_fun(y, idx[[i]]),
-        x_path = x_paths[[i]],
-        y_path = y_paths[[i]],
+        paths = c(x_paths[[i]], y_paths[[i]]),
         opts = opts)
       )
     }
