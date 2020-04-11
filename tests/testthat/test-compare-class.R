@@ -4,6 +4,10 @@ test_that("can construct compare object", {
 })
 
 test_that("print method covers main cases", {
+  old <- Sys.getenv("CI")
+  Sys.setenv(CI = "false")
+  on.exit(Sys.setenv(CI = old))
+
   verify_output(test_path("test-compare-class.txt"), {
     new_compare()
 
