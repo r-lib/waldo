@@ -1,0 +1,44 @@
+> diff_element(c("a", "b", "c"), c("a", "b"), width = 10)
+x[1]: "a"
+y[1]: "a"
+
+x[2]: "b"
+y[2]: "b"
+
+x[3]: "c"
+y:    
+
+> diff_element(c("a", "b"), c("a", "b", "c"), width = 10)
+x[1]: "a"
+y[1]: "a"
+
+x[2]: "b"
+y[2]: "b"
+
+x:    
+y[3]: "c"
+
+> diff_element(c("a", "B", "c"), c("a", "b", "c"), width = 10)
+x[1]: "a"
+y[1]: "a"
+
+x[2]: "B"
+y[2]: "b"
+
+x[3]: "c"
+y[3]: "c"
+
+> # context
+> diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 10)
+x[26]: "z"
+y[26]: "z"
+
+x[27]: "a"
+y[27]: "a"
+
+x[28]: "b"
+y[28]: "b"
+
+x:     
+y[29]: "c"
+

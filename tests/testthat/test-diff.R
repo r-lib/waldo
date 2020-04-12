@@ -20,6 +20,17 @@ test_that("nice element diffs", {
   })
 })
 
+test_that("element-wise comparisons", {
+  verify_output(test_path("test-diff-elementwise.txt"), {
+    diff_element(c("a", "b", "c"), c("a", "b"), width = 10)
+    diff_element(c("a", "b"), c("a", "b", "c"), width = 10)
+    diff_element(c("a", "B", "c"), c("a", "b", "c"), width = 10)
+
+    "context"
+    diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 10)
+  })
+})
+
 test_that("check cascading fallbacks", {
   old <- Sys.getenv("CI")
   Sys.setenv(CI = "false")

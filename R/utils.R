@@ -101,9 +101,10 @@ if (getRversion() < "3.3.0") {
   }
 }
 
-left_align <- function(x) {
+left_align <- function(x, width = NULL) {
   nchar <- fansi::nchar_ctl(x)
-  padding <- strrep(" ", max(nchar) - nchar)
+  width <- width %||% max(nchar)
+  padding <- strrep(" ", pmax(0, width - nchar))
 
   paste0(x, padding)
 }

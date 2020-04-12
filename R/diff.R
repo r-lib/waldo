@@ -126,6 +126,7 @@ format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci 
   # Too wide for top-and-bottom display, so try side-by-side
   x_idx_out <- label_idx(alignment$x_idx)
   y_idx_out <- label_idx(alignment$y_idx)
+  idx_width <- max(nchar(x_idx_out), nchar(y_idx_out))
 
   mat_out <- cbind(c(paths[[1]], "|", paths[[2]]), rbind(mat[1, ], "|", mat[2, ]))
   if (n_trunc > 0) {
@@ -147,9 +148,12 @@ format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci 
     return(paste0(rows, collapse = "\n"))
   }
 
+  x_idx_out <- left_align(paste0(x_idx_out, ": "), width = idx_width + 2)
+  y_idx_out <- left_align(paste0(y_idx_out, ": "), width = idx_width + 2)
+
   paste0(
-    paths[[1]], "[[", alignment$x_idx, "]]: ", mat[1, ], "\n",
-    paths[[2]], "[[", alignment$y_idx, "]]: ", mat[2, ]
+    paths[[1]], x_idx_out, mat[1, ], "\n",
+    paths[[2]], y_idx_out, mat[2, ]
   )
 }
 
