@@ -1,0 +1,31 @@
+> x <- c("a", "a")
+> diff_element(c(x, "a", "b", "c"), c(x, "a", "b"), width = 20)
+    x   | y      
+[2] "a" | "a" [2]
+[3] "a" | "a" [3]
+[4] "b" | "b" [4]
+[5] "c" |        
+
+> diff_element(c(x, "a", "b"), c(x, "a", "b", "c"), width = 20)
+    x   | y      
+[2] "a" | "a" [2]
+[3] "a" | "a" [3]
+[4] "b" | "b" [4]
+        | "c" [5]
+
+> diff_element(c(x, "a", "B", "c"), c(x, "a", "b", "c"), width = 20)
+    x   | y      
+[1] "a" | "a" [1]
+[2] "a" | "a" [2]
+[3] "a" | "a" [3]
+[4] "B" | "b" [4]
+[5] "c" | "c" [5]
+
+> # context
+> diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 20)
+     x   | y       
+[26] "z" | "z" [26]
+[27] "a" | "a" [27]
+[28] "b" | "b" [28]
+         | "c" [29]
+

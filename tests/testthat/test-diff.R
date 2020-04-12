@@ -1,5 +1,5 @@
-test_that("nice element diffs", {
-  verify_output(test_path("test-diff-element.txt"), {
+test_that("paired diffs", {
+  verify_output(test_path("test-diff-paired.txt"), {
     "no difference"
     diff_element(c("a", "b"), c("a", "b"))
 
@@ -20,33 +20,25 @@ test_that("nice element diffs", {
   })
 })
 
-test_that("element-wise comparisons", {
-  verify_output(test_path("test-diff-elementwise.txt"), {
+test_that("side-by-side diffs", {
+  verify_output(test_path("test-diff-side-by-side.txt"), {
+    x <- c("a", "a")
+    diff_element(c(x, "a", "b", "c"), c(x, "a", "b"), width = 20)
+    diff_element(c(x, "a", "b"), c(x, "a", "b", "c"), width = 20)
+    diff_element(c(x, "a", "B", "c"), c(x, "a", "b", "c"), width = 20)
+
+    "context"
+    diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 20)
+  })
+})
+
+test_that("element-wise diffs", {
+  verify_output(test_path("test-diff-element-wise.txt"), {
     diff_element(c("a", "b", "c"), c("a", "b"), width = 10)
     diff_element(c("a", "b"), c("a", "b", "c"), width = 10)
     diff_element(c("a", "B", "c"), c("a", "b", "c"), width = 10)
 
     "context"
     diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 10)
-  })
-})
-
-test_that("check cascading fallbacks", {
-  old <- Sys.getenv("CI")
-  Sys.setenv(CI = "false")
-  on.exit(Sys.setenv(CI = old))
-
-  verify_output(test_path("test-diff-fallback.txt"), {
-    "large diff"
-    diff_element(letters, LETTERS, width = 60)
-    diff_element(letters, LETTERS, width = 40)
-    diff_element(letters, LETTERS, width = 20)
-
-    "with context"
-    x <- paste0("My favourite letter is ", letters)
-    y <- "This is a sentence"
-    diff_element(x, c(x, y))
-    diff_element(x, c(x[1:10], y, x[11:26]))
-    diff_element(c(x, y), x[-1])
   })
 })
