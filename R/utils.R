@@ -61,8 +61,8 @@ attrs <- function(x) {
     out$row.names <- .row_names_info(x, 0L)
   }
 
-  first <- intersect(c("class", "names", "dim"), names(out))
-  out[c(first, sort(setdiff(names(out), first)))]
+  first <- intersect(c("class", "names", "dim"), names2(out))
+  out[c(first, sort(setdiff(names2(out), first)))]
 }
 
 num_format <- function(x) {
