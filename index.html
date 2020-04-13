@@ -79,7 +79,7 @@
 <ul>
 <li>Ordering the differences from most important to least important.</li>
 <li>Displaying the values of atomic vecftors that are actually different.</li>
-<li>Carefully using colour to emphasise changes.</li>
+<li>Carefully using colour to emphasise changes (while still being readable when colour isn’t available).</li>
 <li>Using R code (not a text description) to show where differences arise.</li>
 <li>Where possible, comparing elements by name, rather than by position.</li>
 <li>Erring on the side of producing too much output, rather than too little.</li>
@@ -92,29 +92,29 @@ You can install the released version of waldo from [CRAN](https://CRAN.R-project
 ``` r
 install.packages("waldo")
 ```
---><div id="example" class="section level2">
+--><div id="comparisons" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<a href="#comparisons" class="anchor"></a>Comparisons</h2>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">waldo</span>)</pre></div>
-<p>When comparing atomic vectors, <code><a href="reference/compare.html">compare()</a></code> produces diffs (thanks to <a href="https://github.com/brodieG/diffobj">diffobj</a>) that changes, additions, and deletions, along with a little context:</p>
+<p>When comparing atomic vectors, <code><a href="reference/compare.html">compare()</a></code> produces diffs (thanks to <a href="https://github.com/brodieG/diffobj">diffobj</a>) that highlight additions, deletions, and changes, along with a little context:</p>
 <ul>
 <li>
-<p>Change</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "B", "c"))</a></code></pre>
+<p>Addition</p>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "b"))</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-2.svg" width="100%"></p>
 </li>
 <li>
-<p>Addition</p>
+<p>Deletion</p>
 <pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b"), c("a", "b", "c"))</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-3.svg" width="100%"></p>
 </li>
 <li>
-<p>Deletion</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "b"))</a></code></pre>
+<p>Change</p>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "B", "c"))</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-4.svg" width="100%"></p>
 </li>
 <li>
-<p>Long vectors with small differences only show local context around changes, not everything that’s the same.</p>
+<p>Long vectors with short differences only show local context around changes, not everything that’s the same.</p>
 <pre class="asciicast"><code><a href="reference/compare.html">compare(c("X", letters), c(letters, "X"))</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-5.svg" width="100%"></p>
 </li>
@@ -133,7 +133,7 @@ compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-7.svg" width="100%"></p>
 </li>
 <li>
-<p>And if there’s still not enough room for that, the each element is given its own line:</p>
+<p>And if there’s still not enough room for side-by-side, the each element is given its own line:</p>
 <pre class="asciicast"><code><a href="https://rdrr.io/r/base/options.html">options(width = 10)
 compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-8.svg" width="100%"></p>
@@ -144,21 +144,21 @@ compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))</a></code></pre>
 <li>
 <p>Unnamed lists are compared by position:</p>
 <pre class="asciicast"><code><a href="reference/compare.html">compare(list(factor("x")), list(1L))</a></code></pre>
-<p><img src="reference/figures/README/unnamed-chunk-9.svg" width="100%"></p>
-</li>
-<li>
-<p>Named lists, including data frames, are compared by name. Note that the following comparison reports a difference in the class and names, but not the values of the columns.</p>
-<pre class="asciicast"><code>df1 &lt;- data.frame(x = 1:3, y = 3:1)
-df2 &lt;- tibble::tibble(rev(df1))
-compare(df1, df2)</code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-10.svg" width="100%"></p>
 </li>
 <li>
-<p>Recursion can be abitraily deep:</p>
+<p>Named lists, including data frames, are compared by name. For example, note that the following comparison reports a difference in the class and names, but not the values of the columns.</p>
+<pre class="asciicast"><code>df1 &lt;- data.frame(x = 1:3, y = 3:1)
+df2 &lt;- tibble::tibble(rev(df1))
+compare(df1, df2)</code></pre>
+<p><img src="reference/figures/README/unnamed-chunk-11.svg" width="100%"></p>
+</li>
+<li>
+<p>Recursion can be arbitrarily deep:</p>
 <pre class="asciicast"><code>x &lt;- list(a = list(b = list(c = list(structure(1, e = 1)))))
 y &lt;- list(a = list(b = list(c = list(structure(1, e = "a")))))
 compare(x, y)</code></pre>
-<p><img src="reference/figures/README/unnamed-chunk-11.svg" width="100%"></p>
+<p><img src="reference/figures/README/unnamed-chunk-12.svg" width="100%"></p>
 </li>
 </ul>
 </div>
