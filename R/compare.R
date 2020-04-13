@@ -2,12 +2,16 @@
 #'
 #' @description
 #' This function is an alternative to [all.equal()] that attempts to provide
-#' a description of the differences that is more immediately understandable
+#' a description of the differences that is more immediately understandable.
+#' It:
 #'
-#' Main features:
-#' * atomic vectors are diffed using diffobj package
-#' * lists and attributes are compared by name where possible
-#' * locations of differences are described using executable R code
+#' * Orders the differences from most important to least important.
+#' * Displays the values of atomic vectors that are actually different.
+#' * Carefully uses colour to emphasise changes (while still being readable
+#'   when colour isn't available).
+#' * Uses R code (not a text description) to show where differences arise.
+#' * Where possible, it compares elements by name, rather than by position.
+#' * Errs on the side of producing too much output, rather than too little.
 #'
 #' @param x,y Objects to compare. `y` is treated as the reference object
 #'   so messages describe how `x` is different to `y`
@@ -34,11 +38,17 @@
 #' @param ignore_encoding Ignore string encoding? `TRUE` by default, because
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
+#' @returns A character vector with class "waldo_compare". If there are no
+#'   differences it will have length 0; otherwise each element is contains
+#'   the description of a single difference.
 #' @export
 #' @examples
 #' # Thanks to diffobj package comparison of atomic vectors shows differences
 #' # with a little context
 #' compare(letters, c("z", letters[-26]))
+#' compare(c(1, 2, 3), c(1, 3))
+#' compare(c(1, 2, 3), c(1, 3, 4, 5))
+#' compare(c(1, 2, 3), c(1, 2, 5))
 #'
 #' # More complex objects are traversed, stopping only when the types are
 #' # different
@@ -48,6 +58,8 @@
 #' )
 #'
 #' # Where possible, recursive structures are compared by name
+#' compare(iris, rev(iris))
+#'
 #' compare(list(x = "x", y = "y"), list(y = "y", x = "x"))
 #' # Otherwise they're compared by position
 #' compare(list("x", "y"), list("x", "z"))

@@ -47,21 +47,32 @@ differences.}
 this is R's default behaviour. Use \code{FALSE} when specifically concerned
 with the encoding, not just the value of the string.}
 }
+\value{
+A character vector with class "waldo_compare". If there are no
+differences it will have length 0; otherwise each element is contains
+the description of a single difference.
+}
 \description{
 This function is an alternative to \code{\link[=all.equal]{all.equal()}} that attempts to provide
-a description of the differences that is more immediately understandable
-
-Main features:
+a description of the differences that is more immediately understandable.
+It:
 \itemize{
-\item atomic vectors are diffed using diffobj package
-\item lists and attributes are compared by name where possible
-\item locations of differences are described using executable R code
+\item Orders the differences from most important to least important.
+\item Displays the values of atomic vectors that are actually different.
+\item Carefully uses colour to emphasise changes (while still being readable
+when colour isn't available).
+\item Uses R code (not a text description) to show where differences arise.
+\item Where possible, it compares elements by name, rather than by position.
+\item Errs on the side of producing too much output, rather than too little.
 }
 }
 \examples{
 # Thanks to diffobj package comparison of atomic vectors shows differences
 # with a little context
 compare(letters, c("z", letters[-26]))
+compare(c(1, 2, 3), c(1, 3))
+compare(c(1, 2, 3), c(1, 3, 4, 5))
+compare(c(1, 2, 3), c(1, 2, 5))
 
 # More complex objects are traversed, stopping only when the types are
 # different
@@ -71,6 +82,8 @@ compare(
 )
 
 # Where possible, recursive structures are compared by name
+compare(iris, rev(iris))
+
 compare(list(x = "x", y = "y"), list(y = "y", x = "x"))
 # Otherwise they're compared by position
 compare(list("x", "y"), list("x", "z"))
