@@ -28,8 +28,8 @@ diff_align <- function(diff, x, y) {
       a = col_d(y[y_i]),
       c = col_c(y[y_i]),
       d = c(col_x(y[y_i]), NA[x_i]),
-      x = col_x(y[y_i]))
-    )
+      x = col_x(y[y_i])
+    ))
 
     x_idx <- c(x_idx, x_i[x_i != 0], if (row$t == "a") NA[y_i])
     y_idx <- c(y_idx, y_i[y_i != 0], if (row$t == "d") NA[x_i])
@@ -91,9 +91,9 @@ diff_element <- function(x, y, paths = c("x", "y"),
     return(new_compare())
   }
 
-  align <- lapply(diff, diff_align, x = x, y = y)
-
-  format <- lapply(align, format_diff_matrix,
+  format <- lapply(diff, format_diff_matrix,
+    x = x,
+    y = y,
     paths = paths,
     width = width,
     ci = ci
@@ -101,7 +101,8 @@ diff_element <- function(x, y, paths = c("x", "y"),
   new_compare(unlist(format, recursive = FALSE))
 }
 
-format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci = in_ci()) {
+format_diff_matrix <- function(diff, x, y, paths, width = getOption("width"), ci = in_ci()) {
+  alignment <- diff_align(diff, x, y)
   mat <- rbind(alignment$x, alignment$y)
   mat[is.na(mat)] <- ""
 
@@ -111,6 +112,7 @@ format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci 
   x_path_label <- label_path(paths[[1]], alignment$x_slice)
   y_path_label <- label_path(paths[[2]], alignment$y_slice)
 
+  # Paired lines ---------------------------------------------------------------
   mat_out <- cbind(paste0("`", c(x_path_label, y_path_label), "`:"), mat)
   if (n_trunc > 0) {
     mat_out <- mat_out[, 1:11]
@@ -123,12 +125,14 @@ format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci 
     return(paste0(rows, collapse = "\n"))
   }
 
-  # Too wide for top-and-bottom display, so try side-by-side
+  # Side-by-side ---------------------------------------------------------------
   x_idx_out <- label_idx(alignment$x_idx)
   y_idx_out <- label_idx(alignment$y_idx)
   idx_width <- max(nchar(x_idx_out), nchar(y_idx_out))
 
-  mat_out <- cbind(c(paths[[1]], "|", paths[[2]]), rbind(mat[1, ], "|", mat[2, ]))
+  divider <- ifelse(mat[1,] == mat[2, ], "|", "-")
+
+  mat_out <- cbind(c(paths[[1]], "|", paths[[2]]), rbind(mat[1, ], divider, mat[2, ]))
   if (n_trunc > 0) {
     mat_out <- mat_out[, 1:11]
     mat_out <- cbind(mat_out, c("...", "", "..."))
@@ -147,6 +151,8 @@ format_diff_matrix <- function(alignment, paths, width = getOption("width"), ci 
   if (fansi::nchar_ctl(rows[[1]]) <= width) {
     return(paste0(rows, collapse = "\n"))
   }
+
+  # Line-by-line ---------------------------------------------------------------
 
   x_idx_out <- left_align(paste0(x_idx_out, ": "), width = idx_width + 2)
   y_idx_out <- left_align(paste0(y_idx_out, ": "), width = idx_width + 2)
