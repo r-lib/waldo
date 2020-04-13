@@ -156,9 +156,9 @@ format_diff_matrix <- function(diff, x, y, paths, width = getOption("width"), ci
 
   lines <- character()
 
-  line_a <- function(x) col_a(paste0("+ ", x))
-  line_d <- function(x) col_d(paste0("- ", x))
-  line_x <- function(x) col_x(paste0("  ", x))
+  line_a <- function(x) if (length(x) > 0) col_a(paste0("+ ", x))
+  line_d <- function(x) if (length(x) > 0) col_d(paste0("- ", x))
+  line_x <- function(x) if (length(x) > 0) col_x(paste0("  ", x))
 
   for (i in seq_len(nrow(diff))) {
     row <- diff[i, , drop = FALSE]
@@ -166,9 +166,9 @@ format_diff_matrix <- function(diff, x, y, paths, width = getOption("width"), ci
     y_i <- seq2(row$y1, row$y2)
     lines <- c(lines, switch(row$t,
       x = line_x(x[x_i]),
-      a = c(line_x(x[x_i]), line_a(y[y_i])),
-      c = interleave(line_d(x[x_i]), line_a(y[y_i])),
-      d = line_d(x[x_i])
+      a = c(line_x(x[x_i]), line_d(y[y_i])),
+      c = interleave(line_a(x[x_i]), line_d(y[y_i])),
+      d = line_a(x[x_i])
     ))
   }
 
