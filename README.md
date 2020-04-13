@@ -21,7 +21,8 @@ care to generate actionable insights by:
   - Ordering the differences from most important to least important.
   - Displaying the values of atomic vecftors that are actually
     different.
-  - Carefully using colour to emphasise changes.
+  - Carefully using colour to emphasise changes (while still being
+    readable when colour isn’t available).
   - Using R code (not a text description) to show where differences
     arise.
   - Where possible, comparing elements by name, rather than by position.
@@ -38,25 +39,25 @@ install.packages("waldo")
 ```
 -->
 
-## Example
+## Comparisons
 
 ``` r
 library(waldo)
 ```
 
 When comparing atomic vectors, `compare()` produces diffs (thanks to
-[diffobj](https://github.com/brodieG/diffobj)) that changes, additions,
-and deletions, along with a little context:
+[diffobj](https://github.com/brodieG/diffobj)) that highlight additions,
+deletions, and changes, along with a little context:
 
-  - Change
+  - Addition
     
     ``` asciicast
-    compare(c("a", "b", "c"), c("a", "B", "c"))
+    compare(c("a", "b", "c"), c("a", "b"))
     ```
     
     <img src="man/figures/README/unnamed-chunk-2.svg" width="100%" />
 
-  - Addition
+  - Deletion
     
     ``` asciicast
     compare(c("a", "b"), c("a", "b", "c"))
@@ -64,15 +65,15 @@ and deletions, along with a little context:
     
     <img src="man/figures/README/unnamed-chunk-3.svg" width="100%" />
 
-  - Deletion
+  - Change
     
     ``` asciicast
-    compare(c("a", "b", "c"), c("a", "b"))
+    compare(c("a", "b", "c"), c("a", "B", "c"))
     ```
     
     <img src="man/figures/README/unnamed-chunk-4.svg" width="100%" />
 
-  - Long vectors with small differences only show local context around
+  - Long vectors with short differences only show local context around
     changes, not everything that’s the same.
     
     ``` asciicast
@@ -102,8 +103,8 @@ console you’ll get one of three displays:
     
     <img src="man/figures/README/unnamed-chunk-7.svg" width="100%" />
 
-  - And if there’s still not enough room for that, the each element is
-    given its own line:
+  - And if there’s still not enough room for side-by-side, the each
+    element is given its own line:
     
     ``` asciicast
     options(width = 10)
@@ -121,11 +122,11 @@ code path telling you where the differences lie:
     compare(list(factor("x")), list(1L))
     ```
     
-    <img src="man/figures/README/unnamed-chunk-9.svg" width="100%" />
+    <img src="man/figures/README/unnamed-chunk-10.svg" width="100%" />
 
-  - Named lists, including data frames, are compared by name. Note that
-    the following comparison reports a difference in the class and
-    names, but not the values of the columns.
+  - Named lists, including data frames, are compared by name. For
+    example, note that the following comparison reports a difference in
+    the class and names, but not the values of the columns.
     
     ``` asciicast
     df1 <- data.frame(x = 1:3, y = 3:1)
@@ -133,9 +134,9 @@ code path telling you where the differences lie:
     compare(df1, df2)
     ```
     
-    <img src="man/figures/README/unnamed-chunk-10.svg" width="100%" />
+    <img src="man/figures/README/unnamed-chunk-11.svg" width="100%" />
 
-  - Recursion can be abitraily deep:
+  - Recursion can be arbitrarily deep:
     
     ``` asciicast
     x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
@@ -143,4 +144,4 @@ code path telling you where the differences lie:
     compare(x, y)
     ```
     
-    <img src="man/figures/README/unnamed-chunk-11.svg" width="100%" />
+    <img src="man/figures/README/unnamed-chunk-12.svg" width="100%" />

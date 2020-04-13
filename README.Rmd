@@ -41,7 +41,8 @@ The goal of waldo is to find and concisely describe the difference between a pai
 
 * Ordering the differences from most important to least important.
 * Displaying the values of atomic vecftors that are actually different.
-* Carefully using colour to emphasise changes.
+* Carefully using colour to emphasise changes (while still being readable
+  when colour isn't available).
 * Using R code (not a text description) to show where differences arise.
 * Where possible, comparing elements by name, rather than by position.
 * Erring on the side of producing too much output, rather than too little.
@@ -56,30 +57,30 @@ install.packages("waldo")
 ```
 -->
 
-## Example
+## Comparisons
 
 ```{r setup}
 library(waldo)
 ```
 
-When comparing atomic vectors, `compare()` produces diffs (thanks to [diffobj](https://github.com/brodieG/diffobj)) that changes, additions, and deletions, along with a little context:
+When comparing atomic vectors, `compare()` produces diffs (thanks to [diffobj](https://github.com/brodieG/diffobj)) that highlight additions, deletions, and changes, along with a little context:
+
+*   Addition
+    ```{asciicast}
+    compare(c("a", "b", "c"), c("a", "b"))
+    ```
+
+*   Deletion
+    ```{asciicast}
+    compare(c("a", "b"), c("a", "b", "c"))
+    ```
 
 *   Change
     ```{asciicast}
     compare(c("a", "b", "c"), c("a", "B", "c"))
     ```
 
-*   Addition
-    ```{asciicast}
-    compare(c("a", "b"), c("a", "b", "c"))
-    ```
-
-*   Deletion
-    ```{asciicast}
-    compare(c("a", "b", "c"), c("a", "b"))
-    ```
-
-*   Long vectors with small differences only show local context around
+*   Long vectors with short differences only show local context around
     changes, not everything that's the same.
 
     ```{asciicast}
@@ -102,8 +103,8 @@ Depending on the relative size of the differences and the width of your console 
     compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
     ```
 
-*   And if there's still not enough room for that, the each element is 
-    given its own line:
+*   And if there's still not enough room for side-by-side, the each element
+    is given its own line:
 
     ```{asciicast}
     options(width = 10)
@@ -112,15 +113,19 @@ Depending on the relative size of the differences and the width of your console 
 
 When comparing more complex objects, `compare()` creates an executable code path telling you where the differences lie:
 
+```{asciicast, include = FALSE}
+options(width = 80)
+```
+
 *   Unnamed lists are compared by position: 
 
     ```{asciicast}
     compare(list(factor("x")), list(1L))
     ```
 
-*   Named lists, including data frames, are compared by name. Note that the
-    following comparison reports a difference in the class and names, but not 
-    the values of the columns.
+*   Named lists, including data frames, are compared by name. For example,
+    note that the following comparison reports a difference in the class and
+    names, but not the values of the columns.
 
     ```{asciicast}
     df1 <- data.frame(x = 1:3, y = 3:1)
@@ -128,7 +133,7 @@ When comparing more complex objects, `compare()` creates an executable code path
     compare(df1, df2)
     ```
 
-*   Recursion can be abitraily deep:
+*   Recursion can be arbitrarily deep:
 
     ```{asciicast}
     x <- list(a = list(b = list(c = list(structure(1, e = 1)))))
