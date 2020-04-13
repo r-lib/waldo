@@ -154,13 +154,38 @@ format_diff_matrix <- function(diff, x, y, paths, width = getOption("width"), ci
 
   # Line-by-line ---------------------------------------------------------------
 
-  x_idx_out <- left_align(paste0(x_idx_out, ": "), width = idx_width + 2)
-  y_idx_out <- left_align(paste0(y_idx_out, ": "), width = idx_width + 2)
+  lines <- character()
+
+  line_a <- function(x) col_a(paste0("+ ", x))
+  line_d <- function(x) col_d(paste0("- ", x))
+  line_x <- function(x) col_x(paste0("  ", x))
+
+  for (i in seq_len(nrow(diff))) {
+    row <- diff[i, , drop = FALSE]
+    x_i <- seq2(row$x1, row$x2)
+    y_i <- seq2(row$y1, row$y2)
+    lines <- c(lines, switch(row$t,
+      x = line_x(x[x_i]),
+      a = c(line_x(x[x_i]), line_a(y[y_i])),
+      c = interleave(line_d(x[x_i]), line_a(y[y_i])),
+      d = line_d(x[x_i])
+    ))
+  }
+
+  n_trunc <- if (ci) 0 else length(lines) - (10 * 2)
+  if (n_trunc > 0) {
+    lines <- c(lines[1:20], paste0("and ", n_trunc, " more ..."))
+  }
 
   paste0(
-    paths[[1]], x_idx_out, mat[1, ], "\n",
-    paths[[2]], y_idx_out, mat[2, ]
+    paste0(x_path_label, " vs ", y_path_label), "\n",
+    paste0(lines, collapse = "\n")
   )
+}
+
+interleave <- function(x, y) {
+  ord <- c(seq_along(x), seq_along(y))
+  c(x, y)[order(ord)]
 }
 
 label_path <- function(path, slice) {

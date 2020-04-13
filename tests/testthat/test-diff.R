@@ -34,9 +34,9 @@ test_that("side-by-side diffs", {
 
 test_that("element-wise diffs", {
   verify_output(test_path("test-diff-element-wise.txt"), {
-    diff_element(c("a", "b", "c"), c("a", "b"), width = 10)
-    diff_element(c("a", "b"), c("a", "b", "c"), width = 10)
-    diff_element(c("a", "B", "c"), c("a", "b", "c"), width = 10)
+    diff_element(c("a", "b", "c", "d"), c("a", "b"), width = 10)
+    diff_element(c("a", "b"), c("a", "b", "c", "d"), width = 10)
+    diff_element(c("a", "B", "C", "d"), c("a", "b", "c", "d"), width = 10)
 
     "context"
     diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 10)
