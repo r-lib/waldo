@@ -51,5 +51,11 @@ test_that("numeric comparison", {
     compare_numeric(x, x + c(-1, 0, 1) * 1e-8)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-9)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-10)
+
+    "zero tolerance"
+    compare_numeric(x, x + c(-1, 0, 1) * 1e-8, tolerance = 0)
+    compare_numeric(x, x + c(-1, 0, 1) * 1e-9, tolerance = 0)
+    compare_numeric(x, x + c(-1, 0, 1) * 1e-10, tolerance = 0)
+
   })
 })

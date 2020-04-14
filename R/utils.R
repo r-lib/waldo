@@ -65,10 +65,6 @@ attrs <- function(x) {
   out[c(first, sort(setdiff(names2(out), first)))]
 }
 
-num_format <- function(x) {
-  format(x, trim = TRUE, digits = 6, scientific = 3, drop0trailing = TRUE)
-}
-
 remove_source <- function(x) {
   if (is_closure(x)) {
     body(x) <- remove_source(body(x))
