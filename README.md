@@ -29,15 +29,14 @@ care to generate actionable insights by:
   - Erring on the side of producing too much output, rather than too
     little.
 
-<!--
 ## Installation
 
-You can install the released version of waldo from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of waldo from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("waldo")
 ```
--->
 
 ## Comparisons
 

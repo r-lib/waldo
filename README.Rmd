@@ -47,7 +47,6 @@ The goal of waldo is to find and concisely describe the difference between a pai
 * Where possible, comparing elements by name, rather than by position.
 * Erring on the side of producing too much output, rather than too little.
 
-<!--
 ## Installation
 
 You can install the released version of waldo from [CRAN](https://CRAN.R-project.org) with:
@@ -55,7 +54,6 @@ You can install the released version of waldo from [CRAN](https://CRAN.R-project
 ``` r
 install.packages("waldo")
 ```
--->
 
 ## Comparisons
 
