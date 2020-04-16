@@ -21,6 +21,18 @@ test_that("can ignore minor numeric differences", {
   expect_equal(compare_structure(x, x + 1e-9, opts = compare_opts(tolerance = 1e-6)), character())
 })
 
+test_that("ignores S3 [[ methods", {
+  verify_output(test_path("test-compare-s3-weird.txt"), {
+    x <- as.POSIXlt("2020-01-01")
+    y <- as.POSIXlt("2020-01-02")
+    compare(x, y)
+
+    x <- package_version("1.0.0")
+    y <- package_version("1.1.0")
+    compare(x, y)
+  })
+})
+
 test_that("can optionally compare encoding", {
   x <- c("fa\xE7ile", "fa\ue7ile")
   Encoding(x) <- c("latin1", "UTF-8")

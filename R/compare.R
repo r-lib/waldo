@@ -129,6 +129,9 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
   # Then contents
   if (is_list(x) || is_pairlist(x)) {
+    x <- unclass(x)
+    y <- unclass(y)
+
     if (is_dictionaryish(x) && is_dictionaryish(y)) {
       out <- c(out, compare_by_name(x, y, paths, opts))
     } else {
@@ -249,12 +252,12 @@ compare_by <- function(index_fun, extract_fun, path_fun) {
 }
 
 index_name <- function(x, y) union(names(x), names(y))
-extract_name <- function(x, i) if (has_name(x, i)) x[[i]] else missing_arg()
+extract_name <- function(x, i) if (has_name(x, i)) .subset2(x, i) else missing_arg()
 path_name <- function(path, i) glue("{path}${i}")
 compare_by_name <- compare_by(index_name, extract_name, path_name)
 
 index_pos <- function(x, y) max(length(x), length(y))
-extract_pos <- function(x, i) if (i <= length(x)) x[[i]] else missing_arg()
+extract_pos <- function(x, i) if (i <= length(x)) .subset2(x, i) else missing_arg()
 path_pos <- function(path, i) glue("{path}[[{i}]]")
 compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)
 
