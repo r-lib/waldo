@@ -183,6 +183,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       raw = ,
       character = compare_character(x, y, paths)
     ))
+  } else if (typeof(x) == "externalptr") {
+    x <- capture.output(print(x))
+    y <- capture.output(print(y))
+    out <- c(out, should_be("{x}", "{y}"))
   } else if (!isS4(x)) {
     abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"))
   }
