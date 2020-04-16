@@ -119,7 +119,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     out <- c(out, compare_character(is(x), is(y), glue("is({paths})")))
     out <- c(out, compare_by_slot(x, y, paths, opts))
   } else if (!opts$ignore_attr) {
-    if (is_closure(x) && opts$ignore_srcref) {
+    if ((is_closure(x) || is_call(x)) && opts$ignore_srcref) {
       x <- remove_source(x)
       y <- remove_source(y)
     }
