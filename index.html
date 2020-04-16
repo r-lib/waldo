@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">waldo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -48,6 +48,9 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -84,18 +87,16 @@
 <li>Where possible, comparing elements by name, rather than by position.</li>
 <li>Erring on the side of producing too much output, rather than too little.</li>
 </ul>
-<!--
-## Installation
-
-You can install the released version of waldo from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("waldo")
-```
---><div id="comparisons" class="section level2">
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the released version of waldo from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"waldo"</span>)</pre></div>
+</div>
+<div id="comparisons" class="section level2">
 <h2 class="hasAnchor">
 <a href="#comparisons" class="anchor"></a>Comparisons</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">waldo</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">waldo</span>)</pre></div>
 <p>When comparing atomic vectors, <code><a href="reference/compare.html">compare()</a></code> produces diffs (thanks to <a href="https://github.com/brodieG/diffobj">diffobj</a>) that highlight additions, deletions, and changes, along with a little context:</p>
 <ul>
 <li>
