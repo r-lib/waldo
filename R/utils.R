@@ -57,9 +57,6 @@ short_val <- function(x) {
 
 attrs <- function(x) {
   out <- attributes(x)
-  if (is.data.frame(x)) {
-    out$row.names <- .row_names_info(x, 0L)
-  }
 
   first <- intersect(c("class", "names", "dim"), names2(out))
   out[c(first, sort(setdiff(names2(out), first)))]

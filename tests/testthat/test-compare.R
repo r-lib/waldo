@@ -15,6 +15,12 @@ test_that("can optionally ignore attributes", {
   expect_equal(compare_structure(x, y, opts = compare_opts(ignore_attr = TRUE)), character())
 })
 
+test_that("don't strictly compare row names", {
+  df1 <- df2 <- data.frame(x = 1:2)
+  rownames(df2) <- 1:2
+  expect_equal(compare_structure(df1, df2), character())
+})
+
 test_that("can ignore minor numeric differences", {
   x <- 1:3
   expect_equal(compare_structure(x, as.numeric(x), opts = compare_opts(tolerance = 0)), character())
