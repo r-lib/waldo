@@ -159,6 +159,9 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   } else if (is_symbol(x)) {
     out <- c(out, should_be("`{deparse(x)}`", "`{deparse(y)}`"))
   } else if (is_call(x)) {
+    attributes(x) <- NULL
+    attributes(y) <- NULL
+
     if (!identical(x, y)) {
       diff <- compare_character(deparse(x), deparse(y), paths)
       if (length(diff) == 0) {
