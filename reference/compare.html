@@ -145,6 +145,7 @@ when colour isn't available).</p></li>
     <pre class="usage"><span class='fu'>compare</span>(
   <span class='no'>x</span>,
   <span class='no'>y</span>,
+  <span class='no'>...</span>,
   <span class='kw'>x_arg</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
   <span class='kw'>y_arg</span> <span class='kw'>=</span> <span class='st'>"y"</span>,
   <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -160,6 +161,16 @@ when colour isn't available).</p></li>
       <th>x, y</th>
       <td><p>Objects to compare. <code>y</code> is treated as the reference object
 so messages describe how <code>x</code> is different to <code>y</code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>A handful of other arguments are supported with a warning for
+backward compatability. These include:</p><ul>
+<li><p><code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code> arguments <code>checkNames</code> and <code>check.attributes</code></p></li>
+<li><p><code><a href='https://testthat.r-lib.org/reference/compare.html'>testthat::compare()</a></code> argument <code>tol</code></p></li>
+</ul>
+
+<p>All other arguments are ignored with a warning.</p></td>
     </tr>
     <tr>
       <th>x_arg, y_arg</th>
