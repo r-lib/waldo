@@ -96,7 +96,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   # Compare type
-  term <- compare_terminate(x, y, paths, tolerance = opts$tolerance)
+  term <- compare_terminate(x, y, paths,
+    tolerance = opts$tolerance,
+    ignore_attr = opts$ignore_attr
+  )
   if (length(term) > 0) {
     return(term)
   }
@@ -188,8 +191,14 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   out
 }
 
-compare_terminate <- function(x, y, paths, tolerance = NULL) {
+compare_terminate <- function(x, y, paths,
+                              tolerance = NULL,
+                              ignore_attr = FALSE) {
   if (type_of(x) == type_of(y)) {
+    return(character())
+  }
+
+  if (ignore_attr && (typeof(x) == typeof(y))) {
     return(character())
   }
 

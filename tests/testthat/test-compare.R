@@ -10,9 +10,14 @@ test_that("attributes compare by name", {
 })
 
 test_that("can optionally ignore attributes", {
-  x <- structure(list(), a = "a")
-  y <- structure(list(), a = "b")
-  expect_equal(compare_structure(x, y, opts = compare_opts(ignore_attr = TRUE)), character())
+  opts <- compare_opts(ignore_attr = TRUE)
+
+  x <- y <- 1:5
+  attr(y, "a") <- "b"
+  expect_equal(compare_structure(x, y, opts = opts), character())
+
+  class(y) <- "foofy"
+  expect_equal(compare_structure(x, y, opts = opts), character())
 })
 
 test_that("don't strictly compare row names", {
