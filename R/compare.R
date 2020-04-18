@@ -17,6 +17,13 @@
 #'   so messages describe how `x` is different to `y`
 #' @param x_arg,y_arg Name of `x` and `y` arguments, used when generated paths
 #'   to internal components.
+#' @param ... A handful of other arguments are supported with a warning for
+#'   backward compatability. These include:
+#'
+#'   * `all.equal()` arguments `checkNames` and `check.attributes`
+#'   * `testthat::compare()` argument `tol`
+#'
+#'   All other arguments are ignored with a warning.
 #' @param tolerance If non-`NULL`, used as threshold for ignoring small
 #'   floating point difference when comparing numeric vectors. Setting to
 #'   any non-`NULL` value will cause integer and double vectors to be compared
@@ -64,7 +71,7 @@
 #' # Otherwise they're compared by position
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
-compare <- function(x, y,
+compare <- function(x, y, ...,
                     x_arg = "x", y_arg = "y",
                     tolerance = NULL,
                     ignore_srcref = TRUE,
@@ -72,6 +79,7 @@ compare <- function(x, y,
                     ignore_encoding = TRUE) {
 
   opts <- compare_opts(
+    ...,
     tolerance = tolerance,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
@@ -81,20 +89,6 @@ compare <- function(x, y,
   new_compare(out)
 }
 
-compare_opts <- function(tolerance = NULL,
-                         ignore_srcref = TRUE,
-                         ignore_attr = FALSE,
-                         ignore_encoding = TRUE,
-                         ignore_function_env = FALSE
-                         ) {
-  list(
-    tolerance = tolerance,
-    ignore_srcref = ignore_srcref,
-    ignore_attr = ignore_attr,
-    ignore_encoding = ignore_encoding,
-    ignore_function_env = ignore_function_env
-  )
-}
 
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (is_reference(x, y)) {

@@ -7,6 +7,7 @@
 compare(
   x,
   y,
+  ...,
   x_arg = "x",
   y_arg = "y",
   tolerance = NULL,
@@ -18,6 +19,15 @@ compare(
 \arguments{
 \item{x, y}{Objects to compare. \code{y} is treated as the reference object
 so messages describe how \code{x} is different to \code{y}}
+
+\item{...}{A handful of other arguments are supported with a warning for
+backward compatability. These include:
+\itemize{
+\item \code{all.equal()} arguments \code{checkNames} and \code{check.attributes}
+\item \code{testthat::compare()} argument \code{tol}
+}
+
+All other arguments are ignored with a warning.}
 
 \item{x_arg, y_arg}{Name of \code{x} and \code{y} arguments, used when generated paths
 to internal components.}
