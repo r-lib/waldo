@@ -1,4 +1,4 @@
-compare_character <- function(x, y, paths = c("x", "y")) {
+compare_character <- function(x, y, paths = c("x", "y"), quote = "\"") {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
@@ -8,7 +8,7 @@ compare_character <- function(x, y, paths = c("x", "y")) {
 
     new_compare(compare_by_line(x, y, paths, compare_opts()))
   } else {
-    diff_element(x, y, paths)
+    diff_element(x, y, paths, quote = quote)
   }
 }
 
@@ -20,7 +20,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     return(new_compare())
   }
 
-  out <- diff_element(num_format(x), num_format(y), paths, escape_string = FALSE)
+  out <- diff_element(num_format(x), num_format(y), paths, quote = NULL)
   if (length(out) > 0) {
     return(out)
   }
@@ -32,7 +32,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
   diff_element(
     num_exact(x, digits = digits),
     num_exact(y, digits = digits), paths,
-    escape_string = FALSE
+    quote = NULL
   )
 }
 

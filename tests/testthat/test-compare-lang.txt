@@ -3,11 +3,18 @@
 `y` is `b`
 
 > compare(quote(a + b), quote(b + c))
-`x`: "a + b"
-`y`: "b + c"
+`x`: `a + b`
+`y`: `b + c`
 
 > x <- y <- quote(foo(1:3))
 > y[[2]] <- 1:3
 > compare(x, y)
 `deparse(x)` equals `deparse(y)`, but AST non-identical
+
+> compare(expression(1, a, a + b), expression(1, a, a + b))
+v No differences
+
+> compare(expression(1, a, a + b), expression(1, a, a + c))
+`x[[3]]`: `a + b`
+`y[[3]]`: `a + c`
 

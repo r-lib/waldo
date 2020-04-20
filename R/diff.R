@@ -78,12 +78,12 @@ col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
 # values ------------------------------------------------------------------
 
 diff_element <- function(x, y, paths = c("x", "y"),
-                         escape_string = TRUE,
+                         quote = "\"",
                          width = getOption("width"),
                          ci = in_ci()) {
-  if (escape_string) {
-    x <- encodeString(x, quote = "\"")
-    y <- encodeString(y, quote = "\"")
+  if (!is.null(quote)) {
+    x <- encodeString(x, quote = quote)
+    y <- encodeString(y, quote = quote)
   }
 
   diff <- ses_context(x, y)

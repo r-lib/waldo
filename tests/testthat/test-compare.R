@@ -161,5 +161,8 @@ test_that("comparing language objects gives useful diffs", {
     x <- y <- quote(foo(1:3))
     y[[2]] <- 1:3
     compare(x, y)
+
+    compare(expression(1, a, a + b), expression(1, a, a + b))
+    compare(expression(1, a, a + b), expression(1, a, a + c))
   })
 })

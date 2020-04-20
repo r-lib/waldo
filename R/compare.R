@@ -125,7 +125,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   # Then contents
-  if (is_list(x) || is_pairlist(x)) {
+  if (is_list(x) || is_pairlist(x) || is.expression(x)) {
     x <- unclass(x)
     y <- unclass(y)
 
@@ -163,7 +163,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     attributes(y) <- NULL
 
     if (!identical(x, y)) {
-      diff <- compare_character(deparse(x), deparse(y), paths)
+      diff <- compare_character(deparse(x), deparse(y), paths, quote = "`")
       if (length(diff) == 0) {
         diff <- glue("`deparse({paths[[1]]})` equals `deparse({paths[[2]]})`, but AST non-identical")
       }

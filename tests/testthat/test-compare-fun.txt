@@ -37,8 +37,8 @@ v No differences
 +   x + y
 + })
 > compare(f1, f4)
-`body(x)`: "{"             "}"
-`body(y)`: "{" "    x + y" "}"
+`body(x)`: `{`             `}`
+`body(y)`: `{` `    x + y` `}`
 
 > compare(f1, f4, ignore_srcref = FALSE)
 `attr(x, 'srcref')`: 2  8 2  33 8 33 2  2 
@@ -53,8 +53,8 @@ v No differences
 `attr(body(x), 'wholeSrcref')`: 1 0 2  33 0 33 1 2   
 `attr(body(y), 'wholeSrcref')`: 1 0 16 1  0    1 1 16
 
-`body(x)`: "{"             "}"
-`body(y)`: "{" "    x + y" "}"
+`body(x)`: `{`             `}`
+`body(y)`: `{` `    x + y` `}`
 
 > # diff environment
 > environment(f1) <- base_env()
