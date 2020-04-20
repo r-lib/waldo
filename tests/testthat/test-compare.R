@@ -20,6 +20,16 @@ test_that("can optionally ignore attributes", {
   expect_equal(compare_structure(x, y, opts = opts), character())
 })
 
+test_that("can optionally ignore function/formula envs", {
+  f1a <- y ~ x
+  f1b <- local(y ~ x)
+  expect_equal(compare(f1a, f1b, ignore_formula_env = TRUE), new_compare())
+
+  f2a <- function(x) x + 1
+  f2b <- local(function(x) x + 1)
+  expect_equal(compare(f2a, f2b, ignore_function_env = TRUE), new_compare())
+})
+
 test_that("don't strictly compare row names", {
   df1 <- df2 <- data.frame(x = 1:2)
   rownames(df2) <- 1:2

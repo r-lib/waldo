@@ -42,6 +42,10 @@
 #'   for backward compatibility with `all.equal()`. Using `TRUE` is not
 #'   generally recommended because it will ignore many important functional
 #'   differences.
+#' @param ignore_function_env,ignore_formula_env Ignore the environments of
+#'   functions and formulas, respectively? These are provided primarily for
+#'   backward compatibility with `all.equal()` which always ignores these
+#'   environments.
 #' @param ignore_encoding Ignore string encoding? `TRUE` by default, because
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
@@ -76,14 +80,19 @@ compare <- function(x, y, ...,
                     tolerance = NULL,
                     ignore_srcref = TRUE,
                     ignore_attr = FALSE,
-                    ignore_encoding = TRUE) {
+                    ignore_encoding = TRUE,
+                    ignore_function_env = FALSE,
+                    ignore_formula_env = FALSE
+                    ) {
 
   opts <- compare_opts(
     ...,
     tolerance = tolerance,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
-    ignore_encoding = ignore_encoding
+    ignore_encoding = ignore_encoding,
+    ignore_formula_env = ignore_formula_env,
+    ignore_function_env = ignore_function_env
   )
   out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
   new_compare(out)
@@ -116,6 +125,11 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     out <- c(out, compare_character(is(x), is(y), glue("is({paths})")))
     out <- c(out, compare_by_slot(x, y, paths, opts))
   } else if (!opts$ignore_attr) {
+    if (is_call(x) && opts$ignore_formula_env) {
+      attr(x, ".Environment") <- NULL
+      attr(y, ".Environment") <- NULL
+    }
+
     if ((is_closure(x) || is_call(x)) && opts$ignore_srcref) {
       x <- remove_source(x)
       y <- remove_source(y)

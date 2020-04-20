@@ -3,6 +3,7 @@ compare_opts <- function(...,
                          ignore_srcref = TRUE,
                          ignore_attr = FALSE,
                          ignore_encoding = TRUE,
+                         ignore_formula_env = FALSE,
                          ignore_function_env = FALSE
                          ) {
 
@@ -13,6 +14,7 @@ compare_opts <- function(...,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,
+    ignore_formula_env = ignore_formula_env,
     ignore_function_env = ignore_function_env
   )
 

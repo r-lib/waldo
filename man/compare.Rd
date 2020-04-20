@@ -13,7 +13,9 @@ compare(
   tolerance = NULL,
   ignore_srcref = TRUE,
   ignore_attr = FALSE,
-  ignore_encoding = TRUE
+  ignore_encoding = TRUE,
+  ignore_function_env = FALSE,
+  ignore_formula_env = FALSE
 )
 }
 \arguments{
@@ -56,6 +58,11 @@ differences.}
 \item{ignore_encoding}{Ignore string encoding? \code{TRUE} by default, because
 this is R's default behaviour. Use \code{FALSE} when specifically concerned
 with the encoding, not just the value of the string.}
+
+\item{ignore_function_env, ignore_formula_env}{Ignore the environments of
+functions and formulas, respectively? These are provided primarily for
+backward compatibility with \code{all.equal()} which always ignores these
+environments.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no
