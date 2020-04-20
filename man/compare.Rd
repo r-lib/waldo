@@ -63,9 +63,7 @@ differences it will have length 0; otherwise each element is contains
 the description of a single difference.
 }
 \description{
-This function is an alternative to \code{\link[=all.equal]{all.equal()}} that attempts to provide
-a description of the differences that is more immediately understandable.
-It:
+This compares two R objects, identifying the key differences. It:
 \itemize{
 \item Orders the differences from most important to least important.
 \item Displays the values of atomic vectors that are actually different.
@@ -75,6 +73,8 @@ when colour isn't available).
 \item Where possible, it compares elements by name, rather than by position.
 \item Errs on the side of producing too much output, rather than too little.
 }
+
+\code{compare()} is an alternative to \code{\link[=all.equal]{all.equal()}}.
 }
 \examples{
 # Thanks to diffobj package comparison of atomic vectors shows differences

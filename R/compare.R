@@ -1,9 +1,7 @@
 #' Compare two objects
 #'
 #' @description
-#' This function is an alternative to [all.equal()] that attempts to provide
-#' a description of the differences that is more immediately understandable.
-#' It:
+#' This compares two R objects, identifying the key differences. It:
 #'
 #' * Orders the differences from most important to least important.
 #' * Displays the values of atomic vectors that are actually different.
@@ -12,6 +10,8 @@
 #' * Uses R code (not a text description) to show where differences arise.
 #' * Where possible, it compares elements by name, rather than by position.
 #' * Errs on the side of producing too much output, rather than too little.
+#'
+#' `compare()` is an alternative to [all.equal()].
 #'
 #' @param x,y Objects to compare. `y` is treated as the reference object
 #'   so messages describe how `x` is different to `y`
