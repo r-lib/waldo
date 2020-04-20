@@ -40,9 +40,7 @@
 
 
 <meta property="og:title" content="Compare two objects — compare" />
-<meta property="og:description" content="This function is an alternative to all.equal() that attempts to provide
-a description of the differences that is more immediately understandable.
-It:
+<meta property="og:description" content="This compares two R objects, identifying the key differences. It:
 Orders the differences from most important to least important.
 Displays the values of atomic vectors that are actually different.
 Carefully uses colour to emphasise changes (while still being readable
@@ -51,7 +49,8 @@ Uses R code (not a text description) to show where differences arise.
 Where possible, it compares elements by name, rather than by position.
 Errs on the side of producing too much output, rather than too little.
 
-" />
+
+compare() is an alternative to all.equal()." />
 
 
 
@@ -128,9 +127,7 @@ Errs on the side of producing too much output, rather than too little.
     </div>
 
     <div class="ref-description">
-    <p>This function is an alternative to <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code> that attempts to provide
-a description of the differences that is more immediately understandable.
-It:</p><ul>
+    <p>This compares two R objects, identifying the key differences. It:</p><ul>
 <li><p>Orders the differences from most important to least important.</p></li>
 <li><p>Displays the values of atomic vectors that are actually different.</p></li>
 <li><p>Carefully uses colour to emphasise changes (while still being readable
@@ -140,6 +137,7 @@ when colour isn't available).</p></li>
 <li><p>Errs on the side of producing too much output, rather than too little.</p></li>
 </ul>
 
+<p><code>compare()</code> is an alternative to <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>compare</span>(
