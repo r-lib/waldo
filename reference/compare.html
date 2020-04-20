@@ -149,7 +149,9 @@ when colour isn't available).</p></li>
   <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>ignore_srcref</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>ignore_attr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ignore_encoding</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>ignore_encoding</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ignore_function_env</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ignore_formula_env</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -206,6 +208,13 @@ differences.</p></td>
       <td><p>Ignore string encoding? <code>TRUE</code> by default, because
 this is R's default behaviour. Use <code>FALSE</code> when specifically concerned
 with the encoding, not just the value of the string.</p></td>
+    </tr>
+    <tr>
+      <th>ignore_function_env, ignore_formula_env</th>
+      <td><p>Ignore the environments of
+functions and formulas, respectively? These are provided primarily for
+backward compatibility with <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code> which always ignores these
+environments.</p></td>
     </tr>
     </table>
 
