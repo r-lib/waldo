@@ -113,6 +113,9 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     return(term)
   }
 
+  x <- compare_proxy(x)
+  y <- compare_proxy(y)
+
   out <- character()
 
   # Then length
