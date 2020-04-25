@@ -16,7 +16,13 @@ test_that("can optionally ignore attributes", {
   attr(y, "a") <- "b"
   expect_equal(compare_structure(x, y, opts = opts), character())
 
+  # Ignores class
   class(y) <- "foofy"
+  expect_equal(compare_structure(x, y, opts = opts), character())
+
+  # Ignores names
+  x <- list(x = 1)
+  y <- list(y = 1)
   expect_equal(compare_structure(x, y, opts = opts), character())
 })
 

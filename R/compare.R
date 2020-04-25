@@ -146,7 +146,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     x <- unclass(x)
     y <- unclass(y)
 
-    if (is_dictionaryish(x) && is_dictionaryish(y)) {
+    if (!opts$ignore_attr && is_dictionaryish(x) && is_dictionaryish(y)) {
       out <- c(out, compare_by_name(x, y, paths, opts))
     } else {
       out <- c(out, compare_by_pos(x, y, paths, opts))
