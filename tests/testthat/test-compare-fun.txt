@@ -61,5 +61,5 @@ v No differences
 > environment(f2) <- global_env()
 > compare(f1, f2)
 `environment(x)` is <env:package:base>
-`environment(y)` is <env:global>`
+`environment(y)` is <env:global>
 
