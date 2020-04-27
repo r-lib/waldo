@@ -94,12 +94,17 @@ if (getRversion() < "3.3.0") {
   }
 }
 
-left_align <- function(x, width = NULL) {
+fansi_align <- function(x, width = NULL, justify = c("left", "right")) {
+  justify <- arg_match(justify)
+
   nchar <- fansi::nchar_ctl(x)
   width <- width %||% max(nchar)
   padding <- strrep(" ", pmax(0, width - nchar))
 
-  paste0(x, padding)
+  switch(justify,
+    left = paste0(x, padding),
+    right = paste0(padding, x)
+  )
 }
 
 multiline <- function(x) any(grepl("\n", x))

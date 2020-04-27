@@ -127,6 +127,12 @@ test_that("comparing functions gives useful diffs", {
   })
 })
 
+test_that("can compare atomic vectors", {
+  verify_output(test_path("test-compare-atomic.txt"), {
+    compare(1:3, 10L + 1:3)
+    compare(c(TRUE, FALSE, NA, TRUE), c(FALSE, FALSE, FALSE))
+  })
+})
 
 test_that("can compare S3 objects", {
   verify_output(test_path("test-compare-s3.txt"), {

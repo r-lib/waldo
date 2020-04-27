@@ -78,7 +78,7 @@ col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
 # values ------------------------------------------------------------------
 
 diff_element <- function(x, y, paths = c("x", "y"),
-                         quote = "\"",
+                         quote = "\"", justify = "left",
                          width = getOption("width"),
                          ci = in_ci()) {
   if (!is.null(quote)) {
@@ -95,13 +95,17 @@ diff_element <- function(x, y, paths = c("x", "y"),
     x = x,
     y = y,
     paths = paths,
+    justify = justify,
     width = width,
     ci = ci
   )
   new_compare(unlist(format, recursive = FALSE))
 }
 
-format_diff_matrix <- function(diff, x, y, paths, width = getOption("width"), ci = in_ci()) {
+format_diff_matrix <- function(diff, x, y, paths,
+                               justify = "left",
+                               width = getOption("width"),
+                               ci = in_ci()) {
   alignment <- diff_align(diff, x, y)
   mat <- rbind(alignment$x, alignment$y)
   mat[is.na(mat)] <- ""
@@ -118,7 +122,7 @@ format_diff_matrix <- function(diff, x, y, paths, width = getOption("width"), ci
     mat_out <- mat_out[, 1:11]
     mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
   }
-  out <- apply(mat_out, 2, left_align)
+  out <- apply(mat_out, 2, fansi_align, justify = justify)
   rows <- apply(out, 1, paste, collapse = " ")
 
   if (fansi::nchar_ctl(rows[[1]]) <= width) {
@@ -145,7 +149,7 @@ format_diff_matrix <- function(diff, x, y, paths, width = getOption("width"), ci
     format(c("", y_idx_out), justify = "left")
   )
 
-  out <- apply(mat_out, 1, left_align)
+  out <- apply(mat_out, 1, fansi_align, justify = "left")
   rows <- apply(out, 1, paste, collapse = " ")
 
   if (fansi::nchar_ctl(rows[[1]]) <= width) {

@@ -187,16 +187,17 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       out <- c(out, diff)
     }
   } else if (is_atomic(x)) {
-
     if (is_character(x) && !opts$ignore_encoding) {
       out <- c(out, compare_character(Encoding(x), Encoding(y), glue("Encoding({paths})")))
     }
+    attributes(x) <- NULL
+    attributes(y) <- NULL
 
     out <- c(out, switch(typeof(x),
       integer = ,
       complex = ,
       double = compare_numeric(x, y, paths, tolerance = opts$tolerance),
-      logical = ,
+      logical = compare_logical(x, y, paths),
       raw = ,
       character = compare_character(x, y, paths)
     ))

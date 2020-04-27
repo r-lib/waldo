@@ -1,7 +1,8 @@
-compare_character <- function(x, y, paths = c("x", "y"), quote = "\"") {
-  attributes(x) <- NULL
-  attributes(y) <- NULL
+compare_logical <- function(x, y, paths = c("x", "y")) {
+  diff_element(encodeString(x), encodeString(y), paths, quote = NULL)
+}
 
+compare_character <- function(x, y, paths = c("x", "y"), quote = "\"") {
   if (multiline(x) || multiline(y)) {
     x <- strsplit(x, "\n")
     y <- strsplit(y, "\n")
@@ -13,14 +14,16 @@ compare_character <- function(x, y, paths = c("x", "y"), quote = "\"") {
 }
 
 compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()) {
-  attributes(x) <- NULL
-  attributes(y) <- NULL
-
   if (num_equal(x, y, tolerance)) {
     return(new_compare())
   }
 
-  out <- diff_element(num_format(x), num_format(y), paths, quote = NULL)
+  # format x and y together for consistency
+  xy <- num_format(c(x, y))
+  x_fmt <- xy[seq_along(x)]
+  y_fmt <- xy[-seq_along(x)]
+
+  out <- diff_element(x_fmt, y_fmt, paths, quote = NULL, justify = "right")
   if (length(out) > 0) {
     return(out)
   }
@@ -32,14 +35,17 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
   diff_element(
     num_exact(x, digits = digits),
     num_exact(y, digits = digits), paths,
-    quote = NULL
+    quote = NULL,
+    justify = "right"
   )
 }
 
+# Helpers -----------------------------------------------------------------
+
 num_format <- function(x, digits = 6) {
-  format(x, trim = TRUE, digits = digits, scientific = 3, drop0trailing = TRUE)
+  format(x, trim = TRUE, digits = digits, scientific = 3)
 }
 
 num_exact <- function(x, digits = 6) {
-  sprintf(paste0("%.", digits, "f"), x)
+  sprintf(paste0("%0.", digits, "f"), x)
 }
