@@ -162,7 +162,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
       out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
     } else {
-      out <- c(out, should_be("<env:{env_label(x)}>", "<env:{env_label(y)}>`"))
+      out <- c(out, should_be("<env:{env_label(x)}>", "<env:{env_label(y)}>"))
     }
   } else if (is_closure(x)) {
     if (opts$ignore_function_env) {
