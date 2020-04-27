@@ -283,7 +283,7 @@ extract_name <- function(x, i) if (has_name(x, i)) .subset2(x, i) else missing_a
 path_name <- function(path, i) glue("{path}${i}")
 compare_by_name <- compare_by(index_name, extract_name, path_name)
 
-index_pos <- function(x, y) max(length(x), length(y))
+index_pos <- function(x, y) seq_len(max(length(x), length(y)))
 extract_pos <- function(x, i) if (i <= length(x)) .subset2(x, i) else missing_arg()
 path_pos <- function(path, i) glue("{path}[[{i}]]")
 compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)

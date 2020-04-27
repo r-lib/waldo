@@ -9,6 +9,13 @@ test_that("attributes compare by name", {
   expect_equal(compare_structure(x, y), character())
 })
 
+test_that("unnnamed lists compare all positions", {
+  x <- list(1, 2)
+  y <- list(3, 4)
+
+  expect_length(compare(x, y), 2)
+})
+
 test_that("can optionally ignore attributes", {
   opts <- compare_opts(ignore_attr = TRUE)
 
