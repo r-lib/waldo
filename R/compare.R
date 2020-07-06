@@ -155,8 +155,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     if (env_has(x, ".__enclos_env__")) {
       # enclosing env of methods is object env
       opts$ignore_function_env <- TRUE
-      x_fields <- as.list(x, sort = TRUE)
-      y_fields <- as.list(y, sort = TRUE)
+      x_fields <- as.list(x, sorted = TRUE)
+      y_fields <- as.list(y, sorted = TRUE)
       x_fields$.__enclos_env__ <- NULL
       y_fields$.__enclos_env__ <- NULL
 
