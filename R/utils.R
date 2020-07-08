@@ -107,6 +107,14 @@ fansi_align <- function(x, width = NULL, justify = c("left", "right")) {
   )
 }
 
+split_by_line <- function(x) {
+  trailing_nl <- grepl("\n$", x)
+
+  x <- strsplit(x, "\n")
+  x[trailing_nl] <- lapply(x[trailing_nl], c, "")
+  x
+}
+
 multiline <- function(x) any(grepl("\n", x))
 
 default_tol <- function() .Machine$double.eps^0.5

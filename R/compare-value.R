@@ -4,8 +4,8 @@ compare_logical <- function(x, y, paths = c("x", "y")) {
 
 compare_character <- function(x, y, paths = c("x", "y"), quote = "\"") {
   if (multiline(x) || multiline(y)) {
-    x <- strsplit(x, "\n")
-    y <- strsplit(y, "\n")
+    x <- split_by_line(x)
+    y <- split_by_line(y)
 
     new_compare(compare_by_line(x, y, paths, compare_opts()))
   } else {

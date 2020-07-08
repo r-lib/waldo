@@ -28,6 +28,9 @@ test_that("multiline comparison", {
     compare_character("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
     compare_character("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n")
     compare_character("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n")
+
+    "trailing newlines are correctly compared"
+    compare("x\n", "x")
   })
 })
 
