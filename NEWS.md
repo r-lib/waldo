@@ -1,4 +1,4 @@
-# waldo (development version)
+# waldo 0.2.0
 
 * All objects: class (#26) and names (#31) are ignored when ignoring attributes.
 
