@@ -5,12 +5,13 @@ new_compare <- function(x = character()) {
 }
 
 #' @export
-print.waldo_compare <- function(x, ...) {
+print.waldo_compare <- function(x, n = 10, ...) {
+  stopifnot(is.numeric(n) && length(n) == 1 && n >= 1)
   if (length(x) == 0) {
     cli::cat_bullet("No differences", bullet = "tick", bullet_col = "green")
   } else {
-    if (length(x) > 10 && !in_ci()) {
-      x <- c(x[1:10], glue("And {length(x) - 10} more differences ..."))
+    if (length(x) > n && !in_ci()) {
+      x <- c(x[seq_len(n)], glue("And {length(x) - floor(n)} more differences ..."))
     }
 
     cat(paste0(x, collapse = "\n\n"), "\n", sep = "")
