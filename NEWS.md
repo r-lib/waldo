@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `print` method gets `n` argument to allow explicitly specifying number of differences to show (@mnazarov).
+
 # waldo 0.2.0
 
 * All objects: class (#26) and names (#31) are ignored when ignoring attributes.
