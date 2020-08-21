@@ -37,11 +37,11 @@ v No differences
 `y[24:26]`: "x" "y" "z"    
 
 > # zero length
-> diff_element(letters, character())
-`x`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 16 more...
-`y`:                                         ...           
+> diff_element(letters[1:10], character())
+`x`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+`y`:                                        
 
-> diff_element(character(), letters)
-`x`:                                         and 16 more...
-`y`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" ...           
+> diff_element(character(), letters[1:10])
+`x`:                                        
+`y`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
 

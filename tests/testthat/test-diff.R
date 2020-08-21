@@ -19,8 +19,8 @@ test_that("paired diffs", {
     diff_element(c(letters, "X"), letters)
 
     "zero length"
-    diff_element(letters, character())
-    diff_element(character(), letters)
+    diff_element(letters[1:10], character())
+    diff_element(character(), letters[1:10])
   })
 })
 
