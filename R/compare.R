@@ -1,3 +1,19 @@
+#' Show the difference between two objects
+#'
+#' @param old,new Pair of objects to compare. The first argument is taken
+#'   to be the "old" value, and the second is the "new". This is effectively
+#'   the opposite to [compare()].
+#' @param ... Other arguments passed on to [compare()]
+#' @export
+#' @examples
+#' x1 <- x2 <- list(x = 1, y = 2:10, z = letters)
+#' x2$z <- letters[-13]
+#' diff(x1, x2)
+diff <- function(old, new, ...) {
+  compare(old, new, ..., x_arg = "old", y_arg = "new")
+}
+
+
 #' Compare two objects
 #'
 #' @description

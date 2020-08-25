@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* New `diff()` helper designed for quickly interactively finding the 
+  difference between two objects (#42).
+
 * Better comparison with zero length vectors (#39)
 
 # waldo 0.2.0
