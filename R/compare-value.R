@@ -18,34 +18,43 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     return(new_compare())
   }
 
-  # format x and y together for consistency
-  xy <- num_format(c(x, y))
-  x_fmt <- xy[seq_along(x)]
-  y_fmt <- xy[-seq_along(x)]
+  if (length(x) == length(y)) {
+    # Probably aligned, so find minimal number of digits
+    digits <- digits(abs(x - y)[x != y])
+    x_fmt <- num_exact(x, digits = digits)
+    y_fmt <- num_exact(y, digits = digits)
+  } else {
+    # Not align, so need to find max number of digits
+    x_fmt <- as.character(x)
+    y_fmt <- as.character(y)
+  }
 
   out <- diff_element(x_fmt, y_fmt, paths, quote = NULL, justify = "right")
   if (length(out) > 0) {
-    return(out)
+    out
+  } else {
+    glue::glue("{paths[[1]]} != {paths[[2]]} but don't know how to show the difference")
   }
-
-  # x and y must be the same length, otherwise there would have been
-  # either an addition or deletion above
-  min_diff <- min(abs(x - y)[x != y])
-  digits <- max(ceiling(abs(log10(min_diff))))
-  diff_element(
-    num_exact(x, digits = digits),
-    num_exact(y, digits = digits), paths,
-    quote = NULL,
-    justify = "right"
-  )
 }
 
 # Helpers -----------------------------------------------------------------
 
-num_format <- function(x, digits = 6) {
-  format(x, trim = TRUE, digits = digits, scientific = 3)
-}
-
 num_exact <- function(x, digits = 6) {
   sprintf(paste0("%0.", digits, "f"), x)
+}
+
+digits <- function(x) {
+  x <- x[!is.na(x)]
+  if (length(x) == 0) {
+    return(0)
+  }
+
+  scale <- log10(min(x))
+  if (scale >= 0) {
+    # Don't add digits if x > 1
+    0L
+  } else {
+    # Need FP buffer
+    -trunc(scale - 1e-6)
+  }
 }
