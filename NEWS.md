@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `print()` method gets `n` argument to allow explicitly specifying number of 
+  differences to show (@mnazarov).
+
 * Differences between numeric vectors are more robust, particularly in the
   presence of missing values (#43). The number of digits selected has also been
   slightly improved so that you're more likely to get exactly the number of
