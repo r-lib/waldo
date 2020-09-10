@@ -61,6 +61,10 @@ diff_align <- function(diff, x, y) {
 
 # Only want to show slice if it's partial
 make_slice <- function(x, idx) {
+  if (all(is.na(idx))) {
+    return(NULL)
+  }
+
   idx <- range(idx, na.rm = TRUE)
   if (idx[[1]] <= 1 && idx[[2]] >= length(x)) {
     NULL

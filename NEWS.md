@@ -1,6 +1,17 @@
 # waldo (development version)
 
-* `print` method gets `n` argument to allow explicitly specifying number of differences to show (@mnazarov).
+* `print()` method gets `n` argument to allow explicitly specifying number of 
+  differences to show (@mnazarov).
+
+* Differences between numeric vectors are more robust, particularly in the
+  presence of missing values (#43). The number of digits selected has also been
+  slightly improved so that you're more likely to get exactly the number of
+  digits needed.
+
+* New `diff()` helper designed for quickly interactively finding the 
+  difference between two objects (#42).
+
+* Better comparison with zero length vectors (#39)
 
 # waldo 0.2.0
 

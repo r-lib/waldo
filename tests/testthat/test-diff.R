@@ -17,6 +17,10 @@ test_that("paired diffs", {
     "truncation"
     diff_element(c("X", letters), letters)
     diff_element(c(letters, "X"), letters)
+
+    "zero length"
+    diff_element(letters[1:10], character())
+    diff_element(character(), letters[1:10])
   })
 })
 

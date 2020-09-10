@@ -38,13 +38,15 @@ test_that("numeric comparison", {
   verify_output(test_path("test-compare-value-num.txt"), {
     "no difference"
     compare_numeric(1:3, 1:3)
+    compare_numeric(c(1, NA), c(1, NA))
+    compare_numeric(c(NA, 1), c(1, NA))
 
     "simple change"
     compare_numeric(c(1, 2, 3), c(1, 2))
     compare_numeric(c(1, 2), c(1, 2, 3))
     compare_numeric(c(1, 10, 3), c(1, 2, 3))
 
-    "FP differences"
+    "equal length"
     x <- c(1, 2, 3)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-3)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-4)
@@ -52,13 +54,11 @@ test_that("numeric comparison", {
     compare_numeric(x, x + c(-1, 0, 1) * 1e-6)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-7)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-8)
-    compare_numeric(x, x + c(-1, 0, 1) * 1e-9)
-    compare_numeric(x, x + c(-1, 0, 1) * 1e-10)
-
-    "zero tolerance"
     compare_numeric(x, x + c(-1, 0, 1) * 1e-8, tolerance = 0)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-9, tolerance = 0)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-10, tolerance = 0)
 
+    "unequal length"
+    compare_numeric(c(1, 2, NA), c(1, 2 + 1e-7, NA, 3))
   })
 })
