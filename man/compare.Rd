@@ -66,8 +66,8 @@ environments.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no
-differences it will have length 0; otherwise each element is contains
-the description of a single difference.
+differences it will have length 0; otherwise each element contains the
+description of a single difference.
 }
 \description{
 This compares two R objects, identifying the key differences. It:

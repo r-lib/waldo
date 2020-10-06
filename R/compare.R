@@ -66,8 +66,8 @@ diff <- function(old, new, ...) {
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
 #' @returns A character vector with class "waldo_compare". If there are no
-#'   differences it will have length 0; otherwise each element is contains
-#'   the description of a single difference.
+#'   differences it will have length 0; otherwise each element contains the
+#'   description of a single difference.
 #' @export
 #' @examples
 #' # Thanks to diffobj package comparison of atomic vectors shows differences
