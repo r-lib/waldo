@@ -57,7 +57,7 @@ install.packages("waldo")
 
 ## Comparisons
 
-```{r setup}
+```{r setup, message = FALSE}
 library(waldo)
 ```
 
