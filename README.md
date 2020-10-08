@@ -19,8 +19,7 @@ to figure out what’s gone wrong in your unit tests.
 care to generate actionable insights by:
 
   - Ordering the differences from most important to least important.
-  - Displaying the values of atomic vecftors that are actually
-    different.
+  - Displaying the values of atomic vectors that are actually different.
   - Carefully using colour to emphasise changes (while still being
     readable when colour isn’t available).
   - Using R code (not a text description) to show where differences
@@ -112,8 +111,8 @@ console you’ll get one of three displays:
     
     <img src="man/figures/README/unnamed-chunk-8.svg" width="100%" />
 
-When comparing more complex objects, `compare()` creates an executable
-code path telling you where the differences lie:
+When comparing more complex objects, waldo creates an executable code
+path telling you where the differences lie:
 
   - Unnamed lists are compared by position:
     

@@ -1,20 +1,20 @@
 > compare(quote(a), quote(b))
-`x` is `a`
-`y` is `b`
+`old` is `a`
+`new` is `b`
 
 > compare(quote(a + b), quote(b + c))
-`x`: `a + b`
-`y`: `b + c`
+`old`: `a + b`
+`new`: `b + c`
 
 > x <- y <- quote(foo(1:3))
 > y[[2]] <- 1:3
 > compare(x, y)
-`deparse(x)` equals `deparse(y)`, but AST non-identical
+`deparse(old)` equals `deparse(new)`, but AST non-identical
 
 > compare(expression(1, a, a + b), expression(1, a, a + b))
 v No differences
 
 > compare(expression(1, a, a + b), expression(1, a, a + c))
-`x[[3]]`: `a + b`
-`y[[3]]`: `a + c`
+`old[[3]]`: `a + b`
+`new[[3]]`: `a + c`
 

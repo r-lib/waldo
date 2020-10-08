@@ -1,50 +1,50 @@
 > # extra y
 > compare(list("a", "b"), list("a", "b", "c"))
-`x` is length 2
-`y` is length 3
+`old` is length 2
+`new` is length 3
 
-`x[[3]]` is absent
-`y[[3]]` is a character vector ('c')
+`old[[3]]` is absent
+`new[[3]]` is a character vector ('c')
 
 > compare(list(a = "a", b = "b"), list(a = "a", b = "b", c = "c"))
-`x` is length 2
-`y` is length 3
+`old` is length 2
+`new` is length 3
 
-`names(x)`: "a" "b"    
-`names(y)`: "a" "b" "c"
+`names(old)`: "a" "b"    
+`names(new)`: "a" "b" "c"
 
-`x$c` is absent
-`y$c` is a character vector ('c')
+`old$c` is absent
+`new$c` is a character vector ('c')
 
 > # extra x
 > compare(list("a", "b", "c"), list("a", "b"))
-`x` is length 3
-`y` is length 2
+`old` is length 3
+`new` is length 2
 
-`x[[3]]` is a character vector ('c')
-`y[[3]]` is absent
+`old[[3]]` is a character vector ('c')
+`new[[3]]` is absent
 
 > compare(list(a = "a", b = "b", c = "c"), list(a = "a", b = "b"))
-`x` is length 3
-`y` is length 2
+`old` is length 3
+`new` is length 2
 
-`names(x)`: "a" "b" "c"
-`names(y)`: "a" "b"    
+`names(old)`: "a" "b" "c"
+`names(new)`: "a" "b"    
 
-`x$c` is a character vector ('c')
-`y$c` is absent
+`old$c` is a character vector ('c')
+`new$c` is absent
 
 > # different order
 > compare(list(a = "a", b = "b"), list(b = "b", a = "a"))
-`names(x)`: "a" "b"    
-`names(y)`:     "b" "a"
+`names(old)`: "a" "b"    
+`names(new)`:     "b" "a"
 
 > # invalid names uses position
 > compare(list(a = "a", "b"), list(a = "a", "c"))
-`x[[2]]`: "b"
-`y[[2]]`: "c"
+`old[[2]]`: "b"
+`new[[2]]`: "c"
 
 > compare(list(a = "a", a = "b"), list(a = "a", a = "c"))
-`x[[2]]`: "b"
-`y[[2]]`: "c"
+`old[[2]]`: "b"
+`new[[2]]`: "c"
 

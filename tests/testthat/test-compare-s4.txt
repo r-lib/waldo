@@ -1,25 +1,25 @@
 > # Non S4
 > compare(new("A", x = "1"), 1)
-`x` is an S4 object of class <A>
-`y` is a double vector (1)
+`old` is an S4 object of class <A>
+`new` is a double vector (1)
 
 > compare(new("A", x = "1"), globalenv())
-`x` is an S4 object of class <A>
-`y` is an environment
+`old` is an S4 object of class <A>
+`new` is an environment
 
 > compare(new("A", x = "1"), factor("x"))
-`x` is an S4 object of class <A>
-`y` is an S3 object of class <factor>
+`old` is an S4 object of class <A>
+`new` is an S3 object of class <factor>
 
 > # S4
 > compare(new("A", x = "1"), new("A", x = "1"))
 v No differences
 
 > compare(new("A", x = "1"), new("A", x = "2"))
-`x@x`: "1"
-`y@x`: "2"
+`old@x`: "1"
+`new@x`: "2"
 
 > compare(new("A", x = "1"), new("B", x = "1"))
-`is(x)`:     "A"
-`is(y)`: "B" "A"
+`is(old)`:     "A"
+`is(new)`: "B" "A"
 

@@ -8,8 +8,8 @@ compare(
   x,
   y,
   ...,
-  x_arg = "x",
-  y_arg = "y",
+  x_arg = "old",
+  y_arg = "new",
   tolerance = NULL,
   ignore_srcref = TRUE,
   ignore_attr = FALSE,
@@ -32,7 +32,8 @@ backward compatability. These include:
 All other arguments are ignored with a warning.}
 
 \item{x_arg, y_arg}{Name of \code{x} and \code{y} arguments, used when generated paths
-to internal components.}
+to internal components. These default to "old" and "new" since it's
+most natural to supply the previous value then the new value.}
 
 \item{tolerance}{If non-\code{NULL}, used as threshold for ignoring small
 floating point difference when comparing numeric vectors. Setting to

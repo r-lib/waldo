@@ -1,15 +1,15 @@
 > compare(factor("a"), 1L)
-`x` is an S3 object of class <factor>
-`y` is an integer vector (1)
+`old` is an S3 object of class <factor>
+`new` is an integer vector (1)
 
 > compare(factor("a"), globalenv())
-`x` is an S3 object of class <factor>
-`y` is an environment
+`old` is an S3 object of class <factor>
+`new` is an environment
 
 > compare(factor("a"), as.Date("1970-01-02"))
-`class(x)`: "factor"
-`class(y)`: "Date"  
+`class(old)`: "factor"
+`class(new)`: "Date"  
 
-`levels(x)` is a character vector ('a')
-`levels(y)` is absent
+`levels(old)` is a character vector ('a')
+`levels(new)` is absent
 

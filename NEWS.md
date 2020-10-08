@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` now labels output as `old` and `new`, since that's the most
+  natural way to use it.
+
 * Line-by-line comparisons show modifications as deletion then addition, 
   rather than addition then deletion (#44).
 
@@ -13,9 +16,6 @@
   presence of missing values (#43). The number of digits selected has also been
   slightly improved so that you're more likely to get exactly the number of
   digits needed.
-
-* New `diff()` helper designed for quickly interactively finding the 
-  difference between two objects (#42).
 
 * Better comparison with zero length vectors (#39)
 

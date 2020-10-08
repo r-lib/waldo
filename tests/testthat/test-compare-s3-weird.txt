@@ -1,18 +1,18 @@
 > x <- as.POSIXlt("2020-01-01")
 > y <- as.POSIXlt("2020-01-02")
 > compare(x, y)
-`x$mday`: 1
-`y$mday`: 2
+`old$mday`: 1
+`new$mday`: 2
 
-`x$wday`: 3
-`y$wday`: 4
+`old$wday`: 3
+`new$wday`: 4
 
-`x$yday`: 0
-`y$yday`: 1
+`old$yday`: 0
+`new$yday`: 1
 
 > x <- package_version("1.0.0")
 > y <- package_version("1.1.0")
 > compare(x, y)
-`x[[1]]`: 1 0 0
-`y[[1]]`: 1 1 0
+`old[[1]]`: 1 0 0
+`new[[1]]`: 1 1 0
 

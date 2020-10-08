@@ -2,6 +2,6 @@
 v No differences
 
 > compare(x, y, ignore_encoding = FALSE)
-`Encoding(x)`: "latin1" "UTF-8"         
-`Encoding(y)`:          "UTF-8" "latin1"
+`Encoding(old)`: "latin1" "UTF-8"         
+`Encoding(new)`:          "UTF-8" "latin1"
 

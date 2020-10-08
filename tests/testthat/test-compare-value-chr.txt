@@ -38,6 +38,6 @@ v No differences
 
 > # large diff
 > compare(letters, c(letters[1:20], "a"))
-`x[18:26]`: "r" "s" "t" "u" "v" "w" "x" "y" "z"
-`y[18:21]`: "r" "s" "t" "a"                    
+`old[18:26]`: "r" "s" "t" "u" "v" "w" "x" "y" "z"
+`new[18:21]`: "r" "s" "t" "a"                    
 

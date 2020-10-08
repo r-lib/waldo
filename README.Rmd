@@ -40,7 +40,7 @@ The goal of waldo is to find and concisely describe the difference between a pai
 `waldo::compare()` is inspired by `all.equal()`, but takes additional care to generate actionable insights by:
 
 * Ordering the differences from most important to least important.
-* Displaying the values of atomic vecftors that are actually different.
+* Displaying the values of atomic vectors that are actually different.
 * Carefully using colour to emphasise changes (while still being readable
   when colour isn't available).
 * Using R code (not a text description) to show where differences arise.
@@ -57,7 +57,7 @@ install.packages("waldo")
 
 ## Comparisons
 
-```{r setup, message = FALSE}
+```{r setup}
 library(waldo)
 ```
 
@@ -109,7 +109,7 @@ Depending on the relative size of the differences and the width of your console 
     compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
     ```
 
-When comparing more complex objects, `compare()` creates an executable code path telling you where the differences lie:
+When comparing more complex objects, waldo creates an executable code path telling you where the differences lie:
 
 ```{asciicast, include = FALSE}
 options(width = 80)

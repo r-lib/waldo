@@ -1,19 +1,3 @@
-#' Show the difference between two objects
-#'
-#' @param old,new Pair of objects to compare. The first argument is taken
-#'   to be the "old" value, and the second is the "new". This is effectively
-#'   the opposite to [compare()].
-#' @param ... Other arguments passed on to [compare()]
-#' @export
-#' @examples
-#' x1 <- x2 <- list(x = 1, y = 2:10, z = letters)
-#' x2$z <- letters[-13]
-#' diff(x1, x2)
-diff <- function(old, new, ...) {
-  compare(old, new, ..., x_arg = "old", y_arg = "new")
-}
-
-
 #' Compare two objects
 #'
 #' @description
@@ -32,7 +16,8 @@ diff <- function(old, new, ...) {
 #' @param x,y Objects to compare. `y` is treated as the reference object
 #'   so messages describe how `x` is different to `y`
 #' @param x_arg,y_arg Name of `x` and `y` arguments, used when generated paths
-#'   to internal components.
+#'   to internal components. These default to "old" and "new" since it's
+#'   most natural to supply the previous value then the new value.
 #' @param ... A handful of other arguments are supported with a warning for
 #'   backward compatability. These include:
 #'
@@ -95,7 +80,7 @@ diff <- function(old, new, ...) {
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
 compare <- function(x, y, ...,
-                    x_arg = "x", y_arg = "y",
+                    x_arg = "old", y_arg = "new",
                     tolerance = NULL,
                     ignore_srcref = TRUE,
                     ignore_attr = FALSE,
