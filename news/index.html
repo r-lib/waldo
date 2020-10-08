@@ -113,6 +113,7 @@
 <a href="#waldo-development-version" class="anchor"></a>waldo (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Line-by-line comparisons show modifications as deletion then addition, rather than addition then deletion (<a href='https://github.com/r-lib/waldo/issues/44'>#44</a>).</p></li>
 <li><p>Can selectively ignore attributes by providing vector to <code>ignore_attr</code> (<a href='https://github.com/r-lib/waldo/issues/45'>#45</a>).</p></li>
 <li><p><code><a href="https://rdrr.io/r/base/print.html">print()</a></code> method gets <code>n</code> argument to allow explicitly specifying number of differences to show (<a href='https://github.com/mnazarov'>@mnazarov</a>).</p></li>
 <li><p>Differences between numeric vectors are more robust, particularly in the presence of missing values (<a href='https://github.com/r-lib/waldo/issues/43'>#43</a>). The number of digits selected has also been slightly improved so that you’re more likely to get exactly the number of digits needed.</p></li>
