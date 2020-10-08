@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Line-by-line comparisons show modifications as deletion then addition, 
+  rather than addition then deletion (#44).
+
 * Can selectively ignore attributes by providing vector to `ignore_attr`
   (#45).
 

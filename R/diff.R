@@ -175,7 +175,7 @@ format_diff_matrix <- function(diff, x, y, paths,
     lines <- c(lines, switch(row$t,
       x = line_x(x[x_i]),
       a = c(line_x(x[x_i]), line_d(y[y_i])),
-      c = interleave(line_a(x[x_i]), line_d(y[y_i])),
+      c = interleave(line_d(y[y_i]), line_a(x[x_i])),
       d = line_a(x[x_i])
     ))
   }

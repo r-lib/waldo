@@ -15,10 +15,10 @@ x vs y
 > diff_element(c("a", "B", "C", "d"), c("a", "b", "c", "d"), width = 10)
 x vs y
   "a"
-+ "B"
 - "b"
-+ "C"
++ "B"
 - "c"
++ "C"
   "d"
 
 > # context
