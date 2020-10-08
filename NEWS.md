@@ -3,21 +3,23 @@
 * `compare()` now labels output as `old` and `new`, since that's the most
   natural way to use it.
 
-* Line-by-line comparisons show modifications as deletion then addition, 
-  rather than addition then deletion (#44).
-
-* Can selectively ignore attributes by providing vector to `ignore_attr`
-  (#45).
+* `compare()` can selectively ignore attributes by providing vector to 
+  `ignore_attr` (#45).
 
 * `print()` method gets `n` argument to allow explicitly specifying number of 
   differences to show (@mnazarov).
 
-* Differences between numeric vectors are more robust, particularly in the
-  presence of missing values (#43). The number of digits selected has also been
-  slightly improved so that you're more likely to get exactly the number of
-  digits needed.
+* Improvements to comparison display:
 
-* Better comparison with zero length vectors (#39)
+    * Zero length vectors compare robustly (#39)
+
+    * Line-by-line comparisons show modifications as deletion then addition, 
+      rather than addition then deletion (#44).
+
+    * Differences between numeric vectors are more robust, particularly in the
+      presence of missing values (#43). The number of digits selected has also 
+      been slightly improved so that you're more likely to get exactly the 
+      number of digits needed.
 
 # waldo 0.2.0
 
