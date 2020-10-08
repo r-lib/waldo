@@ -1,0 +1,5 @@
+checks
+library
+data.sqlite
+*.html
+*.noindex
