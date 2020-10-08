@@ -54,10 +54,13 @@ diff <- function(old, new, ...) {
 #' @param ignore_srcref Ignore differences in function `srcref`s? `TRUE` by
 #'   default since the `srcref` does not change the behaviour of a function,
 #'   only its printed representation.
-#' @param ignore_attr Ignore all differences in attributes? Only provided
-#'   for backward compatibility with `all.equal()`. Using `TRUE` is not
-#'   generally recommended because it will ignore many important functional
-#'   differences.
+#' @param ignore_attr Ignore differences in specified attributes?
+#'   Supply a character vector to ignore differences in named attributes.
+#'
+#'   For backward compatibility with `all.equal()`, you can also use `TRUE`,
+#'   to all ignore differences in all attributes. This is not generally
+#'   recommended as it is a blunt tool that will ignore many important
+#'   functional differences.
 #' @param ignore_function_env,ignore_formula_env Ignore the environments of
 #'   functions and formulas, respectively? These are provided primarily for
 #'   backward compatibility with `all.equal()` which always ignores these
@@ -143,7 +146,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   if (isS4(x)) {
     out <- c(out, compare_character(is(x), is(y), glue("is({paths})")))
     out <- c(out, compare_by_slot(x, y, paths, opts))
-  } else if (!opts$ignore_attr) {
+  } else if (!isTRUE(opts$ignore_attr)) {
     if (is_call(x) && opts$ignore_formula_env) {
       attr(x, ".Environment") <- NULL
       attr(y, ".Environment") <- NULL
@@ -154,7 +157,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       y <- remove_source(y)
     }
 
-    out <- c(out, compare_by_attr(attrs(x), attrs(y), paths, opts))
+    out <- c(out, compare_by_attr(attrs(x, opts$ignore_attr), attrs(y, opts$ignore_attr), paths, opts))
   }
 
   # Then contents
@@ -162,7 +165,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     x <- unclass(x)
     y <- unclass(y)
 
-    if (!opts$ignore_attr && is_dictionaryish(x) && is_dictionaryish(y)) {
+    ignore_names <- isTRUE(opts$ignore_attr) || "names" %in% opts$ignore_attr
+    if (!ignore_names && is_dictionaryish(x) && is_dictionaryish(y)) {
       out <- c(out, compare_by_name(x, y, paths, opts))
     } else {
       out <- c(out, compare_by_pos(x, y, paths, opts))
@@ -235,7 +239,7 @@ compare_terminate <- function(x, y, paths,
     return(character())
   }
 
-  if (ignore_attr && (typeof(x) == typeof(y))) {
+  if (isTRUE(ignore_attr) && (typeof(x) == typeof(y))) {
     return(character())
   }
 

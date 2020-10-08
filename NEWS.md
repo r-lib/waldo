@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Can selectively ignore attributes by providing vector to `ignore_attr`
+  (#45).
+
 * `print()` method gets `n` argument to allow explicitly specifying number of 
   differences to show (@mnazarov).
 

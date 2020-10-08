@@ -33,6 +33,24 @@ test_that("can optionally ignore attributes", {
   expect_equal(compare_structure(x, y, opts = opts), character())
 })
 
+test_that("can optionally ignore selected attributes", {
+  x <- y <- 1:5
+  attr(y, "a") <- "b"
+  attr(y, "b") <- "b"
+  opts <- compare_opts(ignore_attr = c("a", "b"))
+  expect_equal(compare_structure(x, y, opts = opts), character())
+
+  verify_output(test_path("test-compare-attr-1.txt"), {
+    compare(x, y, ignore_attr = "a")
+  })
+
+  # Ignores names
+  x <- list(x = 1)
+  y <- list(y = 1)
+  opts <- compare_opts(ignore_attr = "names")
+  expect_equal(compare_structure(x, y, opts = opts), character())
+})
+
 test_that("can optionally ignore function/formula envs", {
   f1a <- y ~ x
   f1b <- local(y ~ x)

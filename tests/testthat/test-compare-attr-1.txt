@@ -1,0 +1,4 @@
+> compare(x, y, ignore_attr = "a")
+`attr(x, 'b')` is absent
+`attr(y, 'b')` is a character vector ('b')
+

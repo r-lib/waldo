@@ -55,11 +55,13 @@ short_val <- function(x) {
   paste0(" (", paste0(x, collapse = ", "), ")")
 }
 
-attrs <- function(x) {
+attrs <- function(x, ignore) {
   out <- attributes(x)
+  names <- setdiff(names2(out), ignore)
 
-  first <- intersect(c("class", "names", "dim"), names2(out))
-  out[c(first, sort(setdiff(names2(out), first)))]
+  first <- intersect(c("class", "names", "dim"), names)
+  rest <- sort(setdiff(names, first))
+  out[c(first, rest)]
 }
 
 remove_source <- function(x) {

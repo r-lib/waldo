@@ -50,10 +50,13 @@ with differences. Then we check that
 default since the \code{srcref} does not change the behaviour of a function,
 only its printed representation.}
 
-\item{ignore_attr}{Ignore all differences in attributes? Only provided
-for backward compatibility with \code{all.equal()}. Using \code{TRUE} is not
-generally recommended because it will ignore many important functional
-differences.}
+\item{ignore_attr}{Ignore differences in specified attributes?
+Supply a character vector to ignore differences in named attributes.
+
+For backward compatibility with \code{all.equal()}, you can also use \code{TRUE},
+to all ignore differences in all attributes. This is not generally
+recommended as it is a blunt tool that will ignore many important
+functional differences.}
 
 \item{ignore_encoding}{Ignore string encoding? \code{TRUE} by default, because
 this is R's default behaviour. Use \code{FALSE} when specifically concerned
