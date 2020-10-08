@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.2.1
 
 * `compare()` now labels output as `old` and `new`, since that's the most
