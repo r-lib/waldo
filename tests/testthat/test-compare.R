@@ -174,6 +174,11 @@ test_that("can compare S4 objects", {
     compare(new("A", x = "1"), new("A", x = "1"))
     compare(new("A", x = "1"), new("A", x = "2"))
     compare(new("A", x = "1"), new("B", x = "1"))
+
+    "S4 with extra attributes"
+    new <- old <- new("A", x = "1")
+    attr(new, "bar") <- 2
+    compare(new, old)
   })
 })
 

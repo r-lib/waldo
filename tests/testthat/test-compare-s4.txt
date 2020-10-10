@@ -23,3 +23,10 @@ v No differences
 `is(old)`:     "A"
 `is(new)`: "B" "A"
 
+> # S4 with extra attributes
+> new <- old <- new("A", x = "1")
+> attr(new, "bar") <- 2
+> compare(new, old)
+`attr(old, 'bar')` is a double vector (2)
+`attr(new, 'bar')` is absent
+

@@ -131,6 +131,13 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   if (isS4(x)) {
     out <- c(out, compare_character(is(x), is(y), glue("is({paths})")))
     out <- c(out, compare_by_slot(x, y, paths, opts))
+
+    # S4 objects can have attributes that are not slots
+    out <- c(out, compare_by_attr(
+      attrs(x, c(slotNames(x), "class")),
+      attrs(y, c(slotNames(y), "class")),
+      paths, opts)
+    )
   } else if (!isTRUE(opts$ignore_attr)) {
     if (is_call(x) && opts$ignore_formula_env) {
       attr(x, ".Environment") <- NULL
