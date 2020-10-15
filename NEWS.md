@@ -1,4 +1,4 @@
-# waldo (development version)
+# waldo 0.2.2
 
 * Handle S4 objects that have attributes that are not slots.
 
