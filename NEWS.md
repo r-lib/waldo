@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Long-form diff no longer confuses additions and deletions (#52, @krlmlr).
+
 # waldo 0.2.2
 
 * Handle S4 objects that have attributes that are not slots.

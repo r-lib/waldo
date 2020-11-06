@@ -2,23 +2,23 @@
 x vs y
   "a"
   "b"
-+ "c"
-+ "d"
+- "c"
+- "d"
 
 > diff_element(c("a", "b"), c("a", "b", "c", "d"), width = 10)
 x vs y
   "a"
   "b"
-- "c"
-- "d"
++ "c"
++ "d"
 
 > diff_element(c("a", "B", "C", "d"), c("a", "b", "c", "d"), width = 10)
 x vs y
   "a"
-- "b"
-+ "B"
-- "c"
-+ "C"
+- "B"
++ "b"
+- "C"
++ "c"
   "d"
 
 > # context
@@ -28,5 +28,5 @@ x[26:28] vs y[26:29]
   "z"
   "a"
   "b"
-- "c"
++ "c"
 
