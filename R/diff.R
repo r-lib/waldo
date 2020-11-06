@@ -85,13 +85,14 @@ diff_element <- function(x, y, paths = c("x", "y"),
                          quote = "\"",
                          justify = "left",
                          max_diffs = 10,
+                         elementwise = FALSE,
                          width = getOption("width")) {
   if (!is.null(quote)) {
     x <- encodeString(x, quote = quote)
     y <- encodeString(y, quote = quote)
   }
 
-  diff <- ses_context(x, y)
+  diff <- ses_context(x, y, elementwise = elementwise)
   if (length(diff) == 0) {
     return(new_compare())
   }

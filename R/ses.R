@@ -6,13 +6,17 @@
 #   with lines in range `t` of the second file.
 # * `rdl`: Delete the lines in range `r` from the first file; line `l` is
 #  where they would have appeared in the second file had they not been deleted.
-ses <- function(x, y) {
+ses <- function(x, y, elementwise = FALSE) {
   if (is.character(x)) {
     x <- enc2utf8(x)
     y <- enc2utf8(y)
   }
 
-  out <- diffobj::ses(x, y, max.diffs = 100)
+  out <- diffobj::ses(
+    x, y,
+    max.diffs = if (elementwise) 1 else 100,
+    warn = FALSE
+  )
   out <- rematch2::re_match(out, paste0(
     "(?:(?<x1>\\d+),)?(?<x2>\\d+)",
     "(?<t>[acd])",
@@ -30,8 +34,8 @@ ses <- function(x, y) {
   out
 }
 
-ses_context <- function(x, y, size = 3) {
-  diff <- ses(x, y)
+ses_context <- function(x, y, size = 3, elementwise = FALSE) {
+  diff <- ses(x, y, elementwise = elementwise)
   if (nrow(diff) == 0) {
     return(list())
   }

@@ -2,7 +2,8 @@ compare_logical <- function(x, y, paths = c("x", "y"), max_diffs = Inf) {
   diff_element(
     encodeString(x), encodeString(y), paths,
     quote = NULL,
-    max_diffs = max_diffs
+    max_diffs = max_diffs,
+    elementwise = TRUE
   )
 }
 

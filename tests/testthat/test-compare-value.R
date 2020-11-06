@@ -62,3 +62,13 @@ test_that("numeric comparison", {
     compare_numeric(c(1, 2, NA), c(1, 2 + 1e-7, NA, 3))
   })
 })
+
+test_that("logical comparison minimise extraneous diffs", {
+  x1 <- x2 <- rep(TRUE, 50)
+  x2[c(1, 25, 50)] <- FALSE
+  expect_snapshot(compare_logical(x1, x2))
+
+  x3 <- rep(c(TRUE, FALSE), 25)
+  x4 <- rep(c(FALSE, TRUE), 26)
+  expect_snapshot(compare_logical(x3, x4))
+})

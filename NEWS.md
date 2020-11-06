@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Logical vectors fall back to element-by-element comparison in more cases 
+  (#51).
+
 * `compare()` gains a new `max_diffs` argument that allows you to control
   the maximum number of differences shown. Set `max_diffs = Inf` to 
   see all differences (#49)
