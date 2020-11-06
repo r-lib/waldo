@@ -113,7 +113,9 @@
 <a href="#waldo-development-version" class="anchor"></a>waldo (development version)<small> Unreleased </small>
 </h1>
 <ul>
-<li>Long-form diff no longer confuses additions and deletions (<a href='https://github.com/r-lib/waldo/issues/52'>#52</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</li>
+<li><p>Logical vectors fall back to element-by-element comparison in more cases (<a href='https://github.com/r-lib/waldo/issues/51'>#51</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> gains a new <code>max_diffs</code> argument that allows you to control the maximum number of differences shown. Set <code>max_diffs = Inf</code> to see all differences (<a href='https://github.com/r-lib/waldo/issues/49'>#49</a>)</p></li>
+<li><p>Long-form diff no longer confuses additions and deletions (<a href='https://github.com/r-lib/waldo/issues/52'>#52</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
 </ul>
 </div>
     <div id="waldo-022" class="section level1">
