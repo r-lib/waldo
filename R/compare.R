@@ -36,6 +36,9 @@
 #'   `mean(abs(x_diff - y_diff)) / mean(abs(y_diff))` (or just
 #'   `mean(abs(x_diff - y_diff))` if `y_diff` is small) is less than
 #'   `tolerance`.
+#' @param max_diffs Control the maximum number of differences shown. The
+#'   default shows 10 differences when run interactively and all differences
+#'   when run in CI. Set `max_diffs = Inf` to see all differences.
 #' @param ignore_srcref Ignore differences in function `srcref`s? `TRUE` by
 #'   default since the `srcref` does not change the behaviour of a function,
 #'   only its printed representation.
@@ -82,6 +85,7 @@
 compare <- function(x, y, ...,
                     x_arg = "old", y_arg = "new",
                     tolerance = NULL,
+                    max_diffs = if (in_ci()) Inf else 10,
                     ignore_srcref = TRUE,
                     ignore_attr = FALSE,
                     ignore_encoding = TRUE,
@@ -92,6 +96,7 @@ compare <- function(x, y, ...,
   opts <- compare_opts(
     ...,
     tolerance = tolerance,
+    max_diffs = max_diffs,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,
@@ -99,7 +104,7 @@ compare <- function(x, y, ...,
     ignore_function_env = ignore_function_env
   )
   out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
-  new_compare(out)
+  new_compare(out, max_diffs)
 }
 
 
@@ -192,7 +197,11 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     attributes(y) <- NULL
 
     if (!identical(x, y)) {
-      diff <- compare_character(deparse(x), deparse(y), paths, quote = "`")
+      diff <- compare_character(
+        deparse(x), deparse(y), paths,
+        quote = "`",
+        max_diffs = opts$max_diffs
+      )
       if (length(diff) == 0) {
         diff <- glue("`deparse({paths[[1]]})` equals `deparse({paths[[2]]})`, but AST non-identical")
       }
@@ -200,7 +209,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     }
   } else if (is_atomic(x)) {
     if (is_character(x) && !opts$ignore_encoding) {
-      out <- c(out, compare_character(Encoding(x), Encoding(y), glue("Encoding({paths})")))
+      out <- c(out, compare_character(
+        Encoding(x), Encoding(y), glue("Encoding({paths})"),
+        max_diffs = opts$max_diffs
+      ))
     }
     attributes(x) <- NULL
     attributes(y) <- NULL
@@ -208,10 +220,13 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     out <- c(out, switch(typeof(x),
       integer = ,
       complex = ,
-      double = compare_numeric(x, y, paths, tolerance = opts$tolerance),
-      logical = compare_logical(x, y, paths),
+      double = compare_numeric(x, y, paths,
+        tolerance = opts$tolerance,
+        max_diffs = opts$max_diffs
+      ),
+      logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
       raw = ,
-      character = compare_character(x, y, paths)
+      character = compare_character(x, y, paths, max_diffs = opts$max_diffs)
     ))
   } else if (typeof(x) == "externalptr") {
     x <- utils::capture.output(print(x))

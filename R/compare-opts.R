@@ -1,5 +1,6 @@
 compare_opts <- function(...,
                          tolerance = NULL,
+                         max_diffs = if (in_ci()) Inf else 10,
                          ignore_srcref = TRUE,
                          ignore_attr = FALSE,
                          ignore_encoding = TRUE,
@@ -11,6 +12,7 @@ compare_opts <- function(...,
 
   waldo <- list(
     tolerance = tolerance,
+    max_diffs = max_diffs,
     ignore_srcref = ignore_srcref,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,

@@ -1,16 +1,16 @@
 
-new_compare <- function(x = character()) {
+new_compare <- function(x = character(), max_diffs = 10) {
   stopifnot(is.character(x))
-  structure(x, class = "waldo_compare")
+  structure(x, max_diffs = max_diffs, class = "waldo_compare")
 }
 
 #' @export
-print.waldo_compare <- function(x, n = 10, ...) {
+print.waldo_compare <- function(x, n = attr(x, "max_diffs"), ...) {
   stopifnot(is.numeric(n) && length(n) == 1 && n >= 1)
   if (length(x) == 0) {
     cli::cat_bullet("No differences", bullet = "tick", bullet_col = "green")
   } else {
-    if (length(x) > n && !in_ci()) {
+    if (length(x) > n) {
       x <- c(x[seq_len(n)], glue("And {length(x) - floor(n)} more differences ..."))
     }
 

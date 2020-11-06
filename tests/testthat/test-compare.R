@@ -16,6 +16,18 @@ test_that("unnnamed lists compare all positions", {
   expect_length(compare(x, y), 2)
 })
 
+test_that("can control number of differences", {
+  x <- as.list(letters)
+  y <- as.list(LETTERS)
+  expect_snapshot(compare(x, y, max_diffs = 1))
+  expect_snapshot(compare(x, y, max_diffs = Inf))
+
+  expect_snapshot(compare(letters, LETTERS, max_diffs = 1))
+  expect_snapshot(compare(letters, LETTERS, max_diffs = 10))
+  expect_snapshot(compare(letters, LETTERS, max_diffs = 20))
+  expect_snapshot(compare(letters, LETTERS, max_diffs = Inf))
+})
+
 test_that("can optionally ignore attributes", {
   opts <- compare_opts(ignore_attr = TRUE)
 

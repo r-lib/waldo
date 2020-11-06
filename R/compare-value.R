@@ -1,19 +1,24 @@
-compare_logical <- function(x, y, paths = c("x", "y")) {
-  diff_element(encodeString(x), encodeString(y), paths, quote = NULL)
+compare_logical <- function(x, y, paths = c("x", "y"), max_diffs = Inf) {
+  diff_element(
+    encodeString(x), encodeString(y), paths,
+    quote = NULL,
+    max_diffs = max_diffs
+  )
 }
 
-compare_character <- function(x, y, paths = c("x", "y"), quote = "\"") {
+compare_character <- function(x, y, paths = c("x", "y"), quote = "\"", max_diffs = Inf) {
   if (multiline(x) || multiline(y)) {
     x <- split_by_line(x)
     y <- split_by_line(y)
 
-    new_compare(compare_by_line(x, y, paths, compare_opts()))
+    opts <- compare_opts(max_diffs = max_diffs)
+    new_compare(compare_by_line(x, y, paths, opts))
   } else {
-    diff_element(x, y, paths, quote = quote)
+    diff_element(x, y, paths, quote = quote, max_diffs = max_diffs)
   }
 }
 
-compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()) {
+compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol(), max_diffs = Inf) {
   if (num_equal(x, y, tolerance)) {
     return(new_compare())
   }
@@ -29,7 +34,12 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     y_fmt <- as.character(y)
   }
 
-  out <- diff_element(x_fmt, y_fmt, paths, quote = NULL, justify = "right")
+  out <- diff_element(
+    x_fmt, y_fmt, paths,
+    quote = NULL,
+    justify = "right",
+    max_diffs = max_diffs
+  )
   if (length(out) > 0) {
     out
   } else {

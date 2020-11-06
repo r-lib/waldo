@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* `compare()` gains a new `max_diffs` argument that allows you to control
+  the maximum number of differences shown. Set `max_diffs = Inf` to 
+  see all differences (#49)
+
 * Long-form diff no longer confuses additions and deletions (#52, @krlmlr).
 
 # waldo 0.2.2

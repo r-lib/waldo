@@ -82,9 +82,10 @@ col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
 # values ------------------------------------------------------------------
 
 diff_element <- function(x, y, paths = c("x", "y"),
-                         quote = "\"", justify = "left",
-                         width = getOption("width"),
-                         ci = in_ci()) {
+                         quote = "\"",
+                         justify = "left",
+                         max_diffs = 10,
+                         width = getOption("width")) {
   if (!is.null(quote)) {
     x <- encodeString(x, quote = quote)
     y <- encodeString(y, quote = quote)
@@ -101,7 +102,7 @@ diff_element <- function(x, y, paths = c("x", "y"),
     paths = paths,
     justify = justify,
     width = width,
-    ci = ci
+    max_diffs = max_diffs
   )
   new_compare(unlist(format, recursive = FALSE))
 }
@@ -109,12 +110,13 @@ diff_element <- function(x, y, paths = c("x", "y"),
 format_diff_matrix <- function(diff, x, y, paths,
                                justify = "left",
                                width = getOption("width"),
-                               ci = in_ci()) {
+                               max_diffs = 10) {
   alignment <- diff_align(diff, x, y)
   mat <- rbind(alignment$x, alignment$y)
   mat[is.na(mat)] <- ""
 
-  n_trunc <- if (ci) 0 else ncol(mat) - 10
+  n <- min(ncol(mat), max_diffs)
+  n_trunc <- ncol(mat) - n
 
   # Label slices, if needed
   x_path_label <- label_path(paths[[1]], alignment$x_slice)
@@ -123,7 +125,7 @@ format_diff_matrix <- function(diff, x, y, paths,
   # Paired lines ---------------------------------------------------------------
   mat_out <- cbind(paste0("`", c(x_path_label, y_path_label), "`:"), mat)
   if (n_trunc > 0) {
-    mat_out <- mat_out[, 1:11]
+    mat_out <- mat_out[, seq_len(n + 1)]
     mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
   }
   out <- apply(mat_out, 2, fansi_align, justify = justify)
@@ -142,10 +144,10 @@ format_diff_matrix <- function(diff, x, y, paths,
 
   mat_out <- cbind(c(paths[[1]], "|", paths[[2]]), rbind(mat[1, ], divider, mat[2, ]))
   if (n_trunc > 0) {
-    mat_out <- mat_out[, 1:11]
+    mat_out <- mat_out[, seq_len(n + 1)]
     mat_out <- cbind(mat_out, c("...", "", "..."))
-    x_idx_out <- c(x_idx_out[1:10], "...")
-    y_idx_out <- c(y_idx_out[1:10], paste0("and ", n_trunc, " more ..."))
+    x_idx_out <- c(x_idx_out[seq_len(n)], "...")
+    y_idx_out <- c(y_idx_out[seq_len(n)], paste0("and ", n_trunc, " more ..."))
   }
   mat_out <- rbind(
     format(c("", x_idx_out), justify = "right"),
@@ -180,9 +182,8 @@ format_diff_matrix <- function(diff, x, y, paths,
     ))
   }
 
-  n_trunc <- if (ci) 0 else length(lines) - (10 * 2)
   if (n_trunc > 0) {
-    lines <- c(lines[1:20], paste0("and ", n_trunc, " more ..."))
+    lines <- c(lines[seq_len(n)], paste0("and ", n_trunc, " more ..."))
   }
 
   paste0(
