@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.2.3
 
 * `compare()` gains a new `max_diffs` argument that allows you to control
