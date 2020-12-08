@@ -1,15 +1,16 @@
 > compare(factor("a"), 1L)
-`old` is an S3 object of class <factor>
+`old` is an S3 object of class <factor>, an integer vector
 `new` is an integer vector (1)
 
 > compare(factor("a"), globalenv())
-`old` is an S3 object of class <factor>
+`old` is an S3 object of class <factor>, an integer vector
 `new` is an environment
 
 > compare(factor("a"), as.Date("1970-01-02"))
-`class(old)`: "factor"
-`class(new)`: "Date"  
+`old` is an S3 object of class <factor>, an integer vector
+`new` is an S3 object of class <Date>, a double vector
 
-`levels(old)` is a character vector ('a')
-`levels(new)` is absent
+> compare(structure(function() { }, class = "foo"), factor("a"))
+`old` is an S3 object of class <foo>, a function
+`new` is an S3 object of class <factor>, an integer vector
 

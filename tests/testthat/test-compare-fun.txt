@@ -51,7 +51,7 @@ v No differences
 `attr(body(new), 'srcref')[[1]]`: 14 31 14 31 31 31 14 14
 
 `attr(body(old), 'srcref')[[2]]` is absent
-`attr(body(new), 'srcref')[[2]]` is an S3 object of class <srcref>
+`attr(body(new), 'srcref')[[2]]` is an S3 object of class <srcref>, an integer vector
 
 `attr(body(old), 'wholeSrcref')`: 1 0  2 33 0 33 1 2   
 `attr(body(new), 'wholeSrcref')`: 1 0 16  1 0    1 1 16

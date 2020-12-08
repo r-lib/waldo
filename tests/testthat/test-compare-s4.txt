@@ -9,7 +9,7 @@
 
 > compare(new("A", x = "1"), factor("x"))
 `old` is an S4 object of class <A>
-`new` is an S3 object of class <factor>
+`new` is an S3 object of class <factor>, an integer vector
 
 > # S4
 > compare(new("A", x = "1"), new("A", x = "1"))

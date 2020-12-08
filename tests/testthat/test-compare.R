@@ -169,6 +169,11 @@ test_that("can compare S3 objects", {
     compare(factor("a"), 1L)
     compare(factor("a"), globalenv())
     compare(factor("a"), as.Date("1970-01-02"))
+
+    compare(
+      structure(function() {}, class = "foo"),
+      factor("a")
+    )
   })
 })
 

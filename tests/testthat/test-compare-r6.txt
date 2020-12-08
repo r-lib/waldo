@@ -12,7 +12,7 @@
 
 > compare(goofy$new(1), factor("x"))
 `old` is an R6 object of class <goofy>
-`new` is an S3 object of class <factor>
+`new` is an S3 object of class <factor>, an integer vector
 
 > # R6
 > compare(goofy$new(1), goofy$new(1))

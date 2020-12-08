@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* Fix failure when comparing two S3 objects with incompatible types.
+
+* Description of S3 objects now includes base type.
+
 # waldo 0.2.3
 
 * `compare()` gains a new `max_diffs` argument that allows you to control

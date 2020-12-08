@@ -242,7 +242,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 compare_terminate <- function(x, y, paths,
                               tolerance = NULL,
                               ignore_attr = FALSE) {
-  if (type_of(x) == type_of(y)) {
+
+  if (typeof(x) == typeof(y) && oo_type(x) == oo_type(y)) {
     return(character())
   }
 
