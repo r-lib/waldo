@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Better output when two ASTs deparse the same but are not identical.
+
 * Fix failure when comparing two S3 objects with incompatible types.
 
 * Description of S3 objects now includes base type.

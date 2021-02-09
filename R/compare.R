@@ -203,7 +203,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
         max_diffs = opts$max_diffs
       )
       if (length(diff) == 0) {
-        diff <- glue("`deparse({paths[[1]]})` equals `deparse({paths[[2]]})`, but AST non-identical")
+        # Fallback if deparse equal but AST different
+        diff <- compare_structure(as.list(x), as.list(y), paths, opts = opts)
       }
       out <- c(out, diff)
     }

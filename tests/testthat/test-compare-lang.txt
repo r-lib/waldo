@@ -9,7 +9,8 @@
 > x <- y <- quote(foo(1:3))
 > y[[2]] <- 1:3
 > compare(x, y)
-`deparse(old)` equals `deparse(new)`, but AST non-identical
+`old[[2]]` is a call
+`new[[2]]` is an integer vector (1, 2, 3)
 
 > compare(expression(1, a, a + b), expression(1, a, a + b))
 v No differences
