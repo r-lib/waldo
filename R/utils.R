@@ -63,22 +63,6 @@ attrs <- function(x, ignore) {
   out[c(first, rest)]
 }
 
-remove_source <- function(x) {
-  if (is_closure(x)) {
-    body(x) <- remove_source(body(x))
-    x
-  } else if (is_call(x)) {
-    attr(x, "srcref") <- NULL
-    attr(x, "wholeSrcref") <- NULL
-    attr(x, "srcfile") <- NULL
-
-    x[] <- lapply(x, remove_source)
-    x
-  } else {
-    x
-  }
-}
-
 is_numeric <- function(x) is_integer(x) || is_double(x)
 
 in_ci <- function() {

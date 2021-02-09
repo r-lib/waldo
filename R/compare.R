@@ -150,8 +150,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     }
 
     if ((is_closure(x) || is_call(x)) && opts$ignore_srcref) {
-      x <- remove_source(x)
-      y <- remove_source(y)
+      x <- zap_srcref(x)
+      y <- zap_srcref(y)
     }
 
     out <- c(out, compare_by_attr(attrs(x, opts$ignore_attr), attrs(y, opts$ignore_attr), paths, opts))
