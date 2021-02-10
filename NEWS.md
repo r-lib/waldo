@@ -3,14 +3,15 @@
 * Additional arguments to `compare()` generate a more informative warning 
   (#58).
 
-* Numerical comparisons get an improved algorithm for determining number of
-  digits needed to show differences (#63).
+* Numbers use a better algorithm for picking the number of decimal places to  
+  show (#63).
 
-* Better output when two ASTs deparse the same but are not identical.
+* ASTs with identical deparsed strings now show exactly how the AST differs.
+  Source references are now more comprehensively stripped using
+  `rlang::zap_srcrefs()`
 
-* Fix failure when comparing two S3 objects with incompatible types.
-
-* Description of S3 objects now includes base type.
+* S3 objects now show the base type, and no longer fails when the types are
+  incompatible.
 
 # waldo 0.2.3
 
