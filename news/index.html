@@ -44,8 +44,6 @@
 
 
 
-
-
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -80,6 +78,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -115,9 +119,11 @@
 <a href="#waldo-development-version" class="anchor"></a>waldo (development version)<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>Better output when two ASTs deparse the same but are not identical.</p></li>
-<li><p>Fix failure when comparing two S3 objects with incompatible types.</p></li>
-<li><p>Description of S3 objects now includes base type.</p></li>
+<li><p>Additional arguments to <code><a href="../reference/compare.html">compare()</a></code> generate a more informative warning (<a href='https://github.com/r-lib/waldo/issues/58'>#58</a>).</p></li>
+<li><p>Numbers use a better algorithm for picking the number of decimal places to<br>
+show (<a href='https://github.com/r-lib/waldo/issues/63'>#63</a>).</p></li>
+<li><p>ASTs with identical deparsed strings now show exactly how the AST differs. Source references are now more comprehensively stripped using <code>rlang::zap_srcrefs()</code></p></li>
+<li><p>S3 objects now show the base type, and no longer fails when the types are incompatible.</p></li>
 </ul>
 </div>
     <div id="waldo-023" class="section level1">
@@ -203,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
