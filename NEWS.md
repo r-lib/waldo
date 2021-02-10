@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Additional arguments to `compare()` generate a more informative warning 
+  (#58).
+
 * Numerical comparisons get an improved algorithm for determining number of
   digits needed to show differences (#63).
 

@@ -19,10 +19,7 @@ test_that("all.equal arguments warned an preserved", {
 })
 
 test_that("other arguments are ignored with a warning", {
-  expect_warning(
-    compare_opts(abc = 1, xyz = 2),
-    "`abc`, `xyz`"
-  )
-
-
+  expect_snapshot(compare(1, 1, 1))
+  expect_snapshot(compare(1, 1, abc = 1))
+  expect_snapshot(compare(1, 1, abc = 1, xyz = 2))
 })

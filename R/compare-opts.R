@@ -42,9 +42,12 @@ old_opts <- function(..., tol, check.attributes, checkNames) {
   }
 
   if (!missing(...)) {
-    args <- names(substitute(alist(...))[-1])
-    args2 <- encodeString(args, quote = "`")
-    warn(paste0("Other arguments (", paste0(args2, collapse = ', '), ") ignored"))
+    args <- substitute(...())
+    exprs <- vapply(args, expr_deparse, character(1))
+    names <- names2(args)
+    exprs <- ifelse(names == "", exprs, paste0(names, " = ", exprs))
+
+    warn(paste0("Unused arguments (", paste0(exprs, collapse = ', '), ")"))
   }
 
   out
