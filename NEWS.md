@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Numerical comparisons get an improved algorithm for determining number of
+  digits needed to show differences (#63).
+
 * Better output when two ASTs deparse the same but are not identical.
 
 * Fix failure when comparing two S3 objects with incompatible types.

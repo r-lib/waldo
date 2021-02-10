@@ -72,3 +72,19 @@ test_that("logical comparison minimise extraneous diffs", {
   x4 <- rep(c(FALSE, TRUE), 26)
   expect_snapshot(compare_logical(x3, x4))
 })
+
+test_that("min_digits correctly computed digits needed for comparison", {
+  expect_equal(min_digits(0.21, 0.23), 2)
+  expect_equal(min_digits(1.93, 1.92), 2)
+
+  expect_equal(min_digits(1, 1.1), 1)
+  expect_equal(min_digits(1, 1.01), 2)
+  expect_equal(min_digits(1, 1.001), 3)
+  expect_equal(min_digits(1, 1.0001), 4)
+  expect_equal(min_digits(1, 1.00001), 5)
+  expect_equal(min_digits(1, 1.000001), 6)
+  expect_equal(min_digits(1, 1.0000001), 7)
+  expect_equal(min_digits(1, 1.00000001), 8)
+  expect_equal(min_digits(1, 1.000000001), 9)
+  expect_equal(min_digits(1, 1.0000000001), 10)
+})

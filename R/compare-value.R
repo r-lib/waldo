@@ -25,8 +25,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
   }
 
   if (length(x) == length(y)) {
-    # Probably aligned, so find minimal number of digits
-    digits <- digits(abs(x - y)[x != y])
+    digits <- min_digits(x, y)
     x_fmt <- num_exact(x, digits = digits)
     y_fmt <- num_exact(y, digits = digits)
   } else {
@@ -54,18 +53,26 @@ num_exact <- function(x, digits = 6) {
   sprintf(paste0("%0.", digits, "f"), x)
 }
 
+# Minimal number of digits needed to show differences
+min_digits <- function(x, y) {
+  digits(abs(x - y))
+}
+
+# This looks ok:
+# grid <- 10 ^ seq(0, -6, length.out = 1e3)
+# plot(grid, sapply(grid, digits), log = "x")
 digits <- function(x) {
-  x <- x[!is.na(x)]
+  x <- x[!is.na(x) & x != 0]
   if (length(x) == 0) {
     return(0)
   }
 
-  scale <- log10(min(x))
-  if (scale >= 0) {
+  scale <- -log10(min(x))
+  if (scale <= 0) {
     # Don't add digits if x > 1
     0L
   } else {
-    # Need FP buffer
-    -trunc(scale - 1e-6)
+    # Need to first round roughly to avoid tiny FP differences
+    ceiling(round(scale, digits = 2))
   }
 }
