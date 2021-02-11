@@ -1,4 +1,4 @@
-# waldo (development version)
+# waldo 0.2.4
 
 * Additional arguments to `compare()` generate a more informative warning 
   (#58).
