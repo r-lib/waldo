@@ -1,7 +1,0 @@
-> x <- "fa\xe7ile"
-> y <- x
-> Encoding(y) <- "latin1"
-> diff_element(x, y)
-`x`: "fa\xe7ile"
-`y`: "façile"   
-

@@ -46,12 +46,3 @@ test_that("element-wise diffs", {
     diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 10)
   })
 })
-
-test_that("diffs are shown in their original encoding", {
-  verify_output(test_path("test-diff-encoding.txt"), {
-    x <- "fa\xE7ile"
-    y <- x
-    Encoding(y) <- "latin1"
-    diff_element(x, y)
-  })
-})
