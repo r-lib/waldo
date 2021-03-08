@@ -1,4 +1,4 @@
-# waldo (development version)
+# waldo 0.2.5
 
 * On platforms without UTF-8 support, strings that differ only in their
   encoding are now correctly considered to be identical (#66).
