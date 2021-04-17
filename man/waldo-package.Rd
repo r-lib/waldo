@@ -25,6 +25,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item RStudio [copyright holder]
+  \item Duncan Murdoch [contributor]
 }
 
 }

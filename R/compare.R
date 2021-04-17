@@ -56,9 +56,32 @@
 #' @param ignore_encoding Ignore string encoding? `TRUE` by default, because
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
+#' @param ignore_name_order Ignore changes to the order of named components in
+#'   lists or vectors.
+#' @param ignore_NULLs In lists and pairlists, ignore elements that are set to
+#'   `NULL`.
+#' @param ignore_private Components named in this vector are completely ignored
+#'   in comparisons.
 #' @returns A character vector with class "waldo_compare". If there are no
 #'   differences it will have length 0; otherwise each element contains the
 #'   description of a single difference.
+#'
+#' @details Objects may contain an attribute named `"waldo_opts"`, which should
+#'   be a list containing compare options.  If `x` or `y` has its own
+#'   components, each of those may contain a `"waldo_opts"` attribute.  If
+#'   present the options will be applied in the following order from lowest to
+#'   highest precedence:
+#'
+#'   1.  Defaults from this function.
+#'   2.  The `waldo_opts` for `x`.
+#'   3.  The `waldo_opts` for `y`.
+#'   4.  The `waldo_opts` for components of `x`.
+#'   5.  The `waldo_opts` for corresponding components of `y`.
+#'   6.  Continue recursively...
+#'   7.  User-specified arguments to `compare()` override
+#'       everything else.
+#'
+
 #' @export
 #' @examples
 #' # Thanks to diffobj package comparison of atomic vectors shows differences
@@ -79,9 +102,22 @@
 #' compare(iris, rev(iris))
 #'
 #' compare(list(x = "x", y = "y"), list(y = "y", x = "x"))
+#'
 #' # Otherwise they're compared by position
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
+#'
+#' # Compare options can be attached to the objects themselves:
+#' compare(list(x = "x", y = "y"),
+#'         structure(list(y = "y", x = "x"),
+#'                   waldo_opts = list(ignore_name_order = TRUE)))
+#'
+#' # User choices have top priority:
+#' compare(list(x = "x", y = "y"),
+#'         structure(list(y = "y", x = "x"),
+#'                   waldo_opts = list(ignore_name_order = TRUE)),
+#'         ignore_name_order = FALSE)
+
 compare <- function(x, y, ...,
                     x_arg = "old", y_arg = "new",
                     tolerance = NULL,
@@ -91,7 +127,9 @@ compare <- function(x, y, ...,
                     ignore_encoding = TRUE,
                     ignore_function_env = FALSE,
                     ignore_formula_env = FALSE,
-                    option_priority = 0
+                    ignore_name_order = FALSE,
+                    ignore_NULLs = FALSE,
+                    ignore_private = character()
                     ) {
 
   opts <- compare_opts(
@@ -103,8 +141,15 @@ compare <- function(x, y, ...,
     ignore_encoding = ignore_encoding,
     ignore_formula_env = ignore_formula_env,
     ignore_function_env = ignore_function_env,
-    priority = option_priority
+    ignore_name_order = ignore_name_order,
+    ignore_NULLs = ignore_NULLs,
+    ignore_private = ignore_private
   )
+
+  opts$user_specified <- c(intersect(names(match.call()),
+                                   names(opts)),
+                           "user_specified")
+
   out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
   new_compare(out, max_diffs)
 }
@@ -122,10 +167,17 @@ sort_named_parts <- function(x) {
 
 zap_nulls <- function(x) {
   if (is_list(x) || is_pairlist(x)) {
-    for (i in seq_along(x))
+    for (i in rev(seq_along(x)))
       if (is.null(x[[i]]))
         x[[i]] <- NULL
   }
+  x
+}
+
+zap_private <- function(x, private) {
+  if (is.list(x) || is.pairlist(x))
+    for (n in private)
+      x[[n]] <- NULL
   x
 }
 
@@ -143,10 +195,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     return(term)
   }
 
-  x_opts <- object_opts(x, default_priority = 1)
-  y_opts <- object_opts(y, default_priority = 2)
+  x_opts <- object_opts(x)
+  y_opts <- object_opts(y)
 
-  opts <- merge_opts(opts, x_opts, y_opts)
+  opts <- merge_opts(opts, x_opts, y_opts, opts[opts$user_specified])
 
   x <- compare_proxy(x)
   y <- compare_proxy(y)

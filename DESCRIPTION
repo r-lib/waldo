@@ -7,7 +7,10 @@ Authors@R:
              role = c("aut", "cre"),
              email = "hadley@rstudio.com"),
       person(given = "RStudio",
-             role = "cph"))
+             role = "cph"),
+      person(given = "Duncan",
+             family = "Murdoch",
+             role = "ctb"))
 Description: Compare complex R objects and reveal the key
     differences.  Designed particularly for use in testing packages where
     being able to quickly isolate key differences makes understanding test
@@ -21,6 +24,7 @@ Imports:
     fansi,
     glue,
     methods,
+    purrr,
     rematch2,
     rlang (>= 0.4.10),
     tibble

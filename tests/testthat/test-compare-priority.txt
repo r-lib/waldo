@@ -1,0 +1,27 @@
+> x <- list(a = 1, b = 2)
+> y <- rev(x)
+> attr(x, "waldo_opts") <- list(ignore_name_order = TRUE)
+> attr(y, "waldo_opts") <- list(ignore_name_order = FALSE)
+> compare(x, y)
+`names(old)`: "a" "b"    
+`names(new)`:     "b" "a"
+
+> compare(y, x)
+v No differences
+
+> compare(x, y, ignore_name_order = TRUE)
+v No differences
+
+> x$z <- structure(list(c = 3, d = 4), waldo_opts = list(ignore_name_order = FALSE))
+> y$z <- rev(x$z)
+> compare(x, y)
+`names(old)`: "a" "b"     "z"
+`names(new)`:     "b" "a" "z"
+
+`names(old$z)`: "c" "d"    
+`names(new$z)`:     "d" "c"
+
+> compare(y, x)
+`names(old$z)`: "d" "c"    
+`names(new$z)`:     "c" "d"
+

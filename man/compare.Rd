@@ -13,10 +13,13 @@ compare(
   tolerance = NULL,
   max_diffs = if (in_ci()) Inf else 10,
   ignore_srcref = TRUE,
-  ignore_attr = FALSE,
+  ignore_attr = "waldo_opts",
   ignore_encoding = TRUE,
   ignore_function_env = FALSE,
-  ignore_formula_env = FALSE
+  ignore_formula_env = FALSE,
+  ignore_name_order = FALSE,
+  ignore_NULLs = FALSE,
+  ignore_private = character()
 )
 }
 \arguments{
@@ -72,6 +75,15 @@ with the encoding, not just the value of the string.}
 functions and formulas, respectively? These are provided primarily for
 backward compatibility with \code{all.equal()} which always ignores these
 environments.}
+
+\item{ignore_name_order}{Ignore changes to the order of named components in
+lists or vectors.}
+
+\item{ignore_NULLs}{In lists and pairlists, ignore elements that are set to
+\code{NULL}.}
+
+\item{ignore_private}{Components named in this vector are completely ignored
+in comparisons.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no
@@ -92,6 +104,23 @@ when colour isn't available).
 
 \code{compare()} is an alternative to \code{\link[=all.equal]{all.equal()}}.
 }
+\details{
+Objects may contain an attribute named \code{"waldo_opts"}, which should
+be a list containing compare options.  If \code{x} or \code{y} has its own
+components, each of those may contain a \code{"waldo_opts"} attribute.  If
+present the options will be applied in the following order from lowest to
+highest precedence:
+\enumerate{
+\item Defaults from this function.
+\item The \code{waldo_opts} for \code{x}.
+\item The \code{waldo_opts} for \code{y}.
+\item The \code{waldo_opts} for components of \code{x}.
+\item The \code{waldo_opts} for corresponding components of \code{y}.
+\item Continue recursively...
+\item User-specified arguments to \code{compare()} override
+everything else.
+}
+}
 \examples{
 # Thanks to diffobj package comparison of atomic vectors shows differences
 # with a little context
@@ -111,7 +140,19 @@ compare(
 compare(iris, rev(iris))
 
 compare(list(x = "x", y = "y"), list(y = "y", x = "x"))
+
 # Otherwise they're compared by position
 compare(list("x", "y"), list("x", "z"))
 compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
+
+# Compare options can be attached to the objects themselves:
+compare(list(x = "x", y = "y"),
+        structure(list(y = "y", x = "x"),
+                  waldo_opts = list(ignore_name_order = TRUE)))
+
+# User choices have top priority:
+compare(list(x = "x", y = "y"),
+        structure(list(y = "y", x = "x"),
+                  waldo_opts = list(ignore_name_order = TRUE)),
+        ignore_name_order = FALSE)
 }

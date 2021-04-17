@@ -1,0 +1,18 @@
+> x <- list(a = 1, b = 2)
+> y <- list(a = 1, b = 2, c = NULL)
+> compare(x, y)
+`old` is length 2
+`new` is length 3
+
+`names(old)`: "a" "b"    
+`names(new)`: "a" "b" "c"
+
+`old$c` is absent
+`new$c` is NULL
+
+> compare(x, y, ignore_NULLs = TRUE)
+v No differences
+
+> compare(x, y, ignore_private = "c")
+v No differences
+

@@ -235,3 +235,30 @@ test_that("comparing language objects gives useful diffs", {
     compare(expression(1, a, a + b), expression(1, a, a + c))
   })
 })
+
+test_that("compare options have correct precedence", {
+  verify_output(test_path("test-compare-priority.txt"), {
+    x <- list(a = 1, b = 2)
+    y <- rev(x)
+    attr(x, "waldo_opts") <- list(ignore_name_order = TRUE)
+    attr(y, "waldo_opts") <- list(ignore_name_order = FALSE)
+    compare(x, y)
+    compare(y, x)
+    compare(x, y, ignore_name_order = TRUE)
+    x$z <- structure(list(c = 3, d = 4),
+                     waldo_opts = list(ignore_name_order = FALSE))
+    y$z <- rev(x$z)
+    compare(x, y)
+    compare(y, x)
+  })
+})
+
+test_that("new compare options work", {
+  verify_output(test_path("test-compare-options.txt"), {
+    x <- list(a = 1, b = 2)
+    y <- list(a = 1, b = 2, c = NULL)
+    compare(x, y)
+    compare(x, y, ignore_NULLs = TRUE)
+    compare(x, y, ignore_private = "c")
+  })
+})

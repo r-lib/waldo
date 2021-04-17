@@ -2,11 +2,13 @@ compare_opts <- function(...,
                          tolerance = NULL,
                          max_diffs = if (in_ci()) Inf else 10,
                          ignore_srcref = TRUE,
-                         ignore_attr = FALSE,
+                         ignore_attr = "waldo_opts",
                          ignore_encoding = TRUE,
-                         ignore_formula_env = FALSE,
                          ignore_function_env = FALSE,
-                         priority = 0
+                         ignore_formula_env = FALSE,
+                         ignore_name_order = FALSE,
+                         ignore_NULLs = FALSE,
+                         ignore_private = character()
                          ) {
 
   base <- old_opts(...)
@@ -19,7 +21,9 @@ compare_opts <- function(...,
     ignore_encoding = ignore_encoding,
     ignore_formula_env = ignore_formula_env,
     ignore_function_env = ignore_function_env,
-    priority = priority
+    ignore_name_order = ignore_name_order,
+    ignore_NULLs = ignore_NULLs,
+    ignore_private = ignore_private
   )
 
   utils::modifyList(waldo, base)
@@ -55,16 +59,11 @@ old_opts <- function(..., tol, check.attributes, checkNames) {
   out
 }
 
-object_opts <- function(x, default_priority) {
-  result <- attr(x, "waldo_opts")
-  if (!is.null(result) && is.null(result$priority))
-    result$priority <- default_priority
-  result
+object_opts <- function(x) {
+  attr(x, "waldo_opts")
 }
 
 merge_opts <- function(...) {
   allopts <- zap_nulls(list(...))
-  priorities <- purrr::map_dbl(allopts, "priority")
-  o <- order(priorities)
-  purrr::reduce(allopts[o], utils::modifyList)
+  purrr::reduce(allopts, utils::modifyList)
 }
