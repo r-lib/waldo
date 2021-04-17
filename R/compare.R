@@ -87,10 +87,11 @@ compare <- function(x, y, ...,
                     tolerance = NULL,
                     max_diffs = if (in_ci()) Inf else 10,
                     ignore_srcref = TRUE,
-                    ignore_attr = FALSE,
+                    ignore_attr = "waldo_opts",
                     ignore_encoding = TRUE,
                     ignore_function_env = FALSE,
-                    ignore_formula_env = FALSE
+                    ignore_formula_env = FALSE,
+                    option_priority = 0
                     ) {
 
   opts <- compare_opts(
@@ -101,12 +102,32 @@ compare <- function(x, y, ...,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,
     ignore_formula_env = ignore_formula_env,
-    ignore_function_env = ignore_function_env
+    ignore_function_env = ignore_function_env,
+    priority = option_priority
   )
   out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
   new_compare(out, max_diffs)
 }
 
+sort_named_parts <- function(x) {
+  nx <- names(x)
+  if (!is.null(nx)) {
+    nonempty <- nchar(nx) > 0
+    ox <- order(nx[nonempty])
+    x[nonempty] <- x[nonempty][ox]
+    names(x)[nonempty] <- nx[nonempty][ox]
+  }
+  x
+}
+
+zap_nulls <- function(x) {
+  if (is_list(x) || is_pairlist(x)) {
+    for (i in seq_along(x))
+      if (is.null(x[[i]]))
+        x[[i]] <- NULL
+  }
+  x
+}
 
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (is_reference(x, y)) {
@@ -122,10 +143,27 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     return(term)
   }
 
+  x_opts <- object_opts(x, default_priority = 1)
+  y_opts <- object_opts(y, default_priority = 2)
+
+  opts <- merge_opts(opts, x_opts, y_opts)
+
   x <- compare_proxy(x)
   y <- compare_proxy(y)
 
   out <- character()
+
+  # Ignore NULLs?
+  if (isTRUE(opts$ignore_NULLs)) {
+    x <- zap_nulls(x)
+    y <- zap_nulls(y)
+  }
+
+  # Ignore private entries?
+  if (length(opts$ignore_private)) {
+    x <- zap_private(x, opts$ignore_private)
+    y <- zap_private(y, opts$ignore_private)
+  }
 
   # Then length
   if ((is_list(x) || is_pairlist(x)) && length(x) != length(y)) {
@@ -154,6 +192,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       y <- zap_srcref(y)
     }
 
+    if (isTRUE(opts$ignore_name_order) && !("names" %in% opts$ignore_attr)) {
+      x <- sort_named_parts(x)
+      y <- sort_named_parts(y)
+    }
     out <- c(out, compare_by_attr(attrs(x, opts$ignore_attr), attrs(y, opts$ignore_attr), paths, opts))
   }
 
