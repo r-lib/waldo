@@ -255,10 +255,10 @@ test_that("compare options have correct precedence", {
 
 test_that("new compare options work", {
   verify_output(test_path("test-compare-options.txt"), {
-    x <- list(a = 1, b = 2)
-    y <- list(a = 1, b = 2, c = NULL)
+    x <- list(a = 1, b = 2, c = 3, d = list(e = 1, f = NULL))
+    y <- list(a = 1, b = 2, c = 4, d = list(e = 1, f = 1))
     compare(x, y)
     compare(x, y, ignore_NULLs = TRUE)
-    compare(x, y, ignore_private = "c")
+    compare(x, y, ignore_private = "d\\$f")
   })
 })

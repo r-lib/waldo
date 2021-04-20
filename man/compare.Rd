@@ -82,8 +82,8 @@ lists or vectors.}
 \item{ignore_NULLs}{In lists and pairlists, ignore elements that are set to
 \code{NULL}.}
 
-\item{ignore_private}{Components named in this vector are completely ignored
-in comparisons.}
+\item{ignore_private}{Components matching the patterns in this vector are
+completely ignored in comparisons.  See Details below.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no
@@ -120,6 +120,12 @@ highest precedence:
 \item User-specified arguments to \code{compare()} override
 everything else.
 }
+
+The patterns listed in the \code{ignore_private} vector are
+regular expressions applied to the "paths" to components.
+For example, \code{ignore_private = "\\\\$_"} will cause components
+with names starting with \code{"_"} to be ignored, since
+paths like \verb{old$_component} will match that pattern.
 }
 \examples{
 # Thanks to diffobj package comparison of atomic vectors shows differences

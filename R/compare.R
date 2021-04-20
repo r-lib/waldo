@@ -60,8 +60,8 @@
 #'   lists or vectors.
 #' @param ignore_NULLs In lists and pairlists, ignore elements that are set to
 #'   `NULL`.
-#' @param ignore_private Components named in this vector are completely ignored
-#'   in comparisons.
+#' @param ignore_private Components matching the patterns in this vector are
+#'   completely ignored in comparisons.
 #' @returns A character vector with class "waldo_compare". If there are no
 #'   differences it will have length 0; otherwise each element contains the
 #'   description of a single difference.
@@ -80,6 +80,12 @@
 #'   6.  Continue recursively...
 #'   7.  User-specified arguments to `compare()` override
 #'       everything else.
+#'
+#'   The patterns listed in the `ignore_private` vector are
+#'   regular expressions applied to the "paths" to components.
+#'   For example, `ignore_private = "\\$_"` will cause components
+#'   with names starting with `"_"` to be ignored, since
+#'   paths like `old$_component` will match that pattern.
 #'
 
 #' @export
@@ -174,10 +180,18 @@ zap_nulls <- function(x) {
   x
 }
 
-zap_private <- function(x, private) {
-  if (is.list(x) || is.pairlist(x))
-    for (n in private)
-      x[[n]] <- NULL
+zap_private <- function(x, private, path) {
+  if (is.list(x) || is.pairlist(x)) {
+    names <- names(x)
+    paths <- glue("{path}${names}")
+    drop <- FALSE
+    for (p in private)
+      drop <- drop | grepl(p, paths)
+    if (any(drop))
+      for (i in rev(seq_along(names)))
+        if (drop[i])
+          x[[names[i]]] <- NULL
+  }
   x
 }
 
@@ -213,8 +227,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
   # Ignore private entries?
   if (length(opts$ignore_private)) {
-    x <- zap_private(x, opts$ignore_private)
-    y <- zap_private(y, opts$ignore_private)
+    x <- zap_private(x, opts$ignore_private, paths[1])
+    y <- zap_private(y, opts$ignore_private, paths[2])
   }
 
   # Then length
