@@ -103,3 +103,8 @@ split_by_line <- function(x) {
 multiline <- function(x) any(grepl("\n", x))
 
 default_tol <- function() .Machine$double.eps^0.5
+
+compact <- function(x) {
+  is_null <- vapply(x, is.null, logical(1))
+  x[!is_null]
+}

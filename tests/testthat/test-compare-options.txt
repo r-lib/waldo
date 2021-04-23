@@ -1,0 +1,26 @@
+> x <- list(a = 1, b = 2, c = 3, d = list(e = 1, f = NULL))
+> y <- list(a = 1, b = 2, c = 4, d = list(e = 1, f = 1))
+> compare(x, y)
+`old$c`: 3
+`new$c`: 4
+
+`old$d$f` is NULL
+`new$d$f` is a double vector (1)
+
+> compare(x, y, ignore_NULLs = TRUE)
+`old$c`: 3
+`new$c`: 4
+
+`old$d` is length 1
+`new$d` is length 2
+
+`names(old$d)`: "e"    
+`names(new$d)`: "e" "f"
+
+`old$d$f` is absent
+`new$d$f` is a double vector (1)
+
+> compare(x, y, ignore_private = "d\\$f")
+`old$c`: 3
+`new$c`: 4
+

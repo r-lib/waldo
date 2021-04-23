@@ -56,9 +56,43 @@
 #' @param ignore_encoding Ignore string encoding? `TRUE` by default, because
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
+#' @param ignore_name_order Ignore changes to the order of named components in
+#'   lists or vectors.
+#' @param ignore_NULLs In lists and pairlists, ignore elements that are set to
+#'   `NULL`.
+#' @param ignore_private Components matching the patterns in this vector are
+#'   completely ignored in comparisons.
 #' @returns A character vector with class "waldo_compare". If there are no
 #'   differences it will have length 0; otherwise each element contains the
 #'   description of a single difference.
+#'
+#' @details Objects may contain an attribute named `"waldo_opts"`, which should
+#'   be a list containing compare options.  If `x` or `y` has its own
+#'   components, each of those may contain a `"waldo_opts"` attribute.  If
+#'   present the options will be applied in the following order from lowest to
+#'   highest precedence:
+#'
+#'   1.  Defaults from this function.
+#'   2.  The `waldo_opts` for `x`.
+#'   3.  The `waldo_opts` for `y`.
+#'   4.  The `waldo_opts` for components of `x`.
+#'   5.  The `waldo_opts` for corresponding components of `y`.
+#'   6.  Continue recursively...
+#'   7.  User-specified arguments to `compare()` override
+#'       everything else.
+#'
+#'   By default the `"waldo_opts"` attribute is listed in
+#'   `ignore_attr` so that changes to it are not reported; if you
+#'   customize `ignore_attr`, you will probably want to do this
+#'   yourself.
+#'
+#'   The patterns listed in the `ignore_private` vector are
+#'   regular expressions applied to the "paths" to components.
+#'   For example, `ignore_private = "\\$_"` will cause components
+#'   with names starting with `"_"` to be ignored, since
+#'   paths like `old$_component` will match that pattern.
+#'
+
 #' @export
 #' @examples
 #' # Thanks to diffobj package comparison of atomic vectors shows differences
@@ -79,18 +113,34 @@
 #' compare(iris, rev(iris))
 #'
 #' compare(list(x = "x", y = "y"), list(y = "y", x = "x"))
+#'
 #' # Otherwise they're compared by position
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
+#'
+#' # Compare options can be attached to the objects themselves:
+#' compare(list(x = "x", y = "y"),
+#'         structure(list(y = "y", x = "x"),
+#'                   waldo_opts = list(ignore_name_order = TRUE)))
+#'
+#' # User choices have top priority:
+#' compare(list(x = "x", y = "y"),
+#'         structure(list(y = "y", x = "x"),
+#'                   waldo_opts = list(ignore_name_order = TRUE)),
+#'         ignore_name_order = FALSE)
+
 compare <- function(x, y, ...,
                     x_arg = "old", y_arg = "new",
                     tolerance = NULL,
                     max_diffs = if (in_ci()) Inf else 10,
                     ignore_srcref = TRUE,
-                    ignore_attr = FALSE,
+                    ignore_attr = "waldo_opts",
                     ignore_encoding = TRUE,
                     ignore_function_env = FALSE,
-                    ignore_formula_env = FALSE
+                    ignore_formula_env = FALSE,
+                    ignore_name_order = FALSE,
+                    ignore_NULLs = FALSE,
+                    ignore_private = character()
                     ) {
 
   opts <- compare_opts(
@@ -101,12 +151,19 @@ compare <- function(x, y, ...,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,
     ignore_formula_env = ignore_formula_env,
-    ignore_function_env = ignore_function_env
+    ignore_function_env = ignore_function_env,
+    ignore_name_order = ignore_name_order,
+    ignore_NULLs = ignore_NULLs,
+    ignore_private = ignore_private
   )
+
+  opts$user_specified <- c(intersect(names(match.call()),
+                                   names(opts)),
+                           "user_specified")
+
   out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
   new_compare(out, max_diffs)
 }
-
 
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (is_reference(x, y)) {
@@ -122,10 +179,27 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     return(term)
   }
 
+  x_opts <- object_opts(x)
+  y_opts <- object_opts(y)
+
+  opts <- merge_opts(opts, x_opts, y_opts, opts[opts$user_specified])
+
   x <- compare_proxy(x)
   y <- compare_proxy(y)
 
   out <- character()
+
+  # Ignore NULLs?
+  if (isTRUE(opts$ignore_NULLs)) {
+    x <- compact(x)
+    y <- compact(y)
+  }
+
+  # Ignore private entries?
+  if (length(opts$ignore_private)) {
+    x <- zap_private(x, opts$ignore_private, paths[1])
+    y <- zap_private(y, opts$ignore_private, paths[2])
+  }
 
   # Then length
   if ((is_list(x) || is_pairlist(x)) && length(x) != length(y)) {
@@ -154,6 +228,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       y <- zap_srcref(y)
     }
 
+    if (isTRUE(opts$ignore_name_order) && !("names" %in% opts$ignore_attr)) {
+      x <- sort_named_parts(x)
+      y <- sort_named_parts(y)
+    }
     out <- c(out, compare_by_attr(attrs(x, opts$ignore_attr), attrs(y, opts$ignore_attr), paths, opts))
   }
 
@@ -238,6 +316,27 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   out
+}
+
+sort_named_parts <- function(x) {
+  nx <- rlang::names2(x)
+  nonempty <- nchar(nx) > 0
+  if (any(nonempty)) {
+    nx <- nx[nonempty]
+    ox <- order(nx)
+    x[nonempty] <- x[nonempty][ox]
+    names(x)[nonempty] <- nx[ox]
+  }
+  x
+}
+
+zap_private <- function(x, private, path) {
+  names <- rlang::names2(x)
+  paths <- glue("{path}${names}")
+  drop <- FALSE
+  for (p in private)
+    drop <- drop | grepl(p, paths)
+  x[!drop]
 }
 
 compare_terminate <- function(x, y, paths,

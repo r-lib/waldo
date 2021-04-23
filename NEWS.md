@@ -1,5 +1,10 @@
 # waldo (development version)
 
+* Compare options `ignore_name_order`, `ignore_NULLs`, and
+  `ignore_private` have been added.
+* Compare options may be specified in the `"waldo_opts"` 
+  attribute of the objects being compared.
+  
 # waldo 0.2.5
 
 * On platforms without UTF-8 support, strings that differ only in their
