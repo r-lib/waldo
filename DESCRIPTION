@@ -24,7 +24,6 @@ Imports:
     fansi,
     glue,
     methods,
-    purrr,
     rematch2,
     rlang (>= 0.4.10),
     tibble

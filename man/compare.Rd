@@ -83,7 +83,7 @@ lists or vectors.}
 \code{NULL}.}
 
 \item{ignore_private}{Components matching the patterns in this vector are
-completely ignored in comparisons.  See Details below.}
+completely ignored in comparisons.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no
@@ -120,6 +120,11 @@ highest precedence:
 \item User-specified arguments to \code{compare()} override
 everything else.
 }
+
+By default the \code{"waldo_opts"} attribute is listed in
+\code{ignore_attr} so that changes to it are not reported; if you
+customize \code{ignore_attr}, you will probably want to do this
+yourself.
 
 The patterns listed in the \code{ignore_private} vector are
 regular expressions applied to the "paths" to components.

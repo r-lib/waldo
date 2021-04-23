@@ -81,6 +81,11 @@
 #'   7.  User-specified arguments to `compare()` override
 #'       everything else.
 #'
+#'   By default the `"waldo_opts"` attribute is listed in
+#'   `ignore_attr` so that changes to it are not reported; if you
+#'   customize `ignore_attr`, you will probably want to do this
+#'   yourself.
+#'
 #'   The patterns listed in the `ignore_private` vector are
 #'   regular expressions applied to the "paths" to components.
 #'   For example, `ignore_private = "\\$_"` will cause components
@@ -160,41 +165,6 @@ compare <- function(x, y, ...,
   new_compare(out, max_diffs)
 }
 
-sort_named_parts <- function(x) {
-  nx <- names(x)
-  if (!is.null(nx)) {
-    nonempty <- nchar(nx) > 0
-    ox <- order(nx[nonempty])
-    x[nonempty] <- x[nonempty][ox]
-    names(x)[nonempty] <- nx[nonempty][ox]
-  }
-  x
-}
-
-zap_nulls <- function(x) {
-  if (is_list(x) || is_pairlist(x)) {
-    for (i in rev(seq_along(x)))
-      if (is.null(x[[i]]))
-        x[[i]] <- NULL
-  }
-  x
-}
-
-zap_private <- function(x, private, path) {
-  if (is.list(x) || is.pairlist(x)) {
-    names <- names(x)
-    paths <- glue("{path}${names}")
-    drop <- FALSE
-    for (p in private)
-      drop <- drop | grepl(p, paths)
-    if (any(drop))
-      for (i in rev(seq_along(names)))
-        if (drop[i])
-          x[[names[i]]] <- NULL
-  }
-  x
-}
-
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (is_reference(x, y)) {
     return(character())
@@ -221,8 +191,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
   # Ignore NULLs?
   if (isTRUE(opts$ignore_NULLs)) {
-    x <- zap_nulls(x)
-    y <- zap_nulls(y)
+    x <- compact(x)
+    y <- compact(y)
   }
 
   # Ignore private entries?
@@ -346,6 +316,27 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   out
+}
+
+sort_named_parts <- function(x) {
+  nx <- rlang::names2(x)
+  nonempty <- nchar(nx) > 0
+  if (any(nonempty)) {
+    nx <- nx[nonempty]
+    ox <- order(nx)
+    x[nonempty] <- x[nonempty][ox]
+    names(x)[nonempty] <- nx[ox]
+  }
+  x
+}
+
+zap_private <- function(x, private, path) {
+  names <- rlang::names2(x)
+  paths <- glue("{path}${names}")
+  drop <- FALSE
+  for (p in private)
+    drop <- drop | grepl(p, paths)
+  x[!drop]
 }
 
 compare_terminate <- function(x, y, paths,

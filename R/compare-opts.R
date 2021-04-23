@@ -64,6 +64,6 @@ object_opts <- function(x) {
 }
 
 merge_opts <- function(...) {
-  allopts <- zap_nulls(list(...))
-  purrr::reduce(allopts, utils::modifyList)
+  allopts <- compact(list(...))
+  Reduce(utils::modifyList, allopts, init = list())
 }
