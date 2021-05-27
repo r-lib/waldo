@@ -243,6 +243,23 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 compare_terminate <- function(x, y, paths,
                               tolerance = NULL,
                               ignore_attr = FALSE) {
+  type_x <- friendly_type_of(x)
+  type_y <- friendly_type_of(y)
+  if (is_missing(x) && !is_missing(y)) {
+    type_y <- col_d(type_y)
+  } else if (!is_missing(x) && is_missing(y)) {
+    type_x <- col_a(type_x)
+  } else {
+    type_x <- col_c(type_x)
+    type_y <- col_c(type_y)
+  }
+
+  type_mismatch_msg <- should_be("{type_x}{short_val(x)}", "{type_y}{short_val(y)}")
+
+  # missing needs to be treated here because `typeof(missing_arg())` is symbol
+  if (is_missing(x) != is_missing(y)) {
+    return(type_mismatch_msg)
+  }
 
   if (typeof(x) == typeof(y) && oo_type(x) == oo_type(y)) {
     return(character())
@@ -261,18 +278,7 @@ compare_terminate <- function(x, y, paths,
     return(should_be("`{deparse(x)}`", "`{deparse(y)}`"))
   }
 
-  type_x <- friendly_type_of(x)
-  type_y <- friendly_type_of(y)
-  if (is_missing(x) && !is_missing(y)) {
-    type_y <- col_d(type_y)
-  } else if (!is_missing(x) && is_missing(y)) {
-    type_x <- col_a(type_x)
-  } else {
-    type_x <- col_c(type_x)
-    type_y <- col_c(type_y)
-  }
-
-  should_be("{type_x}{short_val(x)}", "{type_y}{short_val(y)}")
+  type_mismatch_msg
 }
 
 should_be <- function(x, y) {

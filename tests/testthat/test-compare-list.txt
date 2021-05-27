@@ -48,3 +48,18 @@
 `old[[2]]`: "b"
 `new[[2]]`: "c"
 
+> # extra x/y with symbol #79
+> compare(list(sym("a")), list())
+`old` is length 1
+`new` is length 0
+
+`old[[1]]` is a symbol
+`new[[1]]` is absent
+
+> compare(list(), list(sym("a")))
+`old` is length 0
+`new` is length 1
+
+`old[[1]]` is absent
+`new[[1]]` is a symbol
+

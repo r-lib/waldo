@@ -124,8 +124,17 @@ test_that("lists compare by name, where possible", {
     "invalid names uses position"
     compare(list(a = "a", "b"), list(a = "a", "c"))
     compare(list(a = "a", a = "b"), list(a = "a", a = "c"))
+
+    "extra x/y with symbol #79"
+    compare(list(sym("a")), list())
+    compare(list(), list(sym("a")))
   })
 })
+
+test_that("can compare with `missing_arg()`", {
+  compare(missing_arg(), sym("a"))
+})
+
 
 test_that("comparing functions gives useful diffs", {
   verify_output(test_path("test-compare-fun.txt"), {

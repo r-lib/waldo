@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* comparing a list with symbol to a list where the same element doesn't exists
+  now works (@mgirlich, #79).
+
 # waldo 0.2.5
 
 * On platforms without UTF-8 support, strings that differ only in their
