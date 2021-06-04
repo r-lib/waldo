@@ -1,9 +1,12 @@
 # waldo (development version)
 
+* Proxies now exist for comparing RProtoBuf objects, converting them to
+  proto text format (#82, @michaelquinn32).
+
 # waldo 0.2.5
 
 * On platforms without UTF-8 support, strings that differ only in their
-  encoding are now correctly considered to be identical (#66).
+  encoding are now correctly considered to be identical (#66). 
 
 # waldo 0.2.4
 
