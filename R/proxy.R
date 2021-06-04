@@ -46,40 +46,40 @@ compare_proxy.xml_node <- function(x) {
 # RProtoBuf objects
 #' @export
 compare_proxy.Message <- function(x) {
-  return(x$toString())
+  x$toString()
 }
 
 #' @export
 compare_proxy.Descriptor <- function(x) {
-  return(x$toString())
+  x$toString()
 }
 
 #' @export
 compare_proxy.EnumDescriptor <- function(x) {
-  return(x$toString())
+  x$toString()
 }
 
 #' @export
 compare_proxy.FieldDescriptor <- function(x) {
-  return(x$toString())
+  x$toString()
 }
 
 #' @export
 compare_proxy.ServiceDescriptor <- function(x) {
-  return(x$toString())
+  x$toString()
 }
 
 #' @export
 compare_proxy.FileDescriptor <- function(x) {
-  return(x$toString())
+  x$toString()
 }
 
 #' @export
 compare_proxy.EnumValueDescriptor <- function(x) {
-  return(x$toString())
+  x$toString()
 }
 
 #' @export
 compare_proxy.MethodDescriptor <- function(x) {
-  return(x$toString())
+  x$toString()
 }
