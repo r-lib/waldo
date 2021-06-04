@@ -15,6 +15,12 @@
 #'   behind an external pointer, so the we best can do is to convert the
 #'   object to a string.
 #'
+#' * Classes from the `RProtoBuf` package: like XML objects, these store
+#'   data in memory in C++ and only expose string names to R. Fortunately,
+#'   these have well-understood string representations that we can use for
+#'   comparsions. See
+#'   <https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format>
+#'
 #' @param x An object.
 #' @export
 compare_proxy <- function(x) {
@@ -37,3 +43,43 @@ compare_proxy.xml_node <- function(x) {
   as.character(x)
 }
 
+# RProtoBuf objects
+#' @export
+compare_proxy.Message <- function(x) {
+  return(x$toString())
+}
+
+#' @export
+compare_proxy.Descriptor <- function(x) {
+  return(x$toString())
+}
+
+#' @export
+compare_proxy.EnumDescriptor <- function(x) {
+  return(x$toString())
+}
+
+#' @export
+compare_proxy.FieldDescriptor <- function(x) {
+  return(x$toString())
+}
+
+#' @export
+compare_proxy.ServiceDescriptor <- function(x) {
+  return(x$toString())
+}
+
+#' @export
+compare_proxy.FileDescriptor <- function(x) {
+  return(x$toString())
+}
+
+#' @export
+compare_proxy.EnumValueDescriptor <- function(x) {
+  return(x$toString())
+}
+
+#' @export
+compare_proxy.MethodDescriptor <- function(x) {
+  return(x$toString())
+}
