@@ -50,6 +50,11 @@ doesn't affect the data.
 xml2::xml_node: the underlying XML data is stored in memory in C,
 behind an external pointer, so the we best can do is to convert the
 object to a string.
+Classes from the RProtoBuf package: like XML objects, these store
+data in memory in C++ and only expose string names to R. Fortunately,
+these have well-understood string representations that we can use for
+comparsions. See
+https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format
 
 " />
 
@@ -138,6 +143,11 @@ doesn't affect the data.</p></li>
 <li><p><code>xml2::xml_node</code>: the underlying XML data is stored in memory in C,
 behind an external pointer, so the we best can do is to convert the
 object to a string.</p></li>
+<li><p>Classes from the <code>RProtoBuf</code> package: like XML objects, these store
+data in memory in C++ and only expose string names to R. Fortunately,
+these have well-understood string representations that we can use for
+comparsions. See
+<a href='https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format'>https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format</a></p></li>
 </ul>
 
     </div>
