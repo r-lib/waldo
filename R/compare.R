@@ -172,10 +172,13 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     if (env_has(x, ".__enclos_env__")) {
       # enclosing env of methods is object env
       opts$ignore_function_env <- TRUE
-      x_fields <- as.list(x, sorted = TRUE)
-      y_fields <- as.list(y, sorted = TRUE)
+      x_fields <- as.list(x)
+      y_fields <- as.list(y)
       x_fields$.__enclos_env__ <- NULL
       y_fields$.__enclos_env__ <- NULL
+      # Can't use as.list(sorted = TRUE), https://github.com/r-lib/waldo/issues/84
+      x_fields <- x_fields[sort(names(x_fields))]
+      y_fields <- y_fields[sort(names(y_fields))]
 
       out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
     } else {
