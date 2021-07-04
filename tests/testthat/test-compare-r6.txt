@@ -35,3 +35,7 @@ v No differences
 `old$y` is absent
 `new$y` is a double vector (10)
 
+> compare(froofy$new(1), froofy$new(1)$clone())
+`names(old)`: "y" "x" "clone" "initialize"        
+`names(new)`: "y" "x"         "initialize" "clone"
+
