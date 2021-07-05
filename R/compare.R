@@ -177,8 +177,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       x_fields$.__enclos_env__ <- NULL
       y_fields$.__enclos_env__ <- NULL
       # Can't use as.list(sorted = TRUE), https://github.com/r-lib/waldo/issues/84
-      x_fields <- x_fields[sort(names(x_fields))]
-      y_fields <- y_fields[sort(names(y_fields))]
+      x_fields <- x_fields[order(names(x_fields))]
+      y_fields <- y_fields[order(names(y_fields))]
 
       out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
     } else {
