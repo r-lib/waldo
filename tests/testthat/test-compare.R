@@ -219,6 +219,8 @@ test_that("can compare R6 objects", {
     compare(goofy$new(1), goofy$new(1))
     compare(goofy$new(1), goofy$new("a"))
     compare(goofy$new(1), froofy$new(1))
+    # https://github.com/r-lib/waldo/issues/84
+    compare(froofy$new(1), froofy$new(1)$clone())
   })
 })
 

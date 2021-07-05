@@ -29,9 +29,12 @@ v No differences
 `old` is length 3
 `new` is length 4
 
-`names(old)`:     "x" "clone" "initialize"
-`names(new)`: "y" "x" "clone" "initialize"
+`names(old)`: "clone" "initialize" "x"    
+`names(new)`: "clone" "initialize" "x" "y"
 
 `old$y` is absent
 `new$y` is a double vector (10)
+
+> compare(froofy$new(1), froofy$new(1)$clone())
+v No differences
 
