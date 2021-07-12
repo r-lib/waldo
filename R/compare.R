@@ -107,9 +107,8 @@ compare <- function(x, y, ...,
   new_compare(out, max_diffs)
 }
 
-
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
-  if (is_reference(x, y)) {
+  if (is_identical(x, y, opts)) {
     return(character())
   }
 
@@ -241,6 +240,22 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   out
+}
+
+# Fast path for "identical" elements - in the long run we'd eliminate this
+# by re-writing all of waldo in C, but this gives us a nice performance boost
+# with for a relatively low cost in the meantime.
+is_identical <- function(x, y, opts) {
+  # These comparisons aren't 100% correct because they don't affect comparison
+  # of character vectors/functions further down the tree. But I think that's
+  # unlikely to have an impact in practice since they're opt-in.
+  if (is_character(x) && is_character(y) && !opts$ignore_encoding) {
+    identical(x, y) && identical(Encoding(x), Encoding(y))
+  } else if (is_function(x) && is_function(y) && !opts$ignore_srcref) {
+    identical(x, y) && identical(attr(x, "srcref"), attr(y, "srcref"))
+  } else {
+    identical(x, y)
+  }
 }
 
 compare_terminate <- function(x, y, paths,
