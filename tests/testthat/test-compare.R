@@ -127,6 +127,20 @@ test_that("lists compare by name, where possible", {
   })
 })
 
+test_that("can compare with `missing_arg()`", {
+  expect_snapshot({
+    compare(missing_arg(), missing_arg())
+    compare(missing_arg(), sym("a"))
+    compare(sym("a"), missing_arg())
+  })
+
+  expect_snapshot({
+    "when in a list symbol #79"
+    compare(list(sym("a")), list())
+    compare(list(), list(sym("a")))
+  })
+})
+
 test_that("comparing functions gives useful diffs", {
   verify_output(test_path("test-compare-fun.txt"), {
     "equal"

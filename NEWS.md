@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* comparing a list with symbol to a list where the same element doesn't exists
+  now works (@mgirlich, #79).
+
 * Proxies now exist for comparing RProtoBuf objects, converting them to
   proto text format (#82, @michaelquinn32).
 

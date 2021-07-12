@@ -168,6 +168,43 @@
       [25] "y" - "Y" [25]
       [26] "z" - "Z" [26]
 
+# can compare with `missing_arg()`
+
+    Code
+      compare(missing_arg(), missing_arg())
+    Output
+      v No differences
+    Code
+      compare(missing_arg(), sym("a"))
+    Output
+      `old` is absent
+      `new` is a symbol
+    Code
+      compare(sym("a"), missing_arg())
+    Output
+      `old` is a symbol
+      `new` is absent
+
+---
+
+    Code
+      # when in a list symbol #79
+      compare(list(sym("a")), list())
+    Output
+      `old` is length 1
+      `new` is length 0
+      
+      `old[[1]]` is a symbol
+      `new[[1]]` is absent
+    Code
+      compare(list(), list(sym("a")))
+    Output
+      `old` is length 0
+      `new` is length 1
+      
+      `old[[1]]` is absent
+      `new[[1]]` is a symbol
+
 # can choose to compare srcrefs
 
     Code
