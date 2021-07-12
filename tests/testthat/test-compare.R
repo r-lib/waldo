@@ -157,6 +157,16 @@ test_that("comparing functions gives useful diffs", {
   })
 })
 
+test_that("can choose to compare srcrefs", {
+  expect_snapshot({
+    f1 <- f2 <- function() {}
+    attr(f2, "srcref") <- "{  }"
+
+    compare(f2, f1)
+    compare(f2, f1, ignore_srcref = FALSE)
+  })
+})
+
 test_that("can compare atomic vectors", {
   verify_output(test_path("test-compare-atomic.txt"), {
     compare(1:3, 10L + 1:3)

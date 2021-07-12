@@ -109,7 +109,7 @@ compare <- function(x, y, ...,
 
 
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
-  if (identical(x, y)) {
+  if (identical(x, y, ignore.srcref = opts$ignore_srcref)) {
     if (is_character(x) && !opts$ignore_encoding) {
       if (identical(Encoding(x), Encoding(y))) {
         return(character())
