@@ -52,7 +52,7 @@ test_that("can optionally ignore selected attributes", {
   opts <- compare_opts(ignore_attr = c("a", "b"))
   expect_equal(compare_structure(x, y, opts = opts), character())
 
-  verify_output(test_path("test-compare-attr-1.txt"), {
+  expect_snapshot({
     compare(x, y, ignore_attr = "a")
   })
 
@@ -86,7 +86,7 @@ test_that("can ignore minor numeric differences", {
 })
 
 test_that("ignores S3 [[ methods", {
-  verify_output(test_path("test-compare-s3-weird.txt"), {
+  expect_snapshot({
     x <- as.POSIXlt("2020-01-01")
     y <- as.POSIXlt("2020-01-02")
     compare(x, y)
@@ -102,14 +102,14 @@ test_that("can optionally compare encoding", {
   Encoding(x) <- c("latin1", "UTF-8")
   y <- rev(x)
 
-  verify_output(test_path("test-compare-chr.txt"), {
+  expect_snapshot({
     compare(x, y)
     compare(x, y, ignore_encoding = FALSE)
   })
 })
 
 test_that("lists compare by name, where possible", {
-  verify_output(test_path("test-compare-list.txt"), {
+  expect_snapshot({
     "extra y"
     compare(list("a", "b"), list("a", "b", "c"))
     compare(list(a = "a", b = "b"), list(a = "a", b = "b", c = "c"))
@@ -142,7 +142,7 @@ test_that("can compare with `missing_arg()`", {
 })
 
 test_that("comparing functions gives useful diffs", {
-  verify_output(test_path("test-compare-fun.txt"), {
+  expect_snapshot({
     "equal"
     f1 <- function(x = 1, y = 2) {}
     f2 <- function(x = 1, y = 2) {}
@@ -182,14 +182,14 @@ test_that("can choose to compare srcrefs", {
 })
 
 test_that("can compare atomic vectors", {
-  verify_output(test_path("test-compare-atomic.txt"), {
+  expect_snapshot({
     compare(1:3, 10L + 1:3)
     compare(c(TRUE, FALSE, NA, TRUE), c(FALSE, FALSE, FALSE))
   })
 })
 
 test_that("can compare S3 objects", {
-  verify_output(test_path("test-compare-s3.txt"), {
+  expect_snapshot({
     compare(factor("a"), 1L)
     compare(factor("a"), globalenv())
     compare(factor("a"), as.Date("1970-01-02"))
@@ -205,7 +205,7 @@ test_that("can compare S4 objects", {
   setClass("A", slots = c(x = "character"))
   setClass("B", contains = "A")
 
-  verify_output(test_path("test-compare-s4.txt"), {
+  expect_snapshot({
     "Non S4"
     compare(new("A", x = "1"), 1)
     compare(new("A", x = "1"), globalenv())
@@ -224,7 +224,7 @@ test_that("can compare S4 objects", {
 })
 
 test_that("can compare R6 objects", {
-  verify_output(test_path("test-compare-r6.txt"), {
+  expect_snapshot({
     goofy <- R6::R6Class("goofy", public = list(
       initialize = function(x) self$x <- x,
       x = 10
@@ -249,7 +249,7 @@ test_that("can compare R6 objects", {
 })
 
 test_that("comparing language objects gives useful diffs", {
-  verify_output(test_path("test-compare-lang.txt"), {
+  expect_snapshot({
     compare(quote(a), quote(b))
     compare(quote(a + b), quote(b + c))
 

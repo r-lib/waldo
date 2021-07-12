@@ -1,4 +1,0 @@
-> compare(x, y, ignore_attr = "a")
-`attr(old, 'b')` is absent
-`attr(new, 'b')` is a character vector ('b')
-
