@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` is now considerably faster when comparing complex objects that 
+  don't have any differences (thanks to strategic use of `identical()`) (#86).
+
 * comparing a list with symbol to a list where the same element doesn't exists
   now works (@mgirlich, #79).
 
