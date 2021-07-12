@@ -168,3 +168,17 @@
       [25] "y" - "Y" [25]
       [26] "z" - "Z" [26]
 
+# can choose to compare srcrefs
+
+    Code
+      f1 <- f2 <- (function() { })
+      attr(f2, "srcref") <- "{  }"
+      compare(f2, f1)
+    Output
+      v No differences
+    Code
+      compare(f2, f1, ignore_srcref = FALSE)
+    Output
+      `attr(old, 'srcref')` is a character vector ('{  }')
+      `attr(new, 'srcref')` is an S3 object of class <srcref>, an integer vector
+

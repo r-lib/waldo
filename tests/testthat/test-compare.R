@@ -166,6 +166,16 @@ test_that("comparing functions gives useful diffs", {
   })
 })
 
+test_that("can choose to compare srcrefs", {
+  expect_snapshot({
+    f1 <- f2 <- function() {}
+    attr(f2, "srcref") <- "{  }"
+
+    compare(f2, f1)
+    compare(f2, f1, ignore_srcref = FALSE)
+  })
+})
+
 test_that("can compare atomic vectors", {
   verify_output(test_path("test-compare-atomic.txt"), {
     compare(1:3, 10L + 1:3)
@@ -228,6 +238,8 @@ test_that("can compare R6 objects", {
     compare(goofy$new(1), goofy$new(1))
     compare(goofy$new(1), goofy$new("a"))
     compare(goofy$new(1), froofy$new(1))
+    # https://github.com/r-lib/waldo/issues/84
+    compare(froofy$new(1), froofy$new(1)$clone())
   })
 })
 
