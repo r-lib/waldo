@@ -168,6 +168,23 @@
       [25] "y" - "Y" [25]
       [26] "z" - "Z" [26]
 
+# can compare with `missing_arg()`
+
+    Code
+      compare(missing_arg(), missing_arg())
+    Output
+      v No differences
+    Code
+      compare(missing_arg(), sym("a"))
+    Output
+      `old` is absent
+      `new` is a symbol
+    Code
+      compare(sym("a"), missing_arg())
+    Output
+      `old` is a symbol
+      `new` is absent
+
 # can choose to compare srcrefs
 
     Code

@@ -132,7 +132,11 @@ test_that("lists compare by name, where possible", {
 })
 
 test_that("can compare with `missing_arg()`", {
-  compare(missing_arg(), sym("a"))
+  expect_snapshot({
+    compare(missing_arg(), missing_arg())
+    compare(missing_arg(), sym("a"))
+    compare(sym("a"), missing_arg())
+  })
 })
 
 
