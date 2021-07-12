@@ -1,5 +1,5 @@
 
-new_compare <- function(x = character(), max_diffs = 10) {
+new_compare <- function(x = character(), max_diffs = if (in_ci()) Inf else 10) {
   stopifnot(is.character(x))
   structure(x, max_diffs = max_diffs, class = "waldo_compare")
 }
