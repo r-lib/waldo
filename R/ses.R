@@ -14,7 +14,7 @@ ses <- function(x, y, elementwise = FALSE) {
 
   out <- diffobj::ses(
     x, y,
-    max.diffs = if (elementwise) 1 else 100,
+    max.diffs = if (elementwise) 0 else 100,
     warn = FALSE
   )
   out <- rematch2::re_match(out, paste0(
