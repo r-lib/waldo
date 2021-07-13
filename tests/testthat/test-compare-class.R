@@ -8,7 +8,7 @@ test_that("print method covers main cases", {
   Sys.setenv(CI = "false")
   on.exit(Sys.setenv(CI = old))
 
-  verify_output(test_path("test-compare-class.txt"), {
+  expect_snapshot({
     new_compare()
 
     new_compare(letters[1:3])

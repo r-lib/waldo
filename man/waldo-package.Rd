@@ -14,6 +14,7 @@ Compare complex R objects and reveal the key
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://waldo.r-lib.org}
   \item \url{https://github.com/r-lib/waldo}
   \item Report bugs at \url{https://github.com/r-lib/waldo/issues}
 }

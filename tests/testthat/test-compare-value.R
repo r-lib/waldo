@@ -1,5 +1,5 @@
 test_that("character comparison", {
-  verify_output(test_path("test-compare-value-chr.txt"), {
+  expect_snapshot({
     "no difference"
     compare_character(c("a", "b"), c("a", "b"))
 
@@ -24,7 +24,7 @@ test_that("character comparison", {
 })
 
 test_that("multiline comparison", {
-  verify_output(test_path("test-compare-value-lines.txt"), {
+  expect_snapshot({
     compare_character("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
     compare_character("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n")
     compare_character("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n")
@@ -35,7 +35,7 @@ test_that("multiline comparison", {
 })
 
 test_that("numeric comparison", {
-  verify_output(test_path("test-compare-value-num.txt"), {
+  expect_snapshot({
     "no difference"
     compare_numeric(1:3, 1:3)
     compare_numeric(c(1, NA), c(1, NA))

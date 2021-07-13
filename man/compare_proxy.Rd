@@ -22,5 +22,10 @@ doesn't affect the data.
 \item \code{xml2::xml_node}: the underlying XML data is stored in memory in C,
 behind an external pointer, so the we best can do is to convert the
 object to a string.
+\item Classes from the \code{RProtoBuf} package: like XML objects, these store
+data in memory in C++ and only expose string names to R. Fortunately,
+these have well-understood string representations that we can use for
+comparsions. See
+\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format}
 }
 }

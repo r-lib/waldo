@@ -107,9 +107,8 @@ compare <- function(x, y, ...,
   new_compare(out, max_diffs)
 }
 
-
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
-  if (is_reference(x, y)) {
+  if (is_identical(x, y, opts)) {
     return(character())
   }
 
@@ -172,10 +171,13 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     if (env_has(x, ".__enclos_env__")) {
       # enclosing env of methods is object env
       opts$ignore_function_env <- TRUE
-      x_fields <- as.list(x, sorted = TRUE)
-      y_fields <- as.list(y, sorted = TRUE)
+      x_fields <- as.list(x)
+      y_fields <- as.list(y)
       x_fields$.__enclos_env__ <- NULL
       y_fields$.__enclos_env__ <- NULL
+      # Can't use as.list(sorted = TRUE), https://github.com/r-lib/waldo/issues/84
+      x_fields <- x_fields[order(names(x_fields))]
+      y_fields <- y_fields[order(names(y_fields))]
 
       out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
     } else {
@@ -240,9 +242,42 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   out
 }
 
+# Fast path for "identical" elements - in the long run we'd eliminate this
+# by re-writing all of waldo in C, but this gives us a nice performance boost
+# with for a relatively low cost in the meantime.
+is_identical <- function(x, y, opts) {
+  # These comparisons aren't 100% correct because they don't affect comparison
+  # of character vectors/functions further down the tree. But I think that's
+  # unlikely to have an impact in practice since they're opt-in.
+  if (is_character(x) && is_character(y) && !opts$ignore_encoding) {
+    identical(x, y) && identical(Encoding(x), Encoding(y))
+  } else if (is_function(x) && is_function(y) && !opts$ignore_srcref) {
+    identical(x, y) && identical(attr(x, "srcref"), attr(y, "srcref"))
+  } else {
+    identical(x, y)
+  }
+}
+
 compare_terminate <- function(x, y, paths,
                               tolerance = NULL,
                               ignore_attr = FALSE) {
+  type_x <- friendly_type_of(x)
+  type_y <- friendly_type_of(y)
+  if (is_missing(x) && !is_missing(y)) {
+    type_y <- col_d(type_y)
+  } else if (!is_missing(x) && is_missing(y)) {
+    type_x <- col_a(type_x)
+  } else {
+    type_x <- col_c(type_x)
+    type_y <- col_c(type_y)
+  }
+
+  type_mismatch_msg <- should_be("{type_x}{short_val(x)}", "{type_y}{short_val(y)}")
+
+  # missing needs to be treated here because `typeof(missing_arg())` is symbol
+  if (is_missing(x) != is_missing(y)) {
+    return(type_mismatch_msg)
+  }
 
   if (typeof(x) == typeof(y) && oo_type(x) == oo_type(y)) {
     return(character())
@@ -261,18 +296,7 @@ compare_terminate <- function(x, y, paths,
     return(should_be("`{deparse(x)}`", "`{deparse(y)}`"))
   }
 
-  type_x <- friendly_type_of(x)
-  type_y <- friendly_type_of(y)
-  if (is_missing(x) && !is_missing(y)) {
-    type_y <- col_d(type_y)
-  } else if (!is_missing(x) && is_missing(y)) {
-    type_x <- col_a(type_x)
-  } else {
-    type_x <- col_c(type_x)
-    type_y <- col_c(type_y)
-  }
-
-  should_be("{type_x}{short_val(x)}", "{type_y}{short_val(y)}")
+  type_mismatch_msg
 }
 
 should_be <- function(x, y) {
