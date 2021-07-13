@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare_proxy()` is now called earlier (before type comparison) making
+  it more flexible (#65).
+
 * `compare()` is now considerably faster when comparing complex objects that 
   don't have any differences (thanks to strategic use of `identical()`) (#86).
 

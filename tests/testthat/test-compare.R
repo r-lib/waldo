@@ -261,3 +261,14 @@ test_that("comparing language objects gives useful diffs", {
     compare(expression(1, a, a + b), expression(1, a, a + c))
   })
 })
+
+test_that("compare_proxy() can change type", {
+  local_bindings(
+    compare_proxy.foo = function(x) 10,
+    .env =  global_env()
+  )
+  expect_equal(
+    compare(structure(1, class = "foo"), structure("x", class = "foo")),
+    new_compare()
+  )
+})
