@@ -78,6 +78,27 @@
       `lines(old[[1]])`: "x" ""
       `lines(new[[1]])`: "x"   
 
+# show elementwise differences of random permutations
+
+    Code
+      compare(letters[1:15], letters[c(14, 4, 12, 11, 13, 3, 10, 5, 1, 7, 9, 15, 6, 8,
+        2)])
+    Output
+      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 5 more...
+      `new`: "n" "d" "l" "k" "m" "c" "j" "e" "a" "g" ...          
+    Code
+      compare(letters[1:15], letters[c(3, 13, 6, 10, 11, 9, 4, 5, 15, 2, 12, 14, 8, 7,
+        1)])
+    Output
+      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 5 more...
+      `new`: "c" "m" "f" "j" "k" "i" "d" "e" "o" "b" ...          
+    Code
+      compare(letters[1:15], letters[c(12, 13, 1, 2, 5, 6, 11, 15, 10, 14, 9, 7, 3, 4,
+        8)])
+    Output
+      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 5 more...
+      `new`: "l" "m" "a" "b" "e" "f" "k" "o" "j" "n" ...          
+
 # numeric comparison
 
     Code
@@ -92,8 +113,8 @@
     Code
       compare_numeric(c(NA, 1), c(1, NA))
     Output
-      `x`: NA 1   
-      `y`:    1 NA
+      `x`: NA  1
+      `y`:  1 NA
     Code
       # simple change
       compare_numeric(c(1, 2, 3), c(1, 2))
@@ -160,10 +181,10 @@
       # unequal length
       compare_numeric(c(1, 2, NA), c(1, 2 + 1e-07, NA, 3))
     Output
-      `x`: 1         2   
-      `y`: 1 2.0000001  3
+      `x[2:3]`: 2             
+           `y`: 1 2.0000001  3
 
-# logical comparison minimise extraneous diffs
+# logical comparisons minimise extraneous diffs
 
     Code
       compare_logical(x1, x2)
@@ -182,9 +203,9 @@
     Code
       compare_logical(x3, x4)
     Output
-      `x[1:4]`: TRUE FALSE TRUE FALSE
-      `y[1:3]`:      FALSE TRUE FALSE
+      `x[1:3]`:       TRUE FALSE TRUE
+      `y[1:4]`: FALSE TRUE FALSE TRUE
       
-      `x[48:50]`: FALSE TRUE FALSE                
-      `y[47:52]`: FALSE TRUE FALSE TRUE FALSE TRUE
+      `x[48:50]`: FALSE TRUE FALSE     
+      `y[49:52]`: FALSE TRUE FALSE TRUE
 

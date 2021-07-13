@@ -208,8 +208,8 @@
     Code
       compare(x, y, ignore_encoding = FALSE)
     Output
-      `Encoding(old)`: "latin1" "UTF-8"         
-      `Encoding(new)`:          "UTF-8" "latin1"
+      `Encoding(old)`: "latin1" "UTF-8" 
+      `Encoding(new)`: "UTF-8"  "latin1"
 
 # lists compare by name, where possible
 
@@ -257,8 +257,8 @@
       # different order
       compare(list(a = "a", b = "b"), list(b = "b", a = "a"))
     Output
-      `names(old)`: "a" "b"    
-      `names(new)`:     "b" "a"
+      `names(old)`: "a" "b"
+      `names(new)`: "b" "a"
     Code
       # invalid names uses position
       compare(list(a = "a", "b"), list(a = "a", "c"))
@@ -356,7 +356,7 @@
       })
       compare(f1, f4)
     Output
-      `body(old)`: `{`             `}`
+      `body(old)`: `{` `}`            
       `body(new)`: `{` `    x + y` `}`
     Code
       compare(f1, f4, ignore_srcref = FALSE)
@@ -373,10 +373,10 @@
       `attr(body(old), 'srcref')[[2]]` is absent
       `attr(body(new), 'srcref')[[2]]` is an S3 object of class <srcref>, an integer vector
       
-      `attr(body(old), 'wholeSrcref')`: 1 0  2 33 0 33 1 2   
-      `attr(body(new), 'wholeSrcref')`: 1 0 16  1 0    1 1 16
+      `attr(body(old), 'wholeSrcref')`: 1 0  2 33 0 33 1  2
+      `attr(body(new), 'wholeSrcref')`: 1 0 16  1 0  1 1 16
       
-      `body(old)`: `{`             `}`
+      `body(old)`: `{` `}`            
       `body(new)`: `{` `    x + y` `}`
     Code
       # diff environment
@@ -411,8 +411,8 @@
     Code
       compare(c(TRUE, FALSE, NA, TRUE), c(FALSE, FALSE, FALSE))
     Output
-      `old`: TRUE FALSE <NA>  TRUE 
-      `new`:      FALSE FALSE FALSE
+      `old`: TRUE  FALSE <NA>  TRUE
+      `new`: FALSE FALSE FALSE     
 
 # can compare S3 objects
 
@@ -468,7 +468,7 @@
     Code
       compare(new("A", x = "1"), new("B", x = "1"))
     Output
-      `is(old)`:     "A"
+      `is(old)`: "A"    
       `is(new)`: "B" "A"
     Code
       # S4 with extra attributes
@@ -513,7 +513,7 @@
     Code
       compare(goofy$new(1), froofy$new(1))
     Output
-      `class(old)`:          "goofy" "R6"
+      `class(old)`: "goofy"  "R6"        
       `class(new)`: "froofy" "goofy" "R6"
       
       `old` is length 3

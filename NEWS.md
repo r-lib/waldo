@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* `compare()` automatically uses an elementwise comparison if it's shorter than
+  a "smart" diff. This makes it more obvious when you're comparing unrelated 
+  vectors (#68).
+
 * `compare()` is now considerably faster when comparing complex objects that 
   don't have any differences (thanks to strategic use of `identical()`) (#86).
 

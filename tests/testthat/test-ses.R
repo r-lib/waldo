@@ -21,3 +21,20 @@ test_that("can parse large numbers", {
   del <- ses(c(letters,"x"), letters)
   expect_equal(del, ses_df(27, 27, "d", 26, 26))
 })
+
+
+test_that("ses_neq matches seq_neq() for exact matches", {
+  expect_equal(
+    ses_elementwise(letters[1:4], letters[1:4]),
+    ses(letters[1:4], letters[1:4])
+  )
+  expect_equal(
+    ses_elementwise(letters[1:4], letters[1:2]),
+    ses(letters[1:4], letters[1:2])
+  )
+  expect_equal(
+    ses_elementwise(letters[1:2], letters[1:4]),
+    ses(letters[1:2], letters[1:4])
+  )
+
+})
