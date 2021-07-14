@@ -36,9 +36,9 @@ test_that("multiline comparison", {
 
 test_that("show elementwise differences of random permutations", {
   expect_snapshot({
-    compare(letters[1:15], letters[c(14, 4, 12, 11, 13, 3, 10, 5, 1, 7, 9, 15, 6, 8, 2)])
-    compare(letters[1:15], letters[c(3, 13, 6, 10, 11, 9, 4, 5, 15, 2, 12, 14, 8, 7, 1)])
-    compare(letters[1:15], letters[c(12, 13, 1, 2, 5, 6, 11, 15, 10, 14, 9, 7, 3, 4, 8)])
+    compare(letters[1:15], letters[c(14, 4, 12, 11, 13, 3, 10, 5, 1, 7, 9, 15, 6, 8, 2)], max_diffs = Inf)
+    compare(letters[1:15], letters[c(3, 13, 6, 10, 11, 9, 4, 5, 15, 2, 12, 14, 8, 7, 1)], max_diffs = Inf)
+    compare(letters[1:15], letters[c(12, 13, 1, 2, 5, 6, 11, 15, 10, 14, 9, 7, 3, 4, 8)], max_diffs = Inf)
   })
 })
 

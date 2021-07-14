@@ -82,22 +82,22 @@
 
     Code
       compare(letters[1:15], letters[c(14, 4, 12, 11, 13, 3, 10, 5, 1, 7, 9, 15, 6, 8,
-        2)])
+        2)], max_diffs = Inf)
     Output
-      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 5 more...
-      `new`: "n" "d" "l" "k" "m" "c" "j" "e" "a" "g" ...          
+      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o"
+      `new`: "n" "d" "l" "k" "m" "c" "j" "e" "a" "g" "i" "o" "f" "h" "b"
     Code
       compare(letters[1:15], letters[c(3, 13, 6, 10, 11, 9, 4, 5, 15, 2, 12, 14, 8, 7,
-        1)])
+        1)], max_diffs = Inf)
     Output
-      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 5 more...
-      `new`: "c" "m" "f" "j" "k" "i" "d" "e" "o" "b" ...          
+      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o"
+      `new`: "c" "m" "f" "j" "k" "i" "d" "e" "o" "b" "l" "n" "h" "g" "a"
     Code
       compare(letters[1:15], letters[c(12, 13, 1, 2, 5, 6, 11, 15, 10, 14, 9, 7, 3, 4,
-        8)])
+        8)], max_diffs = Inf)
     Output
-      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" and 5 more...
-      `new`: "l" "m" "a" "b" "e" "f" "k" "o" "j" "n" ...          
+      `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o"
+      `new`: "l" "m" "a" "b" "e" "f" "k" "o" "j" "n" "i" "g" "c" "d" "h"
 
 # numeric comparison
 
