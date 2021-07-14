@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* `compare()` automatically uses an elementwise comparison if it's shorter than
+  a "smart" diff. This makes it more obvious when you're comparing unrelated 
+  vectors (#68).
+
 * `compare_proxy()` is now called earlier (before type comparison) making
   it more flexible (#65).
 
