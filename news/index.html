@@ -119,6 +119,7 @@
 <a href="#waldo-development-version" class="anchor"></a>waldo (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> automatically uses an elementwise comparison if it’s shorter than a “smart” diff. This makes it more obvious when you’re comparing unrelated vectors (<a href='https://github.com/r-lib/waldo/issues/68'>#68</a>).</p></li>
 <li><p><code><a href="../reference/compare_proxy.html">compare_proxy()</a></code> is now called earlier (before type comparison) making it more flexible (<a href='https://github.com/r-lib/waldo/issues/65'>#65</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> is now considerably faster when comparing complex objects that don’t have any differences (thanks to strategic use of <code><a href="https://rdrr.io/r/base/identical.html">identical()</a></code>) (<a href='https://github.com/r-lib/waldo/issues/86'>#86</a>).</p></li>
 <li><p>comparing a list with symbol to a list where the same element doesn’t exists now works (<a href='https://github.com/mgirlich'>@mgirlich</a>, <a href='https://github.com/r-lib/waldo/issues/79'>#79</a>).</p></li>
