@@ -161,7 +161,9 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   # Then contents
-  if (is_list(x) || is_pairlist(x) || is.expression(x)) {
+  if (is.data.frame(x)) {
+    out <- c(out, compare_data_frame(x, y, paths, opts = opts))
+  } else if (is_list(x) || is_pairlist(x) || is.expression(x)) {
     x <- unclass(x)
     y <- unclass(y)
 
@@ -348,6 +350,9 @@ compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)
 
 path_line <- function(path, i) glue("lines({path}[[{i}]])")
 compare_by_line <- compare_by(index_pos, extract_pos, path_line)
+
+path_row <- function(path, i) glue("{path}[{i},]")
+compare_by_row <- compare_by(index_pos, extract_pos, path_row)
 
 path_attr <- function(path, i) {
   # from ?attributes, excluding row.names() because it's not a simple accessor
