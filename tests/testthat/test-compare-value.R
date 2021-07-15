@@ -71,6 +71,14 @@ test_that("numeric comparison", {
   })
 })
 
+test_that("numeric comparison works on factors", {
+  expect_snapshot({
+    x <- factor(c("a", "b", "c"), c("a", "b", "c"))
+    y <- factor(c("a", "c", "b"), c("a", "c", "b"))
+    compare(x, y)
+  })
+})
+
 test_that("logical comparisons minimise extraneous diffs", {
   x1 <- x2 <- rep(TRUE, 50)
   x2[c(1, 25, 50)] <- FALSE

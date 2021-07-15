@@ -184,6 +184,16 @@
       `x[2:3]`: 2             
            `y`: 1 2.0000001  3
 
+# numeric comparison works on factors
+
+    Code
+      x <- factor(c("a", "b", "c"), c("a", "b", "c"))
+      y <- factor(c("a", "c", "b"), c("a", "c", "b"))
+      compare(x, y)
+    Output
+      `levels(old)`: "a" "b" "c"
+      `levels(new)`: "a" "c" "b"
+
 # logical comparisons minimise extraneous diffs
 
     Code

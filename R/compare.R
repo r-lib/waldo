@@ -226,8 +226,6 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
         max_diffs = opts$max_diffs
       ))
     }
-    attributes(x) <- NULL
-    attributes(y) <- NULL
 
     out <- c(out, switch(typeof(x),
       integer = ,
