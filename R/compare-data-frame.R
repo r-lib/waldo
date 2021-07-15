@@ -1,28 +1,53 @@
 #' @examples
-#'
 #' iris2<- iris
 #' iris2[3,2] <- 17
 #' iris2[3,5] <- "versicolor"
 #' compare(iris, iris2)
-#'
-#' iris2 <- iris
-#' iris2$Species <- as.character(iris$Species)
-#' compare(iris, iris2)
-
 compare_data_frame <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
-  if (same_cols(x, y)) {
-    x_view <- capture.output(print(as.data.frame(x)))
-    y_view <- capture.output(print(as.data.frame(y)))
-
-    diff_element(x_view, y_view, paths, quote = "", max_diffs = opts$max_diffs)
-  } else {
-    ignore_names <- isTRUE(opts$ignore_attr) || "names" %in% opts$ignore_attr
-    if (!ignore_names) {
-      compare_by_name(x, y, paths, opts)
-    } else {
-      compare_by_pos(x, y, paths, opts)
-    }
+  # Only show row diffs if columns are the same and there are rows
+  if (!same_cols(x, y)) {
+    return()
   }
+  if (nrow(x) == 0 || nrow(y) == 0) {
+    return()
+  }
+
+  cols <- format_cols(x, y)
+  if (is.null(cols)) {
+    return()
+  }
+  diff_rows(cols$x, cols$y, cols$header,
+    paths = paths,
+    max_diffs = opts$max_diffs
+  )
+}
+
+# Make a character matrix of formatted cell values
+format_cols <- function(x, y) {
+  x <- factor_to_char(x)
+  y <- factor_to_char(y)
+
+  # If same length, drop identical columns
+  if (nrow(x) == nrow(y)) {
+    same <- vapply(seq_along(x), function(j) identical(x[[j]], y[[j]]), logical(1))
+    x <- x[!same]
+    y <- y[!same]
+  }
+  if (ncol(x) == 0) {
+    return()
+  }
+
+  # Combine together to match widths
+  cols <- lapply(seq_along(x), function(j) c(x[[j]], y[[j]]))
+  cols <- as.data.frame(cols)
+  names(cols) <- names(x)
+
+  lines <- utils::capture.output(print(cols, row.names = FALSE))
+  list(
+    header = lines[[1]],
+    x = lines[2:(nrow(x) + 1)],
+    y = lines[(nrow(x) + 2):length(lines)]
+  )
 }
 
 same_cols <- function(x, y) {
@@ -30,13 +55,14 @@ same_cols <- function(x, y) {
     return(FALSE)
   }
 
-  # Implies same column types
-  for (i in seq_along(x)) {
-    if (!identical(typeof(x[[i]]), typeof(y[[i]]))) {
-      return(FALSE)
+  for (j in seq_along(x)) {
+    if (!is.numeric(x[[j]]) || !is.numeric(y[[j]])) {
+      if (!identical(typeof(x[[j]]), typeof(y[[j]]))) {
+        return(FALSE)
+      }
     }
 
-    if (!identical(attributes(x[[i]]), attributes(y[[i]]))) {
+    if (!identical(attributes(x[[j]]), attributes(y[[j]]))) {
       return(FALSE)
     }
   }
@@ -44,3 +70,13 @@ same_cols <- function(x, y) {
   TRUE
 }
 
+factor_to_char <- function(x) {
+  is_factor <- vapply(x, is.factor, logical(1))
+  x[is_factor] <- lapply(x[is_factor], as.character)
+  x
+}
+
+unrowname <- function(x) {
+  row.names(x) <- NULL
+  x
+}

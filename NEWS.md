@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` gains a basic row-by-row diff for data frames that is shown when 
+  the values within a data frame are different (#78).
+
 * `compare()` automatically uses an elementwise comparison if it's shorter than
   a "smart" diff. This makes it more obvious when you're comparing unrelated 
   vectors (#68).
