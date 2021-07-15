@@ -73,9 +73,12 @@ test_that("numeric comparison", {
 
 test_that("numeric comparison works on factors", {
   expect_snapshot({
-    x <- factor(c("a", "b", "c"), c("a", "b", "c"))
-    y <- factor(c("a", "c", "b"), c("a", "c", "b"))
-    compare(x, y)
+    f1 <- factor(c("a", "b", "c"))
+    f2 <- factor(c("a", "c", "b"), c("a", "c", "b"))
+    compare(f1, f2)
+
+    f3 <- factor(c("a", "B", "c"))
+    compare(f1, f3)
   })
 })
 

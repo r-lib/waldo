@@ -64,6 +64,9 @@ num_exact <- function(x, digits = 6) {
 
 # Minimal number of digits needed to show differences
 min_digits <- function(x, y) {
+  attributes(x) <- NULL
+  attributes(y) <- NULL
+
   digits(abs(x - y))
 }
 

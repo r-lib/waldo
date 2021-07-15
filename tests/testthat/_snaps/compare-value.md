@@ -187,12 +187,21 @@
 # numeric comparison works on factors
 
     Code
-      x <- factor(c("a", "b", "c"), c("a", "b", "c"))
-      y <- factor(c("a", "c", "b"), c("a", "c", "b"))
-      compare(x, y)
+      f1 <- factor(c("a", "b", "c"))
+      f2 <- factor(c("a", "c", "b"), c("a", "c", "b"))
+      compare(f1, f2)
     Output
       `levels(old)`: "a" "b" "c"
       `levels(new)`: "a" "c" "b"
+    Code
+      f3 <- factor(c("a", "B", "c"))
+      compare(f1, f3)
+    Output
+      `levels(old)`: "a" "b" "c"
+      `levels(new)`: "B" "a" "c"
+      
+      `old`: 1 2 3
+      `new`: 2 1 3
 
 # shows row-by-row diff for numeric matrices
 
