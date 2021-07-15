@@ -37,12 +37,18 @@ format_cols <- function(x, y) {
     return()
   }
 
-  # Combine together to match widths
-  cols <- lapply(seq_along(x), function(j) c(x[[j]], y[[j]]))
-  cols <- as.data.frame(cols)
-  names(cols) <- names(x)
+  printed_lines(as.data.frame(x), as.data.frame(y), row.names = FALSE)
+}
 
-  lines <- utils::capture.output(print(cols, row.names = FALSE, width = 500))
+# join together two rectangles then print - this takes advantage of all the
+# logic built into base R to get nice printing
+printed_lines <- function(x, y, ...) {
+  joint <- rbind(x, y)
+  if (!is.data.frame(joint)) {
+    rownames(joint) <- rep("", nrow(joint))
+  }
+  lines <- utils::capture.output(print(joint, ..., width = 500))
+
   row_idx <- c(seq_len(nrow(x)), seq_len(nrow(y)))
   names(lines) <- format(c("", paste0("[", row_idx, ", ]")), align = "right")
 
