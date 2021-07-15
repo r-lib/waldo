@@ -1,17 +1,15 @@
 test_that("informative diff for additions and deletions", {
-  df <- data.frame(x = 1:5, y = 5:1)
-
   expect_snapshot({
+    df <- data.frame(x = 1:5, y = 5:1)
     compare(df, unrowname(df[1:3, ]))
     compare(df, unrowname(df[c(1, 5, 2, 3, 4, 5), ]))
   })
 })
 
 test_that("informative diff for changes", {
-  df1 <- data.frame(x = 1:3, y = 1, z = c("a", "b", "c"))
-  df2 <- data.frame(x = c(1, 100, 3), y = 1, z = c("a", "B", "c"))
-
   expect_snapshot({
+    df1 <- data.frame(x = 1:3, y = 1, z = c("a", "b", "c"))
+    df2 <- data.frame(x = c(1, 100, 3), y = 1, z = c("a", "B", "c"))
     compare(df1, df2)
   })
 })

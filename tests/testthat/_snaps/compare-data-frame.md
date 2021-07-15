@@ -1,6 +1,7 @@
 # informative diff for additions and deletions
 
     Code
+      df <- data.frame(x = 1:5, y = 5:1)
       compare(df, unrowname(df[1:3, ]))
     Output
       `attr(old, 'row.names')`: 1 2 3 4 5
@@ -42,6 +43,8 @@
 # informative diff for changes
 
     Code
+      df1 <- data.frame(x = 1:3, y = 1, z = c("a", "b", "c"))
+      df2 <- data.frame(x = c(1, 100, 3), y = 1, z = c("a", "B", "c"))
       compare(df1, df2)
     Output
       old vs new
