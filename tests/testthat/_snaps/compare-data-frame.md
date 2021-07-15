@@ -8,12 +8,12 @@
       `attr(new, 'row.names')`: 1 2 3    
       
       old vs new
-              x y
-        [1, ] 1 5
-        [2, ] 2 4
-        [3, ] 3 3
-      - [4, ] 4 2
-      - [5, ] 5 1
+                 x y
+        old[1, ] 1 5
+        old[2, ] 2 4
+        old[3, ] 3 3
+      - old[4, ] 4 2
+      - old[5, ] 5 1
       
       `old$x`: 1 2 3 4 5
       `new$x`: 1 2 3    
@@ -27,12 +27,12 @@
       `attr(new, 'row.names')[3:6]`: 3 4 5 6
       
       old vs new
-              x y
-        [1, ] 1 5
-      + [2, ] 5 1
-        [2, ] 2 4
-        [3, ] 3 3
-        [4, ] 4 2
+                 x y
+        old[1, ] 1 5
+      + new[2, ] 5 1
+        old[2, ] 2 4
+        old[3, ] 3 3
+        old[4, ] 4 2
       
       `old$x[1:4]`: 1   2 3 4
       `new$x[1:5]`: 1 5 2 3 4
@@ -48,11 +48,11 @@
       compare(df1, df2)
     Output
       old vs new
-                x z
-        [1, ]   1 a
-      - [2, ]   2 b
-      + [2, ] 100 B
-        [3, ]   3 c
+                   x z
+        old[1, ]   1 a
+      - old[2, ]   2 b
+      + new[2, ] 100 B
+        old[3, ]   3 c
       
       `old$x` is an integer vector (1, 2, 3)
       `new$x` is a double vector (1, 100, 3)

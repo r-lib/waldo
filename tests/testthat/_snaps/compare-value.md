@@ -211,10 +211,10 @@
       compare(x, y)
     Output
       old vs new
-              [,1] [,2]
-        [1, ]    1    3
-      - [2, ]    2    4
-      + [2, ]    2    5
+                 [,1] [,2]
+        old[1, ]    1    3
+      - old[2, ]    2    4
+      + new[2, ]    2    5
 
 # falls back to regular display if printed representation the same
 

@@ -7,7 +7,7 @@ compare_data_frame <- function(x, y, paths = c("x", "y"), opts = compare_opts())
     return()
   }
 
-  rows <- df_rows(x, y)
+  rows <- df_rows(x, y, paths = paths)
   if (is.null(rows)) {
     return()
   }
@@ -33,7 +33,7 @@ diff_rows <- function(rows, paths = c("x", "y"), max_diffs = 10) {
 }
 
 # Make a character matrix of formatted cell values
-df_rows <- function(x, y) {
+df_rows <- function(x, y, paths = c("x", "y")) {
   x <- factor_to_char(x)
   y <- factor_to_char(y)
 
@@ -47,12 +47,12 @@ df_rows <- function(x, y) {
     return()
   }
 
-  printed_rows(as.data.frame(x), as.data.frame(y), row.names = FALSE)
+  printed_rows(as.data.frame(x), as.data.frame(y), row.names = FALSE, paths = paths)
 }
 
 # join together two rectangles then print - this takes advantage of all the
 # logic built into base R to get nice printing
-printed_rows <- function(x, y, ...) {
+printed_rows <- function(x, y, ..., paths = c("x", "y")) {
   joint <- rbind(x, y)
   if (!is.data.frame(joint)) {
     rownames(joint) <- rep("", nrow(joint))
@@ -60,7 +60,8 @@ printed_rows <- function(x, y, ...) {
   lines <- utils::capture.output(print(joint, ..., width = 500))
 
   row_idx <- c(seq_len(nrow(x)), seq_len(nrow(y)))
-  names(lines) <- format(c("", paste0("[", row_idx, ", ]")), align = "right")
+  row_idx <- paste0(rep(paths, c(nrow(x), nrow(y))), "[", row_idx, ", ]")
+  names(lines) <- format(c("", row_idx), align = "right")
 
   list(
     header = lines[1],
