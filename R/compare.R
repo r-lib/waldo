@@ -109,10 +109,18 @@ compare <- function(x, y, ...,
 
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (!is_missing(x)) {
+    old <- x
     x <- compare_proxy(x)
+    if (!is_reference(x, old)) {
+      paths[[1]] <- paste0("compare_proxy(", paths[[1]], ")")
+    }
   }
   if (!is_missing(y)) {
+    old <- y
     y <- compare_proxy(y)
+    if (!is_reference(y, old)) {
+      paths[[2]] <- paste0("compare_proxy(", paths[[2]], ")")
+    }
   }
 
   if (is_identical(x, y, opts)) {

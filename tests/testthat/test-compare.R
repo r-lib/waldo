@@ -272,3 +272,14 @@ test_that("compare_proxy() can change type", {
     new_compare()
   )
 })
+
+test_that("compare_proxy() modifies path", {
+  local_bindings(
+    compare_proxy.foo = function(x) list(x = x$x),
+    .env =  global_env()
+  )
+
+  foo1 <- structure(list(x = 1), class = "foo")
+  foo2 <- structure(list(x = 2), class = "foo")
+  expect_snapshot(compare(foo1, foo2))
+})
