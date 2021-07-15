@@ -194,6 +194,29 @@
       `levels(old)`: "a" "b" "c"
       `levels(new)`: "a" "c" "b"
 
+# shows row-by-row diff for numeric matrices
+
+    Code
+      x <- y <- matrix(1:4, nrow = 2)
+      y[2, 2] <- 5L
+      compare(x, y)
+    Output
+      old vs new
+              [,1] [,2]
+        [1, ]    1    3
+      - [2, ]    2    4
+      + [2, ]    2    5
+
+# falls back to regular display if printed representation the same
+
+    Code
+      x <- y <- matrix(1:4, nrow = 2)
+      y[2, 2] <- y[2, 2] + 1e-10
+      compare(x, y)
+    Output
+      `old` is an integer vector (1, 2, 3, 4)
+      `new` is a double vector (1, 2, 3, 4.0000000001)
+
 # logical comparisons minimise extraneous diffs
 
     Code

@@ -79,6 +79,22 @@ test_that("numeric comparison works on factors", {
   })
 })
 
+test_that("shows row-by-row diff for numeric matrices", {
+  expect_snapshot({
+    x <- y <- matrix(1:4, nrow = 2)
+    y[2, 2] <- 5L
+    compare(x, y)
+  })
+})
+
+test_that("falls back to regular display if printed representation the same", {
+  expect_snapshot({
+    x <- y <- matrix(1:4, nrow = 2)
+    y[2, 2] <- y[2, 2] + 1e-10
+    compare(x, y)
+  })
+})
+
 test_that("logical comparisons minimise extraneous diffs", {
   x1 <- x2 <- rep(TRUE, 50)
   x2[c(1, 25, 50)] <- FALSE
