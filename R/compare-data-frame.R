@@ -1,8 +1,3 @@
-#' @examples
-#' iris2<- iris
-#' iris2[3,2] <- 17
-#' iris2[3,5] <- "versicolor"
-#' compare(iris, iris2)
 compare_data_frame <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   # Only show row diffs if columns are the same and there are rows
   if (!same_cols(x, y)) {
