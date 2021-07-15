@@ -107,25 +107,6 @@ diff_element <- function(x, y, paths = c("x", "y"),
   new_compare(unlist(format, recursive = FALSE))
 }
 
-
-diff_rows <- function(x, y, header, paths = c("x", "y"), max_diffs = 10) {
-  diffs <- ses_shortest(x, y)
-  if (length(diffs) == 0) {
-    return(new_compare())
-  }
-
-  # Align with diffs
-  header <- paste0("  ", names(header), cli::style_bold(header))
-
-  format <- lapply(diffs, function(diff) {
-    path_label <- paste0(paths[[1]], " vs ", paths[[2]])
-
-    lines <- line_by_line(x, y, diff, max_diffs = max_diffs)
-    paste0(c(path_label, header, lines), collapse = "\n")
-  })
-  new_compare(unlist(format, recursive = FALSE))
-}
-
 format_diff_matrix <- function(diff, x, y, paths,
                                justify = "left",
                                width = getOption("width"),
