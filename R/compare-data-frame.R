@@ -42,9 +42,12 @@ format_cols <- function(x, y) {
   cols <- as.data.frame(cols)
   names(cols) <- names(x)
 
-  lines <- utils::capture.output(print(cols, row.names = FALSE))
+  lines <- utils::capture.output(print(cols, row.names = FALSE, width = 500))
+  row_idx <- c(seq_len(nrow(x)), seq_len(nrow(y)))
+  names(lines) <- format(c("", paste0("[", row_idx, ", ]")), align = "right")
+
   list(
-    header = lines[[1]],
+    header = lines[1],
     x = lines[2:(nrow(x) + 1)],
     y = lines[(nrow(x) + 2):length(lines)]
   )

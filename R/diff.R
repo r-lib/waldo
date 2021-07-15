@@ -115,10 +115,11 @@ diff_rows <- function(x, y, header, paths = c("x", "y"), max_diffs = 10) {
   }
 
   # Align with diffs
-  header <- paste(" ", header)
+  header <- paste0("  ", names(header), cli::style_bold(header))
 
   format <- lapply(diffs, function(diff) {
     path_label <- paste0(paths[[1]], " vs ", paths[[2]])
+
     lines <- line_by_line(x, y, diff, max_diffs = max_diffs)
     paste0(c(path_label, header, lines), collapse = "\n")
   })
@@ -191,9 +192,9 @@ format_diff_matrix <- function(diff, x, y, paths,
 line_by_line <- function(x, y, diff, max_diffs = 10) {
   lines <- character()
 
-  line_a <- function(x) if (length(x) > 0) col_a(paste0("+ ", x))
-  line_d <- function(x) if (length(x) > 0) col_d(paste0("- ", x))
-  line_x <- function(x) if (length(x) > 0) col_x(paste0("  ", x))
+  line_a <- function(x) if (length(x) > 0) col_a(paste0("+ ", names(x), x))
+  line_d <- function(x) if (length(x) > 0) col_d(paste0("- ", names(x), x))
+  line_x <- function(x) if (length(x) > 0) col_x(paste0("  ", names(x), x))
 
   n <- min(max_diffs, nrow(diff))
   n_trunc <- nrow(diff) - n
