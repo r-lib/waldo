@@ -56,6 +56,9 @@
 #' @param ignore_encoding Ignore string encoding? `TRUE` by default, because
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
+#' @param list_as_map Compare lists as if they are mappings between names and
+#'   values. Concretely, this drops `NULLs` in both objects and sorts named
+#'   components.
 #' @returns A character vector with class "waldo_compare". If there are no
 #'   differences it will have length 0; otherwise each element contains the
 #'   description of a single difference.
@@ -90,7 +93,8 @@ compare <- function(x, y, ...,
                     ignore_attr = FALSE,
                     ignore_encoding = TRUE,
                     ignore_function_env = FALSE,
-                    ignore_formula_env = FALSE
+                    ignore_formula_env = FALSE,
+                    list_as_map = FALSE
                     ) {
 
   opts <- compare_opts(
@@ -101,7 +105,8 @@ compare <- function(x, y, ...,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,
     ignore_formula_env = ignore_formula_env,
-    ignore_function_env = ignore_function_env
+    ignore_function_env = ignore_function_env,
+    list_as_map = list_as_map
   )
   out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
   new_compare(out, max_diffs)
@@ -126,6 +131,11 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   )
   if (length(term) > 0) {
     return(term)
+  }
+
+  if (is_list(x) && opts$list_as_map) {
+    x <- as_map(x)
+    y <- as_map(y)
   }
 
   out <- character()
