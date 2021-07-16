@@ -8,8 +8,8 @@ test_that("informative diff for additions and deletions", {
 
 test_that("informative diff for changes", {
   expect_snapshot({
-    df1 <- data.frame(x = 1:3, y = 1, z = c("a", "b", "c"))
-    df2 <- data.frame(x = c(1, 100, 3), y = 1, z = c("a", "B", "c"))
+    df1 <- data.frame(x = 1:3, y = 1, z = c("a", "b", "c"), stringsAsFactors = FALSE)
+    df2 <- data.frame(x = c(1, 100, 3), y = 1, z = c("a", "B", "c"), stringsAsFactors = FALSE)
     compare(df1, df2)
   })
 })
