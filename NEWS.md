@@ -1,6 +1,6 @@
 # waldo (development version)
 
-* `compare_proxy()` is gains a second argument, `path`, that is used to report
+* `compare_proxy()` gains a second argument, `path`, that is used to report
   how the proxy has been used to change the object. This makes it easier to 
   see when and how a proxy is involved (#73).
 
