@@ -46,3 +46,12 @@ test_that("element-wise diffs", {
     diff_element(c(letters, "a", "b"), c(letters, "a", "b", "c"), width = 10)
   })
 })
+
+test_that("only interleave if change has equal number of lines", {
+  expect_snapshot({
+    x <- letters # to anchor diffs
+    diff_element(c(x, 1:2, x), c(x, -(1:2), x), width = 10)
+    diff_element(c(x, 1:3, x), c(x, -(1:2), x), width = 10)
+    diff_element(c(x, 1:2, x), c(x, -(1:3), x), width = 10)
+  })
+})

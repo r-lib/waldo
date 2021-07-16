@@ -193,8 +193,13 @@ format_diff_matrix <- function(diff, x, y, paths,
 }
 
 interleave <- function(x, y) {
-  ord <- c(seq_along(x), seq_along(y))
-  c(x, y)[order(ord)]
+  # Only interleave if same number of lines
+  if (length(x) == length(y)) {
+    ord <- c(seq_along(x), seq_along(y))
+    c(x, y)[order(ord)]
+  } else {
+    c(x, y)
+  }
 }
 
 label_path <- function(path, slice) {
