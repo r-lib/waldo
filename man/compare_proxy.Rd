@@ -4,17 +4,26 @@
 \alias{compare_proxy}
 \title{Proxy for waldo comparison}
 \usage{
-compare_proxy(x)
+compare_proxy(x, path = "x")
 }
 \arguments{
 \item{x}{An object.}
+
+\item{path}{Path}
+}
+\value{
+A list with two components:
+\itemize{
+\item \code{object}: the modified object
+\item \code{path}: an updated path showing what modification was applied
+}
 }
 \description{
 Use this generic to override waldo's default comparison if you need to
-override the defaults (typically because your object contains an external
-pointer).
+override the defaults (typically because your object stores data in an
+external pointer).
 
-waldo comes with methods for two common cases:
+waldo comes with methods for a few common cases:
 \itemize{
 \item data.table: the \code{.internal.selfref} attribute is set to \code{NULL}. This is
 an external pointer that is used for performance optimisation, and
@@ -25,7 +34,7 @@ object to a string.
 \item Classes from the \code{RProtoBuf} package: like XML objects, these store
 data in memory in C++ and only expose string names to R. Fortunately,
 these have well-understood string representations that we can use for
-comparsions. See
+comparisons. See
 \url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format}
 }
 }

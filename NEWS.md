@@ -1,6 +1,8 @@
 # waldo (development version)
 
-* `compare_proxy()` is now reported in the path (#73).
+* `compare_proxy()` is gains a second argument, `path`, that is used to report
+  how the proxy has been used to change the object. This makes it easier to 
+  see when and how a proxy is involved (#73).
 
 * `compare()` automatically uses an elementwise comparison if it's shorter than
   a "smart" diff. This makes it more obvious when you're comparing unrelated 

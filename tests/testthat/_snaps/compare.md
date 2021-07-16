@@ -563,6 +563,6 @@
     Code
       compare(foo1, foo2)
     Output
-      `compare_proxy(old)$x`: 1
-      `compare_proxy(new)$x`: 2
+      `proxy(old)$x`: 1
+      `proxy(new)$x`: 2
 
