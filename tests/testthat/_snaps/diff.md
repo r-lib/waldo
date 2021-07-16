@@ -134,3 +134,51 @@
         "b"
       + "c"
 
+# only interleave if change has equal number of lines
+
+    Code
+      x <- letters
+      diff_element(c(x, 1:2, x), c(x, -(1:2), x), width = 10)
+    Output
+      x[24:31] vs y[24:31]
+        "x"
+        "y"
+        "z"
+      - "1"
+      + "-1"
+      - "2"
+      + "-2"
+        "a"
+        "b"
+        "c"
+    Code
+      diff_element(c(x, 1:3, x), c(x, -(1:2), x), width = 10)
+    Output
+      x[24:32] vs y[24:31]
+        "x"
+        "y"
+        "z"
+      - "1"
+      - "2"
+      - "3"
+      + "-1"
+      + "-2"
+        "a"
+        "b"
+        "c"
+    Code
+      diff_element(c(x, 1:2, x), c(x, -(1:3), x), width = 10)
+    Output
+      x[24:31] vs y[24:32]
+        "x"
+        "y"
+        "z"
+      - "1"
+      - "2"
+      + "-1"
+      + "-2"
+      + "-3"
+        "a"
+        "b"
+        "c"
+

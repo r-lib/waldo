@@ -163,14 +163,24 @@ format_diff_matrix <- function(diff, x, y, paths,
   }
 
   # Line-by-line ---------------------------------------------------------------
+  lines <- line_by_line(x, y, diff, max_diffs = max_diffs)
+  paste0(
+    paste0(x_path_label, " vs ", y_path_label), "\n",
+    paste0(lines, collapse = "\n")
+  )
+}
 
+line_by_line <- function(x, y, diff, max_diffs = 10) {
   lines <- character()
 
-  line_a <- function(x) if (length(x) > 0) col_a(paste0("+ ", x))
-  line_d <- function(x) if (length(x) > 0) col_d(paste0("- ", x))
-  line_x <- function(x) if (length(x) > 0) col_x(paste0("  ", x))
+  line_a <- function(x) if (length(x) > 0) col_a(paste0("+ ", names(x), x))
+  line_d <- function(x) if (length(x) > 0) col_d(paste0("- ", names(x), x))
+  line_x <- function(x) if (length(x) > 0) col_x(paste0("  ", names(x), x))
 
-  for (i in seq_len(nrow(diff))) {
+  n <- min(max_diffs, nrow(diff))
+  n_trunc <- nrow(diff) - n
+
+  for (i in seq_len(n)) {
     row <- diff[i, , drop = FALSE]
     x_i <- seq2(row$x1, row$x2)
     y_i <- seq2(row$y1, row$y2)
@@ -183,18 +193,20 @@ format_diff_matrix <- function(diff, x, y, paths,
   }
 
   if (n_trunc > 0) {
-    lines <- c(lines[seq_len(n)], paste0("and ", n_trunc, " more ..."))
+    lines <- c(lines, paste0("and ", n_trunc, " more ..."))
   }
 
-  paste0(
-    paste0(x_path_label, " vs ", y_path_label), "\n",
-    paste0(lines, collapse = "\n")
-  )
+  lines
 }
 
 interleave <- function(x, y) {
-  ord <- c(seq_along(x), seq_along(y))
-  c(x, y)[order(ord)]
+  # Only interleave if same number of lines
+  if (length(x) == length(y)) {
+    ord <- c(seq_along(x), seq_along(y))
+    c(x, y)[order(ord)]
+  } else {
+    c(x, y)
+  }
 }
 
 label_path <- function(path, slice) {

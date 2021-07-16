@@ -4,6 +4,10 @@
   how the proxy has been used to change the object. This makes it easier to 
   see when and how a proxy is involved (#73).
 
+* `compare()` gains a basic row-by-row diff for data frames (#78) that is shown 
+  when the values within a data frame are different, and for numeric matrices
+  (#76).
+
 * `compare()` automatically uses an elementwise comparison if it's shorter than
   a "smart" diff. This makes it more obvious when you're comparing unrelated 
   vectors (#68).

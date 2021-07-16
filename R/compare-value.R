@@ -23,6 +23,15 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     return(new_compare())
   }
 
+  if (!is.null(dim(x)) && identical(dim(x), dim(y))) {
+    rows <- printed_rows(x, y, paths = paths)
+    out <- diff_rows(rows, paths = paths, max_diffs = max_diffs)
+
+    if (length(out) > 0) {
+      return(out)
+    }
+  }
+
   if (length(x) == length(y)) {
     digits <- min_digits(x, y)
     x_fmt <- num_exact(x, digits = digits)
@@ -39,6 +48,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     justify = "right",
     max_diffs = max_diffs
   )
+
   if (length(out) > 0) {
     out
   } else {
@@ -54,6 +64,9 @@ num_exact <- function(x, digits = 6) {
 
 # Minimal number of digits needed to show differences
 min_digits <- function(x, y) {
+  attributes(x) <- NULL
+  attributes(y) <- NULL
+
   digits(abs(x - y))
 }
 
