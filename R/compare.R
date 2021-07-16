@@ -162,6 +162,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
   # Then contents
   if (is_list(x) || is_pairlist(x) || is.expression(x)) {
+    if (is.data.frame(x)) {
+      out <- c(out, compare_data_frame(x, y, paths, opts = opts))
+    }
+
     x <- unclass(x)
     y <- unclass(y)
 
@@ -171,6 +175,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     } else {
       out <- c(out, compare_by_pos(x, y, paths, opts))
     }
+
   } else if (is_environment(x)) {
     if (env_has(x, ".__enclos_env__")) {
       # enclosing env of methods is object env
@@ -221,8 +226,6 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
         max_diffs = opts$max_diffs
       ))
     }
-    attributes(x) <- NULL
-    attributes(y) <- NULL
 
     out <- c(out, switch(typeof(x),
       integer = ,

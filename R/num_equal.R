@@ -7,6 +7,9 @@ num_equal <- function(x, y, tolerance = .Machine$double.eps ^ 0.5) {
     return(FALSE)
   }
 
+  attributes(x) <- NULL
+  attributes(y) <- NULL
+
   same <- is.na(x) | x == y
   if (is.null(tolerance)) {
     return(all(same))
