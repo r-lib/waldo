@@ -119,6 +119,7 @@
 <a href="#waldo-development-version" class="anchor"></a>waldo (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>You can use a <code>waldo_opts</code> attribute to now control how objects are compared. This should be a list with the same names and valid values as the arguments to <code><a href="../reference/compare.html">compare()</a></code> (<a href='https://github.com/dmurdoch'>@dmurdoch</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> gains a <code>list_as_map</code> argument thanks to an idea from <a href='https://github.com/dmurdoch'>@dmurdoch</a>. It allows you to compare the behaviour of two lists when they are used to connect names to values (i.e. the list is operating as a map or dictionary). It removes NULLs and sorts named components (<a href='https://github.com/r-lib/waldo/issues/72'>#72</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> gains a basic row-by-row diff for data frames (<a href='https://github.com/r-lib/waldo/issues/78'>#78</a>) that is shown when the values within a data frame are different, and for numeric matrices (<a href='https://github.com/r-lib/waldo/issues/76'>#76</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> automatically uses an elementwise comparison if it’s shorter than a “smart” diff. This makes it more obvious when you’re comparing unrelated vectors (<a href='https://github.com/r-lib/waldo/issues/68'>#68</a>).</p></li>

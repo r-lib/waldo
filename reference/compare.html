@@ -149,7 +149,7 @@ when colour isn't available).</p></li>
   tolerance <span class='op'>=</span> <span class='cn'>NULL</span>,
   max_diffs <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>(</span><span class='fu'>in_ci</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='cn'>Inf</span> <span class='kw'>else</span> <span class='fl'>10</span>,
   ignore_srcref <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  ignore_attr <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ignore_attr <span class='op'>=</span> <span class='st'>"waldo_opts"</span>,
   ignore_encoding <span class='op'>=</span> <span class='cn'>TRUE</span>,
   ignore_function_env <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ignore_formula_env <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -208,7 +208,10 @@ only its printed representation.</p></td>
     <tr>
       <th>ignore_attr</th>
       <td><p>Ignore differences in specified attributes?
-Supply a character vector to ignore differences in named attributes.</p>
+Supply a character vector to ignore differences in named attributes.
+By default the <code>"waldo_opts"</code> attribute is listed in <code>ignore_attr</code> so
+that changes to it are not reported; if you customize <code>ignore_attr</code>, you
+will probably want to do this yourself.</p>
 <p>For backward compatibility with <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code>, you can also use <code>TRUE</code>,
 to all ignore differences in all attributes. This is not generally
 recommended as it is a blunt tool that will ignore many important
@@ -240,6 +243,37 @@ components.</p></td>
     <p>A character vector with class "waldo_compare". If there are no
 differences it will have length 0; otherwise each element contains the
 description of a single difference.</p>
+    <h2 class="hasAnchor" id="controlling-comparisons"><a class="anchor" href="#controlling-comparisons"></a>Controlling comparisons</h2>
+
+    
+
+
+<p>There are two ways for an object (rather than the person calling <code>compare()</code>
+or <code>expect_equal()</code> to control how it is compared to other objects.
+First, if the object has an S3 class, you can provide a <code><a href='compare_proxy.html'>compare_proxy()</a></code>
+method that provides an alternative representation of the object; this is
+particularly useful if important data is stored outside of R, e.g. in
+an external pointer.</p>
+<p>Alternatively, you can attach an attribute called <code>"waldo_opts"</code> to your
+object. This should be a list of compare options, using the same names
+and possible values as the arguments to this function. This option
+is ignored by default (<code>ignore_attr</code>) so that you can set the options in
+the object that you control. (If you don't want to see the attributes
+interactively, you could attach them in a <code><a href='compare_proxy.html'>compare_proxy()</a></code> method.)</p>
+<p>Options supplied in this way also affect all the children. This means
+options are applied in the following order, from lowest to highest
+precedence:</p><ol>
+<li><p>Defaults from <code>compare()</code>.</p></li>
+<li><p>The <code>waldo_opts</code> for the parents of <code>x</code>.</p></li>
+<li><p>The <code>waldo_opts</code> for the parents of <code>y</code>.</p></li>
+<li><p>The <code>waldo_opts</code> for <code>x</code>.</p></li>
+<li><p>The <code>waldo_opts</code> for <code>y</code>.</p></li>
+<li><p>User-specified arguments to <code>compare()</code>.</p></li>
+</ol>
+
+<p>Use these techniques with care. If you accidentally cover up an important
+difference you can create a confusing situation where <code>x</code> and <code>y</code> behave
+differently but <code>compare()</code> reports no differences in the underlying objects.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Thanks to diffobj package comparison of atomic vectors shows differences</span>
@@ -282,7 +316,8 @@ description of a single difference.</p>
 #&gt; `names(new)`: <span style='color: #555555;'>"x"</span> <span style='color: #00BB00;'>"y"</span>
 #&gt; 
 #&gt; `old[[2]]`: <span style='color: #00BB00;'>"y"</span>
-#&gt; `new[[2]]`: <span style='color: #00BB00;'>"z"</span></div></pre>
+#&gt; `new[[2]]`: <span style='color: #00BB00;'>"z"</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
