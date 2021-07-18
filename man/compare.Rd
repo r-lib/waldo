@@ -16,7 +16,8 @@ compare(
   ignore_attr = "waldo_opts",
   ignore_encoding = TRUE,
   ignore_function_env = FALSE,
-  ignore_formula_env = FALSE
+  ignore_formula_env = FALSE,
+  list_as_map = FALSE
 )
 }
 \arguments{
@@ -75,6 +76,10 @@ with the encoding, not just the value of the string.}
 functions and formulas, respectively? These are provided primarily for
 backward compatibility with \code{all.equal()} which always ignores these
 environments.}
+
+\item{list_as_map}{Compare lists as if they are mappings between names and
+values. Concretely, this drops \code{NULLs} in both objects and sorts named
+components.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no

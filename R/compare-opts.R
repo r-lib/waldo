@@ -5,7 +5,8 @@ compare_opts <- function(...,
                          ignore_attr = FALSE,
                          ignore_encoding = TRUE,
                          ignore_function_env = FALSE,
-                         ignore_formula_env = FALSE
+                         ignore_formula_env = FALSE,
+                         list_as_map = FALSE
                          ) {
 
   base <- old_opts(...)
@@ -17,7 +18,8 @@ compare_opts <- function(...,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,
     ignore_function_env = ignore_function_env,
-    ignore_formula_env = ignore_formula_env
+    ignore_formula_env = ignore_formula_env,
+    list_as_map = list_as_map
   )
 
   utils::modifyList(waldo, base)
