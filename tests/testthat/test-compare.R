@@ -290,3 +290,29 @@ test_that("compare_proxy() can change type", {
     new_compare()
   )
 })
+
+test_that("options have correct precedence", {
+  x <- list(1)
+  x_tolerant <- structure(x, waldo_opts = list(tolerance = 0))
+  x_intolerant <- structure(x, waldo_opts = list(tolerance = NULL))
+  y <- list(1L)
+  y_tolerant <- structure(y, waldo_opts = list(tolerance = 0))
+  y_intolerant <- structure(y, waldo_opts = list(tolerance = NULL))
+
+  # Starts from global defaults
+  expect_length(compare(x, y), 1)
+  # Options beats nothing
+  expect_length(compare(x, y_tolerant), 0)
+  expect_length(compare(x_tolerant, y), 0)
+  # y beats x
+  expect_length(compare(x_intolerant, y_tolerant), 0)
+  expect_length(compare(x_tolerant, y_intolerant), 1)
+  # User supplied beats y
+  expect_length(compare(x_intolerant, y_tolerant, tolerance = NULL), 1)
+})
+
+test_that("options inherited by children", {
+  x <- structure(list(list(1)), waldo_opts = list(tolerance = 0))
+  y <- list(list(1L))
+  expect_length(compare(x, y), 0)
+})

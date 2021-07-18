@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* You can use a `waldo_opts` attribute to now control how objects are compared.
+  This should be a list with the same names and valid values as the arguments
+  to `compare()` (@dmurdoch).
+
 * `compare()` gains a `list_as_map` argument thanks to an idea from @dmurdoch.
   It allows you to compare the behaviour of two lists when they are used to 
   connect names to values (i.e. the list is operating as a map or dictionary). 

@@ -147,6 +147,16 @@ multiline <- function(x) any(grepl("\n", x))
 
 default_tol <- function() .Machine$double.eps^0.5
 
+merge_lists <- function(...) {
+  all <- compact(list(...))
+  Reduce(utils::modifyList, all, init = list())
+}
+
+compact <- function(x) {
+  is_null <- vapply(x, is.null, logical(1))
+  x[!is_null]
+}
+
 as_map <- function(x) {
   # Remove nulls
   is_null <- vapply(x, is.null, logical(1))
