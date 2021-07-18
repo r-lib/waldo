@@ -152,7 +152,8 @@ when colour isn't available).</p></li>
   ignore_attr <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ignore_encoding <span class='op'>=</span> <span class='cn'>TRUE</span>,
   ignore_function_env <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  ignore_formula_env <span class='op'>=</span> <span class='cn'>FALSE</span>
+  ignore_formula_env <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  list_as_map <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -225,6 +226,12 @@ with the encoding, not just the value of the string.</p></td>
 functions and formulas, respectively? These are provided primarily for
 backward compatibility with <code><a href='https://rdrr.io/r/base/all.equal.html'>all.equal()</a></code> which always ignores these
 environments.</p></td>
+    </tr>
+    <tr>
+      <th>list_as_map</th>
+      <td><p>Compare lists as if they are mappings between names and
+values. Concretely, this drops <code>NULLs</code> in both objects and sorts named
+components.</p></td>
     </tr>
     </table>
 
