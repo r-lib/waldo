@@ -146,3 +146,20 @@ split_by_line <- function(x) {
 multiline <- function(x) any(grepl("\n", x))
 
 default_tol <- function() .Machine$double.eps^0.5
+
+as_map <- function(x) {
+  # Remove nulls
+  is_null <- vapply(x, is.null, logical(1))
+  x <- x[!is_null]
+
+  # Sort named components, preserving positions of unnamed
+  nx <- names2(x)
+  is_named <- nx != ""
+  if (any(is_named)) {
+    idx <- seq_along(x)
+    idx[is_named] <- idx[is_named][order(nx[is_named])]
+    x <- x[idx]
+  }
+
+  x
+}

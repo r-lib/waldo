@@ -127,6 +127,24 @@ test_that("lists compare by name, where possible", {
   })
 })
 
+test_that("can request lists treated as maps", {
+  compare_map <- function(x, y) compare(x, y, list_as_map = TRUE)
+
+  expect_equal(
+    compare_map(list(x = 1, 2, y = 3), list(y = 3, 2, x = 1)),
+    new_compare()
+  )
+  expect_equal(
+    compare_map(list(x = 1, y = NULL, NULL), list(x = 1)),
+    new_compare()
+  )
+
+  # But duplicated names are still reported
+  expect_snapshot(
+    compare_map(list(x = 1, y = 1, y = 2), list(x = 1, y = 1))
+  )
+})
+
 test_that("can compare with `missing_arg()`", {
   expect_snapshot({
     compare(missing_arg(), missing_arg())
