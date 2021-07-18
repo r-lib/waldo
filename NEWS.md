@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* You can use a `waldo_opts` attribute to now control how objects are compared.
+  This should be a list with the same names and valid values as the arguments
+  to `compare()` (@dmurdoch).
+
 * `compare()` gains a basic row-by-row diff for data frames (#78) that is shown 
   when the values within a data frame are different, and for numeric matrices
   (#76).
