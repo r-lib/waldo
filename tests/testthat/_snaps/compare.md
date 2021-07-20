@@ -271,6 +271,20 @@
       `old[[2]]`: "b"
       `new[[2]]`: "c"
 
+# can request lists treated as maps
+
+    Code
+      compare_map(list(x = 1, y = 1, y = 2), list(x = 1, y = 1))
+    Output
+      `old` is length 3
+      `new` is length 2
+      
+      `names(old)`: "x" "y" "y"
+      `names(new)`: "x" "y"    
+      
+      `old[[3]]` is a double vector (2)
+      `new[[3]]` is absent
+
 # can compare with `missing_arg()`
 
     Code

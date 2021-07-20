@@ -13,10 +13,11 @@ compare(
   tolerance = NULL,
   max_diffs = if (in_ci()) Inf else 10,
   ignore_srcref = TRUE,
-  ignore_attr = FALSE,
+  ignore_attr = "waldo_opts",
   ignore_encoding = TRUE,
   ignore_function_env = FALSE,
-  ignore_formula_env = FALSE
+  ignore_formula_env = FALSE,
+  list_as_map = FALSE
 )
 }
 \arguments{
@@ -58,6 +59,9 @@ only its printed representation.}
 
 \item{ignore_attr}{Ignore differences in specified attributes?
 Supply a character vector to ignore differences in named attributes.
+By default the \code{"waldo_opts"} attribute is listed in \code{ignore_attr} so
+that changes to it are not reported; if you customize \code{ignore_attr}, you
+will probably want to do this yourself.
 
 For backward compatibility with \code{all.equal()}, you can also use \code{TRUE},
 to all ignore differences in all attributes. This is not generally
@@ -72,6 +76,10 @@ with the encoding, not just the value of the string.}
 functions and formulas, respectively? These are provided primarily for
 backward compatibility with \code{all.equal()} which always ignores these
 environments.}
+
+\item{list_as_map}{Compare lists as if they are mappings between names and
+values. Concretely, this drops \code{NULLs} in both objects and sorts named
+components.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no
@@ -92,6 +100,40 @@ when colour isn't available).
 
 \code{compare()} is an alternative to \code{\link[=all.equal]{all.equal()}}.
 }
+\section{Controlling comparisons}{
+
+
+There are two ways for an object (rather than the person calling \code{compare()}
+or \code{expect_equal()} to control how it is compared to other objects.
+First, if the object has an S3 class, you can provide a \code{\link[=compare_proxy]{compare_proxy()}}
+method that provides an alternative representation of the object; this is
+particularly useful if important data is stored outside of R, e.g. in
+an external pointer.
+
+Alternatively, you can attach an attribute called \code{"waldo_opts"} to your
+object. This should be a list of compare options, using the same names
+and possible values as the arguments to this function. This option
+is ignored by default (\code{ignore_attr}) so that you can set the options in
+the object that you control. (If you don't want to see the attributes
+interactively, you could attach them in a \code{\link[=compare_proxy]{compare_proxy()}} method.)
+
+Options supplied in this way also affect all the children. This means
+options are applied in the following order, from lowest to highest
+precedence:
+\enumerate{
+\item Defaults from \code{compare()}.
+\item The \code{waldo_opts} for the parents of \code{x}.
+\item The \code{waldo_opts} for the parents of \code{y}.
+\item The \code{waldo_opts} for \code{x}.
+\item The \code{waldo_opts} for \code{y}.
+\item User-specified arguments to \code{compare()}.
+}
+
+Use these techniques with care. If you accidentally cover up an important
+difference you can create a confusing situation where \code{x} and \code{y} behave
+differently but \code{compare()} reports no differences in the underlying objects.
+}
+
 \examples{
 # Thanks to diffobj package comparison of atomic vectors shows differences
 # with a little context
@@ -114,4 +156,5 @@ compare(list(x = "x", y = "y"), list(y = "y", x = "x"))
 # Otherwise they're compared by position
 compare(list("x", "y"), list("x", "z"))
 compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
+
 }

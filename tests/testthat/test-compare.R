@@ -127,6 +127,24 @@ test_that("lists compare by name, where possible", {
   })
 })
 
+test_that("can request lists treated as maps", {
+  compare_map <- function(x, y) compare(x, y, list_as_map = TRUE)
+
+  expect_equal(
+    compare_map(list(x = 1, 2, y = 3), list(y = 3, 2, x = 1)),
+    new_compare()
+  )
+  expect_equal(
+    compare_map(list(x = 1, y = NULL, NULL), list(x = 1)),
+    new_compare()
+  )
+
+  # But duplicated names are still reported
+  expect_snapshot(
+    compare_map(list(x = 1, y = 1, y = 2), list(x = 1, y = 1))
+  )
+})
+
 test_that("can compare with `missing_arg()`", {
   expect_snapshot({
     compare(missing_arg(), missing_arg())
@@ -286,4 +304,30 @@ test_that("compare_proxy() modifies path", {
   foo1 <- structure(list(x = 1), class = "foo")
   foo2 <- structure(list(x = 2), class = "foo")
   expect_snapshot(compare(foo1, foo2))
+})
+
+test_that("options have correct precedence", {
+  x <- list(1)
+  x_tolerant <- structure(x, waldo_opts = list(tolerance = 0))
+  x_intolerant <- structure(x, waldo_opts = list(tolerance = NULL))
+  y <- list(1L)
+  y_tolerant <- structure(y, waldo_opts = list(tolerance = 0))
+  y_intolerant <- structure(y, waldo_opts = list(tolerance = NULL))
+
+  # Starts from global defaults
+  expect_length(compare(x, y), 1)
+  # Options beats nothing
+  expect_length(compare(x, y_tolerant), 0)
+  expect_length(compare(x_tolerant, y), 0)
+  # y beats x
+  expect_length(compare(x_intolerant, y_tolerant), 0)
+  expect_length(compare(x_tolerant, y_intolerant), 1)
+  # User supplied beats y
+  expect_length(compare(x_intolerant, y_tolerant, tolerance = NULL), 1)
+})
+
+test_that("options inherited by children", {
+  x <- structure(list(list(1)), waldo_opts = list(tolerance = 0))
+  y <- list(list(1L))
+  expect_length(compare(x, y), 0)
 })

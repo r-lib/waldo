@@ -13,6 +13,37 @@
 #'
 #' `compare()` is an alternative to [all.equal()].
 #'
+#' @section Controlling comparisons:
+#'
+#' There are two ways for an object (rather than the person calling `compare()`
+#' or `expect_equal()` to control how it is compared to other objects.
+#' First, if the object has an S3 class, you can provide a [compare_proxy()]
+#' method that provides an alternative representation of the object; this is
+#' particularly useful if important data is stored outside of R, e.g. in
+#' an external pointer.
+#'
+#' Alternatively, you can attach an attribute called `"waldo_opts"` to your
+#' object. This should be a list of compare options, using the same names
+#' and possible values as the arguments to this function. This option
+#' is ignored by default (`ignore_attr`) so that you can set the options in
+#' the object that you control. (If you don't want to see the attributes
+#' interactively, you could attach them in a [compare_proxy()] method.)
+#'
+#' Options supplied in this way also affect all the children. This means
+#' options are applied in the following order, from lowest to highest
+#' precedence:
+#'
+#' 1.  Defaults from `compare()`.
+#' 1.  The `waldo_opts` for the parents of `x`.
+#' 1.  The `waldo_opts` for the parents of `y`.
+#' 1.  The `waldo_opts` for `x`.
+#' 1.  The `waldo_opts` for `y`.
+#' 1.  User-specified arguments to `compare()`.
+#'
+#' Use these techniques with care. If you accidentally cover up an important
+#' difference you can create a confusing situation where `x` and `y` behave
+#' differently but `compare()` reports no differences in the underlying objects.
+#'
 #' @param x,y Objects to compare. `y` is treated as the reference object
 #'   so messages describe how `x` is different to `y`
 #' @param x_arg,y_arg Name of `x` and `y` arguments, used when generated paths
@@ -44,6 +75,9 @@
 #'   only its printed representation.
 #' @param ignore_attr Ignore differences in specified attributes?
 #'   Supply a character vector to ignore differences in named attributes.
+#'   By default the `"waldo_opts"` attribute is listed in `ignore_attr` so
+#'   that changes to it are not reported; if you customize `ignore_attr`, you
+#'   will probably want to do this yourself.
 #'
 #'   For backward compatibility with `all.equal()`, you can also use `TRUE`,
 #'   to all ignore differences in all attributes. This is not generally
@@ -56,6 +90,9 @@
 #' @param ignore_encoding Ignore string encoding? `TRUE` by default, because
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
+#' @param list_as_map Compare lists as if they are mappings between names and
+#'   values. Concretely, this drops `NULLs` in both objects and sorts named
+#'   components.
 #' @returns A character vector with class "waldo_compare". If there are no
 #'   differences it will have length 0; otherwise each element contains the
 #'   description of a single difference.
@@ -82,15 +119,17 @@
 #' # Otherwise they're compared by position
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
+#'
 compare <- function(x, y, ...,
                     x_arg = "old", y_arg = "new",
                     tolerance = NULL,
                     max_diffs = if (in_ci()) Inf else 10,
                     ignore_srcref = TRUE,
-                    ignore_attr = FALSE,
+                    ignore_attr = "waldo_opts",
                     ignore_encoding = TRUE,
                     ignore_function_env = FALSE,
-                    ignore_formula_env = FALSE
+                    ignore_formula_env = FALSE,
+                    list_as_map = FALSE
                     ) {
 
   opts <- compare_opts(
@@ -101,8 +140,12 @@ compare <- function(x, y, ...,
     ignore_attr = ignore_attr,
     ignore_encoding = ignore_encoding,
     ignore_formula_env = ignore_formula_env,
-    ignore_function_env = ignore_function_env
+    ignore_function_env = ignore_function_env,
+    list_as_map = list_as_map
   )
+  # Record options overridden by user
+  opts$user_specified <- intersect(names(opts), names(match.call()))
+
   out <- compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
   new_compare(out, max_diffs)
 }
@@ -119,6 +162,12 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     paths[[2]] <- proxy$path
   }
 
+  opts <- merge_lists(opts,
+    attr(x, "waldo_opts"),
+    attr(y, "waldo_opts"),
+    opts[opts$user_specified]
+  )
+
   if (is_identical(x, y, opts)) {
     return(character())
   }
@@ -130,6 +179,11 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   )
   if (length(term) > 0) {
     return(term)
+  }
+
+  if (is_list(x) && opts$list_as_map) {
+    x <- as_map(x)
+    y <- as_map(y)
   }
 
   out <- character()
