@@ -1,37 +1,41 @@
 # waldo (development version)
 
-* `compare_proxy()` gains a second argument, `path`, that is used to report
-  how the proxy has been used to change the object. This makes it easier to 
-  see when and how a proxy is involved (#73).
+* `compare()` is now considerably faster when comparing complex objects that 
+  don't have any differences (thanks to strategic use of `identical()`) (#86).
 
-* You can use a `waldo_opts` attribute to now control how objects are compared.
-  This should be a list with the same names and valid values as the arguments
-  to `compare()` (@dmurdoch).
+* `compare()` gains two improvements to low-level diffs:
+
+    * Structurally identical data frames (#78) and numeric matrices (#76) gain 
+      a row-by-row diff that makes it easier to see where exactly values differ.
+
+    * An element-by-element diff will be automatically used if it's shorter than
+      the "smart" diff. This improves diff quality when comparing two vectors
+      that aren't really related (#68).
 
 * `compare()` gains a `list_as_map` argument thanks to an idea from @dmurdoch.
   It allows you to compare the behaviour of two lists when they are used to 
   connect names to values (i.e. the list is operating as a map or dictionary). 
   It removes NULLs and sorts named components (#72).
 
-* `compare()` gains a basic row-by-row diff for data frames (#78) that is shown 
-  when the values within a data frame are different, and for numeric matrices
-  (#76).
+* The ability of objects involved in `compare()` (as opposed to the caller of 
+  `compare()`) gained much greater ability to control the details.
+  
+    * Objects can now contain a `waldo_opts` attribute, a list with the same 
+      names and valid values as the arguments to `compare()`, which overrides
+      the default comparisons.(@dmurdoch).
+    
+    * `compare_proxy()` is now called earlier (before type comparison) making
+      it more flexible (#65)
+      
+    * `compare_proxy()` gains a second argument, `path`, used to report how the 
+      proxy changed the object. This makes it easier to see when and how a proxy 
+      is involved (#73).
 
-* `compare()` automatically uses an elementwise comparison if it's shorter than
-  a "smart" diff. This makes it more obvious when you're comparing unrelated 
-  vectors (#68).
-
-* `compare_proxy()` is now called earlier (before type comparison) making
-  it more flexible (#65).
-
-* `compare()` is now considerably faster when comparing complex objects that 
-  don't have any differences (thanks to strategic use of `identical()`) (#86).
-
-* comparing a list with symbol to a list where the same element doesn't exists
-  now works (@mgirlich, #79).
-
-* Proxies now exist for comparing RProtoBuf objects, converting them to
-  proto text format (#82, @michaelquinn32).
+    * Proxies now exist for comparing RProtoBuf objects, converting them to
+      proto text format (#82, @michaelquinn32).
+    
+* Comparing a list with symbol to a list without that element no longer errors
+  (@mgirlich, #79).
 
 # waldo 0.2.5
 
