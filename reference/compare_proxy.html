@@ -41,9 +41,9 @@
 
 <meta property="og:title" content="Proxy for waldo comparison — compare_proxy" />
 <meta property="og:description" content="Use this generic to override waldo's default comparison if you need to
-override the defaults (typically because your object contains an external
-pointer).
-waldo comes with methods for two common cases:
+override the defaults (typically because your object stores data in an
+external pointer).
+waldo comes with methods for a few common cases:
 data.table: the .internal.selfref attribute is set to NULL. This is
 an external pointer that is used for performance optimisation, and
 doesn't affect the data.
@@ -53,7 +53,7 @@ object to a string.
 Classes from the RProtoBuf package: like XML objects, these store
 data in memory in C++ and only expose string names to R. Fortunately,
 these have well-understood string representations that we can use for
-comparsions. See
+comparisons. See
 https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format
 
 " />
@@ -134,9 +134,9 @@ https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobu
 
     <div class="ref-description">
     <p>Use this generic to override waldo's default comparison if you need to
-override the defaults (typically because your object contains an external
-pointer).</p>
-<p>waldo comes with methods for two common cases:</p><ul>
+override the defaults (typically because your object stores data in an
+external pointer).</p>
+<p>waldo comes with methods for a few common cases:</p><ul>
 <li><p>data.table: the <code>.internal.selfref</code> attribute is set to <code>NULL</code>. This is
 an external pointer that is used for performance optimisation, and
 doesn't affect the data.</p></li>
@@ -146,13 +146,13 @@ object to a string.</p></li>
 <li><p>Classes from the <code>RProtoBuf</code> package: like XML objects, these store
 data in memory in C++ and only expose string names to R. Fortunately,
 these have well-understood string representations that we can use for
-comparsions. See
+comparisons. See
 <a href='https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format'>https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format</a></p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>compare_proxy</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>compare_proxy</span><span class='op'>(</span><span class='va'>x</span>, path <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,7 +161,18 @@ comparsions. See
       <th>x</th>
       <td><p>An object.</p></td>
     </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Path</p></td>
+    </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list with two components:</p><ul>
+<li><p><code>object</code>: the modified object</p></li>
+<li><p><code>path</code>: an updated path showing what modification was applied</p></li>
+</ul>
 
 
   </div>
