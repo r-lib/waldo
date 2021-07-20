@@ -152,10 +152,14 @@ compare <- function(x, y, ...,
 
 compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (!is_missing(x)) {
-    x <- compare_proxy(x)
+    proxy <- compare_proxy(x, paths[[1]])
+    x <- proxy$object
+    paths[[1]] <- proxy$path
   }
   if (!is_missing(y)) {
-    y <- compare_proxy(y)
+    proxy <- compare_proxy(y, paths[[2]])
+    y <- proxy$object
+    paths[[2]] <- proxy$path
   }
 
   opts <- merge_lists(opts,

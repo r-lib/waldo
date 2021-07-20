@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* `compare_proxy()` gains a second argument, `path`, that is used to report
+  how the proxy has been used to change the object. This makes it easier to 
+  see when and how a proxy is involved (#73).
+
 * You can use a `waldo_opts` attribute to now control how objects are compared.
   This should be a list with the same names and valid values as the arguments
   to `compare()` (@dmurdoch).

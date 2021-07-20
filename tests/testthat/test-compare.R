@@ -282,13 +282,28 @@ test_that("comparing language objects gives useful diffs", {
 
 test_that("compare_proxy() can change type", {
   local_bindings(
-    compare_proxy.foo = function(x) 10,
+    compare_proxy.foo = function(x, path) {
+      list(object = 10, path = paste0("proxy(", path, ")"))
+    },
     .env =  global_env()
   )
   expect_equal(
     compare(structure(1, class = "foo"), structure("x", class = "foo")),
     new_compare()
   )
+})
+
+test_that("compare_proxy() modifies path", {
+  local_bindings(
+    compare_proxy.foo = function(x, path) {
+      list(object = list(x = x$x), path = paste0("proxy(", path, ")"))
+    },
+    .env =  global_env()
+  )
+
+  foo1 <- structure(list(x = 1), class = "foo")
+  foo2 <- structure(list(x = 2), class = "foo")
+  expect_snapshot(compare(foo1, foo2))
 })
 
 test_that("options have correct precedence", {

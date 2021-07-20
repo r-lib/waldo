@@ -572,3 +572,11 @@
       `old[[3]]`: `a + b`
       `new[[3]]`: `a + c`
 
+# compare_proxy() modifies path
+
+    Code
+      compare(foo1, foo2)
+    Output
+      `proxy(old)$x`: 1
+      `proxy(new)$x`: 2
+
