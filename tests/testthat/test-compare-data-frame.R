@@ -14,6 +14,12 @@ test_that("informative diff for changes", {
   })
 })
 
+test_that("can set tolerance", {
+  df1 <- data.frame(x = 1)
+  df2 <- data.frame(x = 1.001)
+  expect_length(compare(df1, df2, tolerance = 0.1), 0)
+})
+
 test_that("converts factors to strings", {
   df1 <- data.frame(x = factor(c("a", "b", "c")))
   df2 <- data.frame(x = factor(c("a", "b", "d")))

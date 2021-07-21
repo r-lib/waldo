@@ -7,7 +7,7 @@ compare_data_frame <- function(x, y, paths = c("x", "y"), opts = compare_opts())
     return()
   }
 
-  rows <- df_rows(x, y, paths = paths)
+  rows <- df_rows(x, y, paths = paths, tolerance = opts$tolerance)
   if (is.null(rows)) {
     return()
   }
@@ -33,13 +33,20 @@ diff_rows <- function(rows, paths = c("x", "y"), max_diffs = 10) {
 }
 
 # Make a character matrix of formatted cell values
-df_rows <- function(x, y, paths = c("x", "y")) {
+df_rows <- function(x, y, paths = c("x", "y"), tolerance = NULL) {
   x <- factor_to_char(x)
   y <- factor_to_char(y)
 
   # If same length, drop identical columns
   if (nrow(x) == nrow(y)) {
-    same <- vapply(seq_along(x), function(j) identical(x[[j]], y[[j]]), logical(1))
+    is_equal <- function(x, y) {
+      if (is_numeric(x)) {
+        num_equal(x, y, tolerance = tolerance)
+      } else {
+        identical(x, y)
+      }
+    }
+    same <- vapply(seq_along(x), function(j) is_equal(x[[j]], y[[j]]), logical(1))
     x <- x[!same]
     y <- y[!same]
   }
