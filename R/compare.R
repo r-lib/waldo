@@ -220,7 +220,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
   # Then contents
   if (is_list(x) || is_pairlist(x) || is.expression(x)) {
-    if (is.data.frame(x)) {
+    if (is.data.frame(x) && is.data.frame(y)) {
       out <- c(out, compare_data_frame(x, y, paths, opts = opts))
     }
 
