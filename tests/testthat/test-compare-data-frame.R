@@ -39,4 +39,7 @@ test_that("only used for appropriate data frames", {
   expect_equal(compare_data_frame(df, data.frame(x = structure(1, a = 1))), NULL)
 
   expect_equal(compare_data_frame(data.frame(), data.frame()), NULL)
+
+  df$y <- list(1:10)
+  expect_equal(compare_data_frame(df, data.frame()), NULL)
 })

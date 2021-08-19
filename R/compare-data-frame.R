@@ -1,5 +1,8 @@
 compare_data_frame <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
-  # Only show row diffs if columns are the same and there are rows
+  # Only show row diffs if columns are atomic, have same names and types and there are rows
+  if (!all_atomic(x) || !all_atomic(y)) {
+    return()
+  }
   if (!same_cols(x, y)) {
     return()
   }
@@ -106,4 +109,8 @@ factor_to_char <- function(x) {
 unrowname <- function(x) {
   row.names(x) <- NULL
   x
+}
+
+all_atomic <- function(x) {
+  all(vapply(x, is_atomic, logical(1)))
 }
