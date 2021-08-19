@@ -1,3 +1,81 @@
+# abess
+
+<details>
+
+* Version: 0.2.0
+* GitHub: https://github.com/abess-team/abess
+* Source code: https://github.com/cran/abess
+* Date/Publication: 2021-07-31 13:40:02 UTC
+* Number of recursive dependencies: 48
+
+Run `cloud_details(, "abess")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘abess’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/abess/new/abess.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘abess’ ...
+** package ‘abess’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include  -fopenmp -DR_BUILD -I ../inst/include -fpic  -g -O2  -c Algorithm.cpp -o Algorithm.o
+g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include  -fopenmp -DR_BUILD -I ../inst/include -fpic  -g -O2  -c Data.cpp -o Data.o
+In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigenForward.h:30,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigen.h:25,
+...
+../inst/include/Spectra/LinAlg/Arnoldi.h:205:40:   required from ‘void Spectra::Arnoldi<Scalar, ArnoldiOpType>::factorize_from(Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index, Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index, Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index&) [with Scalar = double; ArnoldiOpType = Spectra::ArnoldiOp<double, Spectra::DenseSymMatProd<double>, Spectra::IdentityBOp>; Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index = long int]’
+../inst/include/Spectra/LinAlg/Arnoldi.h:146:18:   required from here
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:650:34: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+  650 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
+      |                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:181: abess.o] Error 1
+ERROR: compilation failed for package ‘abess’
+* removing ‘/tmp/workdir/abess/new/abess.Rcheck/abess’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘abess’ ...
+** package ‘abess’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include  -fopenmp -DR_BUILD -I ../inst/include -fpic  -g -O2  -c Algorithm.cpp -o Algorithm.o
+g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include  -fopenmp -DR_BUILD -I ../inst/include -fpic  -g -O2  -c Data.cpp -o Data.o
+In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigenForward.h:30,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigen.h:25,
+...
+../inst/include/Spectra/LinAlg/Arnoldi.h:205:40:   required from ‘void Spectra::Arnoldi<Scalar, ArnoldiOpType>::factorize_from(Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index, Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index, Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index&) [with Scalar = double; ArnoldiOpType = Spectra::ArnoldiOp<double, Spectra::DenseSymMatProd<double>, Spectra::IdentityBOp>; Spectra::Arnoldi<Scalar, ArnoldiOpType>::Index = long int]’
+../inst/include/Spectra/LinAlg/Arnoldi.h:146:18:   required from here
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:650:34: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+  650 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
+      |                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:181: abess.o] Error 1
+ERROR: compilation failed for package ‘abess’
+* removing ‘/tmp/workdir/abess/old/abess.Rcheck/abess’
+
+
+```
 # ActivePathways
 
 <details>
@@ -294,6 +372,84 @@ ERROR: compilation failed for package ‘bayesdfa’
 
 
 ```
+# bayesGAM
+
+<details>
+
+* Version: 0.0.1
+* GitHub: NA
+* Source code: https://github.com/cran/bayesGAM
+* Date/Publication: 2020-11-18 10:20:06 UTC
+* Number of recursive dependencies: 84
+
+Run `cloud_details(, "bayesGAM")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘bayesGAM’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/bayesGAM/new/bayesGAM.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘bayesGAM’ ...
+** package ‘bayesGAM’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+
+
+g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I/usr/local/include   -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigenForward.h:30,
+...
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/ProductEvaluators.h:35:90:   required from ‘Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::evaluator(const XprType&) [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Options = 0; Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::XprType = Eigen::Product<Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>, Eigen::Matrix<double, -1, 1>, 0>]’
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
+/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_glmm_discrete_namespace::model_glmm_discrete; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:10:   required from here
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stanExports_glmm_discrete.o] Error 1
+ERROR: compilation failed for package ‘bayesGAM’
+* removing ‘/tmp/workdir/bayesGAM/new/bayesGAM.Rcheck/bayesGAM’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘bayesGAM’ ...
+** package ‘bayesGAM’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+
+
+g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I/usr/local/include   -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigenForward.h:30,
+...
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/ProductEvaluators.h:35:90:   required from ‘Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::evaluator(const XprType&) [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Options = 0; Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::XprType = Eigen::Product<Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>, Eigen::Matrix<double, -1, 1>, 0>]’
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
+/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_multresponse_continuous_namespace::model_multresponse_continuous; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:10:   required from here
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stanExports_multresponse_continuous.o] Error 1
+ERROR: compilation failed for package ‘bayesGAM’
+* removing ‘/tmp/workdir/bayesGAM/old/bayesGAM.Rcheck/bayesGAM’
+
+
+```
 # Boom
 
 <details>
@@ -369,6 +525,72 @@ LinAlg/Matrix.cpp:759:67:   required from here
 ../inst/include/Eigen/src/Core/CoreEvaluators.h:960:8: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
 ERROR: compilation failed for package ‘Boom’
 * removing ‘/tmp/workdir/Boom/old/Boom.Rcheck/Boom’
+
+
+```
+# bsts
+
+<details>
+
+* Version: 0.9.7
+* GitHub: NA
+* Source code: https://github.com/cran/bsts
+* Date/Publication: 2021-07-02 04:30:07 UTC
+* Number of recursive dependencies: 37
+
+Run `cloud_details(, "bsts")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/bsts/new/bsts.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘bsts/DESCRIPTION’ ... OK
+* this is package ‘bsts’ version ‘0.9.7’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'BoomSpikeSlab', 'Boom'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/bsts/old/bsts.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘bsts/DESCRIPTION’ ... OK
+* this is package ‘bsts’ version ‘0.9.7’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'BoomSpikeSlab', 'Boom'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
 
 
 ```
@@ -504,6 +726,72 @@ Status: 1 ERROR
 
 
 ```
+# cbar
+
+<details>
+
+* Version: 0.1.3
+* GitHub: https://github.com/zedoul/cbar
+* Source code: https://github.com/cran/cbar
+* Date/Publication: 2017-10-24 13:20:22 UTC
+* Number of recursive dependencies: 63
+
+Run `cloud_details(, "cbar")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/cbar/new/cbar.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘cbar/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘cbar’ version ‘0.1.3’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'Boom', 'bsts'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/cbar/old/cbar.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘cbar/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘cbar’ version ‘0.1.3’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'Boom', 'bsts'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # CompareCausalNetworks
 
 <details>
@@ -584,11 +872,11 @@ Status: 1 NOTE
 
 <details>
 
-* Version: 1.0.4
+* Version: 1.1.0
 * GitHub: https://github.com/AlineTalhouk/diceR
 * Source code: https://github.com/cran/diceR
-* Date/Publication: 2021-06-04 08:30:02 UTC
-* Number of recursive dependencies: 149
+* Date/Publication: 2021-07-23 19:30:01 UTC
+* Number of recursive dependencies: 152
 
 Run `cloud_details(, "diceR")` for more info
 
@@ -606,7 +894,7 @@ Run `cloud_details(, "diceR")` for more info
 * using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘diceR/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘diceR’ version ‘1.0.4’
+* this is package ‘diceR’ version ‘1.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -632,7 +920,7 @@ Status: 1 ERROR
 * using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘diceR/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘diceR’ version ‘1.0.4’
+* this is package ‘diceR’ version ‘1.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -642,6 +930,82 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 * DONE
 Status: 1 ERROR
+
+
+
+
+
+```
+# dimRed
+
+<details>
+
+* Version: 0.2.3
+* GitHub: https://github.com/gdkrmr/dimRed
+* Source code: https://github.com/cran/dimRed
+* Date/Publication: 2019-05-08 08:10:07 UTC
+* Number of recursive dependencies: 128
+
+Run `cloud_details(, "dimRed")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/dimRed/new/dimRed.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘dimRed/DESCRIPTION’ ... OK
+* this is package ‘dimRed’ version ‘0.2.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+  
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘dimensionality-reduction.Rnw’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... SKIPPED
+* DONE
+Status: 2 ERRORs, 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/dimRed/old/dimRed.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘dimRed/DESCRIPTION’ ... OK
+* this is package ‘dimRed’ version ‘0.2.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+  
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘dimensionality-reduction.Rnw’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... SKIPPED
+* DONE
+Status: 2 ERRORs, 2 NOTEs
 
 
 
@@ -724,7 +1088,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/mondrus96/FaBiSearch
 * Source code: https://github.com/cran/fabisearch
 * Date/Publication: 2021-02-24 09:40:05 UTC
-* Number of recursive dependencies: 95
+* Number of recursive dependencies: 78
 
 Run `cloud_details(, "fabisearch")` for more info
 
@@ -782,97 +1146,6 @@ Status: 1 ERROR
 
 
 ```
-# fastpos
-
-<details>
-
-* Version: 0.4.1
-* GitHub: https://github.com/johannes-titz/fastpos
-* Source code: https://github.com/cran/fastpos
-* Date/Publication: 2020-09-29 08:50:08 UTC
-* Number of recursive dependencies: 62
-
-Run `cloud_details(, "fastpos")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘fastpos’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/fastpos/new/fastpos.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        error: lazy-load database '/opt/R/4.0.3/lib/R/library/grDevices/R/grDevices.rdb' is corrupt
-      Error: package or namespace load failed for ‘graphics’ in get(Info[i, 1], envir = env):
-       lazy-load database '/opt/R/4.0.3/lib/R/library/grDevices/R/grDevices.rdb' is corrupt
-      During startup - Warning messages:
-      1: In system("uname -a", intern = TRUE) :
-        running command 'uname -a' had status 2
-      2: package ‘utils’ in options("defaultPackages") was not found 
-      Error: package or namespace load failed for ‘stats’ in get(Info[i, 1], envir = env):
-       lazy-load database '/opt/R/4.0.3/lib/R/library/grDevices/R/grDevices.rdb' is corrupt
-      During startup - Warning messages:
-      1: package ‘grDevices’ in options("defaultPackages") was not found 
-      2: In get(Info[i, 1], envir = env) : internal error -3 in R_decompress1
-      3: package ‘graphics’ in options("defaultPackages") was not found 
-      4: In get(Info[i, 1], envir = env) : internal error -3 in R_decompress1
-      5: package ‘stats’ in options("defaultPackages") was not found 
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘fastpos’ ...
-** package ‘fastpos’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppProgress/include' -I/usr/local/include  -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++: fatal error: Killed signal terminated program cc1plus
-compilation terminated.
-make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:181: RcppExports.o] Error 1
-ERROR: compilation failed for package ‘fastpos’
-* removing ‘/tmp/workdir/fastpos/new/fastpos.Rcheck/fastpos’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘fastpos’ ...
-** package ‘fastpos’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppProgress/include' -I/usr/local/include  -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppProgress/include' -I/usr/local/include  -fopenmp -fpic  -g -O2  -c rcpparma.cpp -o rcpparma.o
-g++ -std=gnu++11 -shared -L/opt/R/4.0.3/lib/R/lib -L/usr/local/lib -o fastpos.so RcppExports.o rcpparma.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/opt/R/4.0.3/lib/R/lib -lR
-installing to /tmp/workdir/fastpos/old/fastpos.Rcheck/00LOCK-fastpos/00new/fastpos/libs
-** R
-** inst
-...
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** checking absolute paths in shared objects and dynamic libraries
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (fastpos)
-
-
-```
 # fdaPDE
 
 <details>
@@ -881,7 +1154,7 @@ installing to /tmp/workdir/fastpos/old/fastpos.Rcheck/00LOCK-fastpos/00new/fastp
 * GitHub: NA
 * Source code: https://github.com/cran/fdaPDE
 * Date/Publication: 2020-05-15 15:10:02 UTC
-* Number of recursive dependencies: 78
+* Number of recursive dependencies: 59
 
 Run `cloud_details(, "fdaPDE")` for more info
 
@@ -948,6 +1221,84 @@ compilation terminated.
 make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:181: fdaPDE.o] Error 1
 ERROR: compilation failed for package ‘fdaPDE’
 * removing ‘/tmp/workdir/fdaPDE/old/fdaPDE.Rcheck/fdaPDE’
+
+
+```
+# gllvm
+
+<details>
+
+* Version: 1.3.1
+* GitHub: https://github.com/JenniNiku/gllvm
+* Source code: https://github.com/cran/gllvm
+* Date/Publication: 2021-07-28 17:20:02 UTC
+* Number of recursive dependencies: 59
+
+Run `cloud_details(, "gllvm")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘gllvm’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/gllvm/new/gllvm.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘gllvm’ ...
+** package ‘gllvm’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/TMB/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include   -fpic  -g -O2  -c gllvm.cpp -o gllvm.o
+In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
+                 from /opt/R/4.0.3/lib/R/site-library/TMB/include/TMB.hpp:53,
+                 from gllvm.cpp:2:
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/arch/SSE/PacketMath.h:60:39: warning: ignoring attributes on template argument ‘__m128’ {aka ‘__vector(4) float’} [-Wignored-attributes]
+...
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Assign.h:66:28:   required from ‘Derived& Eigen::MatrixBase<Derived>::operator=(const Eigen::DenseBase<OtherDerived>&) [with OtherDerived = Eigen::Product<Eigen::Map<const Eigen::Matrix<double, -1, -1>, 0, Eigen::Stride<0, 0> >, Eigen::Map<const Eigen::Matrix<double, -1, -1>, 0, Eigen::Stride<0, 0> >, 0>; Derived = Eigen::Map<Eigen::Matrix<double, -1, -1>, 0, Eigen::Stride<0, 0> >]’
+/opt/R/4.0.3/lib/R/site-library/TMB/include/atomic_math.hpp:426:1:   required from ‘void atomic::matmul(const CppAD::vector<Type>&, CppAD::vector<Type>&) [with Double = double]’
+/opt/R/4.0.3/lib/R/site-library/TMB/include/atomic_math.hpp:426:1:   required from ‘bool atomic::atomicmatmul<Type>::forward(size_t, size_t, const CppAD::vector<bool>&, CppAD::vector<bool>&, const CppAD::vector<Type>&, CppAD::vector<Type>&) [with Type = double; size_t = long unsigned int]’
+/opt/R/4.0.3/lib/R/site-library/TMB/include/atomic_math.hpp:426:1:   required from here
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/CoreEvaluators.h:960:8: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:181: gllvm.o] Error 1
+ERROR: compilation failed for package ‘gllvm’
+* removing ‘/tmp/workdir/gllvm/new/gllvm.Rcheck/gllvm’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘gllvm’ ...
+** package ‘gllvm’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+g++ -std=gnu++11 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG  -I'/opt/R/4.0.3/lib/R/site-library/TMB/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include   -fpic  -g -O2  -c gllvm.cpp -o gllvm.o
+In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
+                 from /opt/R/4.0.3/lib/R/site-library/TMB/include/TMB.hpp:53,
+                 from gllvm.cpp:2:
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/arch/SSE/PacketMath.h:60:39: warning: ignoring attributes on template argument ‘__m128’ {aka ‘__vector(4) float’} [-Wignored-attributes]
+...
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Assign.h:66:28:   required from ‘Derived& Eigen::MatrixBase<Derived>::operator=(const Eigen::DenseBase<OtherDerived>&) [with OtherDerived = Eigen::Product<Eigen::Map<const Eigen::Matrix<double, -1, -1>, 0, Eigen::Stride<0, 0> >, Eigen::Map<const Eigen::Matrix<double, -1, -1>, 0, Eigen::Stride<0, 0> >, 0>; Derived = Eigen::Map<Eigen::Matrix<double, -1, -1>, 0, Eigen::Stride<0, 0> >]’
+/opt/R/4.0.3/lib/R/site-library/TMB/include/atomic_math.hpp:426:1:   required from ‘void atomic::matmul(const CppAD::vector<Type>&, CppAD::vector<Type>&) [with Double = double]’
+/opt/R/4.0.3/lib/R/site-library/TMB/include/atomic_math.hpp:426:1:   required from ‘bool atomic::atomicmatmul<Type>::forward(size_t, size_t, const CppAD::vector<bool>&, CppAD::vector<bool>&, const CppAD::vector<Type>&, CppAD::vector<Type>&) [with Type = double; size_t = long unsigned int]’
+/opt/R/4.0.3/lib/R/site-library/TMB/include/atomic_math.hpp:426:1:   required from here
+/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/CoreEvaluators.h:960:8: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:181: gllvm.o] Error 1
+ERROR: compilation failed for package ‘gllvm’
+* removing ‘/tmp/workdir/gllvm/old/gllvm.Rcheck/gllvm’
 
 
 ```
@@ -1043,7 +1394,7 @@ Run `cloud_details(, "gWidgets2tcltk")` for more info
 
 </details>
 
-## In both
+## Newly broken
 
 *   checking whether package ‘gWidgets2tcltk’ can be installed ... ERROR
     ```
@@ -1085,15 +1436,13 @@ ERROR: lazy loading failed for package ‘gWidgets2tcltk’
 ** demo
 ** inst
 ** byte-compile and prepare package for lazy loading
-Warning message:
-In fun(libname, pkgname) : couldn't connect to display ":109"
-Error in structure(.External(.C_dotTclObjv, objv), class = "tclObj") : 
-  [tcl] invalid command name "font".
-
-Error: unable to load R code in package ‘gWidgets2tcltk’
-Execution halted
-ERROR: lazy loading failed for package ‘gWidgets2tcltk’
-* removing ‘/tmp/workdir/gWidgets2tcltk/old/gWidgets2tcltk.Rcheck/gWidgets2tcltk’
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (gWidgets2tcltk)
 
 
 ```
@@ -1309,26 +1658,26 @@ ERROR: configuration failed for package ‘kmcudaR’
 
 
 ```
-# LMMELSM
+# lgpr
 
 <details>
 
-* Version: 0.1.0
-* GitHub: https://github.com/stephenSRMMartin/LMMELSM
-* Source code: https://github.com/cran/LMMELSM
-* Date/Publication: 2021-03-13 13:30:02 UTC
-* Number of recursive dependencies: 64
+* Version: 1.1.4
+* GitHub: https://github.com/jtimonen/lgpr
+* Source code: https://github.com/cran/lgpr
+* Date/Publication: 2021-08-11 05:00:01 UTC
+* Number of recursive dependencies: 92
 
-Run `cloud_details(, "LMMELSM")` for more info
+Run `cloud_details(, "lgpr")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘LMMELSM’ can be installed ... ERROR
+*   checking whether package ‘lgpr’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/LMMELSM/new/LMMELSM.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/lgpr/new/lgpr.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -1336,54 +1685,54 @@ Run `cloud_details(, "LMMELSM")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘LMMELSM’ ...
-** package ‘LMMELSM’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘lgpr’ ...
+** package ‘lgpr’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
 
 
-g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I/usr/local/include   -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I/usr/local/include   -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
 In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
                  from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
-                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigenForward.h:30,
+                 from /opt/R/4.0.3/lib/R/site-library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13,
 ...
 /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/ProductEvaluators.h:35:90:   required from ‘Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::evaluator(const XprType&) [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Options = 0; Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::XprType = Eigen::Product<Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>, Eigen::Matrix<double, -1, 1>, 0>]’
 /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
-/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_lmmelsmPredObs2_namespace::model_lmmelsmPredObs2; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_lgp_namespace::model_lgp; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
 /opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:10:   required from here
 /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
 g++: fatal error: Killed signal terminated program cc1plus
 compilation terminated.
-make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stanExports_lmmelsmPredObs2.o] Error 1
-ERROR: compilation failed for package ‘LMMELSM’
-* removing ‘/tmp/workdir/LMMELSM/new/LMMELSM.Rcheck/LMMELSM’
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stanExports_lgp.o] Error 1
+ERROR: compilation failed for package ‘lgpr’
+* removing ‘/tmp/workdir/lgpr/new/lgpr.Rcheck/lgpr’
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘LMMELSM’ ...
-** package ‘LMMELSM’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘lgpr’ ...
+** package ‘lgpr’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
 
 
-g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I/usr/local/include   -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I/usr/local/include   -I'/opt/R/4.0.3/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
 In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
                  from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
-                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/RcppEigenForward.h:30,
+                 from /opt/R/4.0.3/lib/R/site-library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13,
 ...
 /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/ProductEvaluators.h:35:90:   required from ‘Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::evaluator(const XprType&) [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Options = 0; Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::XprType = Eigen::Product<Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>, Eigen::Matrix<double, -1, 1>, 0>]’
 /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
-/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_lmmelsmPred_namespace::model_lmmelsmPred; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_lgp_latent_namespace::model_lgp_latent; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
 /opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:10:   required from here
 /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
 g++: fatal error: Killed signal terminated program cc1plus
 compilation terminated.
-make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stanExports_lmmelsmPred.o] Error 1
-ERROR: compilation failed for package ‘LMMELSM’
-* removing ‘/tmp/workdir/LMMELSM/old/LMMELSM.Rcheck/LMMELSM’
+make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stanExports_lgp_latent.o] Error 1
+ERROR: compilation failed for package ‘lgpr’
+* removing ‘/tmp/workdir/lgpr/old/lgpr.Rcheck/lgpr’
 
 
 ```
@@ -1395,7 +1744,7 @@ ERROR: compilation failed for package ‘LMMELSM’
 * GitHub: https://github.com/great-northern-diver/loon
 * Source code: https://github.com/cran/loon
 * Date/Publication: 2021-06-14 06:20:02 UTC
-* Number of recursive dependencies: 114
+* Number of recursive dependencies: 95
 
 Run `cloud_details(, "loon")` for more info
 
@@ -1447,16 +1796,16 @@ Status: 1 NOTE
 * package encoding: UTF-8
 * checking package namespace information ... OK
 ...
-* checking if there is a namespace ... OK
-* checking for executable files ... OK
-* checking for hidden files and directories ... OK
-* checking for portable file names ... OK
-* checking for sufficient/correct file permissions ... OK
-* checking whether package ‘loon’ can be installed ... ERROR
-Installation failed.
-See ‘/tmp/workdir/loon/old/loon.Rcheck/00install.out’ for details.
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘introduction.Rmd’ using ‘UTF-8’... OK
+  ‘logicalQueries.Rmd’ using ‘UTF-8’... OK
+  ‘minorities.Rmd’ using ‘UTF-8’... OK
+  ‘savingLoonPlots.Rmd’ using ‘UTF-8’... OK
+  ‘teaching-example-smoothing.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... SKIPPED
 * DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 NOTE
 
 
 
@@ -1535,10 +1884,10 @@ Status: 1 ERROR
 
 <details>
 
-* Version: 0.1.1
+* Version: 0.1.2
 * GitHub: https://github.com/z267xu/loon.tourr
 * Source code: https://github.com/cran/loon.tourr
-* Date/Publication: 2021-05-17 23:50:02 UTC
+* Date/Publication: 2021-07-25 20:40:03 UTC
 * Number of recursive dependencies: 118
 
 Run `cloud_details(, "loon.tourr")` for more info
@@ -1557,7 +1906,7 @@ Run `cloud_details(, "loon.tourr")` for more info
 * using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘loon.tourr/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.tourr’ version ‘0.1.1’
+* this is package ‘loon.tourr’ version ‘0.1.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -1583,7 +1932,7 @@ Status: 1 ERROR
 * using options ‘--no-manual --no-build-vignettes’
 * checking for file ‘loon.tourr/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.tourr’ version ‘0.1.1’
+* this is package ‘loon.tourr’ version ‘0.1.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -2177,84 +2526,6 @@ ERROR: compilation failed for package ‘rmdcev’
 
 
 ```
-# rstap
-
-<details>
-
-* Version: 1.0.3
-* GitHub: https://github.com/biostatistics4socialimpact/rstap
-* Source code: https://github.com/cran/rstap
-* Date/Publication: 2019-02-06 20:30:03 UTC
-* Number of recursive dependencies: 110
-
-Run `cloud_details(, "rstap")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘rstap’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/rstap/new/rstap.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘rstap’ ...
-** package ‘rstap’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-"/opt/R/4.0.3/lib/R/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/stap_binomial.stan
-Wrote C++ file "stan_files/stap_binomial.cc"
-g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"`"/opt/R/4.0.3/lib/R/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error  -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include   -fpic  -g -O2  -c stan_files/stap_binomial.cc -o stan_files/stap_binomial.o
-In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
-                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
-                 from /opt/R/4.0.3/lib/R/site-library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13,
-...
-/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
-/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_stap_binomial_namespace::model_stap_binomial; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
-/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:10:   required from here
-/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
-g++: fatal error: Killed signal terminated program cc1plus
-compilation terminated.
-make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stan_files/stap_binomial.o] Error 1
-rm stan_files/stap_binomial.cc
-ERROR: compilation failed for package ‘rstap’
-* removing ‘/tmp/workdir/rstap/new/rstap.Rcheck/rstap’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘rstap’ ...
-** package ‘rstap’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-"/opt/R/4.0.3/lib/R/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/stap_binomial.stan
-Wrote C++ file "stan_files/stap_binomial.cc"
-g++ -std=gnu++14 -I"/opt/R/4.0.3/lib/R/include" -DNDEBUG -I"../inst/include" -I"`"/opt/R/4.0.3/lib/R/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error  -I'/opt/R/4.0.3/lib/R/site-library/StanHeaders/include' -I'/opt/R/4.0.3/lib/R/site-library/rstan/include' -I'/opt/R/4.0.3/lib/R/site-library/BH/include' -I'/opt/R/4.0.3/lib/R/site-library/Rcpp/include' -I'/opt/R/4.0.3/lib/R/site-library/RcppEigen/include' -I/usr/local/include   -fpic  -g -O2  -c stan_files/stap_binomial.cc -o stan_files/stap_binomial.o
-In file included from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
-                 from /opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/Dense:1,
-                 from /opt/R/4.0.3/lib/R/site-library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13,
-...
-/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
-/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:23:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_stap_binomial_namespace::model_stap_binomial; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
-/opt/R/4.0.3/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:10:   required from here
-/opt/R/4.0.3/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
-g++: fatal error: Killed signal terminated program cc1plus
-compilation terminated.
-make: *** [/opt/R/4.0.3/lib/R/etc/Makeconf:179: stan_files/stap_binomial.o] Error 1
-rm stan_files/stap_binomial.cc
-ERROR: compilation failed for package ‘rstap’
-* removing ‘/tmp/workdir/rstap/old/rstap.Rcheck/rstap’
-
-
-```
 # scoper
 
 <details>
@@ -2541,62 +2812,6 @@ Status: 1 NOTE
 
 
 ```
-# SPARSEMODr
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/NAU-CCL/SPARSEMODr
-* Source code: https://github.com/cran/SPARSEMODr
-* Date/Publication: 2021-07-01 17:50:02 UTC
-* Number of recursive dependencies: 116
-
-Run `cloud_details(, "SPARSEMODr")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/SPARSEMODr/old/SPARSEMODr.Rcheck’
-* using R version 4.0.3 (2020-10-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘SPARSEMODr/DESCRIPTION’ ... OK
-* this is package ‘SPARSEMODr’ version ‘1.1.0’
-* checking package namespace information ... OK
-* checking package dependencies ... OK
-* checking if this is a source package ... OK
-...
-* checking compilation flags in Makevars ... OK
-* checking for GNU extensions in Makefiles ... OK
-* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
-* checking use of PKG_*FLAGS in Makefiles ... OK
-* checking compiled code ... OK
-* checking installed files from ‘inst/doc’ ... OK
-* checking files in ‘vignettes’ ... OK
-* checking examples ... OK
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ...
-
-
-
-
-
-```
 # spectralAnalysis
 
 <details>
@@ -2729,6 +2944,74 @@ Status: 1 ERROR
 
 
 ```
+# superb
+
+<details>
+
+* Version: 0.9.7.5
+* GitHub: https://github.com/dcousin3/superb
+* Source code: https://github.com/cran/superb
+* Date/Publication: 2021-06-23 04:10:02 UTC
+* Number of recursive dependencies: 162
+
+Run `cloud_details(, "superb")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/superb/new/superb.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘superb/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘superb’ version ‘0.9.7.5’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘referenceIntervals’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/superb/old/superb.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘superb/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘superb’ version ‘0.9.7.5’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘referenceIntervals’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # tigger
 
 <details>
@@ -2797,82 +3080,6 @@ Status: 1 ERROR
 
 
 ```
-# vivid
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/vivid
-* Date/Publication: 2021-04-09 09:10:02 UTC
-* Number of recursive dependencies: 200
-
-Run `cloud_details(, "vivid")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/vivid/new/vivid.Rcheck’
-* using R version 4.0.3 (2020-10-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘vivid/DESCRIPTION’ ... OK
-* this is package ‘vivid’ version ‘0.1.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... NOTE
-...
-  Error: Test failures
-  Execution halted
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘vivid.Rmd’ using ‘UTF-8’... OK
-  ‘vividQStart.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... SKIPPED
-* DONE
-Status: 1 ERROR, 2 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/vivid/old/vivid.Rcheck’
-* using R version 4.0.3 (2020-10-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using options ‘--no-manual --no-build-vignettes’
-* checking for file ‘vivid/DESCRIPTION’ ... OK
-* this is package ‘vivid’ version ‘0.1.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... NOTE
-...
-  Error: Test failures
-  Execution halted
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘vivid.Rmd’ using ‘UTF-8’... OK
-  ‘vividQStart.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... SKIPPED
-* DONE
-Status: 1 ERROR, 2 NOTEs
-
-
-
-
-
-```
 # wrswoR
 
 <details>
@@ -2881,7 +3088,7 @@ Status: 1 ERROR, 2 NOTEs
 * GitHub: https://github.com/krlmlr/wrswoR
 * Source code: https://github.com/cran/wrswoR
 * Date/Publication: 2020-07-26 18:20:02 UTC
-* Number of recursive dependencies: 133
+* Number of recursive dependencies: 134
 
 Run `cloud_details(, "wrswoR")` for more info
 
