@@ -119,15 +119,25 @@
 <a href="#waldo-development-version" class="anchor"></a>waldo (development version)<small> Unreleased </small>
 </h1>
 <ul>
-<li><p><code><a href="../reference/compare_proxy.html">compare_proxy()</a></code> gains a second argument, <code>path</code>, that is used to report how the proxy has been used to change the object. This makes it easier to see when and how a proxy is involved (<a href='https://github.com/r-lib/waldo/issues/73'>#73</a>).</p></li>
-<li><p>You can use a <code>waldo_opts</code> attribute to now control how objects are compared. This should be a list with the same names and valid values as the arguments to <code><a href="../reference/compare.html">compare()</a></code> (<a href='https://github.com/dmurdoch'>@dmurdoch</a>).</p></li>
-<li><p><code><a href="../reference/compare.html">compare()</a></code> gains a <code>list_as_map</code> argument thanks to an idea from <a href='https://github.com/dmurdoch'>@dmurdoch</a>. It allows you to compare the behaviour of two lists when they are used to connect names to values (i.e. the list is operating as a map or dictionary). It removes NULLs and sorts named components (<a href='https://github.com/r-lib/waldo/issues/72'>#72</a>).</p></li>
-<li><p><code><a href="../reference/compare.html">compare()</a></code> gains a basic row-by-row diff for data frames (<a href='https://github.com/r-lib/waldo/issues/78'>#78</a>) that is shown when the values within a data frame are different, and for numeric matrices (<a href='https://github.com/r-lib/waldo/issues/76'>#76</a>).</p></li>
-<li><p><code><a href="../reference/compare.html">compare()</a></code> automatically uses an elementwise comparison if it’s shorter than a “smart” diff. This makes it more obvious when you’re comparing unrelated vectors (<a href='https://github.com/r-lib/waldo/issues/68'>#68</a>).</p></li>
-<li><p><code><a href="../reference/compare_proxy.html">compare_proxy()</a></code> is now called earlier (before type comparison) making it more flexible (<a href='https://github.com/r-lib/waldo/issues/65'>#65</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> is now considerably faster when comparing complex objects that don’t have any differences (thanks to strategic use of <code><a href="https://rdrr.io/r/base/identical.html">identical()</a></code>) (<a href='https://github.com/r-lib/waldo/issues/86'>#86</a>).</p></li>
-<li><p>comparing a list with symbol to a list where the same element doesn’t exists now works (<a href='https://github.com/mgirlich'>@mgirlich</a>, <a href='https://github.com/r-lib/waldo/issues/79'>#79</a>).</p></li>
+<li>
+<p><code><a href="../reference/compare.html">compare()</a></code> gains two improvements to low-level diffs:</p>
+<ul>
+<li><p>Structurally identical data frames (<a href='https://github.com/r-lib/waldo/issues/78'>#78</a>) and numeric matrices (<a href='https://github.com/r-lib/waldo/issues/76'>#76</a>) gain a row-by-row diff that makes it easier to see where exactly values differ.</p></li>
+<li><p>An element-by-element diff will be automatically used if it’s shorter than the “smart” diff. This improves diff quality when comparing two vectors that aren’t really related (<a href='https://github.com/r-lib/waldo/issues/68'>#68</a>).</p></li>
+</ul>
+</li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> gains a <code>list_as_map</code> argument thanks to an idea from <a href='https://github.com/dmurdoch'>@dmurdoch</a>. It allows you to compare the behaviour of two lists when they are used to connect names to values (i.e. the list is operating as a map or dictionary). It removes NULLs and sorts named components (<a href='https://github.com/r-lib/waldo/issues/72'>#72</a>).</p></li>
+<li>
+<p>The ability of objects involved in <code><a href="../reference/compare.html">compare()</a></code> (as opposed to the caller of <code><a href="../reference/compare.html">compare()</a></code>) gained much greater ability to control the details.</p>
+<ul>
+<li><p>Objects can now contain a <code>waldo_opts</code> attribute, a list with the same names and valid values as the arguments to <code><a href="../reference/compare.html">compare()</a></code>, which overrides the default comparisons.(<a href='https://github.com/dmurdoch'>@dmurdoch</a>).</p></li>
+<li><p><code><a href="../reference/compare_proxy.html">compare_proxy()</a></code> is now called earlier (before type comparison) making it more flexible (<a href='https://github.com/r-lib/waldo/issues/65'>#65</a>)</p></li>
+<li><p><code><a href="../reference/compare_proxy.html">compare_proxy()</a></code> gains a second argument, <code>path</code>, used to report how the proxy changed the object. This makes it easier to see when and how a proxy is involved (<a href='https://github.com/r-lib/waldo/issues/73'>#73</a>).</p></li>
 <li><p>Proxies now exist for comparing RProtoBuf objects, converting them to proto text format (<a href='https://github.com/r-lib/waldo/issues/82'>#82</a>, <a href='https://github.com/michaelquinn32'>@michaelquinn32</a>).</p></li>
+</ul>
+</li>
+<li><p>Comparing a list with symbol to a list without that element no longer errors (<a href='https://github.com/mgirlich'>@mgirlich</a>, <a href='https://github.com/r-lib/waldo/issues/79'>#79</a>).</p></li>
 </ul>
 </div>
     <div id="waldo-025" class="section level1">
