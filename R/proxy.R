@@ -44,7 +44,7 @@ compare_proxy.data.table <- function(x, path) {
 
 #' @export
 compare_proxy.xml_node <- function(x, path) {
-  list(object = x, path = paste0("as.character(", x, ")"))
+  list(object = as.character(x), path = paste0("as.character(", path, ")"))
 }
 
 # RProtoBuf objects -------------------------------------------------------

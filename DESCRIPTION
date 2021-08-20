@@ -27,7 +27,8 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0),
     covr,
-    R6
+    R6,
+    xml2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
