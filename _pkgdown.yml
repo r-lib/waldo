@@ -1,1 +1,6 @@
 url: https://waldo.r-lib.org
+
+news:
+  releases:
+  - text: "Version 0.2.0"
+    href: https://www.tidyverse.org/blog/2020/10/waldo/
