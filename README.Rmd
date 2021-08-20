@@ -90,7 +90,7 @@ Depending on the relative size of the differences and the width of your console 
 *   The default display is to show the vectors one atop the other:
 
     ```{asciicast}
-    compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
+    compare(letters[1:5], letters[1:6])
     ```
 
 *   If there's not enough room for that, the two vectors are shown 
@@ -98,7 +98,7 @@ Depending on the relative size of the differences and the width of your console 
 
     ```{asciicast}
     options(width = 20)
-    compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
+    compare(letters[1:5], letters[1:6])
     ```
 
 *   And if there's still not enough room for side-by-side, the each element
@@ -106,7 +106,7 @@ Depending on the relative size of the differences and the width of your console 
 
     ```{asciicast}
     options(width = 10)
-    compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
+    compare(letters[1:5], letters[1:6])
     ```
 
 When comparing more complex objects, waldo creates an executable code path telling you where the differences lie:

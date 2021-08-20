@@ -86,7 +86,15 @@ ses_shortest <- function(x, y, size = 3) {
   diff1 <- sum(vapply(context1, diff_length, double(1)))
   diff2 <- sum(vapply(context2, diff_length, double(1)))
 
-  if (diff1 < diff2) {
+  if (diff1 == diff2) {
+    # If contextual diffs are same length, break tie using total
+    # number of changes
+    if (diff_length(ses1) < diff_length(ses2)) {
+      context1
+    } else {
+      context2
+    }
+  } else if (diff1 < diff2) {
     context1
   } else {
     context2

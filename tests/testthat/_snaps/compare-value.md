@@ -99,6 +99,19 @@
       `old`: "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o"
       `new`: "l" "m" "a" "b" "e" "f" "k" "o" "j" "n" "i" "g" "c" "d" "h"
 
+# favour smart diff over elementwise when total length is the same
+
+    Code
+      compare(c(1, 2, 3, 4, 5), c(1, 2, 10, 3, 4, 5))
+    Output
+      `old`: 1 2    3 4 5
+      `new`: 1 2 10 3 4 5
+    Code
+      compare(c(1, 2, 4, 5), c(1, 2, 3, 4, 5))
+    Output
+      `old`: 1 2   4 5
+      `new`: 1 2 3 4 5
+
 # numeric comparison
 
     Code

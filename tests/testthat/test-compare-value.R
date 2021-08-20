@@ -42,6 +42,13 @@ test_that("show elementwise differences of random permutations", {
   })
 })
 
+test_that("favour smart diff over elementwise when total length is the same", {
+  expect_snapshot({
+    compare(c(1, 2, 3, 4, 5), c(1, 2, 10, 3, 4, 5))
+    compare(c(1, 2, 4, 5), c(1, 2, 3, 4, 5))
+  })
+})
+
 test_that("numeric comparison", {
   expect_snapshot({
     "no difference"

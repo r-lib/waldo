@@ -86,7 +86,7 @@ console you’ll get one of three displays:
 -   The default display is to show the vectors one atop the other:
 
     ``` asciicast
-    compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
+    compare(letters[1:5], letters[1:6])
     ```
 
     <img src="man/figures/README/unnamed-chunk-6.svg" width="100%" />
@@ -96,7 +96,7 @@ console you’ll get one of three displays:
 
     ``` asciicast
     options(width = 20)
-    compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
+    compare(letters[1:5], letters[1:6])
     ```
 
     <img src="man/figures/README/unnamed-chunk-7.svg" width="100%" />
@@ -106,7 +106,7 @@ console you’ll get one of three displays:
 
     ``` asciicast
     options(width = 10)
-    compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))
+    compare(letters[1:5], letters[1:6])
     ```
 
     <img src="man/figures/README/unnamed-chunk-8.svg" width="100%" />
