@@ -15,21 +15,21 @@
 * `compare()` gains a `list_as_map` argument thanks to an idea from @dmurdoch.
   It allows you to compare the behaviour of two lists when they are used to 
   connect names to values (i.e. the list is operating as a map or dictionary). 
-  It removes NULLs and sorts named components (#72).
+  It removes `NULL`s and sorts named components (#72).
 
-* The ability of objects involved in `compare()` (as opposed to the caller of 
-  `compare()`) gained much greater ability to control the details.
+* The objects involved in `compare()` (as opposed to the caller of `compare()`) 
+  gained much greater ability to control the comparison.
   
     * Objects can now contain a `waldo_opts` attribute, a list with the same 
       names and valid values as the arguments to `compare()`, which overrides
-      the default comparisons.(@dmurdoch).
+      the default comparisons (@dmurdoch).
     
     * `compare_proxy()` is now called earlier (before type comparison) making
-      it more flexible (#65)
+      it more flexible (#65).
       
     * `compare_proxy()` gains a second argument, `path`, used to report how the 
       proxy changed the object. This makes it easier to see when and how a proxy 
-      is involved (#73).
+      is used (#73).
 
     * Proxies now exist for comparing RProtoBuf objects, converting them to
       proto text format (#82, @michaelquinn32).
