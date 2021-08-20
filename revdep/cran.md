@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 5732 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 5720 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 5 new problems
+ * We saw 4 new problems
  * We failed to check 44 packages
 
 Issues with CRAN packages are summarised below.
@@ -16,14 +16,11 @@ Issues with CRAN packages are summarised below.
 * mcmcr
   checking tests ... ERROR
 
-* param6
+* nsrr
   checking tests ... ERROR
 
-* RNiftyReg
-  checking installed package size ... NOTE
-
-* spsurvey
-  checking running R code from vignettes ... ERROR
+* scholar
+  checking examples ... ERROR
 
 ### Failed to check
 
@@ -32,9 +29,7 @@ Issues with CRAN packages are summarised below.
 * apisensr              (NA)
 * backShift             (NA)
 * bayesdfa              (NA)
-* bayesGAM              (NA)
 * Boom                  (NA)
-* bsts                  (NA)
 * CausalImpact          (NA)
 * CB2                   (NA)
 * cbar                  (NA)
@@ -46,11 +41,10 @@ Issues with CRAN packages are summarised below.
 * fdaPDE                (NA)
 * gllvm                 (NA)
 * glmmfields            (NA)
-* gWidgets2tcltk        (NA)
+* gtfs2gps              (NA)
 * hNMF                  (NA)
 * kdensity              (NA)
 * kmcudaR               (NA)
-* lgpr                  (NA)
 * loon                  (NA)
 * loon.shiny            (NA)
 * loon.tourr            (NA)
@@ -62,12 +56,15 @@ Issues with CRAN packages are summarised below.
 * phylopath             (NA)
 * ReIns                 (NA)
 * rmdcev                (NA)
+* RNiftyReg             (NA)
 * scoper                (NA)
 * seqgendiff            (NA)
 * shattering            (NA)
 * SMITIDvisu            (NA)
+* SPARSEMODr            (NA)
 * spectralAnalysis      (NA)
 * stablespec            (NA)
 * superb                (NA)
 * tigger                (NA)
+* vivid                 (NA)
 * wrswoR                (NA)

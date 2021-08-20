@@ -4,4 +4,4 @@
 
 ## revdepcheck results
 
-Due to the minor nature of this change, I did not check revdeps.
+Because waldo is primarily used by testthat, I checked all ~6000 testthat dependencies. This generated a number of failures but as far as I could tell, none of the failures used testthat 3e, which is the only scenario in which waldo should be used by default.
