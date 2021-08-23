@@ -1,6 +1,6 @@
 Package: waldo
 Title: Find Differences Between R Objects
-Version: 0.2.5.9000
+Version: 0.3.0
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
