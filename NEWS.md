@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.3.0
 
 * `compare()` is now considerably faster when comparing complex objects that 
