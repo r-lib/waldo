@@ -57,26 +57,34 @@
     Code
       compare_character("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
     Output
-      `lines(x[[1]])`: "A" "the apple is red"  "C" ""
-      `lines(y[[1]])`: "A" "the apple was red" "C" ""
+      `lines(x)`: "A" "the apple is red"  "C" ""
+      `lines(y)`: "A" "the apple was red" "C" ""
     Code
       compare_character("A\nthe apple is red and green\nC\n",
         "A\nthe apple is red\nC\n")
     Output
-      `lines(x[[1]])`: "A" "the apple is red and green" "C" ""
-      `lines(y[[1]])`: "A" "the apple is red"           "C" ""
+      `lines(x)`: "A" "the apple is red and green" "C" ""
+      `lines(y)`: "A" "the apple is red"           "C" ""
     Code
       compare_character("A\nthe apple is red and green\nC\n",
         "A\nI like bananas\nC\n")
     Output
-      `lines(x[[1]])`: "A" "the apple is red and green" "C" ""
-      `lines(y[[1]])`: "A" "I like bananas"             "C" ""
+      `lines(x)`: "A" "the apple is red and green" "C" ""
+      `lines(y)`: "A" "I like bananas"             "C" ""
     Code
       # trailing newlines are correctly compared
       compare("x\n", "x")
     Output
-      `lines(old[[1]])`: "x" ""
-      `lines(new[[1]])`: "x"   
+      `lines(old)`: "x" ""
+      `lines(new)`: "x"   
+
+# multi-element multi-line comparisons get indices
+
+    Code
+      compare(c("a", "b", "c\nd"), c("a", "b", "c\ne"))
+    Output
+      `lines(old[[3]])`: "c" "d"
+      `lines(new[[3]])`: "c" "e"
 
 # show elementwise differences of random permutations
 

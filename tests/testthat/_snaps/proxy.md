@@ -10,7 +10,7 @@
       x2 <- xml2::read_xml("<a>2</a>")
       compare(x1a, x2)
     Output
-      lines(as.character(old)[[1]]) vs lines(as.character(new)[[1]])
+      lines(as.character(old)) vs lines(as.character(new))
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
       - "<a>1</a>"
       + "<a>2</a>"

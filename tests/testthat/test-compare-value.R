@@ -34,6 +34,13 @@ test_that("multiline comparison", {
   })
 })
 
+test_that("multi-element multi-line comparisons get indices", {
+  expect_snapshot({
+    compare(c("a", "b", "c\nd"), c("a", "b", "c\ne"))
+  })
+
+})
+
 test_that("show elementwise differences of random permutations", {
   expect_snapshot({
     compare(letters[1:15], letters[c(14, 4, 12, 11, 13, 3, 10, 5, 1, 7, 9, 15, 6, 8, 2)], max_diffs = Inf)

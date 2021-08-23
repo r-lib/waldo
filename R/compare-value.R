@@ -12,7 +12,12 @@ compare_character <- function(x, y, paths = c("x", "y"), quote = "\"", max_diffs
     y <- split_by_line(y)
 
     opts <- compare_opts(max_diffs = max_diffs)
-    new_compare(compare_by_line(x, y, paths, opts))
+
+    if (length(x) == 1 && length(y) == 1) {
+      new_compare(compare_by_line1(x, y, paths, opts))
+    } else {
+      new_compare(compare_by_line(x, y, paths, opts))
+    }
   } else {
     diff_element(x, y, paths, quote = quote, max_diffs = max_diffs)
   }
