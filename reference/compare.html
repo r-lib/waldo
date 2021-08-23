@@ -97,8 +97,22 @@ compare() is an alternative to all.equal()." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/10/waldo/">Version 0.2.0</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../news/index.html">Changelog</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -284,8 +298,8 @@ differently but <code>compare()</code> reports no differences in the underlying 
 #&gt; 
 #&gt; `old[23:26]`: <span style='color: #555555;'>"w"</span> <span style='color: #555555;'>"x"</span> <span style='color: #555555;'>"y"</span> <span style='color: #BBBB00;'>"z"</span>
 #&gt; `new[24:26]`: <span style='color: #555555;'>"w"</span> <span style='color: #555555;'>"x"</span> <span style='color: #555555;'>"y"</span>    </div><div class='input'><span class='fu'>compare</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; `old`: <span style='color: #555555;'>1</span> <span style='color: #00BB00;'>2</span> <span style='color: #00BB00;'>3</span>
-#&gt; `new`: <span style='color: #555555;'>1</span> <span style='color: #00BB00;'>3</span>  </div><div class='input'><span class='fu'>compare</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; `old`: <span style='color: #555555;'>1</span> <span style='color: #BBBB00;'>2</span> <span style='color: #555555;'>3</span>
+#&gt; `new`: <span style='color: #555555;'>1</span>   <span style='color: #555555;'>3</span></div><div class='input'><span class='fu'>compare</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; `old`: <span style='color: #555555;'>1</span> <span style='color: #00BB00;'>2</span> <span style='color: #00BB00;'>3</span>  
 #&gt; `new`: <span style='color: #555555;'>1</span> <span style='color: #00BB00;'>3</span> <span style='color: #00BB00;'>4</span> <span style='color: #00BB00;'>5</span></div><div class='input'><span class='fu'>compare</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; `old`: <span style='color: #555555;'>1</span> <span style='color: #555555;'>2</span> <span style='color: #00BB00;'>3</span>

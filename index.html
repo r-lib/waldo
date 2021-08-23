@@ -49,8 +49,22 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="news/index.html">Changelog</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/10/waldo/">Version 0.2.0</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="news/index.html">Changelog</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -126,19 +140,19 @@
 <ul>
 <li>
 <p>The default display is to show the vectors one atop the other:</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))</a></code></pre>
+<pre class="asciicast"><code><a href="reference/compare.html">compare(letters[1:5], letters[1:6])</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-6.svg" width="100%"></p>
 </li>
 <li>
 <p>If there’s not enough room for that, the two vectors are shown side-by-side:</p>
 <pre class="asciicast"><code><a href="https://rdrr.io/r/base/options.html">options(width = 20)
-compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))</a></code></pre>
+compare(letters[1:5], letters[1:6])</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-7.svg" width="100%"></p>
 </li>
 <li>
 <p>And if there’s still not enough room for side-by-side, the each element is given its own line:</p>
 <pre class="asciicast"><code><a href="https://rdrr.io/r/base/options.html">options(width = 10)
-compare(c("x", "y", "a", "b", "c"), c("y", "a", "B", "c", "d"))</a></code></pre>
+compare(letters[1:5], letters[1:6])</a></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-8.svg" width="100%"></p>
 </li>
 </ul>
