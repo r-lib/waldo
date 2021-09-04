@@ -39,7 +39,7 @@ compare_proxy.default <- function(x, path) {
 #' @export
 compare_proxy.data.table <- function(x, path) {
   attr(x, ".internal.selfref") <- NULL
-  list(object = x, path = path)
+  list(object = x, path = paste0("`attr<-`(", path, ", '.internal.selfref', NULL)"))
 }
 
 #' @export
