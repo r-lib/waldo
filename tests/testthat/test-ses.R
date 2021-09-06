@@ -23,7 +23,7 @@ test_that("can parse large numbers", {
 })
 
 
-test_that("ses_neq matches seq_neq() for exact matches", {
+test_that("ses_elementwise() matches seq() for exact matches", {
   expect_equal(
     ses_elementwise(letters[1:4], letters[1:4]),
     ses(letters[1:4], letters[1:4])
@@ -37,4 +37,19 @@ test_that("ses_neq matches seq_neq() for exact matches", {
     ses(letters[1:2], letters[1:4])
   )
 
+})
+
+test_that("ses_elementwise() matches seq() for missing values", {
+  expect_equal(
+    ses_elementwise(NA, TRUE),
+    ses(NA, TRUE)
+  )
+  expect_equal(
+    ses_elementwise(TRUE, NA),
+    ses(TRUE, NA)
+  )
+  expect_equal(
+    ses_elementwise(c(NA, TRUE), c(NA, FALSE)),
+    ses(c(NA, TRUE), c(NA, FALSE))
+  )
 })

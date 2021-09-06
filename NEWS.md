@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Fixed regression when comparing vectors with missing values (#102).
+
 # waldo 0.3.0
 
 * `compare()` is now considerably faster when comparing complex objects that 

@@ -39,7 +39,9 @@ ses_elementwise <- function(x, y) {
   n <- min(n_x, n_y)
 
   id <- seq_len(n)
-  neq <- id[x[id] != y[id]]
+  same <- (is.na(x[id]) & is.na(y[id])) | x[id] == y[id]
+  same[is.na(same)] <- FALSE
+  neq <- id[!same]
 
   if (length(neq) == 0) {
     n_x <- length(x)
@@ -83,7 +85,7 @@ ses_shortest <- function(x, y, size = 3) {
   context2 <- ses_chunks(ses2, length(x), length(y), size = size)
 
   diff_length <- function(ses) ses$x2[nrow(ses)] - ses$x1[[1]] + 1
-  diff1 <- sum(vapply(context1, diff_length, double(1)))
+  diff1 <- sum(vapply(context1, diff_length, double(1)), na.rm = TRUE)
   diff2 <- sum(vapply(context2, diff_length, double(1)))
 
   if (diff1 == diff2) {
