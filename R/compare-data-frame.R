@@ -67,7 +67,9 @@ printed_rows <- function(x, y, ..., paths = c("x", "y")) {
   if (!is.data.frame(joint)) {
     rownames(joint) <- rep("", nrow(joint))
   }
-  lines <- utils::capture.output(print(joint, ..., width = 500))
+
+  n <- nrow(joint) * ncol(joint)
+  lines <- utils::capture.output(print(joint, ..., width = 500, max = n))
 
   row_idx <- c(seq_len(nrow(x)), seq_len(nrow(y)))
   row_idx <- paste0(rep(paths, c(nrow(x), nrow(y))), "[", row_idx, ", ]")

@@ -29,6 +29,16 @@ test_that("converts factors to strings", {
   })
 })
 
+test_that("works when nrow(df) > option(max.print)", {
+  expect_snapshot({
+    withr::local_options("max.print" = 1)
+    df1 <- data.frame(a = 1:2, b = 1:2)
+    df2 <- data.frame(a = c(1, 3), b = 1:2)
+
+    compare(df1, df2)
+  })
+})
+
 test_that("only used for appropriate data frames", {
   df <- data.frame(x = 1)
 

@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()`ing data frames now works independently of `option(max.print)` 
+  (#105).
+
 * Fixed regression when comparing vectors with missing values (#102).
 
 # waldo 0.3.0

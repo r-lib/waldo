@@ -69,3 +69,20 @@
       `levels(old$x)`: "a" "b" "c"
       `levels(new$x)`: "a" "b" "d"
 
+# works when nrow(df) > option(max.print)
+
+    Code
+      withr::local_options(max.print = 1)
+      df1 <- data.frame(a = 1:2, b = 1:2)
+      df2 <- data.frame(a = c(1, 3), b = 1:2)
+      compare(df1, df2)
+    Output
+      old vs new
+                 a
+        old[1, ] 1
+      - old[2, ] 2
+      + new[2, ] 3
+      
+      `old$a` is an integer vector (1, 2)
+      `new$a` is a double vector (1, 3)
+
