@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.3.1
 
 * `compare()`ing data frames now works independently of `option(max.print)` 
