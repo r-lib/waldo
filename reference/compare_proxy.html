@@ -44,9 +44,9 @@
 override the defaults (typically because your object stores data in an
 external pointer).
 waldo comes with methods for a few common cases:
-data.table: the .internal.selfref attribute is set to NULL. This is
-an external pointer that is used for performance optimisation, and
-doesn't affect the data.
+data.table: the .internal.selfref and index attributes
+are set to NULL. Both attributes are used for performance optimisation, and
+don't affect the data.
 xml2::xml_node: the underlying XML data is stored in memory in C,
 behind an external pointer, so the we best can do is to convert the
 object to a string.
@@ -154,9 +154,9 @@ https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobu
 override the defaults (typically because your object stores data in an
 external pointer).</p>
 <p>waldo comes with methods for a few common cases:</p><ul>
-<li><p>data.table: the <code>.internal.selfref</code> attribute is set to <code>NULL</code>. This is
-an external pointer that is used for performance optimisation, and
-doesn't affect the data.</p></li>
+<li><p>data.table: the <code>.internal.selfref</code> and <code>index</code> attributes
+are set to <code>NULL</code>. Both attributes are used for performance optimisation, and
+don't affect the data.</p></li>
 <li><p><code>xml2::xml_node</code>: the underlying XML data is stored in memory in C,
 behind an external pointer, so the we best can do is to convert the
 object to a string.</p></li>
