@@ -25,9 +25,9 @@ external pointer).
 
 waldo comes with methods for a few common cases:
 \itemize{
-\item data.table: the \code{.internal.selfref} attribute is set to \code{NULL}. This is
-an external pointer that is used for performance optimisation, and
-doesn't affect the data.
+\item data.table: the \code{.internal.selfref} and \code{index} attributes
+are set to \code{NULL}. Both attributes are used for performance optimisation, and
+don't affect the data.
 \item \code{xml2::xml_node}: the underlying XML data is stored in memory in C,
 behind an external pointer, so the we best can do is to convert the
 object to a string.

@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
+
 # waldo 0.3.1
 
 * `compare()`ing data frames now works independently of `option(max.print)` 
