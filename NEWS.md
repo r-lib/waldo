@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Rowwise comparison of data frames avoids printing too many rows by obeying the `max_diffs` argument (#110, @krlmlr).
+
 * `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
 
 # waldo 0.3.1

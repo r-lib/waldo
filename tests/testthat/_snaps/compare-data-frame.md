@@ -86,3 +86,83 @@
       `old$a` is an integer vector (1, 2)
       `new$a` is a double vector (1, 3)
 
+# obeys max_diffs
+
+    Code
+      df1 <- data.frame(a = c(1:3, 1:4, 1:3))
+      df2 <- data.frame(a = c(3:1, 4:1, 3:1))
+      compare(df1, df2, max_diffs = 8)
+    Output
+      old vs new
+                  a
+      - old[1, ]  1
+      + new[1, ]  3
+        old[2, ]  2
+      - old[3, ]  3
+      + new[3, ]  1
+      - old[4, ]  1
+      + new[4, ]  4
+      - old[5, ]  2
+      + new[5, ]  3
+      - old[6, ]  3
+      + new[6, ]  2
+      - old[7, ]  4
+      + new[7, ]  1
+      - old[8, ]  1
+      + new[8, ]  3
+      and 2 more ...
+      
+      `old$a`: 1 2 3 1 2 3 4 1 and 2 more...
+      `new$a`: 3 2 1 4 3 2 1 3           ...
+    Code
+      compare(df1, df2, max_diffs = 9)
+    Output
+      old vs new
+                  a
+      - old[1, ]  1
+      + new[1, ]  3
+        old[2, ]  2
+      - old[3, ]  3
+      + new[3, ]  1
+      - old[4, ]  1
+      + new[4, ]  4
+      - old[5, ]  2
+      + new[5, ]  3
+      - old[6, ]  3
+      + new[6, ]  2
+      - old[7, ]  4
+      + new[7, ]  1
+      - old[8, ]  1
+      + new[8, ]  3
+        old[9, ]  2
+      and 1 more ...
+      
+      `old$a`: 1 2 3 1 2 3 4 1 2 and 1 more...
+      `new$a`: 3 2 1 4 3 2 1 3 2           ...
+    Code
+      compare(df1, df2, max_diffs = 10)
+    Output
+      old vs new
+                  a
+      - old[1, ]  1
+      + new[1, ]  3
+        old[2, ]  2
+      - old[3, ]  3
+      + new[3, ]  1
+      - old[4, ]  1
+      + new[4, ]  4
+      - old[5, ]  2
+      + new[5, ]  3
+      - old[6, ]  3
+      + new[6, ]  2
+      - old[7, ]  4
+      + new[7, ]  1
+      - old[8, ]  1
+      + new[8, ]  3
+        old[9, ]  2
+      - old[10, ] 3
+      + new[10, ] 1
+      
+      `old$a`: 1 2 3 1 2 3 4 1 2 3
+      `new$a`: 3 2 1 4 3 2 1 3 2 1
+
