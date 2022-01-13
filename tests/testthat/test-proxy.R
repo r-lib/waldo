@@ -8,3 +8,22 @@ test_that("xml2 proxy generates useful comparisons", {
     compare(x1a, x2)
   })
 })
+
+# don't Suggest RProtoBuf, so just mock the classes
+test_that("RProtoBuf proxy works", {
+  x1 <- x2 <- list(toString = function(x) 1)
+  proto_methods <-  c(
+    "Message",
+    "Descriptor",
+    "EnumDescriptor",
+    "FieldDescriptor",
+    "ServiceDescriptor",
+    "FileDescriptor",
+    "EnumValueDescriptor",
+    "MethodDescriptor"
+  )
+  for (method in proto_methods) {
+    class(x1) <- class(x2) <- method
+    expect_identical(x1, x2)
+  }
+})
