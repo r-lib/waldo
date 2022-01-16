@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-09-16T11:34Z
+last_built: 2022-01-16T20:18Z
 urls:
   reference: https://waldo.r-lib.org/reference
   article: https://waldo.r-lib.org/articles

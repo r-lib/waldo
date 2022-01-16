@@ -22,6 +22,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -34,18 +36,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">waldo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -58,13 +54,14 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/08/waldo-0-3-0/">Version 0.3.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/08/waldo-0-3-0/" class="external-link">Version 0.3.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2020/10/waldo/">Version 0.2.0</a>
+      <a href="https://www.tidyverse.org/blog/2020/10/waldo/" class="external-link">Version 0.2.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="news/index.html">Changelog</a>
     </li>
   </ul>
@@ -72,7 +69,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-lib/waldo/">
+  <a href="https://github.com/r-lib/waldo/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -89,13 +86,13 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="waldo" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#waldo" class="anchor"></a>waldo</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="waldo">waldo<a class="anchor" aria-label="anchor" href="#waldo"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>The goal of waldo is to find and concisely describe the difference between a pair of R objects, with the primary goal of making it easier to figure out what’s gone wrong in your unit tests.</p>
-<p><code><a href="reference/compare.html">waldo::compare()</a></code> is inspired by <code><a href="https://rdrr.io/r/base/all.equal.html">all.equal()</a></code>, but takes additional care to generate actionable insights by:</p>
+<p><code><a href="reference/compare.html">waldo::compare()</a></code> is inspired by <code><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal()</a></code>, but takes additional care to generate actionable insights by:</p>
 <ul>
 <li>Ordering the differences from most important to least important.</li>
 <li>Displaying the values of atomic vectors that are actually different.</li>
@@ -104,38 +101,38 @@
 <li>Where possible, comparing elements by name, rather than by position.</li>
 <li>Erring on the side of producing too much output, rather than too little.</li>
 </ul>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of waldo from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the released version of waldo from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"waldo"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"waldo"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="comparisons" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comparisons" class="anchor"></a>Comparisons</h2>
+<div class="section level2">
+<h2 id="comparisons">Comparisons<a class="anchor" aria-label="anchor" href="#comparisons"></a>
+</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://waldo.r-lib.org">waldo</a></span><span class="op">)</span></code></pre></div>
-<p>When comparing atomic vectors, <code><a href="reference/compare.html">compare()</a></code> produces diffs (thanks to <a href="https://github.com/brodieG/diffobj">diffobj</a>) that highlight additions, deletions, and changes, along with a little context:</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://waldo.r-lib.org">waldo</a></span><span class="op">)</span></code></pre></div>
+<p>When comparing atomic vectors, <code><a href="reference/compare.html">compare()</a></code> produces diffs (thanks to <a href="https://github.com/brodieG/diffobj" class="external-link">diffobj</a>) that highlight additions, deletions, and changes, along with a little context:</p>
 <ul>
 <li>
 <p>Addition</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "b"))</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-2.svg" width="100%"></p>
 </li>
 <li>
 <p>Deletion</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b"), c("a", "b", "c"))</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-3.svg" width="100%"></p>
 </li>
 <li>
 <p>Change</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(c("a", "b", "c"), c("a", "B", "c"))</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"B"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-4.svg" width="100%"></p>
 </li>
 <li>
 <p>Long vectors with short differences only show local context around changes, not everything that’s the same.</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(c("X", letters), c(letters, "X"))</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="va">letters</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">letters</span>, <span class="st">"X"</span><span class="op">)</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-5.svg" width="100%"></p>
 </li>
 </ul>
@@ -143,19 +140,19 @@
 <ul>
 <li>
 <p>The default display is to show the vectors one atop the other:</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(letters[1:5], letters[1:6])</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-6.svg" width="100%"></p>
 </li>
 <li>
 <p>If there’s not enough room for that, the two vectors are shown side-by-side:</p>
-<pre class="asciicast"><code><a href="https://rdrr.io/r/base/options.html">options(width = 20)
-compare(letters[1:5], letters[1:6])</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
+<span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-7.svg" width="100%"></p>
 </li>
 <li>
 <p>And if there’s still not enough room for side-by-side, the each element is given its own line:</p>
-<pre class="asciicast"><code><a href="https://rdrr.io/r/base/options.html">options(width = 10)
-compare(letters[1:5], letters[1:6])</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+<span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-8.svg" width="100%"></p>
 </li>
 </ul>
@@ -163,21 +160,21 @@ compare(letters[1:5], letters[1:6])</a></code></pre>
 <ul>
 <li>
 <p>Unnamed lists are compared by position:</p>
-<pre class="asciicast"><code><a href="reference/compare.html">compare(list(factor("x")), list(1L))</a></code></pre>
+<pre class="asciicast"><code><span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-10.svg" width="100%"></p>
 </li>
 <li>
 <p>Named lists, including data frames, are compared by name. For example, note that the following comparison reports a difference in the class and names, but not the values of the columns.</p>
-<pre class="asciicast"><code>df1 &lt;- data.frame(x = 1:3, y = 3:1)
-df2 &lt;- tibble::tibble(rev(df1))
-compare(df1, df2)</code></pre>
+<pre class="asciicast"><code><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-11.svg" width="100%"></p>
 </li>
 <li>
 <p>Recursion can be arbitrarily deep:</p>
-<pre class="asciicast"><code>x &lt;- list(a = list(b = list(c = list(structure(1, e = 1)))))
-y &lt;- list(a = list(b = list(c = list(structure(1, e = "a")))))
-compare(x, y)</code></pre>
+<pre class="asciicast"><code><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fl">1</span>, e <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fl">1</span>, e <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/compare.html">compare</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre>
 <p><img src="reference/figures/README/unnamed-chunk-12.svg" width="100%"></p>
 </li>
 </ul>
@@ -187,49 +184,58 @@ compare(x, y)</code></pre>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=waldo">https://​cloud.r-project.org/​package=waldo</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/r-lib/waldo/">https://​github.com/​r-lib/​waldo/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/r-lib/waldo/issues">https://​github.com/​r-lib/​waldo/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="https://cloud.r-project.org/package=waldo" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/r-lib/waldo/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/r-lib/waldo/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://codecov.io/gh/r-lib/waldo?branch=master"><img src="https://codecov.io/gh/r-lib/waldo/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/r-lib/waldo/actions"><img src="https://github.com/r-lib/waldo/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing waldo</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Hadley Wickham <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://codecov.io/gh/r-lib/waldo?branch=master" class="external-link"><img src="https://codecov.io/gh/r-lib/waldo/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/r-lib/waldo/actions" class="external-link"><img src="https://github.com/r-lib/waldo/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p></p>
+<p>Developed by Hadley Wickham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -237,6 +243,8 @@ compare(x, y)</code></pre>
 
   
 
+
+  
 
   </body>
 </html>
