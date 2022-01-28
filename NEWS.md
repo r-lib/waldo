@@ -2,6 +2,8 @@
 
 * `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
 * `compare_proxy()` methods for `RProtoBuf` objects works again ([#119](https://github.com/r-lib/waldo/issues/119), @MichaelChirico)
+* `compare()`ing infinite values using a tolerance caused an error
+([#122](https://github.com/r-lib/waldo/issues/122), @dmurdoch).
 
 # waldo 0.3.1
 
