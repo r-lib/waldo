@@ -28,6 +28,9 @@
 
 * Proxies now exist for comparing RProtoBuf objects, converting them to
   proto text format (#82, @michaelquinn32).
+  
+* Comparing infinite values using a tolerance caused an error
+(#122, @dmurdoch).
 
 # waldo 0.2.5
 
