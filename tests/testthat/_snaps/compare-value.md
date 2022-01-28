@@ -183,6 +183,35 @@
     Output
       `x[2:3]`: 2             
            `y`: 1 2.0000001  3
+    Code
+      # infinite values
+      compare_numeric(1, Inf)
+    Output
+      `x`:   1
+      `y`: Inf
+    Code
+      compare_numeric(1, Inf, tolerance = 1e-08)
+    Output
+      `x`:   1
+      `y`: Inf
+    Code
+      compare_numeric(Inf, Inf)
+    Output
+      v No differences
+    Code
+      compare_numeric(Inf, Inf, tolerance = 1e-08)
+    Output
+      v No differences
+    Code
+      compare_numeric(-Inf, Inf)
+    Output
+      `x`: -Inf
+      `y`:  Inf
+    Code
+      compare_numeric(-Inf, Inf, tolerance = 1e-08)
+    Output
+      `x`: -Inf
+      `y`:  Inf
 
 # numeric comparison works on factors
 

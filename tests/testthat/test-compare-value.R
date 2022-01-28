@@ -68,6 +68,14 @@ test_that("numeric comparison", {
 
     "unequal length"
     compare_numeric(c(1, 2, NA), c(1, 2 + 1e-7, NA, 3))
+
+    "infinite values"
+    compare_numeric(1, Inf)
+    compare_numeric(1, Inf, tolerance = 1.e-8)
+    compare_numeric(Inf, Inf)
+    compare_numeric(Inf, Inf, tolerance = 1.e-8)
+    compare_numeric(-Inf, Inf)
+    compare_numeric(-Inf, Inf, tolerance = 1.e-8)
   })
 })
 
