@@ -22,7 +22,7 @@ Imports:
     glue,
     methods,
     rematch2,
-    rlang (>= 0.4.10),
+    rlang (>= 1.0.0),
     tibble
 Suggests: 
     testthat (>= 3.0.0),
