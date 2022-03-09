@@ -1,17 +1,14 @@
 Package: waldo
 Title: Find Differences Between R Objects
 Version: 0.3.1.9000
-Authors@R: 
-    c(person(given = "Hadley",
-             family = "Wickham",
-             role = c("aut", "cre"),
-             email = "hadley@rstudio.com"),
-      person(given = "RStudio",
-             role = "cph"))
-Description: Compare complex R objects and reveal the key
-    differences.  Designed particularly for use in testing packages where
-    being able to quickly isolate key differences makes understanding test
-    failures much easier.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"))
+  )
+Description: Compare complex R objects and reveal the key differences.
+    Designed particularly for use in testing packages where being able to
+    quickly isolate key differences makes understanding test failures much
+    easier.
 License: MIT + file LICENSE
 URL: https://waldo.r-lib.org, https://github.com/r-lib/waldo
 BugReports: https://github.com/r-lib/waldo/issues
@@ -25,12 +22,12 @@ Imports:
     rlang (>= 1.0.0),
     tibble
 Suggests: 
-    testthat (>= 3.0.0),
     covr,
     R6,
+    testthat (>= 3.0.0),
     withr,
     xml2
+Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Config/testthat/edition: 3
