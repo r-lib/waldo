@@ -1,5 +1,13 @@
 url: https://waldo.r-lib.org
 
+template:
+  package: tidytemplate
+  bootstrap: 5
+
+  includes:
+    in_header: |
+      <script defer data-domain="waldo.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+
 news:
   releases:
   - text: "Version 0.3.0"
