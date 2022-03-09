@@ -6,10 +6,7 @@
 \alias{waldo-package}
 \title{waldo: Find Differences Between R Objects}
 \description{
-Compare complex R objects and reveal the key
-    differences.  Designed particularly for use in testing packages where
-    being able to quickly isolate key differences makes understanding test
-    failures much easier.
+Compare complex R objects and reveal the key differences. Designed particularly for use in testing packages where being able to quickly isolate key differences makes understanding test failures much easier.
 }
 \seealso{
 Useful links:
