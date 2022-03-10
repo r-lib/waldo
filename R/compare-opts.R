@@ -11,6 +11,9 @@ compare_opts <- function(...,
 
   base <- old_opts(...)
 
+  seen <- new.env(parent = emptyenv())
+  seen$envs <- list()
+
   waldo <- list(
     tolerance = tolerance,
     max_diffs = max_diffs,
@@ -19,7 +22,8 @@ compare_opts <- function(...,
     ignore_encoding = ignore_encoding,
     ignore_function_env = ignore_function_env,
     ignore_formula_env = ignore_formula_env,
-    list_as_map = list_as_map
+    list_as_map = list_as_map,
+    seen = seen
   )
 
   utils::modifyList(waldo, base)

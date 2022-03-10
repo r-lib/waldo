@@ -1,5 +1,11 @@
 # waldo (development version)
 
+* Unnamed environments now compare by value, not by reference (i.e. if 
+  two environments contain the same values, they compare the same, even
+  if they're different environments) (#127). Environments that contain
+  self-references are handled correctly (#117). Differences between pairs 
+  of environments are only ever reported once.
+
 * Atomic S3 classes with format methods now use those methods when 
   displaying comparisons (#98). If the printed representation is the
   same, they fallback to displaying the underlying data.
