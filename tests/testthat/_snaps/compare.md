@@ -614,6 +614,23 @@
     Output
       v No differences
 
+# only shows paired env different once
+
+    Code
+      e1 <- new.env(parent = emptyenv())
+      e2 <- new.env(parent = emptyenv())
+      e3 <- new.env(parent = emptyenv())
+      e1$x <- 1
+      e2$x <- 2
+      e3$x <- 3
+      compare(list(e1, e1, e1), list(e2, e2, e3))
+    Output
+      `old[[1]]$x`: 1
+      `new[[1]]$x`: 2
+      
+      `old[[3]]$x`: 1
+      `new[[3]]$x`: 3
+
 # can compare CHARSXP
 
     Code

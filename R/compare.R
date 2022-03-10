@@ -235,8 +235,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     }
 
   } else if (is_environment(x)) {
-    if (is_seen(x, opts$env_seen$x) || is_seen(y, opts$env_seen$y)) {
-      # Early termination to avoid inf-loops
+    if (is_seen(list(x, y), opts$seen$envs)) {
+      # Only report difference between pairs of environments once
       return(out)
     } else if (is_named_env(x) || is_named_env(y)) {
       # Compare by reference
@@ -256,8 +256,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
         y_fields$.__enclos_env__ <- NULL
       }
 
-      opts$env_seen$x <- c(opts$env_seen$x, x)
-      opts$env_seen$y <- c(opts$env_seen$y, y)
+      opts$seen$envs <- c(opts$seen$envs, list(list(x, y)))
       out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
       out <- c(out, compare_structure(
         parent.env(x), parent.env(y), paste0("parent.env(", paths, ")"), opts = opts)

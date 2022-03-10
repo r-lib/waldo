@@ -317,6 +317,18 @@ test_that("don't get caught in endless loops", {
     compare(e1, e2)
   }, transform = scrub_environment)
 })
+test_that("only shows paired env different once", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e2 <- new.env(parent = emptyenv())
+    e3 <- new.env(parent = emptyenv())
+    e1$x <- 1
+    e2$x <- 2
+    e3$x <- 3
+
+    compare(list(e1, e1, e1), list(e2, e2, e3))
+  }, transform = scrub_environment)
+})
 
 test_that("can compare CHARSXP", {
   skip_if(interactive())
