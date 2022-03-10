@@ -266,6 +266,17 @@ test_that("can compare R6 objects", {
   })
 })
 
+test_that("can compare CHARSXP", {
+  char1 <- readRDS(test_path("charsxp-1.rds"))
+  char2 <- readRDS(test_path("charsxp-2.rds"))
+
+  expect_snapshot({
+    compare(char1, char2)
+    compare(char1, "foo")
+  })
+
+})
+
 test_that("comparing language objects gives useful diffs", {
   expect_snapshot({
     compare(quote(a), quote(b))
