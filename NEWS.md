@@ -2,7 +2,12 @@
 
 * Rowwise comparison of data frames avoids printing too many rows by obeying the `max_diffs` argument (#110, @krlmlr).
 
+* Correctly shows single class for S4 objects (#125).
+
 * `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
+* `compare_proxy()` methods for `RProtoBuf` objects works again ([#119](https://github.com/r-lib/waldo/issues/119), @MichaelChirico)
+* `compare()`ing infinite values using a tolerance caused an error
+([#122](https://github.com/r-lib/waldo/issues/122), @dmurdoch).
 
 # waldo 0.3.1
 

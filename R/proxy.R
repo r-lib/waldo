@@ -50,7 +50,7 @@ compare_proxy.xml_node <- function(x, path) {
 
 # RProtoBuf objects -------------------------------------------------------
 compare_protobuf <- function(x, path) {
-  list(object = x$toString, path = paste0(path, "$toString()"))
+  list(object = x$toString(), path = paste0(path, "$toString()"))
 }
 #' @export
 compare_proxy.Message <- compare_protobuf

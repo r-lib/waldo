@@ -34,7 +34,7 @@ friendly_type_of <- function(x) {
       )
     }
   } else {
-    paste0("an S4 object of class <", is(x), ">")
+    paste0("an S4 object of class <", class(x), ">")
   }
 }
 

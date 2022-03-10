@@ -21,11 +21,11 @@ compare(
 )
 }
 \arguments{
-\item{x, y}{Objects to compare. \code{y} is treated as the reference object
-so messages describe how \code{x} is different to \code{y}}
+\item{x, y}{Objects to compare. \code{x} is treated as the reference object
+so messages describe how \code{y} is different to \code{x}.}
 
 \item{...}{A handful of other arguments are supported with a warning for
-backward compatability. These include:
+backward comparability. These include:
 \itemize{
 \item \code{all.equal()} arguments \code{checkNames} and \code{check.attributes}
 \item \code{testthat::compare()} argument \code{tol}

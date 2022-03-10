@@ -44,13 +44,13 @@
 #' difference you can create a confusing situation where `x` and `y` behave
 #' differently but `compare()` reports no differences in the underlying objects.
 #'
-#' @param x,y Objects to compare. `y` is treated as the reference object
-#'   so messages describe how `x` is different to `y`
+#' @param x,y Objects to compare. `x` is treated as the reference object
+#'   so messages describe how `y` is different to `x`.
 #' @param x_arg,y_arg Name of `x` and `y` arguments, used when generated paths
 #'   to internal components. These default to "old" and "new" since it's
 #'   most natural to supply the previous value then the new value.
 #' @param ... A handful of other arguments are supported with a warning for
-#'   backward compatability. These include:
+#'   backward comparability. These include:
 #'
 #'   * `all.equal()` arguments `checkNames` and `check.attributes`
 #'   * `testthat::compare()` argument `tol`
@@ -300,7 +300,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     x <- utils::capture.output(print(x))
     y <- utils::capture.output(print(y))
     out <- c(out, should_be("{x}", "{y}"))
-  } else if (!isS4(x)) {
+  } else if (typeof(x) != "S4") {
     abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"))
   }
 

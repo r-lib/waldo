@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Codecov test
-coverage](https://codecov.io/gh/r-lib/waldo/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/waldo?branch=master)
+coverage](https://codecov.io/gh/r-lib/waldo/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/waldo?branch=main)
 [![R build
 status](https://github.com/r-lib/waldo/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/waldo/actions)
 <!-- badges: end -->
@@ -47,7 +47,7 @@ When comparing atomic vectors, `compare()` produces diffs (thanks to
 [diffobj](https://github.com/brodieG/diffobj)) that highlight additions,
 deletions, and changes, along with a little context:
 
--   Addition
+-   Deletion
 
     ``` asciicast
     compare(c("a", "b", "c"), c("a", "b"))
@@ -55,7 +55,7 @@ deletions, and changes, along with a little context:
 
     <img src="man/figures/README/unnamed-chunk-2.svg" width="100%" />
 
--   Deletion
+-   Addition
 
     ``` asciicast
     compare(c("a", "b"), c("a", "b", "c"))
