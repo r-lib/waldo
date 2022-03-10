@@ -78,6 +78,9 @@
     Output
       `levels(old$x)`: "a" "b" "c"
       `levels(new$x)`: "a" "b" "d"
+      
+      `old$x`: "a" "b" "c"
+      `new$x`: "a" "b" "d"
 
 # works when nrow(df) > option(max.print)
 
