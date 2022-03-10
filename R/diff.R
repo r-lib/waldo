@@ -183,7 +183,7 @@ line_by_line <- function(x, y, diff, max_diffs = 10) {
   diff_lengths <- cumsum(pmax(diff$x2 - diff$x1, diff$y2 - diff$y1) + 1)
   all_diff_lengths <- last(diff_lengths)
   if (all_diff_lengths > max_diffs) {
-    diffs_ok <- which(lag(diff_lengths, 0) <= max_diffs)
+    diffs_ok <- which(stats::lag(diff_lengths, 0) <= max_diffs)
 
     if (length(diffs_ok) == 0) {
       diff_ok <- 0
