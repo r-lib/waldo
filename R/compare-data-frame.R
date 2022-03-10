@@ -37,9 +37,6 @@ diff_rows <- function(rows, paths = c("x", "y"), max_diffs = 10) {
 
 # Make a character matrix of formatted cell values
 df_rows <- function(x, y, paths = c("x", "y"), tolerance = NULL) {
-  x <- factor_to_char(x)
-  y <- factor_to_char(y)
-
   # If same length, drop identical columns
   if (nrow(x) == nrow(y)) {
     is_equal <- function(x, y) {
@@ -57,22 +54,25 @@ df_rows <- function(x, y, paths = c("x", "y"), tolerance = NULL) {
     return()
   }
 
-  printed_rows(as.data.frame(x), as.data.frame(y), row.names = FALSE, paths = paths)
+  printed_rows(x, y, paths = paths)
 }
 
-# join together two rectangles then print - this takes advantage of all the
-# logic built into base R to get nice printing
-printed_rows <- function(x, y, ..., paths = c("x", "y")) {
+printed_rows <- function(x, y, paths = c("x", "y")) {
   joint <- rbind(x, y)
-  if (!is.data.frame(joint)) {
-    rownames(joint) <- rep("", nrow(joint))
+  if (!is.data.frame(joint)) { # i.e is a matrix
+    joint <- as.data.frame(joint)
+    names(joint) <- paste0("[,", format(seq_along(joint)), "]")
   }
 
-  n <- nrow(joint) * ncol(joint)
-  lines <- utils::capture.output(print(joint, ..., width = 500, max = n))
+  # A speedier implementation of print.data.frame
+  cols <- lapply(joint, format)
+  for (i in seq_along(cols)) {
+    cols[[i]] <- format(c(names(joint)[[i]], cols[[i]]), justify = "right")
+  }
+  lines <- do.call(paste, cols)
 
   row_idx <- c(seq_len(nrow(x)), seq_len(nrow(y)))
-  row_idx <- paste0(rep(paths, c(nrow(x), nrow(y))), "[", row_idx, ", ]")
+  row_idx <- paste0(rep(paths, c(nrow(x), nrow(y))), "[", row_idx, ", ] ")
   names(lines) <- format(c("", row_idx), align = "right")
 
   list(
@@ -100,12 +100,6 @@ same_cols <- function(x, y) {
   }
 
   TRUE
-}
-
-factor_to_char <- function(x) {
-  is_factor <- vapply(x, is.factor, logical(1))
-  x[is_factor] <- lapply(x[is_factor], as.character)
-  x
 }
 
 unrowname <- function(x) {

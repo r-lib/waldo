@@ -61,6 +61,16 @@
       `old$z`: "a" "b" "c"
       `new$z`: "a" "B" "c"
 
+# informative diff for rownames
+
+    Code
+      df1 <- data.frame(x = c(a = 1, b = 2))
+      df2 <- data.frame(x = c(a = 1, c = 2))
+      compare(df1, df2)
+    Output
+      `attr(old, 'row.names')`: "a" "b"
+      `attr(new, 'row.names')`: "a" "c"
+
 # converts factors to strings
 
     Code

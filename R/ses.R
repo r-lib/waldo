@@ -15,7 +15,7 @@ ses <- function(x, y) {
     y <- enc2utf8(y)
   }
 
-  out <- diffobj::ses(x, y, warn = FALSE)
+  out <- diffobj::ses(x, y, warn = FALSE, max.diffs = 100)
   out <- rematch2::re_match(out, paste0(
     "(?:(?<x1>\\d+),)?(?<x2>\\d+)",
     "(?<t>[acd])",

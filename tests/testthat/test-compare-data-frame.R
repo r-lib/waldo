@@ -14,6 +14,14 @@ test_that("informative diff for changes", {
   })
 })
 
+test_that("informative diff for rownames", {
+  expect_snapshot({
+    df1 <- data.frame(x = c(a = 1, b = 2))
+    df2 <- data.frame(x = c(a = 1, c = 2))
+    compare(df1, df2)
+  })
+})
+
 test_that("can set tolerance", {
   df1 <- data.frame(x = 1)
   df2 <- data.frame(x = 1.001)
