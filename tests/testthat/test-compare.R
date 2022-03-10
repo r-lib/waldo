@@ -266,6 +266,58 @@ test_that("can compare R6 objects", {
   })
 })
 
+test_that("Named environments compare by reference", {
+  expect_snapshot({
+    compare(baseenv(), globalenv())
+    compare(baseenv(), new.env())
+    compare(new.env(), baseenv())
+  }, transform = scrub_environment)
+})
+test_that("unnamed arguments compare by value", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e2 <- new.env(parent = emptyenv())
+    compare(e1, e2)
+
+    e1$x <- 10
+    e2$x <- 11
+    compare(e1, e2)
+
+    e2$x <- 10
+    compare(e1, e2)
+  }, transform = scrub_environment)
+})
+test_that("compares parent envs", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e1$x <- 1
+    e2 <- new.env(parent = emptyenv())
+    e2$x <- 2
+
+    e3 <- new.env(parent = e1)
+    e4 <- new.env(parent = e2)
+
+    compare(e3, e4)
+  }, transform = scrub_environment)
+})
+test_that("don't get caught in endless loops", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e2 <- new.env(parent = emptyenv())
+
+    e1$x <- 10
+    e1$y <- e1
+
+    e2$x <- 10
+    e2$y <- e1
+
+    compare(e1, e2)
+
+    e2$y <- e2
+    compare(e1, e2)
+  }, transform = scrub_environment)
+})
+
 test_that("can compare CHARSXP", {
   skip_if(interactive())
 

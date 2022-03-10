@@ -235,20 +235,33 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     }
 
   } else if (is_environment(x)) {
-    if (env_has(x, ".__enclos_env__")) {
-      # enclosing env of methods is object env
-      opts$ignore_function_env <- TRUE
-      x_fields <- as.list(x)
-      y_fields <- as.list(y)
-      x_fields$.__enclos_env__ <- NULL
-      y_fields$.__enclos_env__ <- NULL
-      # Can't use as.list(sorted = TRUE), https://github.com/r-lib/waldo/issues/84
-      x_fields <- x_fields[order(names(x_fields))]
-      y_fields <- y_fields[order(names(y_fields))]
-
-      out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
-    } else {
+    if (is_seen(x, opts$env_seen$x) || is_seen(y, opts$env_seen$y)) {
+      # Early termination to avoid inf-loops
+      return(out)
+    } else if (is_named_env(x) || is_named_env(y)) {
+      # Compare by reference
       out <- c(out, should_be("<env:{env_label(x)}>", "<env:{env_label(y)}>"))
+    } else {
+      # Compare by value
+      x_fields <- as.list(x, all.names = TRUE)
+      y_fields <- as.list(y, all.names = TRUE)
+      # Can't use as.list(sorted = TRUE), https://github.com/r-lib/waldo/issues/84
+      if (length(x_fields) > 0) x_fields <- x_fields[order(names(x_fields))]
+      if (length(y_fields) > 0) y_fields <- y_fields[order(names(y_fields))]
+
+      if (env_has(x, ".__enclos_env__")) {
+        # enclosing env of R6 methods is object env
+        opts$ignore_function_env <- TRUE
+        x_fields$.__enclos_env__ <- NULL
+        y_fields$.__enclos_env__ <- NULL
+      }
+
+      opts$env_seen$x <- c(opts$env_seen$x, x)
+      opts$env_seen$y <- c(opts$env_seen$y, y)
+      out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
+      out <- c(out, compare_structure(
+        parent.env(x), parent.env(y), paste0("parent.env(", paths, ")"), opts = opts)
+      )
     }
   } else if (is_closure(x)) {
     if (opts$ignore_function_env) {
@@ -309,6 +322,18 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   out
+}
+
+is_named_env <- function(x) {
+  environmentName(x) != ""
+}
+is_seen <- function(x, envs) {
+  for (env in envs) {
+    if (identical(x, env)) {
+      return(TRUE)
+    }
+  }
+  FALSE
 }
 
 # Fast path for "identical" elements - in the long run we'd eliminate this

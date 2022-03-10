@@ -19,7 +19,8 @@ compare_opts <- function(...,
     ignore_encoding = ignore_encoding,
     ignore_function_env = ignore_function_env,
     ignore_formula_env = ignore_formula_env,
-    list_as_map = list_as_map
+    list_as_map = list_as_map,
+    env_seen = list(x = list(), y = list())
   )
 
   utils::modifyList(waldo, base)

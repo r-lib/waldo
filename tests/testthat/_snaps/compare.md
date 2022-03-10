@@ -543,6 +543,77 @@
     Output
       v No differences
 
+# Named environments compare by reference
+
+    Code
+      compare(baseenv(), globalenv())
+    Output
+      `old` is <env:package:base>
+      `new` is <env:global>
+    Code
+      compare(baseenv(), new.env())
+    Output
+      `old` is <env:package:base>
+      `new` is <env: 0x????????>
+    Code
+      compare(new.env(), baseenv())
+    Output
+      `old` is <env: 0x????????>
+      `new` is <env:package:base>
+
+# unnamed arguments compare by value
+
+    Code
+      e1 <- new.env(parent = emptyenv())
+      e2 <- new.env(parent = emptyenv())
+      compare(e1, e2)
+    Output
+      v No differences
+    Code
+      e1$x <- 10
+      e2$x <- 11
+      compare(e1, e2)
+    Output
+      `old$x`: 10
+      `new$x`: 11
+    Code
+      e2$x <- 10
+      compare(e1, e2)
+    Output
+      v No differences
+
+# compares parent envs
+
+    Code
+      e1 <- new.env(parent = emptyenv())
+      e1$x <- 1
+      e2 <- new.env(parent = emptyenv())
+      e2$x <- 2
+      e3 <- new.env(parent = e1)
+      e4 <- new.env(parent = e2)
+      compare(e3, e4)
+    Output
+      `parent.env(old)$x`: 1
+      `parent.env(new)$x`: 2
+
+# don't get caught in endless loops
+
+    Code
+      e1 <- new.env(parent = emptyenv())
+      e2 <- new.env(parent = emptyenv())
+      e1$x <- 10
+      e1$y <- e1
+      e2$x <- 10
+      e2$y <- e1
+      compare(e1, e2)
+    Output
+      v No differences
+    Code
+      e2$y <- e2
+      compare(e1, e2)
+    Output
+      v No differences
+
 # can compare CHARSXP
 
     Code

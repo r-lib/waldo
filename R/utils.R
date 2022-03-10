@@ -173,3 +173,7 @@ as_map <- function(x) {
 
   x
 }
+
+scrub_environment <- function(x) {
+  gsub("<env:0x[0-9a-f]+>", "<env: 0x????????>", x)
+}

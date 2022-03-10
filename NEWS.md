@@ -1,5 +1,10 @@
 # waldo (development version)
 
+* Unnamed environments now compare by value, not by reference (i.e. if 
+  two environments contain the same values, they're compare the same, even
+  if they're different environments) (#127). Environments that contain
+  self-references are handled correctly (#117).
+
 * In the unlikely event that you have bare CHARSXP objects, waldo now
   handles them (#121).
 
