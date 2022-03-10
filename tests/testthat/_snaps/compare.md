@@ -554,11 +554,11 @@
       compare(baseenv(), new.env())
     Output
       `old` is <env:package:base>
-      `new` is <env: 0x????????>
+      `new` is <env: 0x********>
     Code
       compare(new.env(), baseenv())
     Output
-      `old` is <env: 0x????????>
+      `old` is <env: 0x********>
       `new` is <env:package:base>
 
 # unnamed arguments compare by value
