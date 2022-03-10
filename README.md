@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Codecov test
-coverage](https://codecov.io/gh/r-lib/waldo/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/waldo?branch=master)
+coverage](https://codecov.io/gh/r-lib/waldo/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/waldo?branch=main)
 [![R build
 status](https://github.com/r-lib/waldo/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/waldo/actions)
 <!-- badges: end -->
