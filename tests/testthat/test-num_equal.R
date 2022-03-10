@@ -20,3 +20,12 @@ test_that("tolerance works the same way for negative values", {
   expect_equal(num_equal(4, 4 + 2 * .Machine$double.eps ^ 0.5), TRUE)
   expect_equal(num_equal(-4, -4 - 2 * .Machine$double.eps ^ 0.5), TRUE)
 })
+
+test_that("infinite values are handled properly", {
+  expect_equal(num_equal(1, Inf), FALSE)
+  expect_equal(num_equal(1, Inf, tolerance = 1.e-8), FALSE)
+  expect_equal(num_equal(Inf, Inf), TRUE)
+  expect_equal(num_equal(Inf, Inf, tolerance = 1.e-8), TRUE)
+  expect_equal(num_equal(-Inf, Inf), FALSE)
+  expect_equal(num_equal(-Inf, Inf, tolerance = 1.e-8), FALSE)
+})

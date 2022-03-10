@@ -23,8 +23,8 @@ num_equal <- function(x, y, tolerance = .Machine$double.eps ^ 0.5) {
   avg_diff <- mean(abs(x_diff - y_diff))
   avg_y <- mean(abs(y_diff))
 
-  # compute relative difference when y is "large"
-  if (avg_y > tolerance) {
+  # compute relative difference when y is "large" but finite
+  if (is.finite(avg_y) && avg_y > tolerance) {
     avg_diff <- avg_diff / avg_y
   }
 
