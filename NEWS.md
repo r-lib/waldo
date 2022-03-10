@@ -3,16 +3,16 @@
 * In the unlikely event that you have bare CHARSXP objects, waldo now
   handles them (#121).
 
-* Data frame comparisons are now much much faster (#116).
+* Rowwise data frame comparisons are now much much faster (#116),
+  and respect the `max_diffs` argument (@krlmlr, #110).
 
-* Rowwise comparison of data frames avoids printing too many rows by obeying the `max_diffs` argument (#110, @krlmlr).
+* S4 objects are labelled with their class, not all superclasses (#125).
 
-* Correctly shows single class for S4 objects (#125).
+* `compare_proxy()` ignores the `"index"` attribute for data tables 
+  (@krlmlr, #107), and works again for `RProtoBuf`  objects 
+  (@MichaelChirico, #119)
 
-* `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
-* `compare_proxy()` methods for `RProtoBuf` objects works again ([#119](https://github.com/r-lib/waldo/issues/119), @MichaelChirico)
-* `compare()`ing infinite values using a tolerance caused an error
-([#122](https://github.com/r-lib/waldo/issues/122), @dmurdoch).
+* Can `compare()` infinite values with a tolerance (@dmurdoch, #122).
 
 # waldo 0.3.1
 
