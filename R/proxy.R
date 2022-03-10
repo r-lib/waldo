@@ -28,6 +28,10 @@
 #' * `path`: an updated path showing what modification was applied
 #' @export
 compare_proxy <- function(x, path = "x") {
+  if (typeof(x) == "char") {
+    return(list(object = x, path = path))
+  }
+
   UseMethod("compare_proxy")
 }
 
