@@ -1,16 +1,38 @@
 compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
 
-  switch(typeof(x),
-    integer = ,
-    complex = ,
-    double = compare_numeric(x, y, paths,
-      tolerance = opts$tolerance,
-      max_diffs = opts$max_diffs
-    ),
-    logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
-    raw = ,
-    character = compare_character(x, y, paths, max_diffs = opts$max_diffs)
-  )
+  if (is.object(x) && has_format_method(x)) {
+    x_str <- format(x)
+    y_str <- format(y)
+
+    out <- compare_character(x_str, y_str, paths, max_diffs = opts$max_diffs)
+    paths <- paste0("unclass(", paths, ")")
+  } else {
+    out <- character()
+  }
+
+  if (length(out) == 0) {
+    out <- c(out, switch(typeof(x),
+      integer = ,
+      complex = ,
+      double = compare_numeric(x, y, paths,
+        tolerance = opts$tolerance,
+        max_diffs = opts$max_diffs
+      ),
+      logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
+      raw = ,
+      character = compare_character(x, y, paths, max_diffs = opts$max_diffs)
+    ))
+  }
+  out
+}
+
+has_format_method <- function(x) {
+  for (class in class(x)) {
+    if (!is.null(utils::getS3method("format", class, optional = TRUE))) {
+      return(TRUE)
+    }
+  }
+  FALSE
 }
 
 compare_logical <- function(x, y, paths = c("x", "y"), max_diffs = Inf) {
