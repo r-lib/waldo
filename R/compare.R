@@ -301,8 +301,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     y <- utils::capture.output(print(y))
     out <- c(out, should_be("{x}", "{y}"))
   } else if (typeof(x) == "char") {
-    x <- paste0("CHARSXP: ", as.character(as.call(list(x))))
-    y <- paste0("CHARSXP: ", as.character(as.call(list(y))))
+    x <- paste0("CHARSXP: ", deparse(x))
+    y <- paste0("CHARSXP: ", deparse(y))
     out <- c(out, should_be("{x}", "{y}"))
   } else if (typeof(x) != "S4") {
     abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"))
