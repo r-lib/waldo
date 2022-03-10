@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Data frame comparisons are now much much faster (#116).
+
 * Correctly shows single class for S4 objects (#125).
 
 * `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
