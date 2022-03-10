@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* In the unlikely event that you have bare CHARSXP objects, waldo now
+  handles them (#121).
+
 * Correctly shows single class for S4 objects (#125).
 
 * `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
