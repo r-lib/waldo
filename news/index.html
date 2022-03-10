@@ -53,7 +53,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="waldo-development-version">waldo (development version)<a class="anchor" aria-label="anchor" href="#waldo-development-version"></a></h2>
-<ul><li><p>Rowwise comparison of data frames avoids printing too many rows by obeying the <code>max_diffs</code> argument (<a href="https://github.com/r-lib/waldo/issues/110" class="external-link">#110</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
+<ul><li><p>Data frame comparisons are now much much faster (<a href="https://github.com/r-lib/waldo/issues/116" class="external-link">#116</a>).</p></li>
+<li><p>Rowwise comparison of data frames avoids printing too many rows by obeying the <code>max_diffs</code> argument (<a href="https://github.com/r-lib/waldo/issues/110" class="external-link">#110</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
 <li><p>Correctly shows single class for S4 objects (<a href="https://github.com/r-lib/waldo/issues/125" class="external-link">#125</a>).</p></li>
 <li><p><code><a href="../reference/compare_proxy.html">compare_proxy()</a></code> also ignores the <code>"index"</code> attribute for data tables (<a href="https://github.com/r-lib/waldo/issues/107" class="external-link">#107</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
 <li><p><code><a href="../reference/compare_proxy.html">compare_proxy()</a></code> methods for <code>RProtoBuf</code> objects works again (<a href="https://github.com/r-lib/waldo/issues/119" class="external-link">#119</a>, <a href="https://github.com/MichaelChirico" class="external-link">@MichaelChirico</a>)</p></li>
