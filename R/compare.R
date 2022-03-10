@@ -300,7 +300,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     x <- utils::capture.output(print(x))
     y <- utils::capture.output(print(y))
     out <- c(out, should_be("{x}", "{y}"))
-  } else if (!isS4(x)) {
+  } else if (typeof(x) != "S4") {
     abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"))
   }
 
