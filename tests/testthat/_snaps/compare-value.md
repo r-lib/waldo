@@ -214,6 +214,9 @@
     Output
       `levels(old)`: "a" "b" "c"
       `levels(new)`: "a" "c" "b"
+      
+      `old`: "a" "b" "c"
+      `new`: "a" "c" "b"
     Code
       f3 <- factor(c("a", "B", "c"))
       compare(f1, f3)
@@ -221,8 +224,8 @@
       `levels(old)`: "a" "b" "c"
       `levels(new)`: "B" "a" "c"
       
-      `old`: 1 2 3
-      `new`: 2 1 3
+      `old`: "a" "b" "c"
+      `new`: "a" "B" "c"
 
 # shows row-by-row diff for numeric matrices
 
@@ -246,6 +249,48 @@
     Output
       `old` is an integer vector (1, 2, 3, 4)
       `new` is a double vector (1, 2, 3, 4.0000000001)
+
+# uses format method if available
+
+    Code
+      compare(structure(1, class = "Date"), structure(1.5, class = "Date"))
+    Output
+      `unclass(old)`: 1.0
+      `unclass(new)`: 1.5
+    Code
+      compare(structure(1, class = "Date"), structure(100, class = "Date"))
+    Output
+      `old`: "1970-01-02"
+      `new`: "1970-04-11"
+    Code
+      compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"))
+    Output
+      `old`: "1970-01-01 00:00:01"
+      `new`: "1970-01-01 00:00:02"
+    Code
+      compare(factor("a"), factor("b"))
+    Output
+      `levels(old)`: "a"
+      `levels(new)`: "b"
+      
+      `old`: "a"
+      `new`: "b"
+    Code
+      compare(ordered("a"), ordered("b"))
+    Output
+      `levels(old)`: "a"
+      `levels(new)`: "b"
+      
+      `old`: "a"
+      `new`: "b"
+    Code
+      compare(factor(c("a", "b")), factor(c("a", "b"), levels = c("b", "a")))
+    Output
+      `levels(old)`: "a" "b"
+      `levels(new)`: "b" "a"
+      
+      `unclass(old)`: 1 2
+      `unclass(new)`: 2 1
 
 # logical comparisons minimise extraneous diffs
 

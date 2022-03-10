@@ -112,6 +112,18 @@ test_that("falls back to regular display if printed representation the same", {
   })
 })
 
+test_that("uses format method if available", {
+  expect_snapshot({
+    compare(structure(1, class = "Date"), structure(1.5, class = "Date"))
+    compare(structure(1, class = "Date"), structure(100, class = "Date"))
+
+    compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"))
+    compare(factor("a"), factor("b"))
+    compare(ordered("a"), ordered("b"))
+    compare(factor(c("a", "b")), factor(c("a", "b"), levels = c("b", "a")))
+  })
+})
+
 test_that("logical comparisons minimise extraneous diffs", {
   x1 <- x2 <- rep(TRUE, 50)
   x2[c(1, 25, 50)] <- FALSE

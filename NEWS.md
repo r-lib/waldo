@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* Atomic S3 classes with format methods now use those methods when 
+  displaying comparisons (#98). If the printed representation is the
+  same, they fallback to displaying the underlying data.
+
 * In the unlikely event that you have bare CHARSXP objects, waldo now
   handles them (#121).
 
