@@ -47,7 +47,7 @@ When comparing atomic vectors, `compare()` produces diffs (thanks to
 [diffobj](https://github.com/brodieG/diffobj)) that highlight additions,
 deletions, and changes, along with a little context:
 
--   Addition
+-   Deletion
 
     ``` asciicast
     compare(c("a", "b", "c"), c("a", "b"))
@@ -55,7 +55,7 @@ deletions, and changes, along with a little context:
 
     <img src="man/figures/README/unnamed-chunk-2.svg" width="100%" />
 
--   Deletion
+-   Addition
 
     ``` asciicast
     compare(c("a", "b"), c("a", "b", "c"))

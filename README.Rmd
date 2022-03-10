@@ -63,12 +63,12 @@ library(waldo)
 
 When comparing atomic vectors, `compare()` produces diffs (thanks to [diffobj](https://github.com/brodieG/diffobj)) that highlight additions, deletions, and changes, along with a little context:
 
-*   Addition
+*   Deletion
     ```{asciicast}
     compare(c("a", "b", "c"), c("a", "b"))
     ```
 
-*   Deletion
+*   Addition
     ```{asciicast}
     compare(c("a", "b"), c("a", "b", "c"))
     ```
