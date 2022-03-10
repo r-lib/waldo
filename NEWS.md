@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Correctly shows single class for S4 objects (#125).
+
 * `compare_proxy()` also ignores the `"index"` attribute for data tables (#107, @krlmlr).
 * `compare_proxy()` methods for `RProtoBuf` objects works again ([#119](https://github.com/r-lib/waldo/issues/119), @MichaelChirico)
 
