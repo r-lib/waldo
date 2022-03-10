@@ -263,10 +263,10 @@
       `old`: "1970-01-02"
       `new`: "1970-04-11"
     Code
-      compare(.POSIXct(1), .POSIXct(2))
+      compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"))
     Output
-      `old`: "1969-12-31 18:00:01"
-      `new`: "1969-12-31 18:00:02"
+      `old`: "1970-01-01 00:00:01"
+      `new`: "1970-01-01 00:00:02"
     Code
       compare(factor("a"), factor("b"))
     Output

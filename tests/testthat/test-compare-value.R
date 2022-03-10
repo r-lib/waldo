@@ -117,7 +117,7 @@ test_that("uses format method if available", {
     compare(.Date(1), .Date(1.5))
     compare(.Date(1), .Date(100))
 
-    compare(.POSIXct(1), .POSIXct(2))
+    compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"))
     compare(factor("a"), factor("b"))
     compare(ordered("a"), ordered("b"))
     compare(factor(c("a", "b")), factor(c("a", "b"), levels = c("b", "a")))
