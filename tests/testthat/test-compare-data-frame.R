@@ -56,11 +56,11 @@ test_that("only used for appropriate data frames", {
 
 test_that("obeys max_diffs", {
   expect_snapshot({
-    df1 <- data.frame(a = c(1:3, 1:4, 1:3))
-    df2 <- data.frame(a = c(3:1, 4:1, 3:1))
+    df1 <- data.frame(a = 1:5)
+    df2 <- data.frame(a = 5:1)
 
-    compare(df1, df2, max_diffs = 8)
-    compare(df1, df2, max_diffs = 9)
-    compare(df1, df2, max_diffs = 10)
+    compare(df1, df2, max_diffs = 3)
+    compare(df1, df2, max_diffs = 4)
+    compare(df1, df2, max_diffs = 5)
   })
 })

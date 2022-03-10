@@ -89,80 +89,52 @@
 # obeys max_diffs
 
     Code
-      df1 <- data.frame(a = c(1:3, 1:4, 1:3))
-      df2 <- data.frame(a = c(3:1, 4:1, 3:1))
-      compare(df1, df2, max_diffs = 8)
+      df1 <- data.frame(a = 1:5)
+      df2 <- data.frame(a = 5:1)
+      compare(df1, df2, max_diffs = 3)
     Output
       old vs new
-                  a
-      - old[1, ]  1
-      + new[1, ]  3
-        old[2, ]  2
-      - old[3, ]  3
-      + new[3, ]  1
-      - old[4, ]  1
-      + new[4, ]  4
-      - old[5, ]  2
-      + new[5, ]  3
-      - old[6, ]  3
-      + new[6, ]  2
-      - old[7, ]  4
-      + new[7, ]  1
-      - old[8, ]  1
-      + new[8, ]  3
+                 a
+      - old[1, ] 1
+      + new[1, ] 5
+      - old[2, ] 2
+      + new[2, ] 4
+        old[3, ] 3
       and 2 more ...
       
-      `old$a`: 1 2 3 1 2 3 4 1 and 2 more...
-      `new$a`: 3 2 1 4 3 2 1 3           ...
+      `old$a`: 1 2 3 and 2 more...
+      `new$a`: 5 4 3           ...
     Code
-      compare(df1, df2, max_diffs = 9)
+      compare(df1, df2, max_diffs = 4)
     Output
       old vs new
-                  a
-      - old[1, ]  1
-      + new[1, ]  3
-        old[2, ]  2
-      - old[3, ]  3
-      + new[3, ]  1
-      - old[4, ]  1
-      + new[4, ]  4
-      - old[5, ]  2
-      + new[5, ]  3
-      - old[6, ]  3
-      + new[6, ]  2
-      - old[7, ]  4
-      + new[7, ]  1
-      - old[8, ]  1
-      + new[8, ]  3
-        old[9, ]  2
+                 a
+      - old[1, ] 1
+      + new[1, ] 5
+      - old[2, ] 2
+      + new[2, ] 4
+        old[3, ] 3
+      - old[4, ] 4
+      + new[4, ] 2
       and 1 more ...
       
-      `old$a`: 1 2 3 1 2 3 4 1 2 and 1 more...
-      `new$a`: 3 2 1 4 3 2 1 3 2           ...
+      `old$a`: 1 2 3 4 and 1 more...
+      `new$a`: 5 4 3 2           ...
     Code
-      compare(df1, df2, max_diffs = 10)
+      compare(df1, df2, max_diffs = 5)
     Output
       old vs new
-                  a
-      - old[1, ]  1
-      + new[1, ]  3
-        old[2, ]  2
-      - old[3, ]  3
-      + new[3, ]  1
-      - old[4, ]  1
-      + new[4, ]  4
-      - old[5, ]  2
-      + new[5, ]  3
-      - old[6, ]  3
-      + new[6, ]  2
-      - old[7, ]  4
-      + new[7, ]  1
-      - old[8, ]  1
-      + new[8, ]  3
-        old[9, ]  2
-      - old[10, ] 3
-      + new[10, ] 1
+                 a
+      - old[1, ] 1
+      + new[1, ] 5
+      - old[2, ] 2
+      + new[2, ] 4
+        old[3, ] 3
+      - old[4, ] 4
+      + new[4, ] 2
+      - old[5, ] 5
+      + new[5, ] 1
       
-      `old$a`: 1 2 3 1 2 3 4 1 2 3
-      `new$a`: 3 2 1 4 3 2 1 3 2 1
+      `old$a`: 1 2 3 4 5
+      `new$a`: 5 4 3 2 1
 
