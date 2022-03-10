@@ -267,6 +267,8 @@ test_that("can compare R6 objects", {
 })
 
 test_that("can compare CHARSXP", {
+  skip_if(interactive())
+
   char1 <- readRDS(test_path("charsxp-1.rds"))
   char2 <- readRDS(test_path("charsxp-2.rds"))
 
