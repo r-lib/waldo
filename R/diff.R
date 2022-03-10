@@ -172,15 +172,42 @@ format_diff_matrix <- function(diff, x, y, paths,
 
 line_by_line <- function(x, y, diff, max_diffs = 10) {
   lines <- character()
+  if (nrow(diff) == 0) {
+    return(lines)
+  }
 
   line_a <- function(x) if (length(x) > 0) col_a(paste0("+ ", names(x), x))
   line_d <- function(x) if (length(x) > 0) col_d(paste0("- ", names(x), x))
   line_x <- function(x) if (length(x) > 0) col_x(paste0("  ", names(x), x))
 
-  n <- min(max_diffs, nrow(diff))
-  n_trunc <- nrow(diff) - n
+  diff_lengths <- cumsum(pmax(diff$x2 - diff$x1, diff$y2 - diff$y1) + 1)
+  all_diff_lengths <- last(diff_lengths)
+  if (all_diff_lengths > max_diffs) {
+    diffs_ok <- which(stats::lag(diff_lengths, 0) <= max_diffs)
 
-  for (i in seq_len(n)) {
+    if (length(diffs_ok) == 0) {
+      diff_ok <- 0
+      diff_length_partial <- max_diffs
+    } else {
+      diff_ok <- last(diffs_ok)
+      diff_length_partial <- max_diffs - diff_lengths[[diff_ok]]
+    }
+
+    if (diff_length_partial > 0) {
+      partial_diff <- diff[diff_ok + 1, ]
+      partial_diff$x2 <- min(partial_diff$x2, partial_diff$x1 + diff_length_partial - 1)
+      partial_diff$y2 <- min(partial_diff$y2, partial_diff$y1 + diff_length_partial - 1)
+    } else {
+      partial_diff <- NULL
+    }
+    diff <- rbind(diff[seq_len(diff_ok), ], partial_diff)
+
+    n_trunc <- all_diff_lengths - max_diffs
+  } else {
+    n_trunc <- 0
+  }
+
+  for (i in seq_len(nrow(diff))) {
     row <- diff[i, , drop = FALSE]
     x_i <- seq2(row$x1, row$x2)
     y_i <- seq2(row$y1, row$y2)
@@ -219,4 +246,8 @@ label_path <- function(path, slice) {
 
 label_idx <- function(idx) {
   ifelse(is.na(idx), "", paste0("[", idx, "]"))
+}
+
+last <- function(x) {
+  x[[length(x)]]
 }
