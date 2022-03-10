@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* In the unlikely event that you have bare CHARSXP objects, waldo now
+  handles them (#121).
+
 * Data frame comparisons are now much much faster (#116).
 
 * Rowwise comparison of data frames avoids printing too many rows by obeying the `max_diffs` argument (#110, @krlmlr).
