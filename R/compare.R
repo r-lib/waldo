@@ -285,17 +285,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       ))
     }
 
-    out <- c(out, switch(typeof(x),
-      integer = ,
-      complex = ,
-      double = compare_numeric(x, y, paths,
-        tolerance = opts$tolerance,
-        max_diffs = opts$max_diffs
-      ),
-      logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
-      raw = ,
-      character = compare_character(x, y, paths, max_diffs = opts$max_diffs)
-    ))
+    out <- c(out, compare_vector(x, y, paths = paths, opts = opts))
   } else if (typeof(x) == "externalptr") {
     x <- utils::capture.output(print(x))
     y <- utils::capture.output(print(y))

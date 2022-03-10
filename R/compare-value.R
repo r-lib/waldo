@@ -1,3 +1,18 @@
+compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
+
+  switch(typeof(x),
+    integer = ,
+    complex = ,
+    double = compare_numeric(x, y, paths,
+      tolerance = opts$tolerance,
+      max_diffs = opts$max_diffs
+    ),
+    logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
+    raw = ,
+    character = compare_character(x, y, paths, max_diffs = opts$max_diffs)
+  )
+}
+
 compare_logical <- function(x, y, paths = c("x", "y"), max_diffs = Inf) {
   diff_element(
     encodeString(x), encodeString(y), paths,
