@@ -25,7 +25,7 @@ compare(
 so messages describe how \code{y} is different to \code{x}.}
 
 \item{...}{A handful of other arguments are supported with a warning for
-backward compatability. These include:
+backward comparability. These include:
 \itemize{
 \item \code{all.equal()} arguments \code{checkNames} and \code{check.attributes}
 \item \code{testthat::compare()} argument \code{tol}

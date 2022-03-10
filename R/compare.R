@@ -50,7 +50,7 @@
 #'   to internal components. These default to "old" and "new" since it's
 #'   most natural to supply the previous value then the new value.
 #' @param ... A handful of other arguments are supported with a warning for
-#'   backward compatability. These include:
+#'   backward comparability. These include:
 #'
 #'   * `all.equal()` arguments `checkNames` and `check.attributes`
 #'   * `testthat::compare()` argument `tol`
