@@ -114,8 +114,8 @@ test_that("falls back to regular display if printed representation the same", {
 
 test_that("uses format method if available", {
   expect_snapshot({
-    compare(.Date(1), .Date(1.5))
-    compare(.Date(1), .Date(100))
+    compare(structure(1, class = "Date"), structure(1.5, class = "Date"))
+    compare(structure(1, class = "Date"), structure(100, class = "Date"))
 
     compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"))
     compare(factor("a"), factor("b"))

@@ -253,12 +253,12 @@
 # uses format method if available
 
     Code
-      compare(.Date(1), .Date(1.5))
+      compare(structure(1, class = "Date"), structure(1.5, class = "Date"))
     Output
       `unclass(old)`: 1.0
       `unclass(new)`: 1.5
     Code
-      compare(.Date(1), .Date(100))
+      compare(structure(1, class = "Date"), structure(100, class = "Date"))
     Output
       `old`: "1970-01-02"
       `new`: "1970-04-11"
