@@ -1,60 +1,39 @@
 # Revdeps
 
-## Failed to check (44)
+## Failed to check (17)
 
-|package                          |version |error     |warning |note |
-|:--------------------------------|:-------|:---------|:-------|:----|
-|abess                            |0.2.0   |1         |        |     |
-|ActivePathways                   |?       |          |        |     |
-|apisensr                         |?       |          |        |     |
-|backShift                        |?       |          |        |     |
-|bayesdfa                         |1.1.0   |1         |        |     |
-|Boom                             |0.9.7   |1         |        |     |
-|CausalImpact                     |?       |          |        |     |
-|CB2                              |?       |          |        |     |
-|cbar                             |?       |          |        |     |
-|CompareCausalNetworks            |?       |          |        |     |
-|diceR                            |?       |          |        |     |
-|dimRed                           |?       |          |        |     |
-|eff2                             |?       |          |        |     |
-|fabisearch                       |?       |          |        |     |
-|fdaPDE                           |1.0-9   |1         |        |     |
-|gllvm                            |1.3.1   |1         |        |     |
-|glmmfields                       |0.1.4   |1         |        |     |
-|[gtfs2gps](failures.md#gtfs2gps) |1.5-0   |-1 __+1__ |        |-1   |
-|hNMF                             |?       |          |        |     |
-|kdensity                         |?       |          |        |     |
-|kmcudaR                          |1.1.0   |1         |        |     |
-|loon                             |?       |          |        |     |
-|loon.shiny                       |?       |          |        |     |
-|loon.tourr                       |?       |          |        |     |
-|mcmcabn                          |?       |          |        |     |
-|metagam                          |?       |          |        |     |
-|mlpack                           |3.4.2.1 |1         |        |     |
-|osmplotr                         |?       |          |        |     |
-|penaltyLearning                  |?       |          |        |     |
-|phylopath                        |?       |          |        |     |
-|ReIns                            |?       |          |        |     |
-|rmdcev                           |1.2.4   |1         |        |     |
-|RNiftyReg                        |2.7.0   |1         |        |     |
-|scoper                           |?       |          |        |     |
-|seqgendiff                       |?       |          |        |     |
-|shattering                       |?       |          |        |     |
-|SMITIDvisu                       |?       |          |        |     |
-|SPARSEMODr                       |?       |          |        |     |
-|spectralAnalysis                 |?       |          |        |     |
-|stablespec                       |?       |          |        |     |
-|superb                           |?       |          |        |     |
-|tigger                           |?       |          |        |     |
-|vivid                            |?       |          |        |     |
-|wrswoR                           |?       |          |        |     |
+|package      |version |error |warning |note |
+|:------------|:-------|:-----|:-------|:----|
+|Boom         |0.9.7   |1     |        |     |
+|bsts         |?       |      |        |     |
+|CausalImpact |?       |      |        |     |
+|cbar         |?       |      |        |     |
+|conos        |1.4.5   |1     |        |     |
+|ctsem        |3.6.0   |1     |        |     |
+|garchmodels  |0.1.1   |1     |        |     |
+|geocmeans    |?       |      |        |     |
+|lidaRtRee    |?       |      |        |     |
+|loon.ggplot  |?       |      |        |     |
+|loon.shiny   |?       |      |        |     |
+|loon.tourr   |?       |      |        |     |
+|NA           |?       |      |        |     |
+|rules        |0.1.2   |1     |        |     |
+|SSVS         |?       |      |        |     |
+|NA           |?       |      |        |     |
+|vivid        |?       |      |        |     |
 
-## New problems (4)
+## New problems (10)
 
-|package                        |version |error    |warning |note |
-|:------------------------------|:-------|:--------|:-------|:----|
-|[fiery](problems.md#fiery)     |1.1.3   |__+1__   |        |     |
-|[mcmcr](problems.md#mcmcr)     |0.6.0   |__+1__   |        |     |
-|[nsrr](problems.md#nsrr)       |0.2.0   |1 __+1__ |        |     |
-|[scholar](problems.md#scholar) |0.2.2   |__+1__   |        |     |
+|package                            |version |error  |warning |note |
+|:----------------------------------|:-------|:------|:-------|:----|
+|[httr2](problems.md#httr2)         |0.1.1   |__+1__ |        |     |
+|[insight](problems.md#insight)     |0.16.0  |__+1__ |        |     |
+|[lightgbm](problems.md#lightgbm)   |3.3.2   |__+1__ |        |1    |
+|[lvmisc](problems.md#lvmisc)       |0.1.1   |__+1__ |        |     |
+|[mark](problems.md#mark)           |0.5.0   |__+1__ |        |     |
+|[partition](problems.md#partition) |0.1.4   |__+1__ |        |1    |
+|[sdcLog](problems.md#sdclog)       |0.4.0   |__+1__ |        |     |
+|[supernova](problems.md#supernova) |2.5.1   |__+1__ |        |1    |
+|[terrainr](problems.md#terrainr)   |0.6.1   |__+1__ |        |1    |
+|[TreeTools](problems.md#treetools) |1.6.0   |__+1__ |        |1    |
 

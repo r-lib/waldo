@@ -1,70 +1,59 @@
 ## revdepcheck results
 
-We checked 5720 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 6702 reverse dependencies (6700 from CRAN + 2 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 4 new problems
- * We failed to check 44 packages
+ * We saw 10 new problems
+ * We failed to check 15 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* fiery
+* httr2
   checking tests ... ERROR
 
-* mcmcr
+* insight
   checking tests ... ERROR
 
-* nsrr
+* lightgbm
   checking tests ... ERROR
 
-* scholar
-  checking examples ... ERROR
+* lvmisc
+  checking tests ... ERROR
+
+* mark
+  checking tests ... ERROR
+
+* partition
+  checking tests ... ERROR
+
+* sdcLog
+  checking tests ... ERROR
+
+* supernova
+  checking tests ... ERROR
+
+* terrainr
+  checking tests ... ERROR
+
+* TreeTools
+  checking tests ... ERROR
 
 ### Failed to check
 
-* abess                 (NA)
-* ActivePathways        (NA)
-* apisensr              (NA)
-* backShift             (NA)
-* bayesdfa              (NA)
-* Boom                  (NA)
-* CausalImpact          (NA)
-* CB2                   (NA)
-* cbar                  (NA)
-* CompareCausalNetworks (NA)
-* diceR                 (NA)
-* dimRed                (NA)
-* eff2                  (NA)
-* fabisearch            (NA)
-* fdaPDE                (NA)
-* gllvm                 (NA)
-* glmmfields            (NA)
-* gtfs2gps              (NA)
-* hNMF                  (NA)
-* kdensity              (NA)
-* kmcudaR               (NA)
-* loon                  (NA)
-* loon.shiny            (NA)
-* loon.tourr            (NA)
-* mcmcabn               (NA)
-* metagam               (NA)
-* mlpack                (NA)
-* osmplotr              (NA)
-* penaltyLearning       (NA)
-* phylopath             (NA)
-* ReIns                 (NA)
-* rmdcev                (NA)
-* RNiftyReg             (NA)
-* scoper                (NA)
-* seqgendiff            (NA)
-* shattering            (NA)
-* SMITIDvisu            (NA)
-* SPARSEMODr            (NA)
-* spectralAnalysis      (NA)
-* stablespec            (NA)
-* superb                (NA)
-* tigger                (NA)
-* vivid                 (NA)
-* wrswoR                (NA)
+* Boom         (NA)
+* bsts         (NA)
+* CausalImpact (NA)
+* cbar         (NA)
+* conos        (NA)
+* ctsem        (NA)
+* garchmodels  (NA)
+* geocmeans    (NA)
+* lidaRtRee    (NA)
+* loon.ggplot  (NA)
+* loon.shiny   (NA)
+* loon.tourr   (NA)
+* rules        (NA)
+* SSVS         (NA)
+* vivid        (NA)
