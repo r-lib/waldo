@@ -644,6 +644,22 @@
       `old` is an internal string
       `new` is a character vector ('foo')
 
+# can compare DOTSXP
+
+    Code
+      compare(f(1), f(1, 2))
+    Output
+      `old$...` is length 1
+      `new$...` is length 2
+      
+      `old$...[[2]]` is absent
+      `new$...[[2]]` is a double vector (2)
+    Code
+      compare(f(x = 1), f(x = 2))
+    Output
+      `old$...$x`: 1
+      `new$...$x`: 2
+
 # comparing language objects gives useful diffs
 
     Code
