@@ -351,6 +351,9 @@ test_that("can compare DOTSXP", {
   expect_snapshot({
     compare(f(1), f(1, 2))
     compare(f(x = 1), f(x = 2))
+
+    "doesn't evaluate"
+    compare(f(x = stop("!")), f(x = stop("?")))
   })
 })
 

@@ -307,8 +307,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     y <- paste0("CHARSXP: ", deparse(y))
     out <- c(out, should_be("{x}", "{y}"))
   } else if (typeof(x) == "...") {
-    x <- eval(quote(list(...)), envir = list(`...` = x))
-    y <- eval(quote(list(...)), envir = list(`...` = y))
+    x <- as.list(substitute(alist(...), env = list(... = x))[-1])
+    y <- as.list(substitute(alist(...), env = list(... = y))[-1])
     out <- c(out, compare_structure(x, y, paths = paths, opts = opts))
   } else if (typeof(x) != "S4") {
     abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"), call = NULL)

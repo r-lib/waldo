@@ -659,6 +659,12 @@
     Output
       `old$...$x`: 1
       `new$...$x`: 2
+    Code
+      # doesn't evaluate
+      compare(f(x = stop("!")), f(x = stop("?")))
+    Output
+      `old$...$x`: `stop("!")`
+      `new$...$x`: `stop("?")`
 
 # comparing language objects gives useful diffs
 
