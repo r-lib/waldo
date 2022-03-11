@@ -124,6 +124,12 @@ test_that("uses format method if available", {
   })
 })
 
+test_that("ignore_attr never uses format method", {
+  expect_snapshot({
+    compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"), ignore_attr = TRUE)
+  })
+})
+
 test_that("logical comparisons minimise extraneous diffs", {
   x1 <- x2 <- rep(TRUE, 50)
   x2[c(1, 25, 50)] <- FALSE

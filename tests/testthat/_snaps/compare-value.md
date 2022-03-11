@@ -292,6 +292,14 @@
       `unclass(old)`: 1 2
       `unclass(new)`: 2 1
 
+# ignore_attr never uses format method
+
+    Code
+      compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"), ignore_attr = TRUE)
+    Output
+      `old`: 1
+      `new`: 2
+
 # logical comparisons minimise extraneous diffs
 
     Code

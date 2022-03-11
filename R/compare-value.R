@@ -1,6 +1,6 @@
 compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
 
-  if (is.object(x) && has_format_method(x)) {
+  if (!isTRUE(opts$ignore_attr) && is.object(x) && has_format_method(x)) {
     x_str <- format(x)
     y_str <- format(y)
 
