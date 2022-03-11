@@ -1,5 +1,10 @@
 compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
 
+  # Early exit for numerics (except for) with format methods
+  if (typeof(x) %in% c("integer", "double") && num_equal(x, y, opts$tolerance)) {
+    return()
+  }
+
   if (!isTRUE(opts$ignore_attr) && is.object(x) && has_format_method(x)) {
     x_str <- format(x)
     y_str <- format(y)
