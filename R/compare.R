@@ -307,9 +307,9 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     y <- paste0("CHARSXP: ", deparse(y))
     out <- c(out, should_be("{x}", "{y}"))
   } else if (typeof(x) == "...") {
-    x <- eval(quote(list(...)), envir = list(`...` = x))
-    y <- eval(quote(list(...)), envir = list(`...` = y))
-    out <- c(out, compare_structure(x, y, paths = paths, opts = opts))
+    # Unevaluated dots are unlikely to lead to any significant differences
+    # in behaviour (they're usually captured incidentally) so we just
+    # ignore
   } else if (typeof(x) != "S4") {
     abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"), call = NULL)
   }
