@@ -214,9 +214,6 @@
     Output
       `levels(old)`: "a" "b" "c"
       `levels(new)`: "a" "c" "b"
-      
-      `old`: "a" "b" "c"
-      `new`: "a" "c" "b"
     Code
       f3 <- factor(c("a", "B", "c"))
       compare(f1, f3)
@@ -272,17 +269,11 @@
     Output
       `levels(old)`: "a"
       `levels(new)`: "b"
-      
-      `old`: "a"
-      `new`: "b"
     Code
       compare(ordered("a"), ordered("b"))
     Output
       `levels(old)`: "a"
       `levels(new)`: "b"
-      
-      `old`: "a"
-      `new`: "b"
     Code
       compare(factor(c("a", "b")), factor(c("a", "b"), levels = c("b", "a")))
     Output
@@ -299,6 +290,18 @@
     Output
       `old`: 1
       `new`: 2
+
+# don't use format if numeric & within tolerance
+
+    Code
+      compare(dt, dt + 5)
+    Output
+      `old`: "2016-07-18 16:06:00"
+      `new`: "2016-07-18 16:06:05"
+    Code
+      compare(dt, dt + 5, tolerance = 1e-08)
+    Output
+      v No differences
 
 # logical comparisons minimise extraneous diffs
 

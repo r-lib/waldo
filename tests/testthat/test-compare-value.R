@@ -123,10 +123,16 @@ test_that("uses format method if available", {
     compare(factor(c("a", "b")), factor(c("a", "b"), levels = c("b", "a")))
   })
 })
-
 test_that("ignore_attr never uses format method", {
   expect_snapshot({
     compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"), ignore_attr = TRUE)
+  })
+})
+test_that("don't use format if numeric & within tolerance", {
+  dt <- as.POSIXct("2016-07-18 16:06:00", tz = "UTC")
+  expect_snapshot({
+    compare(dt, dt + 5)
+    compare(dt, dt + 5, tolerance = 1e-8)
   })
 })
 
