@@ -243,8 +243,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       out <- c(out, should_be("<env:{env_label(x)}>", "<env:{env_label(y)}>"))
     } else {
       # Compare by value
-      x_fields <- as.list(x, all.names = TRUE)
-      y_fields <- as.list(y, all.names = TRUE)
+      x_fields <- as.list.environment(x, all.names = TRUE)
+      y_fields <- as.list.environment(y, all.names = TRUE)
       # Can't use as.list(sorted = TRUE), https://github.com/r-lib/waldo/issues/84
       if (length(x_fields) > 0) x_fields <- x_fields[order(names(x_fields))]
       if (length(y_fields) > 0) y_fields <- y_fields[order(names(y_fields))]

@@ -329,6 +329,14 @@ test_that("only shows paired env different once", {
     compare(list(e1, e1, e1), list(e2, e2, e3))
   }, transform = scrub_environment)
 })
+test_that("can compare classed environments", {
+  e1 <- new.env(parent = emptyenv())
+  class(e1) <- "foo"
+  e2 <- new.env(parent = emptyenv())
+  class(e2) <- "foo"
+
+  expect_equal(compare(e1, e2), new_compare())
+})
 
 test_that("can compare CHARSXP", {
   skip_if(interactive())
