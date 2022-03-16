@@ -1,4 +1,4 @@
-# waldo (development version)
+# waldo 0.4.0
 
 * Atomic S3 classes with format methods now use those methods when 
   displaying comparisons (#98). If the printed representation is the
