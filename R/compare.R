@@ -374,10 +374,6 @@ compare_terminate <- function(x, y, paths,
     return(character())
   }
 
-  if (!is.null(tolerance) && is_numeric(x) && is_numeric(y)) {
-    return(character())
-  }
-
   # don't care about difference between builtin and special
   if (is_primitive(x) && is_primitive(y)) {
     return(should_be("`{deparse(x)}`", "`{deparse(y)}`"))

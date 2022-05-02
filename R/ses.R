@@ -146,5 +146,11 @@ diff_complete <- function(diff) {
 }
 
 ses_df <- function(x1, x2, t, y1, y2) {
-  tibble::tibble(x1 = x1, x2 = x2, t = t, y1 = y1, y2 = y2)
+  tibble::tibble(
+    x1 = as.integer(x1),
+    x2 = as.integer(x2),
+    t = t,
+    y1 = as.integer(y1),
+    y2 = as.integer(y2)
+  )
 }

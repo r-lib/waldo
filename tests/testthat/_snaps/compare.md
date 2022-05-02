@@ -176,6 +176,15 @@
       `attr(old, 'b')` is absent
       `attr(new, 'b')` is a character vector ('b')
 
+# integer and double compare as different even if tolerance set
+
+    Code
+      x <- 1:3
+      compare(x, as.numeric(x), tolerance = 0)
+    Output
+      `old` is an integer vector (1, 2, 3)
+      `new` is a double vector (1, 2, 3)
+
 # ignores S3 [[ methods
 
     Code

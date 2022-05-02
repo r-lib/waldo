@@ -66,11 +66,11 @@ test_that("can optionally ignore selected attributes", {
 test_that("can optionally ignore function/formula envs", {
   f1a <- y ~ x
   f1b <- local(y ~ x)
-  expect_equal(length(compare(f1a, f1b, ignore_formula_env = TRUE)), 0)
+  expect_equal(length(compare(f1a, f1b, ignore_formula_env = TRUE)), 0L)
 
   f2a <- function(x) x + 1
   f2b <- local(function(x) x + 1)
-  expect_equal(length(compare(f2a, f2b, ignore_function_env = TRUE)), 0)
+  expect_equal(length(compare(f2a, f2b, ignore_function_env = TRUE)), 0L)
 })
 
 test_that("don't strictly compare row names", {
@@ -80,9 +80,15 @@ test_that("don't strictly compare row names", {
 })
 
 test_that("can ignore minor numeric differences", {
-  x <- 1:3
-  expect_equal(compare_structure(x, as.numeric(x), opts = compare_opts(tolerance = 0)), character())
+  x <- as.numeric(1:3)
   expect_equal(compare_structure(x, x + 1e-9, opts = compare_opts(tolerance = 1e-6)), character())
+})
+
+test_that("integer and double compare as different even if tolerance set", {
+  expect_snapshot({
+    x <- 1:3
+    compare(x, as.numeric(x), tolerance = 0)
+  })
 })
 
 test_that("ignores S3 [[ methods", {
@@ -401,28 +407,8 @@ test_that("compare_proxy() modifies path", {
   expect_snapshot(compare(foo1, foo2))
 })
 
-test_that("options have correct precedence", {
-  x <- list(1)
-  x_tolerant <- structure(x, waldo_opts = list(tolerance = 0))
-  x_intolerant <- structure(x, waldo_opts = list(tolerance = NULL))
-  y <- list(1L)
-  y_tolerant <- structure(y, waldo_opts = list(tolerance = 0))
-  y_intolerant <- structure(y, waldo_opts = list(tolerance = NULL))
-
-  # Starts from global defaults
-  expect_length(compare(x, y), 1)
-  # Options beats nothing
-  expect_length(compare(x, y_tolerant), 0)
-  expect_length(compare(x_tolerant, y), 0)
-  # y beats x
-  expect_length(compare(x_intolerant, y_tolerant), 0)
-  expect_length(compare(x_tolerant, y_intolerant), 1)
-  # User supplied beats y
-  expect_length(compare(x_intolerant, y_tolerant, tolerance = NULL), 1)
-})
-
 test_that("options inherited by children", {
-  x <- structure(list(list(1)), waldo_opts = list(tolerance = 0))
-  y <- list(list(1L))
+  x <- structure(list(list(1)), waldo_opts = list(tolerance = 0.1))
+  y <- list(list(1.1))
   expect_length(compare(x, y), 0)
 })

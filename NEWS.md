@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Integer and double no longer compare as equal if tolerance set.
+
 # waldo 0.4.0
 
 * Atomic S3 classes with format methods now use those methods when 
