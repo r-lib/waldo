@@ -7,6 +7,10 @@ num_equal <- function(x, y, tolerance = .Machine$double.eps ^ 0.5) {
     return(FALSE)
   }
 
+  if (any(is.nan(x) != is.nan(y))) {
+    return(FALSE)
+  }
+
   attributes(x) <- NULL
   attributes(y) <- NULL
 

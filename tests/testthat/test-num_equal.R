@@ -29,3 +29,9 @@ test_that("infinite values are handled properly", {
   expect_equal(num_equal(-Inf, Inf), FALSE)
   expect_equal(num_equal(-Inf, Inf, tolerance = 1.e-8), FALSE)
 })
+
+test_that("NaN is different from NA_real_ if base::is.nan says so", {
+  expect_equal(num_equal(NaN, NA_real_), is.nan(NaN)==is.nan(NA_real_))
+  expect_equal(num_equal(NaN, NaN), TRUE)
+  expect_equal(num_equal(NA_real_, NA_real_), TRUE)
+})
