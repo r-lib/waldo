@@ -9,7 +9,7 @@ Where possible, it compares elements by name, rather than by position.
 Errs on the side of producing too much output, rather than too little.
 
 
-compare() is an alternative to all.equal()."><title>Compare two objects — compare • waldo</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Compare two objects — compare"><meta property="og:description" content="This compares two R objects, identifying the key differences. It:
+compare() is an alternative to all.equal()."><title>Compare two objects — compare • waldo</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.5/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.5/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Compare two objects — compare"><meta property="og:description" content="This compares two R objects, identifying the key differences. It:
 Orders the differences from most important to least important.
 Displays the values of atomic vectors that are actually different.
 Carefully uses colour to emphasise changes (while still being readable
@@ -85,21 +85,21 @@ when colour isn't available).</p></li>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">compare</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">y</span>,
-  <span class="va">...</span>,
-  x_arg <span class="op">=</span> <span class="st">"old"</span>,
-  y_arg <span class="op">=</span> <span class="st">"new"</span>,
-  tolerance <span class="op">=</span> <span class="cn">NULL</span>,
-  max_diffs <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu">in_ci</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cn">Inf</span> <span class="kw">else</span> <span class="fl">10</span>,
-  ignore_srcref <span class="op">=</span> <span class="cn">TRUE</span>,
-  ignore_attr <span class="op">=</span> <span class="st">"waldo_opts"</span>,
-  ignore_encoding <span class="op">=</span> <span class="cn">TRUE</span>,
-  ignore_function_env <span class="op">=</span> <span class="cn">FALSE</span>,
-  ignore_formula_env <span class="op">=</span> <span class="cn">FALSE</span>,
-  list_as_map <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">compare</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  x_arg <span class="op">=</span> <span class="st">"old"</span>,</span>
+<span>  y_arg <span class="op">=</span> <span class="st">"new"</span>,</span>
+<span>  tolerance <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_diffs <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu">in_ci</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cn">Inf</span> <span class="kw">else</span> <span class="fl">10</span>,</span>
+<span>  ignore_srcref <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ignore_attr <span class="op">=</span> <span class="st">"waldo_opts"</span>,</span>
+<span>  ignore_encoding <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ignore_function_env <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore_formula_env <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  list_as_map <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -107,15 +107,21 @@ when colour isn't available).</p></li>
     <dl><dt>x, y</dt>
 <dd><p>Objects to compare. <code>x</code> is treated as the reference object
 so messages describe how <code>y</code> is different to <code>x</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>A handful of other arguments are supported with a warning for
 backward comparability. These include:</p><ul><li><p><code><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal()</a></code> arguments <code>checkNames</code> and <code>check.attributes</code></p></li>
 <li><p><code><a href="https://testthat.r-lib.org/reference/compare.html" class="external-link">testthat::compare()</a></code> argument <code>tol</code></p></li>
 </ul><p>All other arguments are ignored with a warning.</p></dd>
+
+
 <dt>x_arg, y_arg</dt>
 <dd><p>Name of <code>x</code> and <code>y</code> arguments, used when generated paths
 to internal components. These default to "old" and "new" since it's
 most natural to supply the previous value then the new value.</p></dd>
+
+
 <dt>tolerance</dt>
 <dd><p>If non-<code>NULL</code>, used as threshold for ignoring small
 floating point difference when comparing numeric vectors. Setting to
@@ -127,14 +133,20 @@ with differences. Then we check that
 <code>mean(abs(x_diff - y_diff)) / mean(abs(y_diff))</code> (or just
 <code>mean(abs(x_diff - y_diff))</code> if <code>y_diff</code> is small) is less than
 <code>tolerance</code>.</p></dd>
+
+
 <dt>max_diffs</dt>
 <dd><p>Control the maximum number of differences shown. The
 default shows 10 differences when run interactively and all differences
 when run in CI. Set <code>max_diffs = Inf</code> to see all differences.</p></dd>
+
+
 <dt>ignore_srcref</dt>
 <dd><p>Ignore differences in function <code>srcref</code>s? <code>TRUE</code> by
 default since the <code>srcref</code> does not change the behaviour of a function,
 only its printed representation.</p></dd>
+
+
 <dt>ignore_attr</dt>
 <dd><p>Ignore differences in specified attributes?
 Supply a character vector to ignore differences in named attributes.
@@ -145,23 +157,32 @@ will probably want to do this yourself.</p>
 to all ignore differences in all attributes. This is not generally
 recommended as it is a blunt tool that will ignore many important
 functional differences.</p></dd>
+
+
 <dt>ignore_encoding</dt>
 <dd><p>Ignore string encoding? <code>TRUE</code> by default, because
 this is R's default behaviour. Use <code>FALSE</code> when specifically concerned
 with the encoding, not just the value of the string.</p></dd>
+
+
 <dt>ignore_function_env, ignore_formula_env</dt>
 <dd><p>Ignore the environments of
 functions and formulas, respectively? These are provided primarily for
 backward compatibility with <code><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal()</a></code> which always ignores these
 environments.</p></dd>
+
+
 <dt>list_as_map</dt>
 <dd><p>Compare lists as if they are mappings between names and
 values. Concretely, this drops <code>NULLs</code> in both objects and sorts named
 components.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A character vector with class "waldo_compare". If there are no
+    
+
+<p>A character vector with class "waldo_compare". If there are no
 differences it will have length 0; otherwise each element contains the
 description of a single difference.</p>
     </div>
@@ -197,56 +218,56 @@ differently but <code>compare()</code> reports no differences in the underlying 
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Thanks to diffobj package comparison of atomic vectors shows differences</span></span>
-<span class="r-in"><span class="co"># with a little context</span></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="va">letters</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="va">letters</span><span class="op">[</span><span class="op">-</span><span class="fl">26</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Thanks to diffobj package comparison of atomic vectors shows differences</span></span></span>
+<span class="r-in"><span><span class="co"># with a little context</span></span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="va">letters</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="va">letters</span><span class="op">[</span><span class="op">-</span><span class="fl">26</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old[1:3]`:     <span style="color: #555555;">"a"</span> <span style="color: #555555;">"b"</span> <span style="color: #555555;">"c"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new[1:4]`: <span style="color: #0000BB;">"z"</span> <span style="color: #555555;">"a"</span> <span style="color: #555555;">"b"</span> <span style="color: #555555;">"c"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old[23:26]`: <span style="color: #555555;">"w"</span> <span style="color: #555555;">"x"</span> <span style="color: #555555;">"y"</span> <span style="color: #BBBB00;">"z"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new[24:26]`: <span style="color: #555555;">"w"</span> <span style="color: #555555;">"x"</span> <span style="color: #555555;">"y"</span>    </span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old`: <span style="color: #555555;">1</span> <span style="color: #BBBB00;">2</span> <span style="color: #555555;">3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new`: <span style="color: #555555;">1</span>   <span style="color: #555555;">3</span></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old`: <span style="color: #555555;">1</span> <span style="color: #00BB00;">2</span> <span style="color: #00BB00;">3</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new`: <span style="color: #555555;">1</span> <span style="color: #00BB00;">3</span> <span style="color: #00BB00;">4</span> <span style="color: #00BB00;">5</span></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old`: <span style="color: #555555;">1</span> <span style="color: #555555;">2</span> <span style="color: #00BB00;">3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new`: <span style="color: #555555;">1</span> <span style="color: #555555;">2</span> <span style="color: #00BB00;">5</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># More complex objects are traversed, stopping only when the types are</span></span>
-<span class="r-in"><span class="co"># different</span></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fl">1</span>, z <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fl">1</span>, z <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># More complex objects are traversed, stopping only when the types are</span></span></span>
+<span class="r-in"><span><span class="co"># different</span></span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fl">1</span>, z <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fl">1</span>, z <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `attr(old$x$y[[1]], 'z')` is <span style="color: #00BB00;">a double vector</span> (2)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `attr(new$x$y[[1]], 'z')` is <span style="color: #00BB00;">a character vector</span> ('a')</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Where possible, recursive structures are compared by name</span></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Where possible, recursive structures are compared by name</span></span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     names(old)     | names(new)        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] <span style="color: #00BB00;">"Sepal.Length"</span> - <span style="color: #00BB00;">"Species"</span>      [1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] <span style="color: #00BB00;">"Sepal.Width"</span>  - <span style="color: #00BB00;">"Petal.Width"</span>  [2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] <span style="color: #555555;">"Petal.Length"</span> | <span style="color: #555555;">"Petal.Length"</span> [3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4] <span style="color: #00BB00;">"Petal.Width"</span>  - <span style="color: #00BB00;">"Sepal.Width"</span>  [4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] <span style="color: #00BB00;">"Species"</span>      - <span style="color: #00BB00;">"Sepal.Length"</span> [5]</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"y"</span>, x <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"y"</span>, x <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `names(old)`: <span style="color: #00BB00;">"x"</span> <span style="color: #00BB00;">"y"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `names(new)`: <span style="color: #00BB00;">"y"</span> <span style="color: #00BB00;">"x"</span></span>
-<span class="r-in"><span class="co"># Otherwise they're compared by position</span></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Otherwise they're compared by position</span></span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old[[2]]`: <span style="color: #00BB00;">"y"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new[[2]]`: <span style="color: #00BB00;">"z"</span></span>
-<span class="r-in"><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"x"</span>, x <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"x"</span>, x <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `names(old)`: <span style="color: #555555;">"x"</span> <span style="color: #00BB00;">"x"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `names(new)`: <span style="color: #555555;">"x"</span> <span style="color: #00BB00;">"y"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old[[2]]`: <span style="color: #00BB00;">"y"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new[[2]]`: <span style="color: #00BB00;">"z"</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -260,7 +281,7 @@ differently but <code>compare()</code> reports no differences in the underlying 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
   </div></footer></body></html>
