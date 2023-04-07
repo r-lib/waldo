@@ -85,6 +85,10 @@ test_that("numeric comparison", {
   })
 })
 
+test_that("informative difference between NA and NaN", {
+  expect_snapshot(compare_numeric(NA_real_, NaN))
+})
+
 test_that("numeric comparison works on factors", {
   expect_snapshot({
     f1 <- factor(c("a", "b", "c"))
