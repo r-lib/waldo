@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` now correctly reports that `NA_real_` and `NaN` are different
+  (@sorhawell, #150).
+
 # waldo 0.4.0
 
 * Atomic S3 classes with format methods now use those methods when 

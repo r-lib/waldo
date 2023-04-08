@@ -205,6 +205,14 @@
       `x[2:3]`: 2             
            `y`: 1 2.0000001  3
 
+# informative difference between NA and NaN
+
+    Code
+      compare_numeric(NA_real_, NaN)
+    Output
+      `x`:  NA
+      `y`: NaN
+
 # numeric comparison works on factors
 
     Code
