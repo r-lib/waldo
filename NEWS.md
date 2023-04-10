@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `compare()` once again works with 3d (and greater) numeric arrays (#148).
+
 * `compare()` now correctly reports that `NA_real_` and `NaN` are different
   (@sorhawell, #150).
 

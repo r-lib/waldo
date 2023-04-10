@@ -70,7 +70,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     return(new_compare())
   }
 
-  if (!is.null(dim(x)) && identical(dim(x), dim(y))) {
+  if (length(dim(x)) == 2 && identical(dim(x), dim(y))) {
     rows <- printed_rows(x, y, paths = paths)
     out <- diff_rows(rows, paths = paths, max_diffs = max_diffs)
 

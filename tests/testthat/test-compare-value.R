@@ -108,6 +108,14 @@ test_that("shows row-by-row diff for numeric matrices", {
   })
 })
 
+test_that("but not for arrays", {
+  expect_snapshot({
+    x <- y <- array(1:4, c(1, 2, 2))
+    y[1, 2, 2] <- 5L
+    compare(x, y)
+  })
+})
+
 test_that("falls back to regular display if printed representation the same", {
   expect_snapshot({
     x <- y <- matrix(1:4, nrow = 2)
