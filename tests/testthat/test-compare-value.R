@@ -140,6 +140,13 @@ test_that("don't use format if numeric & within tolerance", {
   })
 })
 
+test_that("can compare complex numbers", {
+  expect_snapshot({
+    compare(1:2 + 1i, 2 + 1i)
+    compare(1:2 + 1i, 1:2 + 2i)
+  })
+})
+
 test_that("logical comparisons minimise extraneous diffs", {
   x1 <- x2 <- rep(TRUE, 50)
   x2[c(1, 25, 50)] <- FALSE

@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `compare()` gains basic support for complex numbers (#146).
+
 * `compare()` now correctly reports that `NA_real_` and `NaN` are different
   (@sorhawell, #150).
 
