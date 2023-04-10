@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `ignore_attr = "class"` now works for more types of input (#143).
+
 * `compare()` now correctly reports that `NA_real_` and `NaN` are different
   (@sorhawell, #150).
 

@@ -370,7 +370,8 @@ compare_terminate <- function(x, y, paths,
     return(character())
   }
 
-  if (isTRUE(ignore_attr) && (typeof(x) == typeof(y))) {
+  ignore_class <- isTRUE(ignore_attr) || "class" %in% ignore_attr
+  if (ignore_class && (typeof(x) == typeof(y))) {
     return(character())
   }
 
