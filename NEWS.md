@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` ignores the `balanced` attribute used by some `POSIXlt` objects
+  in R 4.3 and greater (#160).
+
 * `compare()` now correctly reports that `NA_real_` and `NaN` are different
   (@sorhawell, #150).
 
