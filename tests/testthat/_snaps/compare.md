@@ -696,3 +696,13 @@
       `proxy(old)$x`: 1
       `proxy(new)$x`: 2
 
+# can opt out of string quoting
+
+    Code
+      compare(c("a", "b", "c"), c("a", "b", "d"), quote_strings = FALSE)
+    Output
+          old | new    
+      [1] a   | a   [1]
+      [2] b   | b   [2]
+      [3] c   - d   [3]
+

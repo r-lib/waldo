@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` can now opt-out of quoting strings with `quote_strings = FALSE` 
+  (#145).
+
 * `NA_character_` and `"NA"` no longer compare as equal (#162).
 
 * `compare()` ignores the `balanced` attribute used by some `POSIXlt` objects
