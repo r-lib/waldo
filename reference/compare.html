@@ -98,7 +98,8 @@ when colour isn't available).</p></li>
 <span>  ignore_encoding <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ignore_function_env <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ignore_formula_env <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  list_as_map <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  list_as_map <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  quote_strings <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -176,6 +177,12 @@ environments.</p></dd>
 <dd><p>Compare lists as if they are mappings between names and
 values. Concretely, this drops <code>NULLs</code> in both objects and sorts named
 components.</p></dd>
+
+
+<dt>quote_strings</dt>
+<dd><p>Should strings be surrounded by quotes? If <code>FALSE</code>,
+only side-by-side and line-by-line comparisons will be used, and there's
+no way to distinguish between <code>NA</code> and <code>"NA"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
