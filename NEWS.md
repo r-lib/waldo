@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `compare()` once again works with 3d (and greater) numeric arrays (#148).
+
 * `compare()` gains basic support for complex numbers (#146).
 
 * `ignore_attr = "class"` now works for more types of input (#143).

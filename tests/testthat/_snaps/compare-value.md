@@ -245,6 +245,16 @@
       - old[2, ]    2    4
       + new[2, ]    2    5
 
+# but not for arrays
+
+    Code
+      x <- y <- array(1:4, c(1, 2, 2))
+      y[1, 2, 2] <- 5L
+      compare(x, y)
+    Output
+      `old`: 1 2 3 4
+      `new`: 1 2 3 5
+
 # falls back to regular display if printed representation the same
 
     Code
