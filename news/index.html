@@ -53,7 +53,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="waldo-development-version">waldo (development version)<a class="anchor" aria-label="anchor" href="#waldo-development-version"></a></h2>
-<ul><li><p><code>ignore_attr = "class"</code> now works for more types of input (<a href="https://github.com/r-lib/waldo/issues/143" class="external-link">#143</a>).</p></li>
+<ul><li><p><code>NA_character_</code> and <code>"NA"</code> no longer compare as equal (<a href="https://github.com/r-lib/waldo/issues/162" class="external-link">#162</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> ignores the <code>balanced</code> attribute used by some <code>POSIXlt</code> objects in R 4.3 and greater (<a href="https://github.com/r-lib/waldo/issues/160" class="external-link">#160</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> once again works with 3d (and greater) numeric arrays (<a href="https://github.com/r-lib/waldo/issues/148" class="external-link">#148</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> gains basic support for complex numbers (<a href="https://github.com/r-lib/waldo/issues/146" class="external-link">#146</a>).</p></li>
+<li><p><code>ignore_attr = "class"</code> now works for more types of input (<a href="https://github.com/r-lib/waldo/issues/143" class="external-link">#143</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> now correctly reports that <code>NA_real_</code> and <code>NaN</code> are different (<a href="https://github.com/sorhawell" class="external-link">@sorhawell</a>, <a href="https://github.com/r-lib/waldo/issues/150" class="external-link">#150</a>).</p></li>
 </ul></div>
     <div class="section level2">
