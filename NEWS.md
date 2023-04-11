@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `NA_character_` and `"NA"` no longer compare as equal (#162).
+
 * `compare()` now correctly reports that `NA_real_` and `NaN` are different
   (@sorhawell, #150).
 

@@ -52,6 +52,14 @@
       `old[18:26]`: "r" "s" "t" "u" "v" "w" "x" "y" "z"
       `new[18:21]`: "r" "s" "t" "a"                    
 
+# NA and 'NA' compare differently
+
+    Code
+      compare(NA_character_, "NA")
+    Output
+      `old`: NA  
+      `new`: "NA"
+
 # multiline comparison
 
     Code
