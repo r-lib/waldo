@@ -321,6 +321,19 @@
     Output
       v No differences
 
+# can compare complex numbers
+
+    Code
+      compare(1:2 + 0+1i, 2 + 0+1i)
+    Output
+      `old`: 1+1i 2+1i
+      `new`:      2+1i
+    Code
+      compare(1:2 + 0+1i, 1:2 + 0+2i)
+    Output
+      `Im(old)`: 1 1
+      `Im(new)`: 2 2
+
 # logical comparisons minimise extraneous diffs
 
     Code

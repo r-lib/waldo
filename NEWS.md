@@ -2,6 +2,10 @@
 
 * `compare()` once again works with 3d (and greater) numeric arrays (#148).
 
+* `compare()` gains basic support for complex numbers (#146).
+
+* `ignore_attr = "class"` now works for more types of input (#143).
+
 * `compare()` now correctly reports that `NA_real_` and `NaN` are different
   (@sorhawell, #150).
 
