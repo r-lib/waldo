@@ -63,6 +63,17 @@ test_that("can optionally ignore selected attributes", {
   expect_equal(compare_structure(x, y, opts = opts), character())
 })
 
+test_that("can ignore class attribute", {
+  one_a <- structure(1, class = "a")
+  one_b <- structure(1, class = "b")
+
+  expect_length(compare(one_a, one_b, ignore_attr = "class"), 0)
+  expect_length(compare(one_a, 1, ignore_attr = "class"), 0)
+
+  expect_snapshot(compare(one_a, 1L, ignore_attr = "class"))
+  expect_length(compare(one_a, 1L, ignore_attr = "class", tolerance = 1e-6), 0)
+})
+
 test_that("can optionally ignore function/formula envs", {
   f1a <- y ~ x
   f1b <- local(y ~ x)
