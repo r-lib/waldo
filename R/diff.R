@@ -19,16 +19,16 @@ diff_align <- function(diff, x, y) {
     }
 
     x_out <- c(x_out, switch(row$t,
-      a = c(col_x(x[x_i]), NA[y_i]),
-      c = col_c(x[x_i]),
-      d = col_d(x[x_i]),
-      x = col_x(x[x_i])
+      a = col_x(extract(x, c(x_i, NA[y_i]))),
+      c = col_c(extract(x, x_i)),
+      d = col_d(extract(x, x_i)),
+      x = col_x(extract(x, x_i))
     ))
     y_out <- c(y_out, switch(row$t,
-      a = col_a(y[y_i]),
-      c = col_c(y[y_i]),
-      d = c(col_x(y[y_i]), NA[x_i]),
-      x = col_x(y[y_i])
+      a = col_a(extract(y, y_i)),
+      c = col_c(extract(y, y_i)),
+      d = col_x(extract(y, c(y_i, NA[x_i]))),
+      x = col_x(extract(y, y_i))
     ))
 
     x_idx <- c(x_idx, x_i[x_i != 0], if (row$t == "a") NA[y_i])
@@ -59,6 +59,12 @@ diff_align <- function(diff, x, y) {
   )
 }
 
+extract <- function(x, idx) {
+  out <- x[idx]
+  out[is.na(idx)] <- ""
+  out
+}
+
 # Only want to show slice if it's partial
 make_slice <- function(x, idx) {
   if (all(is.na(idx))) {
@@ -73,11 +79,10 @@ make_slice <- function(x, idx) {
   }
 }
 
-col_a <- function(x) ifelse(is.na(x), NA, cli::col_blue(x))
-col_d <- function(x) ifelse(is.na(x), NA, cli::col_yellow(x))
-col_c <- function(x) ifelse(is.na(x), NA, cli::col_green(x))
-col_x <- function(x) ifelse(is.na(x), NA, cli::col_grey(x))
-
+col_a <- function(x) cli::col_blue(x)
+col_d <- function(x) cli::col_yellow(x)
+col_c <- function(x) cli::col_green(x)
+col_x <- function(x) cli::col_grey(x)
 
 # values ------------------------------------------------------------------
 
@@ -120,7 +125,6 @@ format_diff_matrix <- function(diff, x, y, paths,
                                use_paired = TRUE) {
   alignment <- diff_align(diff, x, y)
   mat <- rbind(alignment$x, alignment$y)
-  mat[is.na(mat)] <- ""
 
   n <- min(ncol(mat), max_diffs)
   n_trunc <- ncol(mat) - n

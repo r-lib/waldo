@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Leading and trailing `NA`s are no longer omitted from output when the
+  lengths of `x` and `y` are unequal (#109).
+
 * `compare()` can now opt-out of quoting strings with `quote_strings = FALSE` 
   (#145).
 
