@@ -18,8 +18,11 @@ compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   if (length(out) == 0) {
     out <- c(out, switch(typeof(x),
       integer = ,
-      complex = ,
       double = compare_numeric(x, y, paths,
+        tolerance = opts$tolerance,
+        max_diffs = opts$max_diffs
+      ),
+      complex = compare_complex(x, y, paths,
         tolerance = opts$tolerance,
         max_diffs = opts$max_diffs
       ),
@@ -77,7 +80,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     return(new_compare())
   }
 
-  if (!is.null(dim(x)) && identical(dim(x), dim(y))) {
+  if (length(dim(x)) == 2 && identical(dim(x), dim(y))) {
     rows <- printed_rows(x, y, paths = paths)
     out <- diff_rows(rows, paths = paths, max_diffs = max_diffs)
 
@@ -107,6 +110,38 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     out
   } else {
     glue::glue("{paths[[1]]} != {paths[[2]]} but don't know how to show the difference")
+  }
+}
+
+compare_complex <- function(x, y, paths = c("x", "y"), tolerance = default_tol(), max_diffs = Inf) {
+
+  if (length(x) == length(y)) {
+    c(
+      compare_numeric(
+        Re(x),
+        Re(y),
+        paths = paste0("Re(", paths, ")"),
+        tolerance = tolerance,
+        max_diffs = max_diffs
+      ),
+      compare_numeric(
+        Im(x),
+        Im(y),
+        paths = paste0("Im(", paths, ")"),
+        tolerance = tolerance,
+        max_diffs = max_diffs
+      )
+    )
+  } else {
+    x_fmt <- format(x)
+    y_fmt <- format(y)
+
+    diff_element(
+      x_fmt, y_fmt, paths,
+      quote = NULL,
+      justify = "right",
+      max_diffs = max_diffs
+    )
   }
 }
 

@@ -87,14 +87,17 @@ diff_element <- function(x, y, paths = c("x", "y"),
                          max_diffs = 10,
                          width = getOption("width"),
                          is_string = FALSE) {
-  diff <- ses_shortest(x, y)
-  if (length(diff) == 0) {
-    return(new_compare())
-  }
 
+  # Must quote before comparison to ensure that "NA" and NA_character
+  # have different representation
   if (!is.null(quote)) {
     x <- encodeString(x, quote = quote)
     y <- encodeString(y, quote = quote)
+  }
+
+  diff <- ses_shortest(x, y)
+  if (length(diff) == 0) {
+    return(new_compare())
   }
 
   format <- lapply(diff, format_diff_matrix,
