@@ -25,7 +25,7 @@ compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
       ),
       logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
       raw = ,
-      character = compare_character(x, y, paths, max_diffs = opts$max_diffs)
+      character = compare_character(x, y, paths, quote = if (opts$quote_strings) '"' else NULL, max_diffs = opts$max_diffs)
     ))
   }
   out
@@ -61,7 +61,14 @@ compare_character <- function(x, y, paths = c("x", "y"), quote = "\"", max_diffs
       new_compare(compare_by_line(x, y, paths, opts))
     }
   } else {
-    diff_element(x, y, paths, quote = quote, max_diffs = max_diffs)
+    diff_element(
+      x,
+      y,
+      paths,
+      quote = quote,
+      max_diffs = max_diffs,
+      is_string = TRUE
+    )
   }
 }
 

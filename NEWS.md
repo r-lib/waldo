@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` can now opt-out of quoting strings with `quote_strings = FALSE` 
+  (#145).
+
 * `compare()` now correctly reports that `NA_real_` and `NaN` are different
   (@sorhawell, #150).
 

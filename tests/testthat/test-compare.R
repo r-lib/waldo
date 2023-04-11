@@ -426,3 +426,9 @@ test_that("options inherited by children", {
   y <- list(list(1L))
   expect_length(compare(x, y), 0)
 })
+
+test_that("can opt out of string quoting", {
+  expect_snapshot(
+    compare(c("a", "b", "c"), c("a", "b", "d"), quote_strings = FALSE)
+  )
+})

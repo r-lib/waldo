@@ -85,7 +85,8 @@ diff_element <- function(x, y, paths = c("x", "y"),
                          quote = "\"",
                          justify = "left",
                          max_diffs = 10,
-                         width = getOption("width")) {
+                         width = getOption("width"),
+                         is_string = FALSE) {
   diff <- ses_shortest(x, y)
   if (length(diff) == 0) {
     return(new_compare())
@@ -102,7 +103,9 @@ diff_element <- function(x, y, paths = c("x", "y"),
     paths = paths,
     justify = justify,
     width = width,
-    max_diffs = max_diffs
+    max_diffs = max_diffs,
+    # Paired comparisons are confusing for unquoted strings
+    use_paired = !is_string || !is.null(quote)
   )
   new_compare(unlist(format, recursive = FALSE))
 }
@@ -110,7 +113,8 @@ diff_element <- function(x, y, paths = c("x", "y"),
 format_diff_matrix <- function(diff, x, y, paths,
                                justify = "left",
                                width = getOption("width"),
-                               max_diffs = 10) {
+                               max_diffs = 10,
+                               use_paired = TRUE) {
   alignment <- diff_align(diff, x, y)
   mat <- rbind(alignment$x, alignment$y)
   mat[is.na(mat)] <- ""
@@ -123,16 +127,18 @@ format_diff_matrix <- function(diff, x, y, paths,
   y_path_label <- label_path(paths[[2]], alignment$y_slice)
 
   # Paired lines ---------------------------------------------------------------
-  mat_out <- cbind(paste0("`", c(x_path_label, y_path_label), "`:"), mat)
-  if (n_trunc > 0) {
-    mat_out <- mat_out[, seq_len(n + 1)]
-    mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
-  }
-  out <- apply(mat_out, 2, fansi_align, justify = justify)
-  rows <- apply(out, 1, paste, collapse = " ")
+  if (use_paired) {
+    mat_out <- cbind(paste0("`", c(x_path_label, y_path_label), "`:"), mat)
+    if (n_trunc > 0) {
+      mat_out <- mat_out[, seq_len(n + 1)]
+      mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
+    }
+    out <- apply(mat_out, 2, fansi_align, justify = justify)
+    rows <- apply(out, 1, paste, collapse = " ")
 
-  if (fansi::nchar_ctl(rows[[1]]) <= width) {
-    return(paste0(rows, collapse = "\n"))
+    if (fansi::nchar_ctl(rows[[1]]) <= width) {
+      return(paste0(rows, collapse = "\n"))
+    }
   }
 
   # Side-by-side ---------------------------------------------------------------

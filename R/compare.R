@@ -93,6 +93,9 @@
 #' @param list_as_map Compare lists as if they are mappings between names and
 #'   values. Concretely, this drops `NULLs` in both objects and sorts named
 #'   components.
+#' @param quote_strings Should strings be surrounded by quotes? If `FALSE`,
+#'   only side-by-side and line-by-line comparisons will be used, and there's
+#'   no way to distinguish between `NA` and `"NA"`.
 #' @returns A character vector with class "waldo_compare". If there are no
 #'   differences it will have length 0; otherwise each element contains the
 #'   description of a single difference.
@@ -129,7 +132,8 @@ compare <- function(x, y, ...,
                     ignore_encoding = TRUE,
                     ignore_function_env = FALSE,
                     ignore_formula_env = FALSE,
-                    list_as_map = FALSE
+                    list_as_map = FALSE,
+                    quote_strings = TRUE
                     ) {
 
   opts <- compare_opts(
@@ -141,7 +145,8 @@ compare <- function(x, y, ...,
     ignore_encoding = ignore_encoding,
     ignore_formula_env = ignore_formula_env,
     ignore_function_env = ignore_function_env,
-    list_as_map = list_as_map
+    list_as_map = list_as_map,
+    quote_strings = quote_strings
   )
   # Record options overridden by user
   opts$user_specified <- intersect(names(opts), names(match.call()))
