@@ -9,6 +9,15 @@ test_that("xml2 proxy generates useful comparisons", {
   })
 })
 
+test_that("POSIXlt comparison ignores balanced attribute", {
+  # Simulate example from https://github.com/r-lib/waldo/issues/160
+  x1 <- x2 <- as.POSIXlt("2009-08-03 12:01:59", tz = "UTC")
+  attr(x1, "balanced") <- TRUE
+  attr(x2, "balanced") <- NULL
+
+  expect_length(compare(x1, x2), 0)
+})
+
 # don't Suggest RProtoBuf, so just mock the classes
 test_that("RProtoBuf proxy works", {
   x1 <- x2 <- list(toString = function(x) 1)

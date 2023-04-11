@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* `compare()` ignores the `balanced` attribute used by some `POSIXlt` objects
+  in R 4.3 and greater (#160).
+
 * `compare()` once again works with 3d (and greater) numeric arrays (#148).
 
 * `compare()` gains basic support for complex numbers (#146).
