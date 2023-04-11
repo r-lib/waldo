@@ -17,7 +17,8 @@ compare(
   ignore_encoding = TRUE,
   ignore_function_env = FALSE,
   ignore_formula_env = FALSE,
-  list_as_map = FALSE
+  list_as_map = FALSE,
+  quote_strings = TRUE
 )
 }
 \arguments{
@@ -80,6 +81,10 @@ environments.}
 \item{list_as_map}{Compare lists as if they are mappings between names and
 values. Concretely, this drops \code{NULLs} in both objects and sorts named
 components.}
+
+\item{quote_strings}{Should strings be surrounded by quotes? If \code{FALSE},
+only side-by-side and line-by-line comparisons will be used, and there's
+no way to distinguish between \code{NA} and \code{"NA"}.}
 }
 \value{
 A character vector with class "waldo_compare". If there are no
