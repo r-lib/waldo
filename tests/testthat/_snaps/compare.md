@@ -176,6 +176,14 @@
       `attr(old, 'b')` is absent
       `attr(new, 'b')` is a character vector ('b')
 
+# can ignore class attribute
+
+    Code
+      compare(one_a, 1L, ignore_attr = "class")
+    Output
+      `old` is an S3 object of class <a>, a double vector
+      `new` is an integer vector (1)
+
 # ignores S3 [[ methods
 
     Code

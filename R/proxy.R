@@ -52,6 +52,15 @@ compare_proxy.xml_node <- function(x, path) {
   list(object = as.character(x), path = paste0("as.character(", path, ")"))
 }
 
+#' @export
+compare_proxy.POSIXlt <- function(x, path) {
+  # From R 4.3: More experimentally, a ‘"POSIXlt"’ object may have an attribute
+  # ‘"balanced"’ indicating if it is known to be filled or fully balanced.
+  # This is a performance optimisation that waldo can ignore.
+  attr(x, "balanced") <- NULL
+  list(object = x, path = path)
+}
+
 # RProtoBuf objects -------------------------------------------------------
 compare_protobuf <- function(x, path) {
   list(object = x$toString(), path = paste0(path, "$toString()"))

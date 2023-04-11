@@ -253,6 +253,16 @@
       - old[2, ]    2    4
       + new[2, ]    2    5
 
+# but not for arrays
+
+    Code
+      x <- y <- array(1:4, c(1, 2, 2))
+      y[1, 2, 2] <- 5L
+      compare(x, y)
+    Output
+      `old`: 1 2 3 4
+      `new`: 1 2 3 5
+
 # falls back to regular display if printed representation the same
 
     Code
@@ -318,6 +328,19 @@
       compare(dt, dt + 5, tolerance = 1e-08)
     Output
       v No differences
+
+# can compare complex numbers
+
+    Code
+      compare(1:2 + 0+1i, 2 + 0+1i)
+    Output
+      `old`: 1+1i 2+1i
+      `new`:      2+1i
+    Code
+      compare(1:2 + 0+1i, 1:2 + 0+2i)
+    Output
+      `Im(old)`: 1 1
+      `Im(new)`: 2 2
 
 # logical comparisons minimise extraneous diffs
 
