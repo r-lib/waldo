@@ -53,7 +53,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="waldo-development-version">waldo (development version)<a class="anchor" aria-label="anchor" href="#waldo-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/compare.html">compare()</a></code> can now opt-out of quoting strings with <code>quote_strings = FALSE</code> (<a href="https://github.com/r-lib/waldo/issues/145" class="external-link">#145</a>).</p></li>
+<ul><li><p>Leading and trailing <code>NA</code>s are no longer omitted from output when the lengths of <code>x</code> and <code>y</code> are unequal (<a href="https://github.com/r-lib/waldo/issues/109" class="external-link">#109</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> can now opt-out of quoting strings with <code>quote_strings = FALSE</code> (<a href="https://github.com/r-lib/waldo/issues/145" class="external-link">#145</a>).</p></li>
 <li><p><code>NA_character_</code> and <code>"NA"</code> no longer compare as equal (<a href="https://github.com/r-lib/waldo/issues/162" class="external-link">#162</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> ignores the <code>balanced</code> attribute used by some <code>POSIXlt</code> objects in R 4.3 and greater (<a href="https://github.com/r-lib/waldo/issues/160" class="external-link">#160</a>).</p></li>
 <li><p><code><a href="../reference/compare.html">compare()</a></code> once again works with 3d (and greater) numeric arrays (<a href="https://github.com/r-lib/waldo/issues/148" class="external-link">#148</a>).</p></li>
