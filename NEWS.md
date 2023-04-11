@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Leading and trailing `NA`s are no longer omitted from output when the
+  lengths of `x` and `y` are unequal (#109).
+
 * `NA_character_` and `"NA"` no longer compare as equal (#162).
 
 * `compare()` ignores the `balanced` attribute used by some `POSIXlt` objects

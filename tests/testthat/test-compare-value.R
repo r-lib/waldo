@@ -89,6 +89,14 @@ test_that("numeric comparison", {
   })
 })
 
+test_that("NAs are shown regardless of position", {
+  expect_snapshot({
+    compare(c(NA, 1, 2), c(1, 2))
+    compare(c(1, NA, 2), c(1, 2))
+    compare(c(1, 2, NA), c(1, 2))
+  })
+})
+
 test_that("informative difference between NA and NaN", {
   expect_snapshot(compare_numeric(NA_real_, NaN))
 })

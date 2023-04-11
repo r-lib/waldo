@@ -210,8 +210,26 @@
       # unequal length
       compare_numeric(c(1, 2, NA), c(1, 2 + 1e-07, NA, 3))
     Output
-      `x[2:3]`: 2             
-           `y`: 1 2.0000001  3
+      `x[2:3]`: 2              NA
+           `y`: 1 2.0000001 NA  3
+
+# NAs are shown regardless of position
+
+    Code
+      compare(c(NA, 1, 2), c(1, 2))
+    Output
+      `old`: NA 1 2
+      `new`:    1 2
+    Code
+      compare(c(1, NA, 2), c(1, 2))
+    Output
+      `old`: 1 NA 2
+      `new`: 1    2
+    Code
+      compare(c(1, 2, NA), c(1, 2))
+    Output
+      `old`: 1 2 NA
+      `new`: 1 2   
 
 # informative difference between NA and NaN
 
