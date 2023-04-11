@@ -23,6 +23,10 @@ test_that("character comparison", {
   })
 })
 
+test_that("NA and 'NA' compare differently", {
+  expect_snapshot(compare(NA_character_, "NA"))
+})
+
 test_that("multiline comparison", {
   expect_snapshot({
     compare_character("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")

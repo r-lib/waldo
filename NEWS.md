@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* `NA_character_` and `"NA"` no longer compare as equal (#162).
+
 * `compare()` ignores the `balanced` attribute used by some `POSIXlt` objects
   in R 4.3 and greater (#160).
 
