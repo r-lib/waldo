@@ -35,6 +35,6 @@ object to a string.
 data in memory in C++ and only expose string names to R. Fortunately,
 these have well-understood string representations that we can use for
 comparisons. See
-\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format}
+\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.text_format/}
 }
 }
