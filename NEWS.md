@@ -1,24 +1,24 @@
 # waldo (development version)
 
-* Leading and trailing `NA`s are no longer omitted from output when the
-  lengths of `x` and `y` are unequal (#109).
+* You can opt-out of quoting strings with `quote_strings = FALSE` (#145).
 
-* `compare()` can now opt-out of quoting strings with `quote_strings = FALSE` 
-  (#145).
+* Improvements to missing value handling:
 
-* `NA_character_` and `"NA"` no longer compare as equal (#162).
+  * `NA_character_` and `"NA"` are no longer treated as equal (#162).
 
-* `compare()` ignores the `balanced` attribute used by some `POSIXlt` objects
-  in R 4.3 and greater (#160).
+  * `NA_real_` and `NaN` are no longer treated as equal (@sorhawell, #150).
 
-* `compare()` once again works with 3d (and greater) numeric arrays (#148).
+  * Leading and trailing `NA`s are no longer omitted from output when the
+    lengths of `x` and `y` are unequal (#109).
 
-* `compare()` gains basic support for complex numbers (#146).
+* The `balanced` attribute used by some `POSIXlt` objects in R 4.3 and greater
+  is now ignored (#160).
+
+* 3d (and greater) numeric arrays no longer cause an error (#148).
+
+* Support for complex numbers is improved (#146).
 
 * `ignore_attr = "class"` now works for more types of input (#143).
-
-* `compare()` now correctly reports that `NA_real_` and `NaN` are different
-  (@sorhawell, #150).
 
 # waldo 0.4.0
 
