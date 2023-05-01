@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.5.0
 
 * You can opt-out of quoting strings with `quote_strings = FALSE` (#145).
