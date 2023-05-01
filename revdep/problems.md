@@ -69,7 +69,7 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
        2.   └─arrow:::expect_equal(via_table, expected, ...) at tests/testthat/helper-expectation.R:101:2
        3.     └─testthat::expect_equal(...) at tests/testthat/helper-expectation.R:42:4
       
-      [ FAIL 13 | WARN 10 | SKIP 76 | PASS 7565 ]
+      [ FAIL 13 | WARN 9 | SKIP 76 | PASS 7565 ]
       Error: Test failures
       Execution halted
     ```
@@ -78,7 +78,7 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 123.3Mb
+      installed size is 123.4Mb
       sub-directories of 1Mb or more:
         R       4.2Mb
         libs  118.6Mb
@@ -133,6 +133,47 @@ Run `revdepcheck::cloud_details(, "audubon")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 54582 marked UTF-8 strings
+    ```
+
+# baRcodeR
+
+<details>
+
+* Version: 0.1.7
+* GitHub: https://github.com/ropensci/baRcodeR
+* Source code: https://github.com/cran/baRcodeR
+* Date/Publication: 2022-04-01 10:40:02 UTC
+* Number of recursive dependencies: 81
+
+Run `revdepcheck::cloud_details(, "baRcodeR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘Using-baRcodeR.Rmd’ using rmarkdown
+    Could not fetch https://raw.githubusercontent.com/yihanwu/baRcodeR/master/man/figures/Flowchart.png
+    HttpExceptionRequest Request {
+      host                 = "raw.githubusercontent.com"
+      port                 = 443
+      secure               = True
+      requestHeaders       = []
+      path                 = "/yihanwu/baRcodeR/master/man/figures/Flowchart.png"
+      queryString          = ""
+    ...
+    --- failed re-building ‘Using-baRcodeR.Rmd’
+    
+    --- re-building ‘use-addin.Rmd’ using rmarkdown
+    --- finished re-building ‘use-addin.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘Using-baRcodeR.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # bignum
@@ -220,17 +261,17 @@ Run `revdepcheck::cloud_details(, "canaper")` for more info
       Execution halted
     ```
 
-# dplyr
+# DLSSM
 
 <details>
 
-* Version: 1.1.1
-* GitHub: https://github.com/tidyverse/dplyr
-* Source code: https://github.com/cran/dplyr
-* Date/Publication: 2023-03-22 13:20:07 UTC
-* Number of recursive dependencies: 96
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/DLSSM
+* Date/Publication: 2022-12-13 12:40:08 UTC
+* Number of recursive dependencies: 52
 
-Run `revdepcheck::cloud_details(, "dplyr")` for more info
+Run `revdepcheck::cloud_details(, "DLSSM")` for more info
 
 </details>
 
@@ -241,73 +282,59 @@ Run `revdepcheck::cloud_details(, "dplyr")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-deprec-combine.R:193:3'): combine works with NA and complex (#2203) ──
-      `works2` (`actual`) not equal to `expected_result` (`expected`).
-      
-        `Im(actual)`: 1 1 NA 1
-      `Im(expected)`: 1 1  1 1
-      ── Failure ('test-deprec-combine.R:203:3'): combine works with NA and complex (#2203) ──
-      `works3` (`actual`) not equal to `expected_result` (`expected`).
-      
-        `Im(actual)`: 1 1 NA NA 1
-      `Im(expected)`: 1 1  1  1 1
-      
-      [ FAIL 2 | WARN 0 | SKIP 324 | PASS 2799 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 4 marked UTF-8 strings
-    ```
-
-# exifr
-
-<details>
-
-* Version: 0.3.2
-* GitHub: https://github.com/paleolimbot/exifr
-* Source code: https://github.com/cran/exifr
-* Date/Publication: 2021-03-20 20:40:20 UTC
-* Number of recursive dependencies: 44
-
-Run `revdepcheck::cloud_details(, "exifr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test_utils.R:21:3'): exiftool install works properly ────────────────
-      Error in `curl::curl_download(install_url, download_file, quiet = quiet)`: Timeout was reached: [] Connection timed out after 10000 milliseconds
+      Error in `dimnames(x) <- dn`: length of 'dimnames' [2] not equal to array extent
       Backtrace:
           ▆
-       1. ├─testthat::expect_is(...) at test_utils.R:21:2
-       2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
-       3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
-       4. └─exifr::configure_exiftool(...)
-       5.   └─curl::curl_download(install_url, download_file, quiet = quiet)
+       1. ├─testthat::expect_error(...) at test-DLSSM.R:19:2
+       2. │ └─testthat:::expect_condition_matching(...)
+       3. │   └─testthat:::quasi_capture(...)
+       4. │     ├─testthat (local) .capture(...)
+       5. │     │ └─base::withCallingHandlers(...)
+       6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
+       7. └─DLSSM::Batched(formula2, data2, time = "t", S = 10)
+       8.   └─base::`colnames<-`(`*tmp*`, value = c(var_names, time))
       
-      [ FAIL 1 | WARN 0 | SKIP 1 | PASS 41 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 3 ]
       Error: Test failures
       Execution halted
     ```
 
-## In both
+# exDE
 
-*   checking LazyData ... NOTE
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/dd-harp/exDE
+* Source code: https://github.com/cran/exDE
+* Date/Publication: 2022-11-18 10:00:04 UTC
+* Number of recursive dependencies: 68
+
+Run `revdepcheck::cloud_details(, "exDE")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
     ```
-      'LazyData' is specified without a 'data' directory
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      `expected`: 238.37684957 22.07192311
+      ── Failure ('test-equilibrium-RM-basic.R:121:3'): test equilibrium with RM adults (ODE), basic competition ──
+      as.vector(out[2, params$Y_ix + 1]) (`actual`) not equal to as.vector(Y) (`expected`).
+      
+        `actual`: 71.0194405522 11.5953354469
+      `expected`: 71.0194405527 11.5953389394
+      ── Failure ('test-equilibrium-RM-basic.R:122:3'): test equilibrium with RM adults (ODE), basic competition ──
+      as.vector(out[2, params$Z_ix + 1]) (`actual`) not equal to as.vector(Z) (`expected`).
+      
+        `actual`: 21.6871731 5.8128969
+      `expected`: 21.6871733 5.8128979
+      
+      [ FAIL 5 | WARN 2 | SKIP 0 | PASS 46 ]
+      Error: Test failures
+      Execution halted
     ```
 
 # extras
@@ -344,44 +371,6 @@ Run `revdepcheck::cloud_details(, "extras")` for more info
       `expected`:  NA
       
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 1002 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# gcplyr
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/mikeblazanin/gcplyr
-* Source code: https://github.com/cran/gcplyr
-* Date/Publication: 2023-02-03 10:32:31 UTC
-* Number of recursive dependencies: 83
-
-Run `revdepcheck::cloud_details(, "gcplyr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-       [1] "NA"         - NA             [1]           
-       [2] "NA"         - NA             [2]           
-       [3] "NA"         - NA             [3]           
-       [4] "NA"         - NA             [4]           
-       [5] "NA"         - NA             [5]           
-       [6] "a"          | "a"            [6]           
-       [7] "NA"         - NA             [7]           
-       [8] "NA"         - NA             [8]           
-       [9] "NA"         - NA             [9]           
-      [10] "hello"      | "hello"        [10]          
-       ... ...            ...            and 6 more ...
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 170 ]
       Error: Test failures
       Execution halted
     ```
@@ -424,17 +413,17 @@ Run `revdepcheck::cloud_details(, "geos")` for more info
       Execution halted
     ```
 
-# gplsim
+# gh
 
 <details>
 
-* Version: 1.0.0
-* GitHub: NA
-* Source code: https://github.com/cran/gplsim
-* Date/Publication: 2023-02-11 16:50:02 UTC
-* Number of recursive dependencies: 36
+* Version: 1.4.0
+* GitHub: https://github.com/r-lib/gh
+* Source code: https://github.com/cran/gh
+* Date/Publication: 2023-02-22 20:20:02 UTC
+* Number of recursive dependencies: 67
 
-Run `revdepcheck::cloud_details(, "gplsim")` for more info
+Run `revdepcheck::cloud_details(, "gh")` for more info
 
 </details>
 
@@ -445,19 +434,19 @@ Run `revdepcheck::cloud_details(, "gplsim")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > library(gplsim)
-      > 
-      > test_check("gplsim")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 9 ]
+      Error in `gh("GET /repos/{owner}/{repo}/contents/{path}", owner = "r-lib", 
+          repo = "gh", path = "LICENSE", ref = "v1.2.0", ...)`: GitHub API error (403): API rate limit exceeded for 50.16.143.239. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
+      i Read more at <https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting>
+      Backtrace:
+          ▆
+       1. └─gh (local) get_license() at test-print.R:13:2
+       2.   └─gh::gh(...) at test-print.R:3:4
+       3.     └─gh:::gh_make_request(req)
+       4.       └─gh:::gh_error(resp, error_call = error_call)
+       5.         └─cli::cli_abort(...)
+       6.           └─rlang::abort(...)
       
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-gplsim.r:22:3'): test the main functions (gplsim) with binary case ──
-      as.vector(est_beta) (`actual`) not equal to `true.theta` (`expected`).
-      
-        `actual`: 0.75 0.51 0.43
-      `expected`: 0.58 0.58 0.58
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 9 ]
+      [ FAIL 3 | WARN 0 | SKIP 16 | PASS 116 ]
       Error: Test failures
       Execution halted
     ```
@@ -551,6 +540,105 @@ Run `revdepcheck::cloud_details(, "ijtiff")` for more info
       Execution halted
     ```
 
+# ispdata
+
+<details>
+
+* Version: 1.1
+* GitHub: NA
+* Source code: https://github.com/cran/ispdata
+* Date/Publication: 2023-02-10 11:50:02 UTC
+* Number of recursive dependencies: 66
+
+Run `revdepcheck::cloud_details(, "ispdata")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+          .Internal(readBin(con, what, n, size, signed, swap))
+      })(structure(4L, class = c("url", "connection"), conn_id = <pointer: 0x1d7>), 
+          raw(0), 131071L)`: cannot read from connection
+      Backtrace:
+          ▆
+       1. ├─ispdata::monthly_stats(by = "cisp") at test-monthly_stats.R:3:0
+       2. │ ├─janitor::clean_names(...)
+       3. │ └─readr::read_csv2(...)
+       4. │   └─vroom::vroom(...)
+       5. │     └─vroom:::vroom_(...)
+       6. └─base (local) `<fn>`(`<url>`, `<raw>`, 131071L)
+      
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 64 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.3Mb
+      sub-directories of 1Mb or more:
+        data   5.1Mb
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 87 marked UTF-8 strings
+    ```
+
+# lightgbm
+
+<details>
+
+* Version: 3.3.5
+* GitHub: https://github.com/Microsoft/LightGBM
+* Source code: https://github.com/cran/lightgbm
+* Date/Publication: 2023-01-16 19:00:07 UTC
+* Number of recursive dependencies: 34
+
+Run `revdepcheck::cloud_details(, "lightgbm")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      71. Feature penalties work properly ('test_parameters.R:14:3') - lgb.train: Found the following passed through '...': num_leaves, learning_rate, objective, feature_penalty, metric. These will be used, but in future releases of lightgbm, this warning will become an error. Add these to 'params' instead. See ?lgb.train for documentation on how to call this function.
+      
+      72. Feature penalties work properly ('test_parameters.R:14:3') - lgb.train: Found the following passed through '...': num_leaves, learning_rate, objective, feature_penalty, metric. These will be used, but in future releases of lightgbm, this warning will become an error. Add these to 'params' instead. See ?lgb.train for documentation on how to call this function.
+      
+      73. Feature penalties work properly ('test_parameters.R:14:3') - lgb.train: Found the following passed through '...': num_leaves, learning_rate, objective, feature_penalty, metric. These will be used, but in future releases of lightgbm, this warning will become an error. Add these to 'params' instead. See ?lgb.train for documentation on how to call this function.
+      
+      ══ Failed ══════════════════════════════════════════════════════════════════════
+      ── 1. Failure ('test_lgb.Booster.R:474:7'): Booster$eval() should work on a Data
+      `eval_in_mem` not identical to `eval_from_file`.
+      Objects equal but not identical
+      
+      ══ DONE ════════════════════════════════════════════════════════════════════════
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 82.4Mb
+      sub-directories of 1Mb or more:
+        libs  81.8Mb
+    ```
+
 # mark
 
 <details>
@@ -628,17 +716,17 @@ Run `revdepcheck::cloud_details(, "mlr3")` for more info
       Execution halted
     ```
 
-# openxlsx2
+# OlinkAnalyze
 
 <details>
 
-* Version: 0.6
-* GitHub: https://github.com/JanMarvin/openxlsx2
-* Source code: https://github.com/cran/openxlsx2
-* Date/Publication: 2023-04-02 09:30:02 UTC
-* Number of recursive dependencies: 107
+* Version: 3.4.0
+* GitHub: NA
+* Source code: https://github.com/cran/OlinkAnalyze
+* Date/Publication: 2023-04-26 20:22:29 UTC
+* Number of recursive dependencies: 209
 
-Run `revdepcheck::cloud_details(, "openxlsx2")` for more info
+Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
 
 </details>
 
@@ -649,32 +737,21 @@ Run `revdepcheck::cloud_details(, "openxlsx2")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      actual vs expected
-                         Var3
-        actual[1, ]      1.00
-      - actual[2, ]        NA
-      + expected[2, ]     NaN
-        actual[3, ]      1.34
-        actual[4, ]        NA
-        actual[5, ]      1.56
-      
-        `actual[[2]][1:5]`: 1  NA 1 NA 2
-      `expected[[2]][1:5]`: 1 NaN 1 NA 2
-      
-      [ FAIL 1 | WARN 0 | SKIP 19 | PASS 1188 ]
+      • pca_plot/pca-basic-plotting.svg
+      • pca_plot/pca-plot-color-by-treatment.svg
+      • pca_plot/pca-plot-drop-assays-and-drop-samples.svg
+      • pca_plot/pca-plot-internal-2.svg
+      • pca_plot/pca-plot-internal-3.svg
+      • pca_plot/pca-plot-internal-4.svg
+      • pca_plot/pca-plot-internal.svg
+      • pca_plot/pca-plot-label-outliers.svg
+      • pca_plot/pca-plot-not-label-outliers.svg
+      • pca_plot/pca-plot-panel-1.svg
+      • pca_plot/pca-plot-panel-2.svg
+      • pca_plot/pca-plot-with-loadings.svg
+      • pca_plot/pca-plot.svg
       Error: Test failures
       Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 16.8Mb
-      sub-directories of 1Mb or more:
-        doc       1.4Mb
-        extdata   1.3Mb
-        libs     12.2Mb
     ```
 
 # PKNCA
@@ -755,56 +832,15 @@ Run `revdepcheck::cloud_details(, "plantTracker")` for more info
       Execution halted
     ```
 
-# REDCapR
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/OuhscBbmc/REDCapR
-* Source code: https://github.com/cran/REDCapR
-* Date/Publication: 2022-08-10 16:10:18 UTC
-* Number of recursive dependencies: 98
-
-Run `revdepcheck::cloud_details(, "REDCapR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘BasicREDCapROperations.Rmd’ using rmarkdown
-    --- finished re-building ‘BasicREDCapROperations.Rmd’
-    
-    --- re-building ‘SecurityDatabase.Rmd’ using rmarkdown
-    --- finished re-building ‘SecurityDatabase.Rmd’
-    
-    --- re-building ‘TroubleshootingApiCalls.Rmd’ using rmarkdown
-    --- finished re-building ‘TroubleshootingApiCalls.Rmd’
-    ...
-    Quitting from lines 135-140 (workflow-read.Rmd) 
-    Error: processing vignette 'workflow-read.Rmd' failed with diagnostics:
-    Timeout was reached: [bbmc.ouhsc.edu] Connection timed out after 10000 milliseconds
-    --- failed re-building ‘workflow-read.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘workflow-read.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # s2
 
 <details>
 
-* Version: 1.1.2
+* Version: 1.1.3
 * GitHub: https://github.com/r-spatial/s2
 * Source code: https://github.com/cran/s2
-* Date/Publication: 2023-01-12 13:00:02 UTC
-* Number of recursive dependencies: 33
+* Date/Publication: 2023-04-27 11:30:02 UTC
+* Number of recursive dependencies: 35
 
 Run `revdepcheck::cloud_details(, "s2")` for more info
 
@@ -818,19 +854,19 @@ Run `revdepcheck::cloud_details(, "s2")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-s2-accessors.R:164:3'): s2_project() and s2_project_normalized() work ──
+      s2_project_normalized(...) (`actual`) not equal to c(0, 0.25, 0.75, 1, NA_real_, NA_real_) (`expected`).
+      
+          actual              | expected               
+      [1] 0.00000000000000000 | 0.00000000000000000 [1]
+      [2] 0.25000000000000006 - 0.25000000000000000 [2]
+      [3] 0.75000000000000000 | 0.75000000000000000 [3]
       [4] 1.00000000000000000 | 1.00000000000000000 [4]
       [5] NaN                 - NA                  [5]
       [6] NA                  | NA                  [6]
-      ── Failure ('test-s2-lnglat.R:13:3'): s2_lnglat objects can be created from and converted back to R objects ──
-      as_s2_lnglat(s2_point(NA, NA, NA)) (`actual`) not identical to s2_lnglat(NaN, NaN) (`expected`).
       
-        `actual$x`:  NA
-      `expected$x`: NaN
-      
-        `actual$y`:  NA
-      `expected$y`: NaN
-      
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 1071 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 1074 ]
       Error: Test failures
       Execution halted
     ```
@@ -849,14 +885,52 @@ Run `revdepcheck::cloud_details(, "s2")` for more info
     Package unavailable to check Rd xrefs: ‘sf’
     ```
 
+# splot
+
+<details>
+
+* Version: 0.5.3
+* GitHub: https://github.com/miserman/splot
+* Source code: https://github.com/cran/splot
+* Date/Publication: 2023-03-06 19:10:02 UTC
+* Number of recursive dependencies: 50
+
+Run `revdepcheck::cloud_details(, "splot")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      total time (seconds) 0.2020 2.0020
+      mean time per run    0.0101 0.1001
+      times the minimum    1.0000 9.9109
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 55 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-splot.color.R:23:3'): scale works ────────────────────────────
+      all(initial == splot.color(1:5, shuffle = TRUE)) is not FALSE
+      
+      `actual`:   TRUE 
+      `expected`: FALSE
+      
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 55 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # ssdtools
 
 <details>
 
-* Version: 1.0.2
+* Version: 1.0.3
 * GitHub: https://github.com/bcgov/ssdtools
 * Source code: https://github.com/cran/ssdtools
-* Date/Publication: 2022-05-14 23:50:02 UTC
+* Date/Publication: 2023-04-12 09:20:02 UTC
 * Number of recursive dependencies: 119
 
 Run `revdepcheck::cloud_details(, "ssdtools")` for more info
@@ -870,14 +944,14 @@ Run `revdepcheck::cloud_details(, "ssdtools")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      • ssd-plot/boron_breaks.png
-      • ssd-plot/boron_cens_pred.png
       • ssd-plot/boron_cens_pred_ribbon.png
       • ssd-plot/boron_cens_pred_species.png
+      • ssd-plot/boron_color.png
       • ssd-plot/boron_pred.png
       • ssd-plot/boron_pred_label.png
       • ssd-plot/boron_pred_ribbon.png
       • ssd-plot/boron_pred_shift_x.png
+      • ssd-plot/boron_shape.png
       • ssd-plot/missing_order.png
       • tidy/tidy.csv
       • weibull/hc_anona.csv
@@ -896,224 +970,6 @@ Run `revdepcheck::cloud_details(, "ssdtools")` for more info
         doc    1.2Mb
         help   1.0Mb
         libs  21.2Mb
-    ```
-
-# tidytable
-
-<details>
-
-* Version: 0.10.0
-* GitHub: https://github.com/markfairbanks/tidytable
-* Source code: https://github.com/cran/tidytable
-* Date/Publication: 2023-03-10 00:10:02 UTC
-* Number of recursive dependencies: 54
-
-Run `revdepcheck::cloud_details(, "tidytable")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      `expected[2:5]`: 3 4 5 NaN
-      ── Failure ('test-lag-lead.R:41:3'): lags. works on a vector ───────────────────
-      `vec` (`actual`) not equal to c(NaN, 1, 2, 3, 4) (`expected`).
-      
-        `actual[1:4]`:  NA 1 2 3
-      `expected[1:4]`: NaN 1 2 3
-      ── Failure ('test-lag-lead.R:49:3'): leads. works on a vector ──────────────────
-      `vec` (`actual`) not equal to c(2, 3, 4, 5, NaN) (`expected`).
-      
-        `actual[2:5]`: 3 4 5  NA
-      `expected[2:5]`: 3 4 5 NaN
-      
-      [ FAIL 4 | WARN 496 | SKIP 0 | PASS 1449 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# tinytiger
-
-<details>
-
-* Version: 0.0.4
-* GitHub: https://github.com/alarm-redist/tinytiger
-* Source code: https://github.com/cran/tinytiger
-* Date/Publication: 2022-08-27 13:40:02 UTC
-* Number of recursive dependencies: 63
-
-Run `revdepcheck::cloud_details(, "tinytiger")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-primary_roads.R:2:3'): tt_primary_roads works ──────────────────
-      Error in `value[[3L]](cond)`: HTTP error 503.
-      Backtrace:
-          ▆
-       1. └─tinytiger:::maybe_304(tt_primary_roads()) at test-primary_roads.R:2:2
-       2.   └─base::tryCatch(...) at tests/testthat/setup.R:5:2
-       3.     └─base (local) tryCatchList(expr, classes, parentenv, handlers)
-       4.       └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
-       5.         └─value[[3L]](cond)
-      
-      [ FAIL 1 | WARN 0 | SKIP 1 | PASS 41 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# TreeTools
-
-<details>
-
-* Version: 1.9.1
-* GitHub: https://github.com/ms609/TreeTools
-* Source code: https://github.com/cran/TreeTools
-* Date/Publication: 2023-03-20 17:00:03 UTC
-* Number of recursive dependencies: 76
-
-Run `revdepcheck::cloud_details(, "TreeTools")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-       3.     └─testthat:::waldo_compare(...)
-       4.       └─waldo::compare(x, y, ..., x_arg = x_arg, y_arg = y_arg)
-       5.         └─waldo:::compare_structure(x, y, paths = c(x_arg, y_arg), opts = opts)
-       6.           └─waldo:::compare_vector(x, y, paths = paths, opts = opts)
-       7.             └─waldo:::compare_character(...)
-       8.               └─waldo:::diff_element(...)
-       9.                 └─base::encodeString(x, quote = quote)
-      
-      [ FAIL 3 | WARN 0 | SKIP 7 | PASS 3278 ]
-      Deleting unused snapshots:
-      • RoguePlot/rogueplot-trees2.svg
-      • Support/labelsplits-nameless.svg
-      • Support/labelsplits-names.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 11.9Mb
-      sub-directories of 1Mb or more:
-        R      1.0Mb
-        libs   9.9Mb
-    ```
-
-# tukeyGH
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/f-santi/tukeyGH
-* Source code: https://github.com/cran/tukeyGH
-* Date/Publication: 2021-04-10 08:10:02 UTC
-* Number of recursive dependencies: 36
-
-Run `revdepcheck::cloud_details(, "tukeyGH")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-       [1] 0.4537745593639739 - 0.4537745591502967 [1]            
-       [2] 2.7684430548860126 - 2.7684430549406991 [2]            
-       [3] 0.2838007072037158 - 0.2838007065386969 [3]            
-       [4] 2.2397483538342748 - 2.2397483664661157 [4]            
-       [5] 0.1501380880303070 - 0.1501380880133348 [5]            
-       [6] 0.2036593397698254 - 0.2036593397350738 [6]            
-       [7] 0.2342670108469560 - 0.2342670108480107 [7]            
-       [8] 0.1339138910602141 - 0.1339139030066023 [8]            
-       [9] 0.0908826046920154 - 0.0908826049098003 [9]            
-      [10] 0.4150925761231412 - 0.4150925760518311 [10]           
-       ... ...                  ...                and 90 more ...
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 62 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘Rdpack’
-      All declared Imports should be used.
-    ```
-
-# vctrs
-
-<details>
-
-* Version: 0.6.1
-* GitHub: https://github.com/r-lib/vctrs
-* Source code: https://github.com/cran/vctrs
-* Date/Publication: 2023-03-22 09:20:02 UTC
-* Number of recursive dependencies: 72
-
-Run `revdepcheck::cloud_details(, "vctrs")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ── Failure ('test-type-bare.R:264:3'): Shaped NA casts work as expected ────────
-      `actual` (vec_cast(mat(dbl(NA)), to_mat)) not equal to `expected` (`exp_mat`).
-      
-      Im(actual) vs Im(expected)
-                          [,1]
-      - Im(actual)[1, ]      0
-      + Im(expected)[1, ]   NA
-      Backtrace:
-          ▆
-       1. └─vctrs:::expect_equal(vec_cast(mat(dbl(NA)), to_mat), exp_mat) at test-type-bare.R:264:2
-       2.   └─vctrs:::expect_waldo_equal("equal", act, exp, info, ..., tolerance = tolerance) at tests/testthat/helper-vctrs.R:53:2
-      
-      [ FAIL 3 | WARN 0 | SKIP 307 | PASS 5259 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.3Mb
-      sub-directories of 1Mb or more:
-        libs   3.6Mb
     ```
 
 # vroom

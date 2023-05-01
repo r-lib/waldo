@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 7437 reverse dependencies (7394 from CRAN + 43 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 7487 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 27 new problems
- * We failed to check 32 packages
+ * We saw 24 new problems
+ * We failed to check 9 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -19,28 +19,28 @@ Issues with CRAN packages are summarised below.
 * audubon
   checking tests ... ERROR
 
+* baRcodeR
+  checking re-building of vignette outputs ... ERROR
+
 * bignum
   checking tests ... ERROR
 
 * canaper
   checking tests ... ERROR
 
-* dplyr
+* DLSSM
   checking tests ... ERROR
 
-* exifr
+* exDE
   checking tests ... ERROR
 
 * extras
   checking tests ... ERROR
 
-* gcplyr
-  checking tests ... ERROR
-
 * geos
   checking tests ... ERROR
 
-* gplsim
+* gh
   checking tests ... ERROR
 
 * igraph
@@ -49,13 +49,19 @@ Issues with CRAN packages are summarised below.
 * ijtiff
   checking tests ... ERROR
 
+* ispdata
+  checking tests ... ERROR
+
+* lightgbm
+  checking tests ... ERROR
+
 * mark
   checking tests ... ERROR
 
 * mlr3
   checking tests ... ERROR
 
-* openxlsx2
+* OlinkAnalyze
   checking tests ... ERROR
 
 * PKNCA
@@ -64,28 +70,13 @@ Issues with CRAN packages are summarised below.
 * plantTracker
   checking tests ... ERROR
 
-* REDCapR
-  checking re-building of vignette outputs ... WARNING
-
 * s2
   checking tests ... ERROR
 
+* splot
+  checking tests ... ERROR
+
 * ssdtools
-  checking tests ... ERROR
-
-* tidytable
-  checking tests ... ERROR
-
-* tinytiger
-  checking tests ... ERROR
-
-* TreeTools
-  checking tests ... ERROR
-
-* tukeyGH
-  checking tests ... ERROR
-
-* vctrs
   checking tests ... ERROR
 
 * vroom
@@ -93,35 +84,12 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
-* babelmixr2   (NA)
-* beadplexr    (NA)
-* Boom         (NA)
-* bsts         (NA)
-* CausalImpact (NA)
-* ctsem        (NA)
-* fdaPDE       (NA)
-* genekitr     (NA)
-* ggpicrust2   (NA)
-* ggPMX        (NA)
-* gllvm        (NA)
-* loon.ggplot  (NA)
-* loon.shiny   (NA)
-* loon.tourr   (NA)
-* MGMS2        (NA)
-* nlmixr2      (NA)
-* nlmixr2extra (NA)
-* nlmixr2lib   (NA)
-* nlmixr2plot  (NA)
-* nlmixr2rpt   (NA)
-* numbat       (NA)
-* OlinkAnalyze (NA)
-* OpenMx       (NA)
-* pathwayTMB   (NA)
-* SCpubr       (NA)
-* SSVS         (NA)
-* taxlist      (NA)
-* tidySEM      (NA)
-* tinyarray    (NA)
-* vegtable     (NA)
-* vivid        (NA)
-* xtensor      (NA)
+* Boom        (NA)
+* ctsem       (NA)
+* fdaPDE      (NA)
+* gllvm       (NA)
+* loon.ggplot (NA)
+* loon.shiny  (NA)
+* loon.tourr  (NA)
+* vivid       (NA)
+* xtensor     (NA)
