@@ -17,8 +17,8 @@ test_that("tolerance is absolute for small values", {
 })
 
 test_that("tolerance works the same way for negative values", {
-  expect_equal(num_equal(4, 4 + 2 * .Machine$double.eps ^ 0.5), TRUE)
-  expect_equal(num_equal(-4, -4 - 2 * .Machine$double.eps ^ 0.5), TRUE)
+  expect_equal(num_equal(4, 4 + 2 * default_tol()), TRUE)
+  expect_equal(num_equal(-4, -4 - 2 * default_tol()), TRUE)
 })
 
 test_that("infinite values are handled properly", {

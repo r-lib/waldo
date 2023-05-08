@@ -192,17 +192,17 @@
     Output
       v No differences
     Code
-      compare_numeric(x, x + c(-1, 0, 1) * 1e-08, tolerance = 0)
+      compare_numeric(x, x + c(-1, 0, 1) * 1e-08, tolerance = NULL)
     Output
       `x`: 1.00000000 2.00000000 3.00000000
       `y`: 0.99999999 2.00000000 3.00000001
     Code
-      compare_numeric(x, x + c(-1, 0, 1) * 1e-09, tolerance = 0)
+      compare_numeric(x, x + c(-1, 0, 1) * 1e-09, tolerance = NULL)
     Output
       `x`: 1.000000000 2.000000000 3.000000000
       `y`: 0.999999999 2.000000000 3.000000001
     Code
-      compare_numeric(x, x + c(-1, 0, 1) * 1e-10, tolerance = 0)
+      compare_numeric(x, x + c(-1, 0, 1) * 1e-10, tolerance = NULL)
     Output
       `x`: 1.0000000000 2.0000000000 3.0000000000
       `y`: 0.9999999999 2.0000000000 3.0000000001
@@ -212,6 +212,19 @@
     Output
       `x[2:3]`: 2              NA
            `y`: 1 2.0000001 NA  3
+
+# tolerance is used in display of differences
+
+    Code
+      compare_numeric(x, y)
+    Output
+      `x`: 1.00000000 2.00000000 3.00000000
+      `y`: 1.00000000 2.00000000 4.00000000
+    Code
+      compare_numeric(x, y, tolerance = NULL)
+    Output
+      `x`: 1.000000000 2.000000000 3.000000000
+      `y`: 1.000000001 2.000000001 4.000000000
 
 # NAs are shown regardless of position
 

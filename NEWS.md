@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Tolerance is also taken into account when displaying differences (#173).
+
 # waldo 0.5.0
 
 * You can opt-out of quoting strings with `quote_strings = FALSE` (#145).

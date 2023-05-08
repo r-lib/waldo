@@ -90,7 +90,7 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
   }
 
   if (length(x) == length(y)) {
-    digits <- min_digits(x, y)
+    digits <- min_digits(x, y, tolerance)
     x_fmt <- num_exact(x, digits = digits)
     y_fmt <- num_exact(y, digits = digits)
   } else {
@@ -152,11 +152,15 @@ num_exact <- function(x, digits = 6) {
 }
 
 # Minimal number of digits needed to show differences
-min_digits <- function(x, y) {
+min_digits <- function(x, y, tolerance = default_tol()) {
   attributes(x) <- NULL
   attributes(y) <- NULL
 
-  digits(abs(x - y))
+  n <- digits(abs(x - y))
+  if (!is.null(tolerance)) {
+    n <- min(n, digits(tolerance))
+  }
+  n
 }
 
 # This looks ok:
