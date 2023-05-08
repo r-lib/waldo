@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.5.1
 
 * Tolerance is also taken into account when displaying differences (#173).
