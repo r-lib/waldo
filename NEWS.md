@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Tolerance is also taken into account when displaying differences (#173).
+
 * `NA_real_` and `NaN` are only treated as non-equal when tolerance is 
   non-null. That means that `testthat::expect_equal(NaN, NA_real_)` will
   pass but `testthat::expect_identical(NaN, NA_real_)` will fail (#174).

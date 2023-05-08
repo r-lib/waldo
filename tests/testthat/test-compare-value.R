@@ -80,12 +80,23 @@ test_that("numeric comparison", {
     compare_numeric(x, x + c(-1, 0, 1) * 1e-6)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-7)
     compare_numeric(x, x + c(-1, 0, 1) * 1e-8)
-    compare_numeric(x, x + c(-1, 0, 1) * 1e-8, tolerance = 0)
-    compare_numeric(x, x + c(-1, 0, 1) * 1e-9, tolerance = 0)
-    compare_numeric(x, x + c(-1, 0, 1) * 1e-10, tolerance = 0)
+    compare_numeric(x, x + c(-1, 0, 1) * 1e-8, tolerance = NULL)
+    compare_numeric(x, x + c(-1, 0, 1) * 1e-9, tolerance = NULL)
+    compare_numeric(x, x + c(-1, 0, 1) * 1e-10, tolerance = NULL)
 
     "unequal length"
     compare_numeric(c(1, 2, NA), c(1, 2 + 1e-7, NA, 3))
+  })
+})
+
+test_that("tolerance is used in display of differences", {
+
+  x <- c(1, 2, 3)
+  y <- x + c(1e-9, 1e-9, 1)
+
+  expect_snapshot({
+    compare_numeric(x, y)
+    compare_numeric(x, y, tolerance = NULL)
   })
 })
 
@@ -192,6 +203,9 @@ test_that("min_digits correctly computed digits needed for comparison", {
   expect_equal(min_digits(1, 1.000001), 6)
   expect_equal(min_digits(1, 1.0000001), 7)
   expect_equal(min_digits(1, 1.00000001), 8)
-  expect_equal(min_digits(1, 1.000000001), 9)
-  expect_equal(min_digits(1, 1.0000000001), 10)
+  expect_equal(min_digits(1, 1.000000001), 8)
+  expect_equal(min_digits(1, 1.0000000001), 8)
+
+  expect_equal(min_digits(1, 1.000000001, tolerance = NULL), 9)
+  expect_equal(min_digits(1, 1.0000000001, tolerance = NULL), 10)
 })

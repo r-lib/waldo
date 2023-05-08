@@ -1,4 +1,4 @@
-num_equal <- function(x, y, tolerance = .Machine$double.eps ^ 0.5) {
+num_equal <- function(x, y, tolerance = default_tol()) {
   if (length(x) != length(y)) {
     return(FALSE)
   }
