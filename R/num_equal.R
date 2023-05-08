@@ -6,7 +6,7 @@ num_equal <- function(x, y, tolerance = default_tol()) {
   if (any(is.na(x) != is.na(y))) {
     return(FALSE)
   }
-  if (any(is.nan(x) != is.nan(y))) {
+  if (is.null(tolerance) && any(is.nan(x) != is.nan(y))) {
     return(FALSE)
   }
 
