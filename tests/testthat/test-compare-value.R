@@ -97,8 +97,11 @@ test_that("NAs are shown regardless of position", {
   })
 })
 
-test_that("informative difference between NA and NaN", {
-  expect_snapshot(compare_numeric(NA_real_, NaN))
+test_that("informative difference between NA and NaN when tolerance set", {
+  expect_snapshot({
+    compare_numeric(NA_real_, NaN)
+    compare_numeric(NA_real_, NaN, tolerance = NULL)
+  })
 })
 
 test_that("numeric comparison works on factors", {
