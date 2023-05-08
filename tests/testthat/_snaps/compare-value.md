@@ -231,10 +231,14 @@
       `old`: 1 2 NA
       `new`: 1 2   
 
-# informative difference between NA and NaN
+# informative difference between NA and NaN when tolerance set
 
     Code
       compare_numeric(NA_real_, NaN)
+    Output
+      v No differences
+    Code
+      compare_numeric(NA_real_, NaN, tolerance = NULL)
     Output
       `x`:  NA
       `y`: NaN

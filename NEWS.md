@@ -1,5 +1,9 @@
 # waldo (development version)
 
+* `NA_real_` and `NaN` are only treated as non-equal when tolerance is 
+  non-null. That means that `testthat::expect_equal(NaN, NA_real_)` will
+  pass but `testthat::expect_identical(NaN, NA_real_)` will fail (#174).
+
 # waldo 0.5.0
 
 * You can opt-out of quoting strings with `quote_strings = FALSE` (#145).
