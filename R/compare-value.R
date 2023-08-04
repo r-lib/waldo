@@ -153,6 +153,10 @@ num_exact <- function(x, digits = 6) {
 
 # Minimal number of digits needed to show differences
 min_digits <- function(x, y, tolerance = default_tol()) {
+  if (is.integer(x) && is.integer(y)) {
+    return(0L)
+  }
+
   attributes(x) <- NULL
   attributes(y) <- NULL
 
@@ -160,7 +164,8 @@ min_digits <- function(x, y, tolerance = default_tol()) {
   if (!is.null(tolerance)) {
     n <- min(n, digits(tolerance))
   }
-  n
+
+  as.integer(n) + 1L
 }
 
 # This looks ok:
