@@ -316,8 +316,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     # Unevaluated dots are unlikely to lead to any significant differences
     # in behaviour (they're usually captured incidentally) so we just
     # ignore
-  } else if (typeof(x) != "S4") {
-    abort(glue("{paths[[1]]}: unsupported type {typeof(x)}"), call = NULL)
+  } else if (!typeof(x) %in% c("S4", "object")) {
+    abort(glue("{paths[[1]]}: unsupported type '{typeof(x)}'"), call = NULL)
   }
 
   out
