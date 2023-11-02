@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.5.2
 
 * Fixes for upcoming R-devel changes.
