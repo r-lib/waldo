@@ -158,6 +158,7 @@ compact <- function(x) {
 }
 
 as_map <- function(x) {
+  x_attr <- attributes(x) %||% list()
   # Remove nulls
   is_null <- vapply(x, is.null, logical(1))
   x <- x[!is_null]
@@ -170,7 +171,7 @@ as_map <- function(x) {
     idx[is_named] <- idx[is_named][order(nx[is_named])]
     x <- x[idx]
   }
-
+  attributes(x) <- utils::modifyList(x_attr, attributes(x))
   x
 }
 
