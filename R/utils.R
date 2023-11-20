@@ -171,7 +171,7 @@ as_map <- function(x) {
     idx[is_named] <- idx[is_named][order(nx[is_named])]
     x <- x[idx]
   }
-  attributes(x) <- utils::modifyList(x_attr, attributes(x))
+  attributes(x) <- utils::modifyList(x_attr, attributes(x) %||% list())
   x
 }
 
