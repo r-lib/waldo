@@ -142,8 +142,8 @@
     Code
       compare_numeric(c(NA, 1), c(1, NA))
     Output
-      `x`: NA  1
-      `y`:  1 NA
+      `x`:  NA 1.0
+      `y`: 1.0  NA
     Code
       # simple change
       compare_numeric(c(1, 2, 3), c(1, 2))
@@ -158,35 +158,35 @@
     Code
       compare_numeric(c(1, 10, 3), c(1, 2, 3))
     Output
-      `x`: 1 10 3
-      `y`: 1  2 3
+      `x`: 1.0 10.0 3.0
+      `y`: 1.0  2.0 3.0
     Code
       # equal length
       x <- c(1, 2, 3)
       compare_numeric(x, x + c(-1, 0, 1) * 0.001)
     Output
-      `x`: 1.000 2.000 3.000
-      `y`: 0.999 2.000 3.001
+      `x`: 1.0000 2.0000 3.0000
+      `y`: 0.9990 2.0000 3.0010
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-04)
     Output
-      `x`: 1.0000 2.0000 3.0000
-      `y`: 0.9999 2.0000 3.0001
+      `x`: 1.00000 2.00000 3.00000
+      `y`: 0.99990 2.00000 3.00010
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-05)
     Output
-      `x`: 1.00000 2.00000 3.00000
-      `y`: 0.99999 2.00000 3.00001
+      `x`: 1.000000 2.000000 3.000000
+      `y`: 0.999990 2.000000 3.000010
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-06)
     Output
-      `x`: 1.000000 2.000000 3.000000
-      `y`: 0.999999 2.000000 3.000001
+      `x`: 1.0000000 2.0000000 3.0000000
+      `y`: 0.9999990 2.0000000 3.0000010
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-07)
     Output
-      `x`: 1.0000000 2.0000000 3.0000000
-      `y`: 0.9999999 2.0000000 3.0000001
+      `x`: 1.00000000 2.00000000 3.00000000
+      `y`: 0.99999990 2.00000000 3.00000010
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-08)
     Output
@@ -194,18 +194,18 @@
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-08, tolerance = NULL)
     Output
-      `x`: 1.00000000 2.00000000 3.00000000
-      `y`: 0.99999999 2.00000000 3.00000001
+      `x`: 1.000000000 2.000000000 3.000000000
+      `y`: 0.999999990 2.000000000 3.000000010
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-09, tolerance = NULL)
     Output
-      `x`: 1.000000000 2.000000000 3.000000000
-      `y`: 0.999999999 2.000000000 3.000000001
+      `x`: 1.0000000000 2.0000000000 3.0000000000
+      `y`: 0.9999999990 2.0000000000 3.0000000010
     Code
       compare_numeric(x, x + c(-1, 0, 1) * 1e-10, tolerance = NULL)
     Output
-      `x`: 1.0000000000 2.0000000000 3.0000000000
-      `y`: 0.9999999999 2.0000000000 3.0000000001
+      `x`: 1.00000000000 2.00000000000 3.00000000000
+      `y`: 0.99999999990 2.00000000000 3.00000000010
     Code
       # unequal length
       compare_numeric(c(1, 2, NA), c(1, 2 + 1e-07, NA, 3))
@@ -218,13 +218,13 @@
     Code
       compare_numeric(x, y)
     Output
-      `x`: 1.00000000 2.00000000 3.00000000
-      `y`: 1.00000000 2.00000000 4.00000000
+      `x`: 1.000000000 2.000000000 3.000000000
+      `y`: 1.000000001 2.000000001 4.000000000
     Code
       compare_numeric(x, y, tolerance = NULL)
     Output
-      `x`: 1.000000000 2.000000000 3.000000000
-      `y`: 1.000000001 2.000000001 4.000000000
+      `x`: 1.0000000000 2.0000000000 3.0000000000
+      `y`: 1.0000000010 2.0000000010 4.0000000000
 
 # NAs are shown regardless of position
 
@@ -313,8 +313,8 @@
     Code
       compare(structure(1, class = "Date"), structure(1.5, class = "Date"))
     Output
-      `unclass(old)`: 1.0
-      `unclass(new)`: 1.5
+      `unclass(old)`: 1.00
+      `unclass(new)`: 1.50
     Code
       compare(structure(1, class = "Date"), structure(100, class = "Date"))
     Output
@@ -341,16 +341,16 @@
       `levels(old)`: "a" "b"
       `levels(new)`: "b" "a"
       
-      `unclass(old)`: 1 2
-      `unclass(new)`: 2 1
+      `unclass(old)`: 1.0 2.0
+      `unclass(new)`: 2.0 1.0
 
 # ignore_attr never uses format method
 
     Code
       compare(.POSIXct(1, "UTC"), .POSIXct(2, "UTC"), ignore_attr = TRUE)
     Output
-      `old`: 1
-      `new`: 2
+      `old`: 1.0
+      `new`: 2.0
 
 # don't use format if numeric & within tolerance
 
@@ -374,8 +374,8 @@
     Code
       compare(1:2 + 0+1i, 1:2 + 0+2i)
     Output
-      `Im(old)`: 1 1
-      `Im(new)`: 2 2
+      `Im(old)`: 1.0 1.0
+      `Im(new)`: 2.0 2.0
 
 # logical comparisons minimise extraneous diffs
 

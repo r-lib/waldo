@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* Double comparisons now always display one more digit than the absolute
+  minimum necessary (#141).
+
 # waldo 0.5.2
 
 * Fixes for upcoming R-devel changes.
