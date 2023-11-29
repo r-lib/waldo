@@ -7,8 +7,7 @@
 
 [![Codecov test
 coverage](https://codecov.io/gh/r-lib/waldo/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/waldo?branch=main)
-[![R build
-status](https://github.com/r-lib/waldo/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/waldo/actions)
+[![R-CMD-check](https://github.com/r-lib/waldo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/waldo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of waldo is to find and concisely describe the difference
