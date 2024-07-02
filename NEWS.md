@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* waldo no longer imports fansi (@olivroy, #192).
+
 # waldo 0.5.2
 
 * Fixes for upcoming R-devel changes.
