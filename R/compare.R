@@ -201,7 +201,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
   # Then attributes/slots
   if (isS4(x)) {
-    out <- c(out, compare_character(is(x), is(y), glue("is({paths})")))
+    out <- c(out, compare_character(is(x), is(y), glue::glue("is({paths})")))
     out <- c(out, compare_by_slot(x, y, paths, opts))
 
     # S4 objects can have attributes that are not slots
@@ -298,7 +298,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   } else if (is_atomic(x)) {
     if (is_character(x) && !opts$ignore_encoding) {
       out <- c(out, compare_character(
-        Encoding(x), Encoding(y), glue("Encoding({paths})"),
+        Encoding(x), Encoding(y), glue::glue("Encoding({paths})"),
         max_diffs = opts$max_diffs
       ))
     }
@@ -317,7 +317,7 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     # in behaviour (they're usually captured incidentally) so we just
     # ignore
   } else if (!typeof(x) %in% c("S4", "object")) {
-    abort(glue("{paths[[1]]}: unsupported type '{typeof(x)}'"), call = NULL)
+    abort(glue::glue("{paths[[1]]}: unsupported type '{typeof(x)}'"), call = NULL)
   }
 
   out
@@ -398,7 +398,7 @@ should_be <- function(x, y) {
     "`{paths[[1]]}` is ", x, "\n",
     "`{paths[[2]]}` is ", y
   )
-  glue(string, .envir = caller_env(), .trim = FALSE)
+  glue::glue(string, .envir = caller_env(), .trim = FALSE)
 }
 
 # compare_each ------------------------------------------------------------
@@ -428,36 +428,36 @@ compare_by <- function(index_fun, extract_fun, path_fun) {
 
 index_name <- function(x, y) union(names(x), names(y))
 extract_name <- function(x, i) if (has_name(x, i)) .subset2(x, i) else missing_arg()
-path_name <- function(path, i) glue("{path}${i}")
+path_name <- function(path, i) glue::glue("{path}${i}")
 compare_by_name <- compare_by(index_name, extract_name, path_name)
 
 index_pos <- function(x, y) seq_len(max(length(x), length(y)))
 extract_pos <- function(x, i) if (i <= length(x)) .subset2(x, i) else missing_arg()
-path_pos <- function(path, i) glue("{path}[[{i}]]")
+path_pos <- function(path, i) glue::glue("{path}[[{i}]]")
 compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)
 
-path_line <- function(path, i) glue("lines({path}[[{i}]])")
+path_line <- function(path, i) glue::glue("lines({path}[[{i}]])")
 compare_by_line <- compare_by(index_pos, extract_pos, path_line)
 
-path_line1 <- function(path, i) glue("lines({path})")
+path_line1 <- function(path, i) glue::glue("lines({path})")
 compare_by_line1 <- compare_by(index_pos, extract_pos, path_line1)
 
 path_attr <- function(path, i) {
   # from ?attributes, excluding row.names() because it's not a simple accessor
   funs <- c("comment", "class", "dim", "dimnames", "levels", "names", "tsp")
-  ifelse(i %in% funs, glue("{i}({path})"), glue("attr({path}, '{i}')"))
+  ifelse(i %in% funs, glue::glue("{i}({path})"), glue::glue("attr({path}, '{i}')"))
 }
 compare_by_attr <- compare_by(index_name, extract_name, path_attr)
 
 #' @importFrom methods slotNames .hasSlot slot is
 index_slot <- function(x, y) union(slotNames(x), slotNames(y))
 extract_slot <- function(x, i) if (.hasSlot(x, i)) slot(x, i) else missing_arg()
-path_slot <- function(path, i) glue("{path}@{i}")
+path_slot <- function(path, i) glue::glue("{path}@{i}")
 compare_by_slot <- compare_by(index_slot, extract_slot, path_slot)
 
 extract_fun <- function(x, i) switch(i, fn_body(x), fn_fmls(x), fn_env(x))
 path_fun <- function(path, i) {
   fun <- unname(c("body", "formals", "environment")[i])
-  glue("{fun}({path})")
+  glue::glue("{fun}({path})")
 }
 compare_by_fun <- compare_by(function(x, y) 1:3, extract_fun, path_fun)

@@ -11,7 +11,7 @@ print.waldo_compare <- function(x, n = attr(x, "max_diffs"), ...) {
     cli::cat_bullet("No differences", bullet = "tick", bullet_col = "green")
   } else {
     if (length(x) > n) {
-      x <- c(x[seq_len(n)], glue("And {length(x) - floor(n)} more differences ..."))
+      x <- c(x[seq_len(n)], glue::glue("And {length(x) - floor(n)} more differences ..."))
     }
 
     cat(paste0(x, collapse = "\n\n"), "\n", sep = "")
