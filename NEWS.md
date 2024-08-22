@@ -1,6 +1,6 @@
 # waldo (development version)
 
-* waldo no longer imports fansi (@olivroy, #192).
+* waldo no longer imports fansi, tibble, and rematch2 (@olivroy, #192, #196).
 
 # waldo 0.5.2
 

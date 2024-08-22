@@ -16,7 +16,7 @@ ses <- function(x, y) {
   }
 
   out <- diffobj::ses(x, y, warn = FALSE, max.diffs = 100)
-  out <- rematch2::re_match(out, paste0(
+  out <- re_match(out, paste0(
     "(?:(?<x1>\\d+),)?(?<x2>\\d+)",
     "(?<t>[acd])",
     "(?:(?<y1>\\d+),)?(?<y2>\\d+)"
@@ -30,7 +30,7 @@ ses <- function(x, y) {
   out$y1 <- as.integer(out$y1)
   out$y2 <- as.integer(out$y2)
 
-  out
+  as.data.frame(out, stringsAsFactors = FALSE)
 }
 
 ses_elementwise <- function(x, y) {
@@ -146,5 +146,5 @@ diff_complete <- function(diff) {
 }
 
 ses_df <- function(x1, x2, t, y1, y2) {
-  tibble::tibble(x1 = x1, x2 = x2, t = t, y1 = y1, y2 = y2)
+  data.frame(x1 = x1, x2 = x2, t = t, y1 = y1, y2 = y2, stringsAsFactors = FALSE)
 }
