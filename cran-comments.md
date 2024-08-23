@@ -4,4 +4,4 @@
 
 ## revdepcheck results
 
-This is a tiny change to fix an issue in upcoming R-devel, so we did not check the revdeps.
+This is a tiny change to work around a bug in `@S3method`, so we did not check the revdeps.
