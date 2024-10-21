@@ -160,9 +160,10 @@ compact <- function(x) {
 }
 
 as_map <- function(x) {
+  attr <- attributes(x)
+
   # Remove nulls
-  is_null <- vapply(x, is.null, logical(1))
-  x <- x[!is_null]
+  x <- compact(x)
 
   # Sort named components, preserving positions of unnamed
   nx <- names2(x)
@@ -172,6 +173,11 @@ as_map <- function(x) {
     idx[is_named] <- idx[is_named][order(nx[is_named])]
     x <- x[idx]
   }
+
+  # Restore attributes (which might have been lost by [)
+  new_attr <- attributes(x)
+  attr[names(new_attr)] <- new_attr
+  attributes(x) <- attr
 
   x
 }
