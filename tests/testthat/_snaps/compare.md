@@ -561,17 +561,17 @@
       # Non S7
       compare(A(1), 1)
     Output
-      `old` is an S7 object of class <A>
+      `old` is an S7 object of class <waldo::A>
       `new` is a double vector (1)
     Code
       compare(A(1), globalenv())
     Output
-      `old` is an S7 object of class <A>
+      `old` is an S7 object of class <waldo::A>
       `new` is an environment
     Code
       compare(A(1), factor("x"))
     Output
-      `old` is an S7 object of class <A>
+      `old` is an S7 object of class <waldo::A>
       `new` is an S3 object of class <factor>, an integer vector
     Code
       # S4
@@ -586,8 +586,8 @@
     Code
       compare(A(1), B(1))
     Output
-      `class(old)`: "A" "S7_object"            
-      `class(new)`: "B" "A"         "S7_object"
+      `class(old)`: "waldo::A" "S7_object"            
+      `class(new)`: "waldo::B" "waldo::A"  "S7_object"
     Code
       # S7 with extra attributes
       new <- old <- A(1)

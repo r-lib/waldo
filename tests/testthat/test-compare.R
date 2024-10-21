@@ -290,8 +290,8 @@ test_that("can compare R6 objects", {
 })
 
 test_that("can compare S7 objects", {
-  A <- S7::new_class("A", properties = list(a = S7::class_numeric))
-  B <- S7::new_class("B", parent = A)
+  A <- S7::new_class("A", properties = list(a = S7::class_numeric), package = "waldo")
+  B <- S7::new_class("B", parent = A, package = "waldo")
 
   expect_snapshot({
     "Non S7"
