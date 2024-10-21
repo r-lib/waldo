@@ -12,15 +12,15 @@ Description: Compare complex R objects and reveal the key differences.
 License: MIT + file LICENSE
 URL: https://waldo.r-lib.org, https://github.com/r-lib/waldo
 BugReports: https://github.com/r-lib/waldo/issues
-Depends: 
-    R (>= 3.6)
-Imports: 
+Depends:
+    R (>= 4.0)
+Imports:
     cli,
     diffobj (>= 0.3.4),
     glue,
     methods,
     rlang (>= 1.0.0)
-Suggests: 
+Suggests:
     R6,
     testthat (>= 3.0.0),
     withr,

@@ -383,21 +383,6 @@
     Code
       compare(f1, f4, ignore_srcref = FALSE)
     Output
-      `attr(old, 'srcref')`:  2 8  2 33 8 33  2  2
-      `attr(new, 'srcref')`: 14 8 16  1 8  1 14 16
-      
-      `attr(body(old), 'srcref')` is length 1
-      `attr(body(new), 'srcref')` is length 2
-      
-      `attr(body(old), 'srcref')[[1]]`:  2 31  2 31 31 31  2  2
-      `attr(body(new), 'srcref')[[1]]`: 14 31 14 31 31 31 14 14
-      
-      `attr(body(old), 'srcref')[[2]]` is absent
-      `attr(body(new), 'srcref')[[2]]` is an S3 object of class <srcref>, an integer vector
-      
-      `attr(body(old), 'wholeSrcref')`: 1 0  2 33 0 33 1  2
-      `attr(body(new), 'wholeSrcref')`: 1 0 16  1 0  1 1 16
-      
       `body(old)`: `{` `}`            
       `body(new)`: `{` `    x + y` `}`
     Code
@@ -421,7 +406,7 @@
       compare(f2, f1, ignore_srcref = FALSE)
     Output
       `attr(old, 'srcref')` is a character vector ('{  }')
-      `attr(new, 'srcref')` is an S3 object of class <srcref>, an integer vector
+      `attr(new, 'srcref')` is absent
 
 # can compare atomic vectors
 

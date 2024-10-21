@@ -43,9 +43,8 @@
 # informative diff for changes
 
     Code
-      df1 <- data.frame(x = 1:3, y = 1, z = c("a", "b", "c"), stringsAsFactors = FALSE)
-      df2 <- data.frame(x = c(1, 100, 3), y = 1, z = c("a", "B", "c"),
-      stringsAsFactors = FALSE)
+      df1 <- data.frame(x = 1:3, y = 1, z = c("a", "b", "c"))
+      df2 <- data.frame(x = c(1, 100, 3), y = 1, z = c("a", "B", "c"))
       compare(df1, df2)
     Output
       old vs new

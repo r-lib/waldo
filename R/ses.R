@@ -30,7 +30,7 @@ ses <- function(x, y) {
   out$y1 <- as.integer(out$y1)
   out$y2 <- as.integer(out$y2)
 
-  as.data.frame(out, stringsAsFactors = FALSE)
+  as.data.frame(out)
 }
 
 ses_elementwise <- function(x, y) {
@@ -146,5 +146,5 @@ diff_complete <- function(diff) {
 }
 
 ses_df <- function(x1, x2, t, y1, y2) {
-  data.frame(x1 = x1, x2 = x2, t = t, y1 = y1, y2 = y2, stringsAsFactors = FALSE)
+  data.frame(x1 = x1, x2 = x2, t = t, y1 = y1, y2 = y2)
 }
