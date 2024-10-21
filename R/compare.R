@@ -224,6 +224,16 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       attrs(y, c(slotNames(y), "class")),
       paths, opts)
     )
+  } else if (is.object(x) && inherits(x, "S7_object")) {
+    out <- c(out, compare_character(class(x), class(y), glue::glue("class({paths})")))
+    out <- c(out, compare_by_prop(x, y, paths, opts))
+
+    # S7 objects can have attributes that are not slots
+    out <- c(out, compare_by_attr(
+      attrs(x, c(S7::prop_names(x), "class", "S7_class")),
+      attrs(y, c(S7::prop_names(y), "class", "S7_class")),
+      paths, opts)
+    )
   } else if (!isTRUE(opts$ignore_attr)) {
     if (is_call(x) && opts$ignore_formula_env) {
       attr(x, ".Environment") <- NULL
@@ -468,6 +478,11 @@ index_slot <- function(x, y) union(slotNames(x), slotNames(y))
 extract_slot <- function(x, i) if (.hasSlot(x, i)) slot(x, i) else missing_arg()
 path_slot <- function(path, i) glue::glue("{path}@{i}")
 compare_by_slot <- compare_by(index_slot, extract_slot, path_slot)
+
+index_prop <- function(x, y) union(S7::prop_names(x), S7::prop_names(y))
+extract_prop <- function(x, i) if (S7::prop_exists(x, i)) S7::prop(x, i) else missing_arg()
+path_prop <- function(path, i) glue::glue("{path}@{i}")
+compare_by_prop <- compare_by(index_prop, extract_prop, path_prop)
 
 extract_fun <- function(x, i) switch(i, fn_body(x), fn_fmls(x), fn_env(x))
 path_fun <- function(path, i) {

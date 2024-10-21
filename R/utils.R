@@ -2,7 +2,9 @@ oo_type <- function(x) {
   if (isS4(x)) {
     "S4"
   } else if (is.object(x)) {
-    if (inherits(x, "R6")) {
+    if (inherits(x, "S7_object")) {
+      "S7"
+    } else if (inherits(x, "R6")) {
       "R6"
     } else {
       "S3"
@@ -22,7 +24,9 @@ friendly_type_of <- function(x) {
   }
 
   if (!isS4(x)) {
-    if (inherits(x, "R6")) {
+    if (inherits(x, "S7_object")) {
+      paste0("an S7 object of class <", class(x)[[1]], ">")
+    } else if (inherits(x, "R6")) {
       klass <- paste(setdiff(class(x), "R6"), collapse = "/")
       paste0("an R6 object of class <", klass, ">")
     } else {
@@ -156,9 +160,10 @@ compact <- function(x) {
 }
 
 as_map <- function(x) {
+  attr <- attributes(x)
+
   # Remove nulls
-  is_null <- vapply(x, is.null, logical(1))
-  x <- x[!is_null]
+  x <- compact(x)
 
   # Sort named components, preserving positions of unnamed
   nx <- names2(x)
@@ -168,6 +173,11 @@ as_map <- function(x) {
     idx[is_named] <- idx[is_named][order(nx[is_named])]
     x <- x[idx]
   }
+
+  # Restore attributes (which might have been lost by [)
+  new_attr <- attributes(x)
+  attr[names(new_attr)] <- new_attr
+  attributes(x) <- attr
 
   x
 }
