@@ -191,7 +191,6 @@ test_that("comparing functions gives useful diffs", {
     "diff body"
     f4 <- function(x = 1, y = 2) { x + y }
     compare(f1, f4)
-    compare(f1, f4, ignore_srcref = FALSE)
 
     "diff environment"
     environment(f1) <- base_env()
@@ -201,12 +200,19 @@ test_that("comparing functions gives useful diffs", {
 })
 
 test_that("can choose to compare srcrefs", {
-  expect_snapshot({
-    f1 <- f2 <- function() {}
-    attr(f2, "srcref") <- "{  }"
+  f1 <- f2 <- function() {
+    1 + 2
+  }
+  attr(f2, "srcref") <- NULL
+  f3 <- function() {
+    1 + 3
+  }
 
+  expect_snapshot({
     compare(f2, f1)
     compare(f2, f1, ignore_srcref = FALSE)
+    "Different body"
+    compare(f3, f1, ignore_srcref = FALSE)
   })
 })
 
