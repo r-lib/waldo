@@ -184,6 +184,34 @@
       `old` is an S3 object of class <a>, a double vector
       `new` is an integer vector (1)
 
+# can compare int64 with numbers
+
+    Code
+      compare(int64_1, int64_1)
+    Output
+      v No differences
+    Code
+      compare(int64_0, int64_1)
+    Output
+      `old`: "0"
+      `new`: "1"
+
+# can ignore numeric differences between int64 and other numbers
+
+    Code
+      compare(1, int64_1)
+    Output
+      `old` is a double vector (1)
+      `new` is an S3 object of class <integer64>, a double vector
+    Code
+      compare(1, int64_1, tolerance = 0)
+    Output
+      v No differences
+    Code
+      compare(1L, int64_1, tolerance = 0)
+    Output
+      v No differences
+
 # ignores S3 [[ methods
 
     Code
@@ -404,17 +432,17 @@
       # Different body
       compare(f3, f1, ignore_srcref = FALSE)
     Output
-      `attr(old, 'srcref')`: 207  9 209 3  9 3 207 209
-      `attr(new, 'srcref')`: 203 15 205 3 15 3 203 205
+      `attr(old, 'srcref')`: 225  9 227 3  9 3 225 227
+      `attr(new, 'srcref')`: 221 15 223 3 15 3 221 223
       
-      `attr(body(old), 'srcref')[[1]]`: 207 20 207 20 20 20 207 207
-      `attr(body(new), 'srcref')[[1]]`: 203 26 203 26 26 26 203 203
+      `attr(body(old), 'srcref')[[1]]`: 225 20 225 20 20 20 225 225
+      `attr(body(new), 'srcref')[[1]]`: 221 26 221 26 26 26 221 221
       
-      `attr(body(old), 'srcref')[[2]]`: 208 5 208 9 5 9 208 208
-      `attr(body(new), 'srcref')[[2]]`: 204 5 204 9 5 9 204 204
+      `attr(body(old), 'srcref')[[2]]`: 226 5 226 9 5 9 226 226
+      `attr(body(new), 'srcref')[[2]]`: 222 5 222 9 5 9 222 222
       
-      `attr(body(old), 'wholeSrcref')`: 1 0 209 3 0 3 1 209
-      `attr(body(new), 'wholeSrcref')`: 1 0 205 3 0 3 1 205
+      `attr(body(old), 'wholeSrcref')`: 1 0 227 3 0 3 1 227
+      `attr(body(new), 'wholeSrcref')`: 1 0 223 3 0 3 1 223
       
       `body(old)`: `{` `    1 + 3` `}`
       `body(new)`: `{` `    1 + 2` `}`

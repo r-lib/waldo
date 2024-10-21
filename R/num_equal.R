@@ -10,8 +10,13 @@ num_equal <- function(x, y, tolerance = default_tol()) {
     return(FALSE)
   }
 
-  attributes(x) <- NULL
-  attributes(y) <- NULL
+  if (is_int64(x) || is_int64(y)) {
+    x <- bit64::as.integer64(x)
+    y <- bit64::as.integer64(y)
+  } else {
+    attributes(x) <- NULL
+    attributes(y) <- NULL
+  }
 
   same <- is.na(x) | x == y
   if (is.null(tolerance)) {

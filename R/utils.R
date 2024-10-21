@@ -108,7 +108,15 @@ attrs <- function(x, ignore) {
   out[c(first, rest)]
 }
 
-is_numeric <- function(x) is_integer(x) || is_double(x)
+compare_as_numeric <- function(x, y, tol) {
+  !is.null(tol) && is_numeric(x) && is_numeric(y)
+}
+is_numeric <- function(x) {
+  is_integer(x) || is_double(x) || is_int64(x)
+}
+is_int64 <- function(x) {
+  inherits(x, "integer64")
+}
 
 in_ci <- function() {
   isTRUE(as.logical(Sys.getenv("CI", "FALSE")))
