@@ -1,13 +1,11 @@
 oo_type <- function(x) {
-  if (is.object(x)) {
-    if (isS4(x)) {
-      "S4"
+  if (isS4(x)) {
+    "S4"
+  } else if (is.object(x)) {
+    if (inherits(x, "R6")) {
+      "R6"
     } else {
-      if (inherits(x, "R6")) {
-        "R6"
-      } else {
-        "S3"
-      }
+      "S3"
     }
   } else {
     "base"
@@ -19,7 +17,7 @@ friendly_type_of <- function(x) {
     return("absent")
   }
 
-  if (!is.object(x)) {
+  if (!is.object(x) && !isS4(x)) {
     return(friendly_type(typeof(x)))
   }
 
