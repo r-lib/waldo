@@ -1,5 +1,8 @@
 # waldo (development version)
 
+* waldo no longer imports tibble and rematch2 (@olivroy, #196).
+* waldo now requires R 4.0.0.
+
 # waldo 0.5.3
 
 * waldo no longer imports fansi (@olivroy, #192).
