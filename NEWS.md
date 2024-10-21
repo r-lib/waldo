@@ -1,5 +1,6 @@
 # waldo (development version)
 
+* `compare()` now gives informative errors if you misspecify the argument types (#181)
 * Double comparisons now always display one more digit than the absolute minimum necessary (#141).
 * waldo no longer imports tibble and rematch2 (@olivroy, #196).
 * waldo now requires R 4.0.0.
