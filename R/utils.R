@@ -122,10 +122,10 @@ if (getRversion() < "3.3.0") {
   }
 }
 
-fansi_align <- function(x, width = NULL, justify = c("left", "right")) {
+ansi_align <- function(x, width = NULL, justify = c("left", "right")) {
   justify <- arg_match(justify)
 
-  nchar <- fansi::nchar_ctl(x)
+  nchar <- cli::ansi_nchar(x)
   width <- width %||% max(nchar)
   padding <- strrep(" ", pmax(0, width - nchar))
 
