@@ -381,11 +381,6 @@
       `body(old)`: `{` `}`            
       `body(new)`: `{` `    x + y` `}`
     Code
-      compare(f1, f4, ignore_srcref = FALSE)
-    Output
-      `body(old)`: `{` `}`            
-      `body(new)`: `{` `    x + y` `}`
-    Code
       # diff environment
       environment(f1) <- base_env()
       environment(f2) <- global_env()
@@ -397,16 +392,32 @@
 # can choose to compare srcrefs
 
     Code
-      f1 <- f2 <- (function() { })
-      attr(f2, "srcref") <- "{  }"
       compare(f2, f1)
     Output
       v No differences
     Code
       compare(f2, f1, ignore_srcref = FALSE)
     Output
-      `attr(old, 'srcref')` is a character vector ('{  }')
-      `attr(new, 'srcref')` is absent
+      `attr(old, 'srcref')` is absent
+      `attr(new, 'srcref')` is an S3 object of class <srcref>, an integer vector
+    Code
+      # Different body
+      compare(f3, f1, ignore_srcref = FALSE)
+    Output
+      `attr(old, 'srcref')`: 207  9 209 3  9 3 207 209
+      `attr(new, 'srcref')`: 203 15 205 3 15 3 203 205
+      
+      `attr(body(old), 'srcref')[[1]]`: 207 20 207 20 20 20 207 207
+      `attr(body(new), 'srcref')[[1]]`: 203 26 203 26 26 26 203 203
+      
+      `attr(body(old), 'srcref')[[2]]`: 208 5 208 9 5 9 208 208
+      `attr(body(new), 'srcref')[[2]]`: 204 5 204 9 5 9 204 204
+      
+      `attr(body(old), 'wholeSrcref')`: 1 0 209 3 0 3 1 209
+      `attr(body(new), 'wholeSrcref')`: 1 0 205 3 0 3 1 205
+      
+      `body(old)`: `{` `    1 + 3` `}`
+      `body(new)`: `{` `    1 + 2` `}`
 
 # can compare atomic vectors
 
