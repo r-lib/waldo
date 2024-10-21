@@ -30,7 +30,7 @@ ses <- function(x, y) {
   out$y1 <- as.integer(out$y1)
   out$y2 <- as.integer(out$y2)
 
-  as.data.frame(out)
+  out
 }
 
 ses_elementwise <- function(x, y) {
