@@ -497,6 +497,14 @@
       `attr(old, 'bar')` is a double vector (2)
       `attr(new, 'bar')` is absent
 
+# can distinguish S4 bit
+
+    Code
+      compare(1, asS4(1))
+    Output
+      `old` is a double vector (1)
+      `new` is an S4 object of class <numeric> (1)
+
 # can compare R6 objects
 
     Code
