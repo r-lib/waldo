@@ -258,6 +258,12 @@ test_that("can compare S4 objects", {
   })
 })
 
+test_that("can distinguish S4 bit", {
+  expect_snapshot({
+    compare(1, asS4(1))
+  })
+})
+
 test_that("can compare R6 objects", {
   expect_snapshot({
     goofy <- R6::R6Class("goofy", public = list(

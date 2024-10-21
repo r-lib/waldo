@@ -1,6 +1,7 @@
 # waldo (development version)
 
 * `as_map()` now preserves attributes (#185).
+* `compare()` can now distinguish between objects that differ only in the value of their S4 bit (#189).
 * Double comparisons now always display one more digit than the absolute minimum necessary (#141).
 * waldo no longer imports tibble and rematch2 (@olivroy, #196).
 * waldo now requires R 4.0.0.
