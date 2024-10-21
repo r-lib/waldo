@@ -289,6 +289,29 @@ test_that("can compare R6 objects", {
   })
 })
 
+test_that("can compare S7 objects", {
+  A <- S7::new_class("A", properties = list(a = S7::class_numeric))
+  B <- S7::new_class("B", parent = A)
+
+  expect_snapshot({
+    "Non S7"
+    compare(A(1), 1)
+    compare(A(1), globalenv())
+    compare(A(1), factor("x"))
+
+    "S4"
+    compare(A(1), A(1))
+    compare(A(1), A(2))
+    compare(A(1), B(1))
+
+    "S7 with extra attributes"
+    new <- old <- A(1)
+    attr(new, "bar") <- 2
+    compare(new, old)
+  })
+})
+
+
 test_that("Named environments compare by reference", {
   expect_snapshot({
     compare(baseenv(), globalenv())

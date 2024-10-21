@@ -555,6 +555,48 @@
     Output
       v No differences
 
+# can compare S7 objects
+
+    Code
+      # Non S7
+      compare(A(1), 1)
+    Output
+      `old` is an S7 object of class <A>
+      `new` is a double vector (1)
+    Code
+      compare(A(1), globalenv())
+    Output
+      `old` is an S7 object of class <A>
+      `new` is an environment
+    Code
+      compare(A(1), factor("x"))
+    Output
+      `old` is an S7 object of class <A>
+      `new` is an S3 object of class <factor>, an integer vector
+    Code
+      # S4
+      compare(A(1), A(1))
+    Output
+      v No differences
+    Code
+      compare(A(1), A(2))
+    Output
+      `old@a`: 1.0
+      `new@a`: 2.0
+    Code
+      compare(A(1), B(1))
+    Output
+      `class(old)`: "A" "S7_object"            
+      `class(new)`: "B" "A"         "S7_object"
+    Code
+      # S7 with extra attributes
+      new <- old <- A(1)
+      attr(new, "bar") <- 2
+      compare(new, old)
+    Output
+      `attr(old, 'bar')` is a double vector (2)
+      `attr(new, 'bar')` is absent
+
 # Named environments compare by reference
 
     Code
