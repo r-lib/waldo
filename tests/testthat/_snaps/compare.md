@@ -366,8 +366,8 @@
       `names(formals(old))`: "x" "y"    
       `names(formals(new))`: "x" "y" "z"
       
-      `formals(old)$y`: 2
-      `formals(new)$y`: 1
+      `formals(old)$y`: 2.0
+      `formals(new)$y`: 1.0
       
       `formals(old)$z` is absent
       `formals(new)$z` is a double vector (1)
@@ -578,8 +578,8 @@
       e2$x <- 11
       compare(e1, e2)
     Output
-      `old$x`: 10
-      `new$x`: 11
+      `old$x`: 10.0
+      `new$x`: 11.0
     Code
       e2$x <- 10
       compare(e1, e2)
@@ -597,8 +597,8 @@
       e4 <- new.env(parent = e2)
       compare(e3, e4)
     Output
-      `parent.env(old)$x`: 1
-      `parent.env(new)$x`: 2
+      `parent.env(old)$x`: 1.0
+      `parent.env(new)$x`: 2.0
 
 # don't get caught in endless loops
 
@@ -629,11 +629,11 @@
       e3$x <- 3
       compare(list(e1, e1, e1), list(e2, e2, e3))
     Output
-      `old[[1]]$x`: 1
-      `new[[1]]$x`: 2
+      `old[[1]]$x`: 1.0
+      `new[[1]]$x`: 2.0
       
-      `old[[3]]$x`: 1
-      `new[[3]]$x`: 3
+      `old[[3]]$x`: 1.0
+      `new[[3]]$x`: 3.0
 
 # can compare CHARSXP
 
@@ -689,8 +689,8 @@
     Code
       compare(foo1, foo2)
     Output
-      `proxy(old)$x`: 1
-      `proxy(new)$x`: 2
+      `proxy(old)$x`: 1.0
+      `proxy(new)$x`: 2.0
 
 # can opt out of string quoting
 
