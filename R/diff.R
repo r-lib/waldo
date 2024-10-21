@@ -140,10 +140,10 @@ format_diff_matrix <- function(diff, x, y, paths,
       mat_out <- mat_out[, seq_len(n + 1)]
       mat_out <- cbind(mat_out, c(paste0("and ", n_trunc, " more..."), "..."))
     }
-    out <- apply(mat_out, 2, fansi_align, justify = justify)
+    out <- apply(mat_out, 2, ansi_align, justify = justify)
     rows <- apply(out, 1, paste, collapse = " ")
 
-    if (fansi::nchar_ctl(rows[[1]]) <= width) {
+    if (cli::ansi_nchar(rows[[1]]) <= width) {
       return(paste0(rows, collapse = "\n"))
     }
   }
@@ -168,10 +168,10 @@ format_diff_matrix <- function(diff, x, y, paths,
     format(c("", y_idx_out), justify = "left")
   )
 
-  out <- apply(mat_out, 1, fansi_align, justify = "left")
+  out <- apply(mat_out, 1, ansi_align, justify = "left")
   rows <- apply(out, 1, paste, collapse = " ")
 
-  if (fansi::nchar_ctl(rows[[1]]) <= width) {
+  if (cli::ansi_nchar(rows[[1]]) <= width) {
     return(paste0(rows, collapse = "\n"))
   }
 
