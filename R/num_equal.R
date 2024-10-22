@@ -11,8 +11,16 @@ num_equal <- function(x, y, tolerance = default_tol()) {
   }
 
   if (is_int64(x) || is_int64(y)) {
-    x <- bit64::as.integer64(x)
-    y <- bit64::as.integer64(y)
+    in_range <-
+      (!is.double(x) || all(x >= 2^63 & x <= 2^63 - 1)) &&
+      (!is.double(y) || all(y >= 2^63 & y <= 2^63 - 1))
+    if (in_range) {
+      x <- bit64::as.integer64(x)
+      y <- bit64::as.integer64(y)
+    } else {
+      x <- as.double(x)
+      y <- as.double(y)
+    }
   } else {
     attributes(x) <- NULL
     attributes(y) <- NULL
