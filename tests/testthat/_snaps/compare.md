@@ -184,7 +184,7 @@
       `old` is an S3 object of class <a>, a double vector
       `new` is an integer vector (1)
 
-# can compare int64 with numbers
+# can compare int64s
 
     Code
       compare(int64_1, int64_1)
