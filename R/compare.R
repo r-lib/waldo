@@ -92,7 +92,7 @@
 #'   this is R's default behaviour. Use `FALSE` when specifically concerned
 #'   with the encoding, not just the value of the string.
 #' @param list_as_map Compare lists as if they are mappings between names and
-#'   values. Concretely, this drops `NULLs` in both objects and sorts named
+#'   values. Concretely, this drops `NULL`s in both objects and sorts named
 #'   components.
 #' @param quote_strings Should strings be surrounded by quotes? If `FALSE`,
 #'   only side-by-side and line-by-line comparisons will be used, and there's
@@ -136,6 +136,20 @@ compare <- function(x, y, ...,
                     list_as_map = FALSE,
                     quote_strings = TRUE
                     ) {
+
+  check_string(x_arg)
+  check_string(y_arg)
+  check_number_decimal(tolerance, allow_null = TRUE, min = 0)
+  check_number_whole(max_diffs, min = 1, allow_infinite = TRUE)
+  check_bool(ignore_srcref)
+  if (!isTRUE(ignore_attr) && !is.character(ignore_attr)) {
+    stop_input_type(ignore_attr, "a TRUE or a character vector")
+  }
+  check_bool(ignore_encoding)
+  check_bool(ignore_function_env)
+  check_bool(ignore_formula_env)
+  check_bool(list_as_map)
+  check_bool(quote_strings)
 
   opts <- compare_opts(
     ...,

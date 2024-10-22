@@ -1,6 +1,7 @@
 # waldo (development version)
 
 * `compare()` can numeric differences between int64 objects and integers/doubles when `tolerance` is set (#159).
+* `compare()` now gives informative errors if you misspecify the argument types (#181)
 * waldo gains basic support for S7 objects (#200).
 * `as_map()` now preserves attributes (#185).
 * `compare()` can now distinguish between objects that differ only in the value of their S4 bit (#189).

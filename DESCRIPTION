@@ -19,7 +19,7 @@ Imports:
     diffobj (>= 0.3.4),
     glue,
     methods,
-    rlang (>= 1.0.0)
+    rlang (>= 1.1.0)
 Suggests:
     bit64,
     R6,
