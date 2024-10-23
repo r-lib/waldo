@@ -53,8 +53,7 @@ can_int64 <- function(x) {
   }
 
   # https://yutani.rbind.io/post/savvy-v0.7.1-usize/
-  in_range <- x >= -2^53 & x <= 2^53 - 1
+  in_range <- x >= -2^53 & x <= 2^53
   is_whole <- trunc(x) == x
-  is_missing <- is.na(x)
-  all((in_range & is_whole) | is_missing)
+  all(in_range, is_whole, na.rm = TRUE)
 }
