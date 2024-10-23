@@ -41,18 +41,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="waldo-development-version">waldo (development version)<a class="anchor" aria-label="anchor" href="#waldo-development-version"></a></h2>
-<ul><li>
-<code><a href="../reference/compare.html">compare()</a></code> can numeric differences between int64 objects and integers/doubles when <code>tolerance</code> is set (<a href="https://github.com/r-lib/waldo/issues/159" class="external-link">#159</a>).</li>
-<li>
-<code><a href="../reference/compare.html">compare()</a></code> now gives informative errors if you misspecify the argument types (<a href="https://github.com/r-lib/waldo/issues/181" class="external-link">#181</a>)</li>
-<li>waldo gains basic support for S7 objects (<a href="https://github.com/r-lib/waldo/issues/200" class="external-link">#200</a>).</li>
-<li>
-<code>as_map()</code> now preserves attributes (<a href="https://github.com/r-lib/waldo/issues/185" class="external-link">#185</a>).</li>
-<li>
-<code><a href="../reference/compare.html">compare()</a></code> can now distinguish between objects that differ only in the value of their S4 bit (<a href="https://github.com/r-lib/waldo/issues/189" class="external-link">#189</a>).</li>
-<li>Double comparisons now always display one more digit than the absolute minimum necessary (<a href="https://github.com/r-lib/waldo/issues/141" class="external-link">#141</a>).</li>
-<li>waldo no longer imports tibble and rematch2 (<a href="https://github.com/olivroy" class="external-link">@olivroy</a>, <a href="https://github.com/r-lib/waldo/issues/196" class="external-link">#196</a>).</li>
-<li>waldo now requires R 4.0.0.</li>
+<ul><li><p>waldo no longer imports tibble and rematch2 (<a href="https://github.com/olivroy" class="external-link">@olivroy</a>, <a href="https://github.com/r-lib/waldo/issues/196" class="external-link">#196</a>), and requires R 4.0.0.</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> now gives informative errors if you misspecify the argument types (<a href="https://github.com/r-lib/waldo/issues/181" class="external-link">#181</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> displays an extract digit in numeric comparisons, making it a bit easier to see the different (<a href="https://github.com/r-lib/waldo/issues/141" class="external-link">#141</a>). It can also show numeric differences between int64 objects and integers/doubles when <code>tolerance</code> is set (<a href="https://github.com/r-lib/waldo/issues/159" class="external-link">#159</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> gains basic support for S7 objects (<a href="https://github.com/r-lib/waldo/issues/200" class="external-link">#200</a>), and can now distinguish between objects that differ only in the value of their S4 bit (<a href="https://github.com/r-lib/waldo/issues/189" class="external-link">#189</a>).</p></li>
+<li><p><code>compare(list_as_map = TRUE)</code> now preserves attributes (<a href="https://github.com/r-lib/waldo/issues/185" class="external-link">#185</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.3" id="waldo-053">waldo 0.5.3<a class="anchor" aria-label="anchor" href="#waldo-053"></a></h2><p class="text-muted">CRAN release: 2024-08-23</p>
