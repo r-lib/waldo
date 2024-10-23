@@ -1,13 +1,20 @@
 # waldo (development version)
 
-* `compare()` can numeric differences between int64 objects and integers/doubles when `tolerance` is set (#159).
-* `compare()` now gives informative errors if you misspecify the argument types (#181)
-* waldo gains basic support for S7 objects (#200).
-* `as_map()` now preserves attributes (#185).
-* `compare()` can now distinguish between objects that differ only in the value of their S4 bit (#189).
-* Double comparisons now always display one more digit than the absolute minimum necessary (#141).
-* waldo no longer imports tibble and rematch2 (@olivroy, #196).
-* waldo now requires R 4.0.0.
+* waldo no longer imports tibble and rematch2 (@olivroy, #196), and
+  requires R 4.0.0.
+
+* `compare()` now gives informative errors if you misspecify the argument types
+  (#181).
+
+* `compare()` displays an extract digit in numeric comparisons, making it a bit
+  easier to see the different (#141). It can also show numeric differences
+  between int64 objects and integers/doubles when `tolerance` is set (#159).
+
+* `compare()` gains basic support for S7 objects (#200), and can now
+  distinguish between objects that differ only in the value of their S4
+  bit (#189).
+
+* `compare(list_as_map = TRUE)` now preserves attributes (#185).
 
 # waldo 0.5.3
 
