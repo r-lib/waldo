@@ -142,8 +142,8 @@ compare <- function(x, y, ...,
   check_number_decimal(tolerance, allow_null = TRUE, min = 0)
   check_number_whole(max_diffs, min = 1, allow_infinite = TRUE)
   check_bool(ignore_srcref)
-  if (!isTRUE(ignore_attr) && !is.character(ignore_attr)) {
-    stop_input_type(ignore_attr, "a TRUE or a character vector")
+  if (!isTRUE(ignore_attr) && !isFALSE(ignore_attr) && !is.character(ignore_attr)) {
+    stop_input_type(ignore_attr, "a TRUE, a FALSE, or a character vector")
   }
   check_bool(ignore_encoding)
   check_bool(ignore_function_env)

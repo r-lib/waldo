@@ -80,7 +80,7 @@ backward compatibility with \code{all.equal()} which always ignores these
 environments.}
 
 \item{list_as_map}{Compare lists as if they are mappings between names and
-values. Concretely, this drops \code{NULLs} in both objects and sorts named
+values. Concretely, this drops \code{NULL}s in both objects and sorts named
 components.}
 
 \item{quote_strings}{Should strings be surrounded by quotes? If \code{FALSE},
