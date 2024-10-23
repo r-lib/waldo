@@ -11,15 +11,14 @@ num_equal <- function(x, y, tolerance = default_tol()) {
   }
 
   if (is_int64(x) || is_int64(y)) {
-    in_range <-
-      (!is.double(x) || all((x >= 2^63 & x <= 2^63 - 1) | is.na(x))) &&
-      (!is.double(y) || all((y >= 2^63 & y <= 2^63 - 1) | is.na(x)))
-    if (isTRUE(in_range)) {
+    if (can_int64(x) && can_int64(y)) {
       x <- bit64::as.integer64(x)
       y <- bit64::as.integer64(y)
     } else {
-      x <- as.double(x)
-      y <- as.double(y)
+      cli::cli_abort(c(
+        "No way to coerce to compatible numeric type.",
+        i = "Try again without setting `tolerance`."
+      ))
     }
   } else {
     attributes(x) <- NULL
@@ -45,4 +44,16 @@ num_equal <- function(x, y, tolerance = default_tol()) {
   }
 
   avg_diff < tolerance
+}
+
+
+can_int64 <- function(x) {
+  if (is.integer(x) || inherits(x, "int64")) {
+    return(TRUE)
+  }
+
+  in_range <- x >= -2^53 & x <= 2^53 - 1
+  is_whole <- trunc(x) == x
+  is_missing <- is.na(x)
+  all((in_range & is_whole) | is_missing)
 }
