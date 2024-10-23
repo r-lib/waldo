@@ -48,7 +48,7 @@ num_equal <- function(x, y, tolerance = default_tol()) {
 
 
 can_int64 <- function(x) {
-  if (is.integer(x) || inherits(x, "int64")) {
+  if (is.integer(x) || inherits(x, "integer64")) {
     return(TRUE)
   }
 
