@@ -21,6 +21,7 @@ Imports:
     methods,
     rlang (>= 1.1.0)
 Suggests:
+    bit64,
     R6,
     S7,
     testthat (>= 3.0.0),

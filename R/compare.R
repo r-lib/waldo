@@ -245,6 +245,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       y <- zap_srcref(y)
     }
 
+    if (compare_as_numeric(x, y, opts$tolerance)) {
+      opts$ignore_attr <- union(opts$ignore_attr, "class")
+    }
+
     out <- c(out, compare_by_attr(attrs(x, opts$ignore_attr), attrs(y, opts$ignore_attr), paths, opts))
   }
 
@@ -405,7 +409,7 @@ compare_terminate <- function(x, y, paths,
     return(character())
   }
 
-  if (!is.null(tolerance) && is_numeric(x) && is_numeric(y)) {
+  if (compare_as_numeric(x, y, tolerance)) {
     return(character())
   }
 

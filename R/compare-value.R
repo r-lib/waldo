@@ -1,7 +1,7 @@
 compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
 
   # Early exit for numerics (except for) with format methods
-  if (typeof(x) %in% c("integer", "double") && num_equal(x, y, opts$tolerance)) {
+  if (is_numeric(x) && num_equal(x, y, opts$tolerance)) {
     return()
   }
 

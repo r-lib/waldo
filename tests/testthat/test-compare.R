@@ -96,6 +96,24 @@ test_that("can ignore minor numeric differences", {
   expect_equal(compare_structure(x, x + 1e-9, opts = compare_opts(tolerance = 1e-6)), character())
 })
 
+test_that("can compare int64s", {
+  int64_0 <- bit64::as.integer64(0)
+  int64_1 <- bit64::as.integer64(1)
+  expect_snapshot({
+    compare(int64_1, int64_1)
+    compare(int64_0, int64_1)
+  })
+})
+
+test_that("can ignore numeric differences between int64 and other numbers", {
+  int64_1 <- bit64::as.integer64(1)
+  expect_snapshot({
+    compare(1, int64_1)
+    compare(1, int64_1, tolerance = 0)
+    compare(1L, int64_1, tolerance = 0)
+  })
+})
+
 test_that("ignores S3 [[ methods", {
   expect_snapshot({
     x <- as.POSIXlt("2020-01-01")
