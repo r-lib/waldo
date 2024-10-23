@@ -37,9 +37,12 @@ test_that("NaN is equal to NA_real_ unless tolerance is NULL", {
   expect_true(num_equal(NA_real_, NA_real_))
 })
 
-test_that("coerce large integers to doubles not int64", {
-  expect_no_warning(num_equal(36893488147419103232, bit64::as.integer64(1)))
-  expect_no_warning(num_equal(bit64::as.integer64(1), 36893488147419103232))
+test_that("can't can't compare large integers", {
+  expect_snapshot(
+    num_equal(9007199254740995, bit64::as.integer64(1)),
+    error = TRUE
+  )
+  expect_false(num_equal(9007199254740991, bit64::as.integer64(1)))
 
   expect_no_error(num_equal(NA, bit64::as.integer64(1)))
   expect_no_error(num_equal(bit64::as.integer64(1), NA))
