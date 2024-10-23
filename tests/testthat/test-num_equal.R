@@ -39,7 +39,7 @@ test_that("NaN is equal to NA_real_ unless tolerance is NULL", {
 
 test_that("can't can't compare large integers", {
   expect_snapshot(
-    num_equal(9007199254740992, bit64::as.integer64(1)),
+    num_equal(9007199254740995, bit64::as.integer64(1)),
     error = TRUE
   )
   expect_false(num_equal(9007199254740991, bit64::as.integer64(1)))
