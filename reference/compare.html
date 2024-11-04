@@ -27,7 +27,7 @@ compare() is an alternative to all.equal()."><script defer data-domain="waldo.r-
 
     <a class="navbar-brand me-2" href="../index.html">waldo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -166,7 +166,7 @@ environments.</p></dd>
 
 <dt id="arg-list-as-map">list_as_map<a class="anchor" aria-label="anchor" href="#arg-list-as-map"></a></dt>
 <dd><p>Compare lists as if they are mappings between names and
-values. Concretely, this drops <code>NULLs</code> in both objects and sorts named
+values. Concretely, this drops <code>NULL</code>s in both objects and sorts named
 components.</p></dd>
 
 
@@ -229,8 +229,8 @@ differently but <code>compare()</code> reports no differences in the underlying 
 <span class="r-out co"><span class="r-pr">#&gt;</span> `old`: <span style="color: #555555;">1</span> <span style="color: #00BB00;">2</span> <span style="color: #00BB00;">3</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> `new`: <span style="color: #555555;">1</span> <span style="color: #00BB00;">3</span> <span style="color: #00BB00;">4</span> <span style="color: #00BB00;">5</span></span>
 <span class="r-in"><span><span class="fu">compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> `old`: <span style="color: #555555;">1</span> <span style="color: #555555;">2</span> <span style="color: #00BB00;">3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> `new`: <span style="color: #555555;">1</span> <span style="color: #555555;">2</span> <span style="color: #00BB00;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> `old`: <span style="color: #555555;">1.0</span> <span style="color: #555555;">2.0</span> <span style="color: #00BB00;">3.0</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> `new`: <span style="color: #555555;">1.0</span> <span style="color: #555555;">2.0</span> <span style="color: #00BB00;">5.0</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># More complex objects are traversed, stopping only when the types are</span></span></span>
 <span class="r-in"><span><span class="co"># different</span></span></span>
@@ -277,7 +277,7 @@ differently but <code>compare()</code> reports no differences in the underlying 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
   </div></footer></body></html>

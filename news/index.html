@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">waldo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,14 @@
       <small>Source: <a href="https://github.com/r-lib/waldo/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.0" id="waldo-060">waldo 0.6.0<a class="anchor" aria-label="anchor" href="#waldo-060"></a></h2><p class="text-muted">CRAN release: 2024-11-04</p>
+<ul><li><p>waldo no longer imports tibble and rematch2 (<a href="https://github.com/olivroy" class="external-link">@olivroy</a>, <a href="https://github.com/r-lib/waldo/issues/196" class="external-link">#196</a>), and requires R 4.0.0.</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> now gives informative errors if you misspecify the argument types (<a href="https://github.com/r-lib/waldo/issues/181" class="external-link">#181</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> displays an extract digit in numeric comparisons, making it a bit easier to see the different (<a href="https://github.com/r-lib/waldo/issues/141" class="external-link">#141</a>). It can also show numeric differences between int64 objects and integers/doubles when <code>tolerance</code> is set (<a href="https://github.com/r-lib/waldo/issues/159" class="external-link">#159</a>).</p></li>
+<li><p><code><a href="../reference/compare.html">compare()</a></code> gains basic support for S7 objects (<a href="https://github.com/r-lib/waldo/issues/200" class="external-link">#200</a>), and can now distinguish between objects that differ only in the value of their S4 bit (<a href="https://github.com/r-lib/waldo/issues/189" class="external-link">#189</a>).</p></li>
+<li><p><code>compare(list_as_map = TRUE)</code> now preserves attributes (<a href="https://github.com/r-lib/waldo/issues/185" class="external-link">#185</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.3" id="waldo-053">waldo 0.5.3<a class="anchor" aria-label="anchor" href="#waldo-053"></a></h2><p class="text-muted">CRAN release: 2024-08-23</p>
 <ul><li>waldo no longer imports fansi (<a href="https://github.com/olivroy" class="external-link">@olivroy</a>, <a href="https://github.com/r-lib/waldo/issues/192" class="external-link">#192</a>).</li>
@@ -162,7 +170,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
   </div></footer></body></html>
