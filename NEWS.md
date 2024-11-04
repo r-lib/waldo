@@ -1,4 +1,4 @@
-# waldo (development version)
+# waldo 0.6.0
 
 * waldo no longer imports tibble and rematch2 (@olivroy, #196), and
   requires R 4.0.0.
