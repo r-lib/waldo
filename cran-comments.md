@@ -4,4 +4,4 @@
 
 ## revdepcheck results
 
-This is a tiny change to work around a bug in `@S3method`, so we did not check the revdeps.
+We checked all waldo testthat dependencies and found six failures. I prepared patches for all of them: <https://github.com/r-lib/waldo/issues/207>
