@@ -10,7 +10,7 @@ num_equal <- function(x, y, tolerance = default_tol()) {
     return(FALSE)
   }
 
-  if (is_int64(x) || is_int64(y)) {
+  if ((is_int64(x) || is_int64(y)) && is_installed("bit64")) {
     if (can_int64(x) && can_int64(y)) {
       x <- bit64::as.integer64(x)
       y <- bit64::as.integer64(y)
