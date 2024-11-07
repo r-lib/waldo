@@ -1,3 +1,5 @@
+# waldo (development version)
+
 # waldo 0.6.1
 
 * Only use special bit64 comparison if package is installed.
