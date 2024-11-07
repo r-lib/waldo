@@ -4,4 +4,4 @@
 
 ## revdepcheck results
 
-We checked all waldo testthat dependencies and found six failures. I prepared patches for all of them: <https://github.com/r-lib/waldo/issues/207>
+This should fixe the failures for httr2 and filearray. I've informed/helped all other maintainers about the breakage (details at https://github.com/r-lib/waldo/issues/208). We have confirmed the fix on our cloud check server so it hopefully won't happen again.
