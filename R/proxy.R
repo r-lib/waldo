@@ -53,6 +53,14 @@ compare_proxy.xml_node <- function(x, path) {
 }
 
 #' @export
+compare_proxy.Date <- compare_proxy.POSIXct <- function(x, path) {
+  list(
+    object = `storage.mode<-`(x, "numeric"),
+    path = paste0("`storage.mode<-`(", path, ', "numeric")')
+  )
+}
+
+#' @export
 compare_proxy.POSIXlt <- function(x, path) {
   # From R 4.3: More experimentally, a ‘"POSIXlt"’ object may have an attribute
   # ‘"balanced"’ indicating if it is known to be filled or fully balanced.

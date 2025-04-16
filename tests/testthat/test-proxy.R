@@ -39,3 +39,8 @@ test_that("RProtoBuf proxy works", {
     expect_identical(x1, x2)
   }
 })
+
+test_that("Date, POSIXct proxies work", {
+  expect_identical(.Date(1L), .Date(1.0))
+  expect_identical(.POSIXct(1L), .POSIXct(1.0))
+})

@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* New `compare_proxy()` methods for `Date` and `POSIXct` to ignore the storage mode now that it's explicitly supported that both classes might sometimes be stored as `integer` (#215, @MichaelChirico).
+
 # waldo 0.6.1
 
 * Only use special bit64 comparison if package is installed.
