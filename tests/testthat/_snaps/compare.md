@@ -625,6 +625,14 @@
       `attr(old, 'bar')` is a double vector (2)
       `attr(new, 'bar')` is absent
 
+# read-only S7 properties are ignored
+
+    Code
+      compare(A(1), A(2))
+    Output
+      `old@a`: 1.0
+      `new@a`: 2.0
+
 # Named environments compare by reference
 
     Code

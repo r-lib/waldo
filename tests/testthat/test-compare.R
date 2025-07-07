@@ -348,6 +348,18 @@ test_that("can compare S7 objects", {
   })
 })
 
+test_that("read-only S7 properties are ignored", {
+  A <- S7::new_class(
+    "A",
+    properties = list(
+      a = S7::class_numeric,
+      b = S7::new_property(getter = function(self) sample(1e6, 1))
+    ),
+    package = "waldo"
+  )
+
+  expect_snapshot(compare(A(1), A(2)))
+})
 
 test_that("Named environments compare by reference", {
   expect_snapshot(

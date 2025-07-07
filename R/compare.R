@@ -557,12 +557,29 @@ extract_slot <- function(x, i) if (.hasSlot(x, i)) slot(x, i) else missing_arg()
 path_slot <- function(path, i) glue::glue("{path}@{i}")
 compare_by_slot <- compare_by(index_slot, extract_slot, path_slot)
 
-index_prop <- function(x, y) union(S7::prop_names(x), S7::prop_names(y))
+index_prop <- function(x, y) union(writeable_props(x), writeable_props(y))
 extract_prop <- function(x, i) {
   if (S7::prop_exists(x, i)) S7::prop(x, i) else missing_arg()
 }
 path_prop <- function(path, i) glue::glue("{path}@{i}")
 compare_by_prop <- compare_by(index_prop, extract_prop, path_prop)
+
+writeable_props <- function(object) {
+  class <- S7::S7_class(object)
+  props <- attr(class, "properties", exact = TRUE)
+
+  read_only <- vapply(
+    props,
+    \(x) !is.null(x$getter) && is.null(x$setter),
+    logical(1)
+  )
+
+  if (sum(!read_only) == 0) {
+    character()
+  } else {
+    names(props[!read_only])
+  }
+}
 
 extract_fun <- function(x, i) switch(i, fn_body(x), fn_fmls(x), fn_env(x))
 path_fun <- function(path, i) {
