@@ -252,6 +252,7 @@ test_that("can compare atomic vectors", {
 test_that("can compare S3 objects", {
   expect_snapshot({
     compare(factor("a"), 1L)
+    compare(factor("a"), "a")
     compare(factor("a"), globalenv())
     compare(factor("a"), as.Date("1970-01-02"))
 
@@ -259,6 +260,12 @@ test_that("can compare S3 objects", {
       structure(function() {}, class = "foo"),
       factor("a")
     )
+  })
+})
+
+test_that("can compare base type with minimal S3 wrapper", {
+  expect_snapshot({
+    compare(1, structure(1, class = "foo"))
   })
 })
 
