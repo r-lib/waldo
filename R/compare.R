@@ -463,17 +463,15 @@ compare_terminate <- function(
     if (oo_type(x) == oo_type(y)) {
       return(character())
     }
-    if (
-      (oo_type(x) == "S3" && oo_type(y) == "base") ||
-        (oo_type(x) == "base" && oo_type(y) == "S3")
-    ) {
+
+    if (oo_type(x) %in% c("base", "S3") && oo_type(y) %in% c("base", "S3")) {
       return(character())
     }
-  }
 
-  ignore_class <- isTRUE(ignore_attr) || "class" %in% ignore_attr
-  if (ignore_class && (typeof(x) == typeof(y))) {
-    return(character())
+    ignore_class <- isTRUE(ignore_attr) || "class" %in% ignore_attr
+    if (ignore_class) {
+      return(character())
+    }
   }
 
   if (compare_as_numeric(x, y, tolerance)) {
