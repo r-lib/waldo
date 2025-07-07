@@ -393,6 +393,8 @@ compare_structure <- function(
     # Unevaluated dots are unlikely to lead to any significant differences
     # in behaviour (they're usually captured incidentally) so we just
     # ignore
+  } else if (typeof(x) == "weakref") {
+    out <- c(out, compare_by_weakref(x, y, paths, opts = opts))
   } else if (!typeof(x) %in% c("S4", "object")) {
     abort(
       glue::glue("{paths[[1]]}: unsupported type '{typeof(x)}'"),
@@ -570,3 +572,11 @@ path_fun <- function(path, i) {
   glue::glue("{fun}({path})")
 }
 compare_by_fun <- compare_by(function(x, y) 1:3, extract_fun, path_fun)
+
+index_weakref <- function(x, y) 1:2
+extract_weakref <- function(x, i) switch(i, wref_key(x), wref_value(x))
+path_weakref <- function(path, i) {
+  fun <- unname(c("weakref_key", "weakref_value")[i])
+  glue::glue("{fun}({path})")
+}
+compare_by_weakref <- compare_by(index_weakref, extract_weakref, path_weakref)

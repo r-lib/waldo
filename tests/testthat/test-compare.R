@@ -530,3 +530,15 @@ test_that("can opt out of string quoting", {
     compare(c("a", "b", "c"), c("a", "b", "d"), quote_strings = FALSE)
   )
 })
+
+test_that("can compare weakrefs", {
+  x <- new_weakref(baseenv(), "x")
+  y1 <- new_weakref(baseenv(), "y")
+  y2 <- new_weakref(globalenv(), "y")
+  
+  expect_equal(compare_structure(x, x), character())
+  expect_snapshot({
+    compare(x, y1)
+    compare(y1, y2)
+  })
+})
