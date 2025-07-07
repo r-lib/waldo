@@ -1,5 +1,4 @@
 compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
-
   # Early exit for numerics (except for) with format methods
   if (is_numeric(x) && num_equal(x, y, opts$tolerance)) {
     return()
@@ -16,20 +15,36 @@ compare_vector <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
   }
 
   if (length(out) == 0) {
-    out <- c(out, switch(typeof(x),
-      integer = ,
-      double = compare_numeric(x, y, paths,
-        tolerance = opts$tolerance,
-        max_diffs = opts$max_diffs
-      ),
-      complex = compare_complex(x, y, paths,
-        tolerance = opts$tolerance,
-        max_diffs = opts$max_diffs
-      ),
-      logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
-      raw = ,
-      character = compare_character(x, y, paths, quote = if (opts$quote_strings) '"' else NULL, max_diffs = opts$max_diffs)
-    ))
+    out <- c(
+      out,
+      switch(
+        typeof(x),
+        integer = ,
+        double = compare_numeric(
+          x,
+          y,
+          paths,
+          tolerance = opts$tolerance,
+          max_diffs = opts$max_diffs
+        ),
+        complex = compare_complex(
+          x,
+          y,
+          paths,
+          tolerance = opts$tolerance,
+          max_diffs = opts$max_diffs
+        ),
+        logical = compare_logical(x, y, paths, max_diffs = opts$max_diffs),
+        raw = ,
+        character = compare_character(
+          x,
+          y,
+          paths,
+          quote = if (opts$quote_strings) '"' else NULL,
+          max_diffs = opts$max_diffs
+        )
+      )
+    )
   }
   out
 }
@@ -45,13 +60,21 @@ has_format_method <- function(x) {
 
 compare_logical <- function(x, y, paths = c("x", "y"), max_diffs = Inf) {
   diff_element(
-    encodeString(x), encodeString(y), paths,
+    encodeString(x),
+    encodeString(y),
+    paths,
     quote = NULL,
     max_diffs = max_diffs
   )
 }
 
-compare_character <- function(x, y, paths = c("x", "y"), quote = "\"", max_diffs = Inf) {
+compare_character <- function(
+  x,
+  y,
+  paths = c("x", "y"),
+  quote = "\"",
+  max_diffs = Inf
+) {
   if (multiline(x) || multiline(y)) {
     x <- split_by_line(x)
     y <- split_by_line(y)
@@ -75,7 +98,13 @@ compare_character <- function(x, y, paths = c("x", "y"), quote = "\"", max_diffs
   }
 }
 
-compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol(), max_diffs = Inf) {
+compare_numeric <- function(
+  x,
+  y,
+  paths = c("x", "y"),
+  tolerance = default_tol(),
+  max_diffs = Inf
+) {
   if (num_equal(x, y, tolerance)) {
     return(new_compare())
   }
@@ -100,7 +129,9 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
   }
 
   out <- diff_element(
-    x_fmt, y_fmt, paths,
+    x_fmt,
+    y_fmt,
+    paths,
     quote = NULL,
     justify = "right",
     max_diffs = max_diffs
@@ -109,12 +140,19 @@ compare_numeric <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
   if (length(out) > 0) {
     out
   } else {
-    glue::glue("{paths[[1]]} != {paths[[2]]} but don't know how to show the difference")
+    glue::glue(
+      "{paths[[1]]} != {paths[[2]]} but don't know how to show the difference"
+    )
   }
 }
 
-compare_complex <- function(x, y, paths = c("x", "y"), tolerance = default_tol(), max_diffs = Inf) {
-
+compare_complex <- function(
+  x,
+  y,
+  paths = c("x", "y"),
+  tolerance = default_tol(),
+  max_diffs = Inf
+) {
   if (length(x) == length(y)) {
     c(
       compare_numeric(
@@ -137,7 +175,9 @@ compare_complex <- function(x, y, paths = c("x", "y"), tolerance = default_tol()
     y_fmt <- format(y)
 
     diff_element(
-      x_fmt, y_fmt, paths,
+      x_fmt,
+      y_fmt,
+      paths,
       quote = NULL,
       justify = "right",
       max_diffs = max_diffs

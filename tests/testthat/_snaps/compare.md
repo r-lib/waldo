@@ -432,17 +432,17 @@
       # Different body
       compare(f3, f1, ignore_srcref = FALSE)
     Output
-      `attr(old, 'srcref')`: 225  9 227 3  9 3 225 227
-      `attr(new, 'srcref')`: 221 15 223 3 15 3 221 223
+      `attr(old, 'srcref')`: 233  9 235 3  9 3 233 235
+      `attr(new, 'srcref')`: 229 15 231 3 15 3 229 231
       
-      `attr(body(old), 'srcref')[[1]]`: 225 20 225 20 20 20 225 225
-      `attr(body(new), 'srcref')[[1]]`: 221 26 221 26 26 26 221 221
+      `attr(body(old), 'srcref')[[1]]`: 233 20 233 20 20 20 233 233
+      `attr(body(new), 'srcref')[[1]]`: 229 26 229 26 26 26 229 229
       
-      `attr(body(old), 'srcref')[[2]]`: 226 5 226 9 5 9 226 226
-      `attr(body(new), 'srcref')[[2]]`: 222 5 222 9 5 9 222 222
+      `attr(body(old), 'srcref')[[2]]`: 234 5 234 9 5 9 234 234
+      `attr(body(new), 'srcref')[[2]]`: 230 5 230 9 5 9 230 230
       
-      `attr(body(old), 'wholeSrcref')`: 1 0 227 3 0 3 1 227
-      `attr(body(new), 'wholeSrcref')`: 1 0 223 3 0 3 1 223
+      `attr(body(old), 'wholeSrcref')`: 1 0 235 3 0 3 1 235
+      `attr(body(new), 'wholeSrcref')`: 1 0 231 3 0 3 1 231
       
       `body(old)`: `{` `    1 + 3` `}`
       `body(new)`: `{` `    1 + 2` `}`
