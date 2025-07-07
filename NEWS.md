@@ -1,6 +1,7 @@
 # waldo (development version)
 
 * Read-only S7 properties are ignored (#219).
+* Can now compare weakrefs
 
 # waldo 0.6.1
 

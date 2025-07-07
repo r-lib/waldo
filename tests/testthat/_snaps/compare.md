@@ -788,3 +788,16 @@
       [2] b   | b   [2]
       [3] c   - d   [3]
 
+# can compare weakrefs
+
+    Code
+      compare(x, y1)
+    Output
+      `weakref_value(old)`: "x"
+      `weakref_value(new)`: "y"
+    Code
+      compare(y1, y2)
+    Output
+      `weakref_key(old)` is <env:package:base>
+      `weakref_key(new)` is <env:global>
+
