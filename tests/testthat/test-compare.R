@@ -323,6 +323,7 @@ test_that("can compare R6 objects", {
 })
 
 test_that("can compare S7 objects", {
+  skip_if_not_installed("S7")
   A <- S7::new_class(
     "A",
     properties = list(a = S7::class_numeric),
