@@ -93,18 +93,12 @@ test_that("don't strictly compare row names", {
 test_that("can ignore minor numeric differences", {
   x <- 1:3
   expect_equal(
-    
     compare_structure(x, as.numeric(x), opts = compare_opts(tolerance = 0)),
-   
     character()
-  
   )
   expect_equal(
-    
     compare_structure(x, x + 1e-9, opts = compare_opts(tolerance = 1e-6)),
-   
     character()
-  
   )
 })
 
@@ -331,13 +325,9 @@ test_that("can compare R6 objects", {
 test_that("can compare S7 objects", {
   skip_if_not_installed("S7")
   A <- S7::new_class(
-    
     "A",
-   
     properties = list(a = S7::class_numeric),
-   
     package = "waldo"
-  
   )
   B <- S7::new_class("B", parent = A, package = "waldo")
 
