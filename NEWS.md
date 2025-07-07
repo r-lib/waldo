@@ -1,5 +1,7 @@
 # waldo (development version)
 
+* Can now compare weakrefs
+
 # waldo 0.6.1
 
 * Only use special bit64 comparison if package is installed.
