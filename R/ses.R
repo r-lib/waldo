@@ -16,11 +16,14 @@ ses <- function(x, y) {
   }
 
   out <- diffobj::ses(x, y, warn = FALSE, max.diffs = 100)
-  out <- re_match(out, paste0(
-    "(?:(?<x1>\\d+),)?(?<x2>\\d+)",
-    "(?<t>[acd])",
-    "(?:(?<y1>\\d+),)?(?<y2>\\d+)"
-  ))[1:5]
+  out <- re_match(
+    out,
+    paste0(
+      "(?:(?<x1>\\d+),)?(?<x2>\\d+)",
+      "(?<t>[acd])",
+      "(?:(?<y1>\\d+),)?(?<y2>\\d+)"
+    )
+  )[1:5]
 
   out$x1 <- ifelse(out$x1 == "", out$x2, out$x1)
   out$y1 <- ifelse(out$y1 == "", out$y2, out$y1)

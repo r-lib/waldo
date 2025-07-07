@@ -1,15 +1,15 @@
-compare_opts <- function(...,
-                         tolerance = NULL,
-                         max_diffs = if (in_ci()) Inf else 10,
-                         ignore_srcref = TRUE,
-                         ignore_attr = FALSE,
-                         ignore_encoding = TRUE,
-                         ignore_function_env = FALSE,
-                         ignore_formula_env = FALSE,
-                         list_as_map = FALSE,
-                         quote_strings = TRUE
-                         ) {
-
+compare_opts <- function(
+  ...,
+  tolerance = NULL,
+  max_diffs = if (in_ci()) Inf else 10,
+  ignore_srcref = TRUE,
+  ignore_attr = FALSE,
+  ignore_encoding = TRUE,
+  ignore_function_env = FALSE,
+  ignore_formula_env = FALSE,
+  list_as_map = FALSE,
+  quote_strings = TRUE
+) {
   base <- old_opts(...)
 
   seen <- new.env(parent = emptyenv())

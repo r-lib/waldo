@@ -31,7 +31,9 @@ friendly_type_of <- function(x) {
       paste0("an R6 object of class <", klass, ">")
     } else {
       paste0(
-        "an S3 object of class <", paste(class(x), collapse = "/"), ">, ",
+        "an S3 object of class <",
+        paste(class(x), collapse = "/"),
+        ">, ",
         friendly_type(typeof(x))
       )
     }
@@ -41,7 +43,8 @@ friendly_type_of <- function(x) {
 }
 
 friendly_type <- function(type) {
-  switch(type,
+  switch(
+    type,
     logical = "a logical vector",
     integer = "an integer vector",
     numeric = ,
@@ -80,7 +83,6 @@ friendly_type <- function(type) {
     type
   )
 }
-
 
 
 short_val <- function(x) {
@@ -139,10 +141,7 @@ ansi_align <- function(x, width = NULL, justify = c("left", "right")) {
   width <- width %||% max(nchar)
   padding <- strrep(" ", pmax(0, width - nchar))
 
-  switch(justify,
-    left = paste0(x, padding),
-    right = paste0(padding, x)
-  )
+  switch(justify, left = paste0(x, padding), right = paste0(padding, x))
 }
 
 split_by_line <- function(x) {
