@@ -18,18 +18,26 @@ diff_align <- function(diff, x, y) {
       length(y_i) <- m
     }
 
-    x_out <- c(x_out, switch(row$t,
-      a = col_x(extract(x, c(x_i, NA[y_i]))),
-      c = col_c(extract(x, x_i)),
-      d = col_d(extract(x, x_i)),
-      x = col_x(extract(x, x_i))
-    ))
-    y_out <- c(y_out, switch(row$t,
-      a = col_a(extract(y, y_i)),
-      c = col_c(extract(y, y_i)),
-      d = col_x(extract(y, c(y_i, NA[x_i]))),
-      x = col_x(extract(y, y_i))
-    ))
+    x_out <- c(
+      x_out,
+      switch(
+        row$t,
+        a = col_x(extract(x, c(x_i, NA[y_i]))),
+        c = col_c(extract(x, x_i)),
+        d = col_d(extract(x, x_i)),
+        x = col_x(extract(x, x_i))
+      )
+    )
+    y_out <- c(
+      y_out,
+      switch(
+        row$t,
+        a = col_a(extract(y, y_i)),
+        c = col_c(extract(y, y_i)),
+        d = col_x(extract(y, c(y_i, NA[x_i]))),
+        x = col_x(extract(y, y_i))
+      )
+    )
 
     x_idx <- c(x_idx, x_i[x_i != 0], if (row$t == "a") NA[y_i])
     y_idx <- c(y_idx, y_i[y_i != 0], if (row$t == "d") NA[x_i])
@@ -86,13 +94,16 @@ col_x <- function(x) cli::col_grey(x)
 
 # values ------------------------------------------------------------------
 
-diff_element <- function(x, y, paths = c("x", "y"),
-                         quote = "\"",
-                         justify = "left",
-                         max_diffs = 10,
-                         width = getOption("width"),
-                         is_string = FALSE) {
-
+diff_element <- function(
+  x,
+  y,
+  paths = c("x", "y"),
+  quote = "\"",
+  justify = "left",
+  max_diffs = 10,
+  width = getOption("width"),
+  is_string = FALSE
+) {
   # Must quote before comparison to ensure that "NA" and NA_character
   # have different representation
   if (!is.null(quote)) {
@@ -105,7 +116,9 @@ diff_element <- function(x, y, paths = c("x", "y"),
     return(new_compare())
   }
 
-  format <- lapply(diff, format_diff_matrix,
+  format <- lapply(
+    diff,
+    format_diff_matrix,
     x = x,
     y = y,
     paths = paths,
@@ -118,11 +131,16 @@ diff_element <- function(x, y, paths = c("x", "y"),
   new_compare(unlist(format, recursive = FALSE))
 }
 
-format_diff_matrix <- function(diff, x, y, paths,
-                               justify = "left",
-                               width = getOption("width"),
-                               max_diffs = 10,
-                               use_paired = TRUE) {
+format_diff_matrix <- function(
+  diff,
+  x,
+  y,
+  paths,
+  justify = "left",
+  width = getOption("width"),
+  max_diffs = 10,
+  use_paired = TRUE
+) {
   alignment <- diff_align(diff, x, y)
   mat <- rbind(alignment$x, alignment$y)
 
@@ -153,9 +171,12 @@ format_diff_matrix <- function(diff, x, y, paths,
   y_idx_out <- label_idx(alignment$y_idx)
   idx_width <- max(nchar(x_idx_out), nchar(y_idx_out))
 
-  divider <- ifelse(mat[1,] == mat[2, ], "|", "-")
+  divider <- ifelse(mat[1, ] == mat[2, ], "|", "-")
 
-  mat_out <- cbind(c(paths[[1]], "|", paths[[2]]), rbind(mat[1, ], divider, mat[2, ]))
+  mat_out <- cbind(
+    c(paths[[1]], "|", paths[[2]]),
+    rbind(mat[1, ], divider, mat[2, ])
+  )
   if (n_trunc > 0) {
     mat_out <- mat_out[, seq_len(n + 1)]
     mat_out <- cbind(mat_out, c("...", "", "..."))
@@ -178,7 +199,8 @@ format_diff_matrix <- function(diff, x, y, paths,
   # Line-by-line ---------------------------------------------------------------
   lines <- line_by_line(x, y, diff, max_diffs = max_diffs)
   paste0(
-    paste0(x_path_label, " vs ", y_path_label), "\n",
+    paste0(x_path_label, " vs ", y_path_label),
+    "\n",
     paste0(lines, collapse = "\n")
   )
 }
@@ -208,8 +230,14 @@ line_by_line <- function(x, y, diff, max_diffs = 10) {
 
     if (diff_length_partial > 0) {
       partial_diff <- diff[diff_ok + 1, ]
-      partial_diff$x2 <- min(partial_diff$x2, partial_diff$x1 + diff_length_partial - 1)
-      partial_diff$y2 <- min(partial_diff$y2, partial_diff$y1 + diff_length_partial - 1)
+      partial_diff$x2 <- min(
+        partial_diff$x2,
+        partial_diff$x1 + diff_length_partial - 1
+      )
+      partial_diff$y2 <- min(
+        partial_diff$y2,
+        partial_diff$y1 + diff_length_partial - 1
+      )
     } else {
       partial_diff <- NULL
     }
@@ -224,12 +252,16 @@ line_by_line <- function(x, y, diff, max_diffs = 10) {
     row <- diff[i, , drop = FALSE]
     x_i <- seq2(row$x1, row$x2)
     y_i <- seq2(row$y1, row$y2)
-    lines <- c(lines, switch(row$t,
-      x = line_x(x[x_i]),
-      a = c(line_x(x[x_i]), line_a(y[y_i])),
-      c = interleave(line_d(x[x_i]), line_a(y[y_i])),
-      d = line_d(x[x_i])
-    ))
+    lines <- c(
+      lines,
+      switch(
+        row$t,
+        x = line_x(x[x_i]),
+        a = c(line_x(x[x_i]), line_a(y[y_i])),
+        c = interleave(line_d(x[x_i]), line_a(y[y_i])),
+        d = line_d(x[x_i])
+      )
+    )
   }
 
   if (n_trunc > 0) {

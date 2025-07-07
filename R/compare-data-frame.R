@@ -1,4 +1,9 @@
-compare_data_frame <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
+compare_data_frame <- function(
+  x,
+  y,
+  paths = c("x", "y"),
+  opts = compare_opts()
+) {
   # Only show row diffs if columns are atomic, have same names and types and there are rows
   if (!all_atomic(x) || !all_atomic(y)) {
     return()
@@ -46,7 +51,11 @@ df_rows <- function(x, y, paths = c("x", "y"), tolerance = NULL) {
         identical(x, y)
       }
     }
-    same <- vapply(seq_along(x), function(j) is_equal(x[[j]], y[[j]]), logical(1))
+    same <- vapply(
+      seq_along(x),
+      function(j) is_equal(x[[j]], y[[j]]),
+      logical(1)
+    )
     x <- x[!same]
     y <- y[!same]
   }
@@ -59,7 +68,8 @@ df_rows <- function(x, y, paths = c("x", "y"), tolerance = NULL) {
 
 printed_rows <- function(x, y, paths = c("x", "y")) {
   joint <- rbind(x, y)
-  if (!is.data.frame(joint)) { # i.e is a matrix
+  if (!is.data.frame(joint)) {
+    # i.e is a matrix
     joint <- as.data.frame(joint)
     names(joint) <- paste0("[,", format(seq_along(joint)), "]")
   }

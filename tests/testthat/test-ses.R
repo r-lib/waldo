@@ -18,7 +18,7 @@ test_that("can parse multi-element changes", {
 })
 
 test_that("can parse large numbers", {
-  del <- ses(c(letters,"x"), letters)
+  del <- ses(c(letters, "x"), letters)
   expect_equal(del, ses_df(27, 27, "d", 26, 26))
 })
 
@@ -36,7 +36,6 @@ test_that("ses_elementwise() matches seq() for exact matches", {
     ses_elementwise(letters[1:2], letters[1:4]),
     ses(letters[1:2], letters[1:4])
   )
-
 })
 
 test_that("ses_elementwise() matches seq() for missing values", {

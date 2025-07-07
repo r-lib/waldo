@@ -124,25 +124,30 @@
 #' compare(list("x", "y"), list("x", "z"))
 #' compare(list(x = "x", x = "y"), list(x = "x", y = "z"))
 #'
-compare <- function(x, y, ...,
-                    x_arg = "old", y_arg = "new",
-                    tolerance = NULL,
-                    max_diffs = if (in_ci()) Inf else 10,
-                    ignore_srcref = TRUE,
-                    ignore_attr = "waldo_opts",
-                    ignore_encoding = TRUE,
-                    ignore_function_env = FALSE,
-                    ignore_formula_env = FALSE,
-                    list_as_map = FALSE,
-                    quote_strings = TRUE
-                    ) {
-
+compare <- function(
+  x,
+  y,
+  ...,
+  x_arg = "old",
+  y_arg = "new",
+  tolerance = NULL,
+  max_diffs = if (in_ci()) Inf else 10,
+  ignore_srcref = TRUE,
+  ignore_attr = "waldo_opts",
+  ignore_encoding = TRUE,
+  ignore_function_env = FALSE,
+  ignore_formula_env = FALSE,
+  list_as_map = FALSE,
+  quote_strings = TRUE
+) {
   check_string(x_arg)
   check_string(y_arg)
   check_number_decimal(tolerance, allow_null = TRUE, min = 0)
   check_number_whole(max_diffs, min = 1, allow_infinite = TRUE)
   check_bool(ignore_srcref)
-  if (!isTRUE(ignore_attr) && !isFALSE(ignore_attr) && !is.character(ignore_attr)) {
+  if (
+    !isTRUE(ignore_attr) && !isFALSE(ignore_attr) && !is.character(ignore_attr)
+  ) {
     stop_input_type(ignore_attr, "a TRUE, a FALSE, or a character vector")
   }
   check_bool(ignore_encoding)
@@ -170,7 +175,12 @@ compare <- function(x, y, ...,
   new_compare(out, max_diffs)
 }
 
-compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) {
+compare_structure <- function(
+  x,
+  y,
+  paths = c("x", "y"),
+  opts = compare_opts()
+) {
   if (!is_missing(x)) {
     proxy <- compare_proxy(x, paths[[1]])
     x <- proxy$object
@@ -182,7 +192,8 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     paths[[2]] <- proxy$path
   }
 
-  opts <- merge_lists(opts,
+  opts <- merge_lists(
+    opts,
     attr(x, "waldo_opts"),
     attr(y, "waldo_opts"),
     opts[opts$user_specified]
@@ -193,7 +204,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
   }
 
   # Compare type
-  term <- compare_terminate(x, y, paths,
+  term <- compare_terminate(
+    x,
+    y,
+    paths,
     tolerance = opts$tolerance,
     ignore_attr = opts$ignore_attr
   )
@@ -219,20 +233,31 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     out <- c(out, compare_by_slot(x, y, paths, opts))
 
     # S4 objects can have attributes that are not slots
-    out <- c(out, compare_by_attr(
-      attrs(x, c(slotNames(x), "class")),
-      attrs(y, c(slotNames(y), "class")),
-      paths, opts)
+    out <- c(
+      out,
+      compare_by_attr(
+        attrs(x, c(slotNames(x), "class")),
+        attrs(y, c(slotNames(y), "class")),
+        paths,
+        opts
+      )
     )
   } else if (is.object(x) && inherits(x, "S7_object")) {
-    out <- c(out, compare_character(class(x), class(y), glue::glue("class({paths})")))
+    out <- c(
+      out,
+      compare_character(class(x), class(y), glue::glue("class({paths})"))
+    )
     out <- c(out, compare_by_prop(x, y, paths, opts))
 
     # S7 objects can have attributes that are not slots
-    out <- c(out, compare_by_attr(
-      attrs(x, c(S7::prop_names(x), "class", "S7_class")),
-      attrs(y, c(S7::prop_names(y), "class", "S7_class")),
-      paths, opts)
+    out <- c(
+      out,
+      compare_by_attr(
+        attrs(x, c(S7::prop_names(x), "class", "S7_class")),
+        attrs(y, c(S7::prop_names(y), "class", "S7_class")),
+        paths,
+        opts
+      )
     )
   } else if (!isTRUE(opts$ignore_attr)) {
     if (is_call(x) && opts$ignore_formula_env) {
@@ -249,7 +274,15 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       opts$ignore_attr <- union(opts$ignore_attr, "class")
     }
 
-    out <- c(out, compare_by_attr(attrs(x, opts$ignore_attr), attrs(y, opts$ignore_attr), paths, opts))
+    out <- c(
+      out,
+      compare_by_attr(
+        attrs(x, opts$ignore_attr),
+        attrs(y, opts$ignore_attr),
+        paths,
+        opts
+      )
+    )
   }
 
   # Then contents
@@ -267,7 +300,6 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     } else {
       out <- c(out, compare_by_pos(x, y, paths, opts))
     }
-
   } else if (is_environment(x)) {
     if (is_seen(list(x, y), opts$seen$envs)) {
       # Only report difference between pairs of environments once
@@ -280,8 +312,12 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
       x_fields <- as.list.environment(x, all.names = TRUE)
       y_fields <- as.list.environment(y, all.names = TRUE)
       # Can't use as.list(sorted = TRUE), https://github.com/r-lib/waldo/issues/84
-      if (length(x_fields) > 0) x_fields <- x_fields[order(names(x_fields))]
-      if (length(y_fields) > 0) y_fields <- y_fields[order(names(y_fields))]
+      if (length(x_fields) > 0) {
+        x_fields <- x_fields[order(names(x_fields))]
+      }
+      if (length(y_fields) > 0) {
+        y_fields <- y_fields[order(names(y_fields))]
+      }
 
       if (env_has(x, ".__enclos_env__")) {
         # enclosing env of R6 methods is object env
@@ -292,8 +328,14 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
       opts$seen$envs <- c(opts$seen$envs, list(list(x, y)))
       out <- c(out, compare_structure(x_fields, y_fields, paths, opts = opts))
-      out <- c(out, compare_structure(
-        parent.env(x), parent.env(y), paste0("parent.env(", paths, ")"), opts = opts)
+      out <- c(
+        out,
+        compare_structure(
+          parent.env(x),
+          parent.env(y),
+          paste0("parent.env(", paths, ")"),
+          opts = opts
+        )
       )
     }
   } else if (is_closure(x)) {
@@ -313,7 +355,9 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
 
     if (!identical(x, y)) {
       diff <- compare_character(
-        deparse(x), deparse(y), paths,
+        deparse(x),
+        deparse(y),
+        paths,
         quote = "`",
         max_diffs = opts$max_diffs
       )
@@ -325,10 +369,15 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     }
   } else if (is_atomic(x)) {
     if (is_character(x) && !opts$ignore_encoding) {
-      out <- c(out, compare_character(
-        Encoding(x), Encoding(y), glue::glue("Encoding({paths})"),
-        max_diffs = opts$max_diffs
-      ))
+      out <- c(
+        out,
+        compare_character(
+          Encoding(x),
+          Encoding(y),
+          glue::glue("Encoding({paths})"),
+          max_diffs = opts$max_diffs
+        )
+      )
     }
 
     out <- c(out, compare_vector(x, y, paths = paths, opts = opts))
@@ -345,7 +394,10 @@ compare_structure <- function(x, y, paths = c("x", "y"), opts = compare_opts()) 
     # in behaviour (they're usually captured incidentally) so we just
     # ignore
   } else if (!typeof(x) %in% c("S4", "object")) {
-    abort(glue::glue("{paths[[1]]}: unsupported type '{typeof(x)}'"), call = NULL)
+    abort(
+      glue::glue("{paths[[1]]}: unsupported type '{typeof(x)}'"),
+      call = NULL
+    )
   }
 
   out
@@ -379,9 +431,13 @@ is_identical <- function(x, y, opts) {
   }
 }
 
-compare_terminate <- function(x, y, paths,
-                              tolerance = NULL,
-                              ignore_attr = FALSE) {
+compare_terminate <- function(
+  x,
+  y,
+  paths,
+  tolerance = NULL,
+  ignore_attr = FALSE
+) {
   type_x <- friendly_type_of(x)
   type_y <- friendly_type_of(y)
   if (is_missing(x) && !is_missing(y)) {
@@ -393,7 +449,10 @@ compare_terminate <- function(x, y, paths,
     type_y <- col_c(type_y)
   }
 
-  type_mismatch_msg <- should_be("{type_x}{short_val(x)}", "{type_y}{short_val(y)}")
+  type_mismatch_msg <- should_be(
+    "{type_x}{short_val(x)}",
+    "{type_y}{short_val(y)}"
+  )
 
   # missing needs to be treated here because `typeof(missing_arg())` is symbol
   if (is_missing(x) != is_missing(y)) {
@@ -423,8 +482,11 @@ compare_terminate <- function(x, y, paths,
 
 should_be <- function(x, y) {
   string <- paste0(
-    "`{paths[[1]]}` is ", x, "\n",
-    "`{paths[[2]]}` is ", y
+    "`{paths[[1]]}` is ",
+    x,
+    "\n",
+    "`{paths[[2]]}` is ",
+    y
   )
   glue::glue(string, .envir = caller_env(), .trim = FALSE)
 }
@@ -434,19 +496,23 @@ should_be <- function(x, y) {
 compare_by <- function(index_fun, extract_fun, path_fun) {
   function(x, y, paths, opts) {
     idx <- index_fun(x, y)
-    if (length(idx) == 0)
+    if (length(idx) == 0) {
       return(character())
+    }
 
     x_paths <- path_fun(paths[[1]], idx)
     y_paths <- path_fun(paths[[2]], idx)
 
     out <- character()
     for (i in seq_along(idx)) {
-      out <- c(out, compare_structure(
-        x = extract_fun(x, idx[[i]]),
-        y = extract_fun(y, idx[[i]]),
-        paths = c(x_paths[[i]], y_paths[[i]]),
-        opts = opts)
+      out <- c(
+        out,
+        compare_structure(
+          x = extract_fun(x, idx[[i]]),
+          y = extract_fun(y, idx[[i]]),
+          paths = c(x_paths[[i]], y_paths[[i]]),
+          opts = opts
+        )
       )
     }
 
@@ -455,12 +521,16 @@ compare_by <- function(index_fun, extract_fun, path_fun) {
 }
 
 index_name <- function(x, y) union(names(x), names(y))
-extract_name <- function(x, i) if (has_name(x, i)) .subset2(x, i) else missing_arg()
+extract_name <- function(x, i) {
+  if (has_name(x, i)) .subset2(x, i) else missing_arg()
+}
 path_name <- function(path, i) glue::glue("{path}${i}")
 compare_by_name <- compare_by(index_name, extract_name, path_name)
 
 index_pos <- function(x, y) seq_len(max(length(x), length(y)))
-extract_pos <- function(x, i) if (i <= length(x)) .subset2(x, i) else missing_arg()
+extract_pos <- function(x, i) {
+  if (i <= length(x)) .subset2(x, i) else missing_arg()
+}
 path_pos <- function(path, i) glue::glue("{path}[[{i}]]")
 compare_by_pos <- compare_by(index_pos, extract_pos, path_pos)
 
@@ -473,7 +543,11 @@ compare_by_line1 <- compare_by(index_pos, extract_pos, path_line1)
 path_attr <- function(path, i) {
   # from ?attributes, excluding row.names() because it's not a simple accessor
   funs <- c("comment", "class", "dim", "dimnames", "levels", "names", "tsp")
-  ifelse(i %in% funs, glue::glue("{i}({path})"), glue::glue("attr({path}, '{i}')"))
+  ifelse(
+    i %in% funs,
+    glue::glue("{i}({path})"),
+    glue::glue("attr({path}, '{i}')")
+  )
 }
 compare_by_attr <- compare_by(index_name, extract_name, path_attr)
 
@@ -484,7 +558,9 @@ path_slot <- function(path, i) glue::glue("{path}@{i}")
 compare_by_slot <- compare_by(index_slot, extract_slot, path_slot)
 
 index_prop <- function(x, y) union(S7::prop_names(x), S7::prop_names(y))
-extract_prop <- function(x, i) if (S7::prop_exists(x, i)) S7::prop(x, i) else missing_arg()
+extract_prop <- function(x, i) {
+  if (S7::prop_exists(x, i)) S7::prop(x, i) else missing_arg()
+}
 path_prop <- function(path, i) glue::glue("{path}@{i}")
 compare_by_prop <- compare_by(index_prop, extract_prop, path_prop)
 

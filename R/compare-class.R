@@ -1,4 +1,3 @@
-
 new_compare <- function(x = character(), max_diffs = if (in_ci()) Inf else 10) {
   stopifnot(is.character(x))
   structure(x, max_diffs = max_diffs, class = "waldo_compare")
@@ -11,7 +10,10 @@ print.waldo_compare <- function(x, n = attr(x, "max_diffs"), ...) {
     cli::cat_bullet("No differences", bullet = "tick", bullet_col = "green")
   } else {
     if (length(x) > n) {
-      x <- c(x[seq_len(n)], glue::glue("And {length(x) - floor(n)} more differences ..."))
+      x <- c(
+        x[seq_len(n)],
+        glue::glue("And {length(x) - floor(n)} more differences ...")
+      )
     }
 
     cat(paste0(x, collapse = "\n\n"), "\n", sep = "")

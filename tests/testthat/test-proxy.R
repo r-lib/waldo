@@ -24,7 +24,7 @@ test_that("RProtoBuf proxy works", {
   # strengthen confidence by ensuring toString() is compared
   x1$a <- 2
   x2$a <- 3
-  proto_methods <-  c(
+  proto_methods <- c(
     "Message",
     "Descriptor",
     "EnumDescriptor",
