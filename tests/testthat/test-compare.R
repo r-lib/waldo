@@ -92,8 +92,14 @@ test_that("don't strictly compare row names", {
 
 test_that("can ignore minor numeric differences", {
   x <- 1:3
-  expect_equal(compare_structure(x, as.numeric(x), opts = compare_opts(tolerance = 0)), character())
-  expect_equal(compare_structure(x, x + 1e-9, opts = compare_opts(tolerance = 1e-6)), character())
+  expect_equal(
+    compare_structure(x, as.numeric(x), opts = compare_opts(tolerance = 0)),
+    character()
+  )
+  expect_equal(
+    compare_structure(x, x + 1e-9, opts = compare_opts(tolerance = 1e-6)),
+    character()
+  )
 })
 
 test_that("can compare int64s", {
@@ -145,7 +151,7 @@ test_that("lists compare by name, where possible", {
 
     "extra x"
     compare(list("a", "b", "c"), list("a", "b"))
-    compare(list(a = "a", b = "b", c = "c"), list(a = "a", b= "b"))
+    compare(list(a = "a", b = "b", c = "c"), list(a = "a", b = "b"))
 
     "different order"
     compare(list(a = "a", b = "b"), list(b = "b", a = "a"))
@@ -207,7 +213,9 @@ test_that("comparing functions gives useful diffs", {
     compare(f1, f3)
 
     "diff body"
-    f4 <- function(x = 1, y = 2) { x + y }
+    f4 <- function(x = 1, y = 2) {
+      x + y
+    }
     compare(f1, f4)
 
     "diff environment"
@@ -284,14 +292,21 @@ test_that("can distinguish S4 bit", {
 
 test_that("can compare R6 objects", {
   expect_snapshot({
-    goofy <- R6::R6Class("goofy", public = list(
-      initialize = function(x) self$x <- x,
-      x = 10
-    ))
+    goofy <- R6::R6Class(
+      "goofy",
+      public = list(
+        initialize = function(x) self$x <- x,
+        x = 10
+      )
+    )
 
-    froofy <- R6::R6Class("froofy", inherit = goofy, public = list(
-      y = 10
-    ))
+    froofy <- R6::R6Class(
+      "froofy",
+      inherit = goofy,
+      public = list(
+        y = 10
+      )
+    )
 
     "Non R6"
     compare(goofy$new(1), 1)
@@ -309,7 +324,11 @@ test_that("can compare R6 objects", {
 
 test_that("can compare S7 objects", {
   skip_if_not_installed("S7")
-  A <- S7::new_class("A", properties = list(a = S7::class_numeric), package = "waldo")
+  A <- S7::new_class(
+    "A",
+    properties = list(a = S7::class_numeric),
+    package = "waldo"
+  )
   B <- S7::new_class("B", parent = A, package = "waldo")
 
   expect_snapshot({
@@ -332,67 +351,82 @@ test_that("can compare S7 objects", {
 
 
 test_that("Named environments compare by reference", {
-  expect_snapshot({
-    compare(baseenv(), globalenv())
-    compare(baseenv(), new.env())
-    compare(new.env(), baseenv())
-  }, transform = scrub_environment)
+  expect_snapshot(
+    {
+      compare(baseenv(), globalenv())
+      compare(baseenv(), new.env())
+      compare(new.env(), baseenv())
+    },
+    transform = scrub_environment
+  )
 })
 test_that("unnamed arguments compare by value", {
-  expect_snapshot({
-    e1 <- new.env(parent = emptyenv())
-    e2 <- new.env(parent = emptyenv())
-    compare(e1, e2)
+  expect_snapshot(
+    {
+      e1 <- new.env(parent = emptyenv())
+      e2 <- new.env(parent = emptyenv())
+      compare(e1, e2)
 
-    e1$x <- 10
-    e2$x <- 11
-    compare(e1, e2)
+      e1$x <- 10
+      e2$x <- 11
+      compare(e1, e2)
 
-    e2$x <- 10
-    compare(e1, e2)
-  }, transform = scrub_environment)
+      e2$x <- 10
+      compare(e1, e2)
+    },
+    transform = scrub_environment
+  )
 })
 test_that("compares parent envs", {
-  expect_snapshot({
-    e1 <- new.env(parent = emptyenv())
-    e1$x <- 1
-    e2 <- new.env(parent = emptyenv())
-    e2$x <- 2
+  expect_snapshot(
+    {
+      e1 <- new.env(parent = emptyenv())
+      e1$x <- 1
+      e2 <- new.env(parent = emptyenv())
+      e2$x <- 2
 
-    e3 <- new.env(parent = e1)
-    e4 <- new.env(parent = e2)
+      e3 <- new.env(parent = e1)
+      e4 <- new.env(parent = e2)
 
-    compare(e3, e4)
-  }, transform = scrub_environment)
+      compare(e3, e4)
+    },
+    transform = scrub_environment
+  )
 })
 test_that("don't get caught in endless loops", {
-  expect_snapshot({
-    e1 <- new.env(parent = emptyenv())
-    e2 <- new.env(parent = emptyenv())
+  expect_snapshot(
+    {
+      e1 <- new.env(parent = emptyenv())
+      e2 <- new.env(parent = emptyenv())
 
-    e1$x <- 10
-    e1$y <- e1
+      e1$x <- 10
+      e1$y <- e1
 
-    e2$x <- 10
-    e2$y <- e1
+      e2$x <- 10
+      e2$y <- e1
 
-    compare(e1, e2)
+      compare(e1, e2)
 
-    e2$y <- e2
-    compare(e1, e2)
-  }, transform = scrub_environment)
+      e2$y <- e2
+      compare(e1, e2)
+    },
+    transform = scrub_environment
+  )
 })
 test_that("only shows paired env different once", {
-  expect_snapshot({
-    e1 <- new.env(parent = emptyenv())
-    e2 <- new.env(parent = emptyenv())
-    e3 <- new.env(parent = emptyenv())
-    e1$x <- 1
-    e2$x <- 2
-    e3$x <- 3
+  expect_snapshot(
+    {
+      e1 <- new.env(parent = emptyenv())
+      e2 <- new.env(parent = emptyenv())
+      e3 <- new.env(parent = emptyenv())
+      e1$x <- 1
+      e2$x <- 2
+      e3$x <- 3
 
-    compare(list(e1, e1, e1), list(e2, e2, e3))
-  }, transform = scrub_environment)
+      compare(list(e1, e1, e1), list(e2, e2, e3))
+    },
+    transform = scrub_environment
+  )
 })
 test_that("can compare classed environments", {
   e1 <- new.env(parent = emptyenv())
@@ -413,7 +447,6 @@ test_that("can compare CHARSXP", {
     compare(char1, char2)
     compare(char1, "foo")
   })
-
 })
 
 test_that("differences in DOTSXP are ignored", {
@@ -445,7 +478,7 @@ test_that("compare_proxy() can change type", {
     compare_proxy.foo = function(x, path) {
       list(object = 10, path = paste0("proxy(", path, ")"))
     },
-    .env =  global_env()
+    .env = global_env()
   )
   expect_equal(
     compare(structure(1, class = "foo"), structure("x", class = "foo")),
@@ -458,7 +491,7 @@ test_that("compare_proxy() modifies path", {
     compare_proxy.foo = function(x, path) {
       list(object = list(x = x$x), path = paste0("proxy(", path, ")"))
     },
-    .env =  global_env()
+    .env = global_env()
   )
 
   foo1 <- structure(list(x = 1), class = "foo")

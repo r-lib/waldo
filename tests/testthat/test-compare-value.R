@@ -30,8 +30,14 @@ test_that("NA and 'NA' compare differently", {
 test_that("multiline comparison", {
   expect_snapshot({
     compare_character("A\nthe apple is red\nC\n", "A\nthe apple was red\nC\n")
-    compare_character("A\nthe apple is red and green\nC\n", "A\nthe apple is red\nC\n")
-    compare_character("A\nthe apple is red and green\nC\n", "A\nI like bananas\nC\n")
+    compare_character(
+      "A\nthe apple is red and green\nC\n",
+      "A\nthe apple is red\nC\n"
+    )
+    compare_character(
+      "A\nthe apple is red and green\nC\n",
+      "A\nI like bananas\nC\n"
+    )
 
     "trailing newlines are correctly compared"
     compare("x\n", "x")
@@ -42,14 +48,25 @@ test_that("multi-element multi-line comparisons get indices", {
   expect_snapshot({
     compare(c("a", "b", "c\nd"), c("a", "b", "c\ne"))
   })
-
 })
 
 test_that("show elementwise differences of random permutations", {
   expect_snapshot({
-    compare(letters[1:15], letters[c(14, 4, 12, 11, 13, 3, 10, 5, 1, 7, 9, 15, 6, 8, 2)], max_diffs = Inf)
-    compare(letters[1:15], letters[c(3, 13, 6, 10, 11, 9, 4, 5, 15, 2, 12, 14, 8, 7, 1)], max_diffs = Inf)
-    compare(letters[1:15], letters[c(12, 13, 1, 2, 5, 6, 11, 15, 10, 14, 9, 7, 3, 4, 8)], max_diffs = Inf)
+    compare(
+      letters[1:15],
+      letters[c(14, 4, 12, 11, 13, 3, 10, 5, 1, 7, 9, 15, 6, 8, 2)],
+      max_diffs = Inf
+    )
+    compare(
+      letters[1:15],
+      letters[c(3, 13, 6, 10, 11, 9, 4, 5, 15, 2, 12, 14, 8, 7, 1)],
+      max_diffs = Inf
+    )
+    compare(
+      letters[1:15],
+      letters[c(12, 13, 1, 2, 5, 6, 11, 15, 10, 14, 9, 7, 3, 4, 8)],
+      max_diffs = Inf
+    )
   })
 })
 
@@ -90,7 +107,6 @@ test_that("numeric comparison", {
 })
 
 test_that("tolerance is used in display of differences", {
-
   x <- c(1, 2, 3)
   y <- x + c(1e-9, 1e-9, 1)
 
