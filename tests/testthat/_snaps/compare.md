@@ -201,8 +201,8 @@
     Code
       compare(1, int64_1)
     Output
-      `old` is a double vector (1)
-      `new` is an S3 object of class <integer64>, a double vector
+      `class(old)` is absent
+      `class(new)` is a character vector ('integer64')
     Code
       compare(1, int64_1, tolerance = 0)
     Output
@@ -465,8 +465,16 @@
     Code
       compare(factor("a"), 1L)
     Output
+      `class(old)` is a character vector ('factor')
+      `class(new)` is absent
+      
+      `levels(old)` is a character vector ('a')
+      `levels(new)` is absent
+    Code
+      compare(factor("a"), "a")
+    Output
       `old` is an S3 object of class <factor>, an integer vector
-      `new` is an integer vector (1)
+      `new` is a character vector ('a')
     Code
       compare(factor("a"), globalenv())
     Output
@@ -482,6 +490,14 @@
     Output
       `old` is an S3 object of class <foo>, a function
       `new` is an S3 object of class <factor>, an integer vector
+
+# can compare base type with minimal S3 wrapper
+
+    Code
+      compare(1, structure(1, class = "foo"))
+    Output
+      `class(old)` is absent
+      `class(new)` is a character vector ('foo')
 
 # can compare S4 objects
 
@@ -712,19 +728,6 @@
       
       `old[[3]]$x`: 1.0
       `new[[3]]$x`: 3.0
-
-# can compare CHARSXP
-
-    Code
-      compare(char1, char2)
-    Output
-      `old` is CHARSXP: foo
-      `new` is CHARSXP: bar
-    Code
-      compare(char1, "foo")
-    Output
-      `old` is an internal string
-      `new` is a character vector ('foo')
 
 # differences in DOTSXP are ignored
 

@@ -459,8 +459,16 @@ compare_terminate <- function(
     return(type_mismatch_msg)
   }
 
-  if (typeof(x) == typeof(y) && oo_type(x) == oo_type(y)) {
-    return(character())
+  if (typeof(x) == typeof(y)) {
+    if (oo_type(x) == oo_type(y)) {
+      return(character())
+    }
+    if (
+      (oo_type(x) == "S3" && oo_type(y) == "base") ||
+        (oo_type(x) == "base" && oo_type(y) == "S3")
+    ) {
+      return(character())
+    }
   }
 
   ignore_class <- isTRUE(ignore_attr) || "class" %in% ignore_attr
