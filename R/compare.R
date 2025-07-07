@@ -393,6 +393,8 @@ compare_structure <- function(
     # Unevaluated dots are unlikely to lead to any significant differences
     # in behaviour (they're usually captured incidentally) so we just
     # ignore
+  } else if (typeof(x) == "weakref") {
+    out <- c(out, compare_by_weakref(x, y, paths, opts = opts))
   } else if (!typeof(x) %in% c("S4", "object")) {
     abort(
       glue::glue("{paths[[1]]}: unsupported type '{typeof(x)}'"),
@@ -563,16 +565,27 @@ extract_slot <- function(x, i) if (.hasSlot(x, i)) slot(x, i) else missing_arg()
 path_slot <- function(path, i) glue::glue("{path}@{i}")
 compare_by_slot <- compare_by(index_slot, extract_slot, path_slot)
 
-index_prop <- function(x, y) union(S7::prop_names(x), S7::prop_names(y))
+# We compare S7 based not on their properties (which might have getters/setters)
+# but instead the underlying attributes that store any data. This might generate
+# confusing messages (e.g. if obj@x <- 1 actually sets property y)
+index_prop <- function(x, y) union(attr_names(x), attr_names(y))
 extract_prop <- function(x, i) {
   if (S7::prop_exists(x, i)) S7::prop(x, i) else missing_arg()
 }
 path_prop <- function(path, i) glue::glue("{path}@{i}")
 compare_by_prop <- compare_by(index_prop, extract_prop, path_prop)
-
+attr_names <- function(x) names(attributes(x))
 extract_fun <- function(x, i) switch(i, fn_body(x), fn_fmls(x), fn_env(x))
 path_fun <- function(path, i) {
   fun <- unname(c("body", "formals", "environment")[i])
   glue::glue("{fun}({path})")
 }
 compare_by_fun <- compare_by(function(x, y) 1:3, extract_fun, path_fun)
+
+index_weakref <- function(x, y) 1:2
+extract_weakref <- function(x, i) switch(i, wref_key(x), wref_value(x))
+path_weakref <- function(path, i) {
+  fun <- unname(c("weakref_key", "weakref_value")[i])
+  glue::glue("{fun}({path})")
+}
+compare_by_weakref <- compare_by(index_weakref, extract_weakref, path_weakref)

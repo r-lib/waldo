@@ -330,6 +330,7 @@ test_that("can compare R6 objects", {
 })
 
 test_that("can compare S7 objects", {
+  skip_if_not_installed("S7")
   A <- S7::new_class(
     "A",
     properties = list(a = S7::class_numeric),
@@ -355,6 +356,18 @@ test_that("can compare S7 objects", {
   })
 })
 
+test_that("read-only S7 properties are ignored", {
+  A <- S7::new_class(
+    "A",
+    properties = list(
+      a = S7::class_numeric,
+      b = S7::new_property(getter = function(self) sample(1e6, 1))
+    ),
+    package = "waldo"
+  )
+
+  expect_snapshot(compare(A(1), A(2)))
+})
 
 test_that("Named environments compare by reference", {
   expect_snapshot(
@@ -535,4 +548,16 @@ test_that("can opt out of string quoting", {
   expect_snapshot(
     compare(c("a", "b", "c"), c("a", "b", "d"), quote_strings = FALSE)
   )
+})
+
+test_that("can compare weakrefs", {
+  x <- new_weakref(baseenv(), "x")
+  y1 <- new_weakref(baseenv(), "y")
+  y2 <- new_weakref(globalenv(), "y")
+  
+  expect_equal(compare_structure(x, x), character())
+  expect_snapshot({
+    compare(x, y1)
+    compare(y1, y2)
+  })
 })

@@ -641,6 +641,14 @@
       `attr(old, 'bar')` is a double vector (2)
       `attr(new, 'bar')` is absent
 
+# read-only S7 properties are ignored
+
+    Code
+      compare(A(1), A(2))
+    Output
+      `old@a`: 1.0
+      `new@a`: 2.0
+
 # Named environments compare by reference
 
     Code
@@ -782,4 +790,17 @@
       [1] a   | a   [1]
       [2] b   | b   [2]
       [3] c   - d   [3]
+
+# can compare weakrefs
+
+    Code
+      compare(x, y1)
+    Output
+      `weakref_value(old)`: "x"
+      `weakref_value(new)`: "y"
+    Code
+      compare(y1, y2)
+    Output
+      `weakref_key(old)` is <env:package:base>
+      `weakref_key(new)` is <env:global>
 
