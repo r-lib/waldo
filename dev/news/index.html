@@ -43,8 +43,10 @@
 <h2 class="pkg-version" data-toc-text="development version" id="waldo-development-version">waldo (development version)<a class="anchor" aria-label="anchor" href="#waldo-development-version"></a></h2>
 <ul><li>
 <code><a href="../reference/compare.html">compare()</a></code> now goes into more details if you’re comparing an S3 object with a base object of the same type (<a href="https://github.com/r-lib/waldo/issues/218" class="external-link">#218</a>).</li>
-<li>Read-only S7 properties are ignored (<a href="https://github.com/r-lib/waldo/issues/219" class="external-link">#219</a>).</li>
-<li>Can now compare weakrefs</li>
+<li>
+<code><a href="../reference/compare.html">compare()</a></code> ignores read-only S7 properties, only comparing the underlying data stored in attributes (<a href="https://github.com/r-lib/waldo/issues/219" class="external-link">#219</a>).</li>
+<li>
+<code><a href="../reference/compare.html">compare()</a></code> can compare weakrefs.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.1" id="waldo-061">waldo 0.6.1<a class="anchor" aria-label="anchor" href="#waldo-061"></a></h2><p class="text-muted">CRAN release: 2024-11-07</p>
