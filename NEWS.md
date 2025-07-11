@@ -1,4 +1,4 @@
-# waldo (development version)
+# waldo 0.6.2
 
 * `compare()` now goes into more details if you're comparing an S3 object with 
   a base object of the same type (#218).
