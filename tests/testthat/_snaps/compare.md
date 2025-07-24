@@ -650,9 +650,6 @@
     Output
       `attr(old, 'other_attr')` is absent
       `attr(new, 'other_attr')` is a logical vector (NA)
-      
-      `attr(old, 'srcref')` is absent
-      `attr(new, 'srcref')` is a logical vector (NA)
 
 # read-only S7 properties are ignored
 
