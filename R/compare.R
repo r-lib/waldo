@@ -243,6 +243,11 @@ compare_structure <- function(
       )
     )
   } else if (is.object(x) && inherits(x, "S7_object")) {
+    if (is_closure(x) && opts$ignore_srcref) {
+      x <- zap_srcref(x)
+      y <- zap_srcref(y)
+    }
+
     out <- c(
       out,
       compare_character(class(x), class(y), glue::glue("class({paths})"))
