@@ -640,6 +640,19 @@
     Output
       `attr(old, 'bar')` is a double vector (2)
       `attr(new, 'bar')` is absent
+    Code
+      # S7 of type closure with a srcref
+      compare(A, structure(A, srcref = NA))
+    Output
+      v No differences
+    Code
+      compare(A, structure(A, srcref = NA, other_attr = NA))
+    Output
+      `attr(old, 'other_attr')` is absent
+      `attr(new, 'other_attr')` is a logical vector (NA)
+      
+      `attr(old, 'srcref')` is absent
+      `attr(new, 'srcref')` is a logical vector (NA)
 
 # read-only S7 properties are ignored
 

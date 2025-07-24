@@ -353,6 +353,10 @@ test_that("can compare S7 objects", {
     new <- old <- A(1)
     attr(new, "bar") <- 2
     compare(new, old)
+
+    "S7 of type closure with a srcref"
+    compare(A, structure(A, srcref = NA))
+    compare(A, structure(A, srcref = NA, other_attr = NA))
   })
 })
 
